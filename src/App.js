@@ -9,8 +9,10 @@ function App() {
   return (
         <div className="wrapper">
           <Header/>
-          <Leaderboard/>          
+          <Leaderboard/>   
+          <main className='main'>       
           <Main/>
+          </main>
           <Footer/>
         </div>
   );

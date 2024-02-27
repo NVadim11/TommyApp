@@ -3,7 +3,6 @@ import './Main.scss'
 
 function Main() {
 	return (
-    <div className='main'>
         <div className="mainContent">
             <div className="mainContent__container">
                 <div className="mainContent__phaseOne">
@@ -99,7 +98,6 @@ function Main() {
                 </div>
             </div>
         </div>
-    </div>
 	)
 }
 
