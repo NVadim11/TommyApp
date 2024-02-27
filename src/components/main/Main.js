@@ -52,12 +52,12 @@ function Main() {
                 </div>
             </div>
             <div className="mainContent__catBox">
-							<object id="catIdle" className="mainContent__catIdle" data="img/idle.svg" type="image/svg+xml">
+							{/* <object id="catIdle" className="mainContent__catIdle" data="img/idle.svg" type="image/svg+xml">
                 </object>
                 <object id="catActive" className="mainContent__catMeow" data="img/speaking.svg" type="image/svg+xml">
                 </object>
                 <img id="catIdle" className="mainContent__catIdle" src="img/idle.svg" draggable="false" alt=""/>
-                <img id="catActive" className="mainContent__catMeow" src="img/speaking.svg" draggable="false" alt=""/>
+                <img id="catActive" className="mainContent__catMeow" src="img/speaking.svg" draggable="false" alt=""/> */}
             </div>
             <div className="mainContent__sayBtn">
                 <button>
@@ -69,10 +69,10 @@ function Main() {
                     < Back</button>
             </div> */}
             <div className="mainContent__coinBox">
-                <div className="mainContent__coinImg" draggable="false"><img src="@img/cat_coin_move.svg" alt=""draggable="false"/></div>
+                {/* <div className="mainContent__coinImg" draggable="false"><img src="@img/cat_coin_move.svg" alt=""draggable="false"/></div> */}
                 <div className="mainContent__coinAmount"><span id="coinAmount">0</span></div>
             </div>
-            <div className="mainContent__animation">
+            {/* <div className="mainContent__animation">
                 <div className="mainContent__coinOne">
                     <img src="img/cat_coin_move.svg" alt=""/>
                 </div>
@@ -94,7 +94,7 @@ function Main() {
                 <div className="mainContent__coinSeven">
                     <img src="img/cat_coin.svg" alt=""/>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
 </div>
