@@ -10,10 +10,12 @@ function App() {
   return (
     <>   
       <Suspense fallback={<Preloader />}>
-        <Header/>
-        <Leaderboard/>          
-        <Main/>
-        <Footer/>
+        <div className="wrapper">
+          <Header/>
+          <Leaderboard/>          
+          <Main/>
+          <Footer/>
+        </div>
       </Suspense>
     </>    
   );
