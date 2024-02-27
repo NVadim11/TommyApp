@@ -1,0 +1,560 @@
+// variables
+$mobile: 1439.98px;
+$desktop: 1919.98px;
+
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.mainContent {
+	&__container {
+	padding: 0 15.125rem;
+	display: flex;
+			flex-direction: column;
+			width: 100%;
+			margin: 5.25rem 0 0 0;
+			width: 120rem;
+			margin: 0 auto;
+	@media (max-width: $desktop) {
+		width: 90rem;
+					padding: 0 8.125rem;
+	}
+			@media (max-width: $mobile) {
+		width: 100%;
+					padding: 0 1.25rem;
+	}
+	}
+	&__gradient {
+			display: flex;
+			z-index: 5;
+	}
+	&__phaseOne {
+			height: 33.125rem;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			.mainContent__catBox {
+					@media (max-width: $mobile) {
+							position: relative;
+							margin: 1.875rem 0 0 0;
+					}
+			}
+			@media (max-width: $mobile) {
+					height: 100%;
+			}
+	}
+	&__phaseTwo {
+			display: none;
+			height: 33.125rem;
+			flex-direction: column;
+			justify-content: flex-end;
+			position: relative;
+			.mainContent__catBox {
+					@media (max-width: $mobile) {
+							position: relative;
+							margin: 1.875rem 0 0 0;
+							order: 2;
+					}
+			}
+			@media (max-width: $mobile) {
+					height: 100%;
+			}
+	}
+	&__title {
+			margin: 5.375rem 0 0 0;
+			font-weight: 900;
+			font-size: 2.5rem;
+			line-height: 100%;
+			max-width: 23.75rem;
+			@media (max-width: $mobile) {
+		margin: 1.875rem 0 0 0;
+					font-size: 1.5rem;
+					max-width: 100%;
+					text-align: center;
+	}
+	}
+	&__descr {
+			margin: 2.1875rem 0 0 0;
+				 max-width: 23.75rem;
+			font-weight: 400;
+			font-size: 1.125rem;
+			line-height: 130%;
+			@media (max-width: $mobile) {
+					font-size: 0.875rem;
+					max-width: 100%;
+					text-align: center;
+					margin: 0.9375rem 0 0 0;
+	}
+	}
+	&__startBtn {
+			margin: 13.75rem 0 0 0;
+			max-width: fit-content;
+			button {
+					display: flex;
+					align-items: center;
+					border: 0.125rem solid #fff;
+					border-radius: 3.75rem;
+					font-weight: 600;
+					font-size: 1.375rem;
+					padding: 1.4063rem 2.4375rem 1.3438rem 2.4375rem;
+					transition: .25s;
+					svg {
+							margin-left: 0.625rem;
+							transition: .25s;
+					}
+					@media (max-width: $mobile) {
+							font-size: 1.125rem;
+							padding: 1.25rem 3rem 1.25rem 3rem;
+					}
+			}
+			button:hover {       
+					transition: .25s;
+					color: #000000;
+					background-color: #ffffff;    
+					@media (max-width: $mobile) {
+							color: #ffffff;
+							background-color: transparent;  
+					}  
+			svg {
+					fill: #ffffff;
+					@media (max-width: $mobile) {
+							stroke: #000000; 
+					 }  
+					circle {
+							stroke: #000000;
+							@media (max-width: $mobile) {
+									stroke: #ffffff; 
+							 }  
+					}
+					path {
+							fill: #000000;
+							@media (max-width: $mobile) {
+									fill: #FFFFFF;
+							 }  
+					}
+			}
+			}
+			@media (max-width: $mobile) {
+					margin: 1.875rem 0;
+					display: flex;
+					align-self: center;
+					order: 4;
+			}
+	}
+	&__sayBtn {
+	display: flex;
+			align-self: center;
+			position: relative;
+	z-index: 200;
+	button {
+		border: 0.125rem solid #fff;
+		border-radius: 3.75rem;
+		overflow: hidden;
+		font-size: 1.375rem;
+		padding: 0.9375rem 4.0625rem;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		svg {
+			margin: 0 0.3125rem;
+		}
+					@media (max-width: $mobile) {
+							padding: 1.25rem 4.5rem;
+							font-size: 1.125rem;
+						}
+	}
+			@media (max-width: $mobile) {
+				 order: 3;
+				 margin: 1.875rem 0 0 0;
+			 }
+	button:hover {
+		transition: .25s;
+					color: #000000;
+					background-color: #ffffff;
+		svg {
+			fill: #ffffff;
+							transition: .25s;
+							@media (max-width: $mobile) {
+								}
+			defs {
+				image {
+					transition: .25s;
+					filter: invert(100%);
+											@media (max-width: $mobile) {
+													filter: invert(0);
+											}
+				}					
+			}
+		}
+					@media (max-width: $mobile) {
+							background-color: transparent;
+							color: #ffffff;
+						}
+	}
+}
+	&__catBox {
+			position: absolute;
+			justify-content: center;
+			top: 0;
+			z-index: 5;
+			margin-top: 3.4375rem;
+			display: flex;
+			align-self: center;
+			flex-direction: column;
+			align-items: center;
+			img {
+					width: 13.125rem;
+					@media (max-width: $mobile) {
+							width: 9.6875rem;
+					}
+			}
+			object {
+					width: 13.125rem;
+					@media (max-width: $mobile) {
+							width: 9.6875rem;
+					}
+			}
+			svg {
+					width: 13.125rem;
+					@media (max-width: $mobile) {
+							width: 9.6875rem;
+					}
+			}
+	}
+	&__catIdle {
+			z-index: 15;
+	}
+	&__catMeow {
+			z-index: 15;
+			display: none;
+	}
+	&__energyBox {
+			position: absolute;
+			top: 2.5rem;
+			left: 1.25rem;
+			@media (max-width: $mobile) {
+					position: relative;
+					order: 4;
+					top: 0;
+					left: 0;
+					margin: 2.125rem 0 1.875rem 0;
+					width: 100%;
+			 }
+	}
+	&__energyContainer {
+			display: flex;
+			flex-direction: row;
+			font-weight: 600;
+			font-size: 1.375rem;
+			color: #fff;
+			.energyCount {
+					margin-left: 7px;
+			}
+			@media (max-width: $mobile) {
+					font-size: 1.125rem;
+			 }
+	}
+	&__energyValue {
+			display: flex;
+			flex-direction: row;
+	}
+	&__energyBar {
+			margin-top: 0.625rem;
+			box-shadow: inset 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+			background: rgba(0, 0, 0, 0.16);
+			justify-content: flex-start;
+			align-items: center;
+			position: relative;
+			display: flex;
+			border-radius: 1.25rem;
+			width: 13.3125rem;
+			height: 0.9375rem;
+			progress {
+					border-radius: 20px;
+					width: 100%;
+					height: 100%;
+				}
+				progress::-webkit-progress-bar {
+					background-color: rgba(0, 0, 0, 0.16);
+					border-radius: 1.25rem;;
+					box-shadow: inset 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+				}
+				progress::-webkit-progress-value {
+					background-color: #7f4dd1;
+					border-radius: 1.25rem;;
+					box-shadow: inset 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+				}
+				@media (max-width: $mobile) {
+					width: 100%;
+			 }
+	}
+	&__coinBox {
+			position: absolute;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			top: 1.25rem;
+			right: 1.25rem;
+			padding: 0.6875rem 0.875rem 0.6875rem 0.875rem;
+			box-shadow: inset -0.25rem -0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+			background: rgba(0, 0, 0, 0.05); 
+			border-radius: 1.25rem;
+				@media (max-width: $mobile) {
+				 position: relative;
+				 order: 1;
+				 padding: 0.4375rem 0.625rem;
+				 width: 8.75rem;
+				 align-self: center;
+				 justify-content: center;
+				 right: 0;
+				 top: 0;
+				 margin: 2.375rem 0 0 0;
+			}
+	}
+	&__coinImg {
+			display: flex;
+			align-items: center;
+			margin-right: 0.625rem;
+			width: 51px;
+			height: 52px;
+			img {
+					width: 100%;
+			}
+			@media (max-width: $mobile) {
+				 width: 2rem;
+				 height: 2.0625rem;
+			 }
+	}
+	&__coinAmount {   
+			display: flex;
+			align-items: center;
+			span {
+					padding-top: 0.9375rem;
+					display: flex;
+					text-align: center;    
+					font-weight: 600;
+					font-size: 3.5rem;
+					color: #fff;
+					@media (max-width: $mobile) {
+						 font-size: 2.1875rem;
+						}
+			}
+	}
+	&__backBtn {  
+			z-index: 10;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			text-align: center;
+			position: absolute;
+			top: 0rem;
+			right: 18.75rem;
+			border: 0.125rem solid rgba(255, 255, 255, 0.5);
+			border-radius: 3.75rem;
+			padding: 1.125rem 1.5625rem 0.9375rem 1.4375rem;
+			button {
+					font-weight: 600;
+					font-size: 1.375rem;
+					line-height: 95%;
+					color: rgba(255, 255, 255, 0.5);
+			}
+			@media (max-width: $mobile) {
+					right: 0;
+					top: 0.9375rem;
+					padding: 0.625rem 0.625rem 0.5938rem 0.625rem;
+				 }
+				 span {
+		@media (max-width: $mobile) {
+			display: none;
+		}
+	}
+	svg {
+		display: none;
+		@media (max-width: $mobile) {
+			display: flex;
+		}
+	}
+	}
+	&__backBtn:hover {
+			cursor: pointer;
+			border: 0.125rem solid #fff;
+			@media (max-width: $mobile) {
+					border-color: rgba(255, 255, 255, 0.5);
+			}
+			button {
+					color: #fff;
+					@media (max-width: $mobile) {
+							color: rgba(255, 255, 255, 0.5);
+					}
+			}
+	}
+	&__animation {
+			position: absolute;
+			width: 40rem;
+			height: 40rem;
+			display: flex;
+			align-self: center;
+	}
+	&__coinOne {
+			position: absolute;
+			animation: 1.8s linear 0s infinite coinOne;
+			width: 5.8125rem;
+			height: 7rem;   
+			left: 1.25rem;
+			margin-top: 10rem;
+			display: none;
+			img {
+					max-width: 100%;
+			}
+	}
+	&__coinTwo {
+			position: absolute;
+			right: 5rem;
+			animation: 3s linear 0s infinite coinTwo;
+			width: 5.3125rem;
+			height: 6.5rem;  
+			margin-top: 10rem;
+			display: none;
+			img {
+					max-width: 100%;
+			} 
+	}
+	&__coinThree {
+			position: absolute;
+			animation: 4s linear 0s infinite coinThree;
+			width: 45px;
+			height: 64px; 
+			left: 30%; 
+			margin-top: 15rem;
+			display: none;
+			img {
+					max-width: 100%;
+			} 
+	}
+	&__coinFour {
+			position: absolute;
+			animation: 4s linear 0s infinite coinFour;
+			width: 45px;
+			height: 64px; 
+			left: 30%; 
+			margin-top: 15rem;
+			display: none;
+			img {
+					max-width: 100%;
+			} 
+	}
+	&__coinFive {
+			position: absolute;
+			animation: 4s linear 0s infinite coinFive;
+			width: 45px;
+			height: 64px; 
+			left: 30%; 
+			margin-top: 15rem;
+			display: none;
+			img {
+					max-width: 100%;
+			} 
+	}
+	&__coinSix {
+			position: absolute;
+			animation: 4s linear 0s infinite coinSix;
+			width: 45px;
+			height: 64px; 
+			left: 30%; 
+			margin-top: 15rem;
+			display: none;
+			img {
+					max-width: 100%;
+			} 
+	}
+	&__coinSeven {
+			position: absolute;
+			animation: 1.8s linear 0s infinite coinSeven;
+			width: 5.8125rem;
+			height: 7rem;   
+			right: 0;
+			display: none;
+			img {
+					max-width: 100%;
+			} 
+	}
+}
+
+@keyframes coinOne {
+	from {
+			transform: translateY(0px);
+			opacity: 1;
+	}
+	to {
+			transform: translateY(40rem);
+			opacity: 0;
+	}
+}
+
+@keyframes coinTwo {
+	from {
+			transform: translateY(0px);
+			opacity: 0.8;
+	}
+	to {
+			transform: translateY(30rem);
+			opacity: 0;
+			rotate: 3deg;
+	}
+}
+@keyframes coinThree {
+	from {
+			transform: translateY(0px);
+			opacity: 0.5;
+	}
+	to {
+			transform: translateY(20rem);
+			opacity: 0;
+			rotate: -11deg;
+	}
+}
+@keyframes coinFour {
+	from {
+			transform: translateY(0px);
+			opacity: 0.5;
+	}
+	to {
+			transform: translateY(20rem);
+			opacity: 0;
+			rotate: -11deg;
+	}
+}
+@keyframes coinFive {
+	from {
+			transform: translateY(0px);
+			opacity: 0.5;
+	}
+	to {
+			transform: translateY(20rem);
+			opacity: 0;
+			rotate: -11deg;
+	}
+}
+@keyframes coinSix {
+	from {
+			transform: translateY(0px);
+			opacity: 0.5;
+	}
+	to {
+			transform: translateY(20rem);
+			opacity: 0;
+			rotate: -11deg;
+	}
+}
+@keyframes coinSeven {
+	from {
+			transform: translateY(5rem);
+			opacity: 1;
+	}
+	to {
+			transform: translateY(35rem);
+			opacity: 0;
+	}
+}

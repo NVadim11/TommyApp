@@ -3,8 +3,7 @@ import './Leaderboard.scss'
 
 function Leaderboard() {
 	return (
-		<div>
-<div id="leaderboard" aria-hidden="true" className="popupLeaderboard">
+	<div id="leaderboard" aria-hidden="true" className="popupLeaderboard">
 	<div className="popupLeaderboard__wrapper">
 		<div className="popupLeaderboard__content">
 			<button type="button">
@@ -95,7 +94,6 @@ function Leaderboard() {
 			</div>
 		</div>
 	</div>
-</div>
 	</div>
 	)
 }

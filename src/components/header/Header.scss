@@ -1,0 +1,182 @@
+// variables
+$mobile: 1439.98px;
+$desktop: 1919.98px;
+
+.header {
+	background: transparent;
+	width: 100%;
+	padding: 1.5rem 0;
+	@media (max-width: $desktop) {
+		padding: 1.25rem 0;
+	}
+	@media (max-width: $mobile) {
+		padding: 0.625rem 0;
+		border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+		background: rgba(0, 0, 0, 0.1);
+	}
+	&__container {
+		padding: 0 15.125rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 auto;
+		width: 120rem;
+		@media (max-width: $desktop) {
+			width: 90rem;
+			padding: 0 8.125rem;
+		}
+		@media (max-width: $mobile) {
+			width: 100%;
+			padding: 0 1.25rem;
+		}
+	}
+	&__logo {
+		cursor: pointer;
+		z-index: 10;
+		width: 17.25rem;
+		height: 2.85rem;
+		@media (max-width: $desktop) {
+			width: 14.375rem;
+			height: 2.375rem;
+		}
+		@media (max-width: $mobile) {
+			height: 1.375rem;
+			width: 8.5rem;
+		}
+		img {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+	&__leaderboard {
+		font-weight: 500;
+		font-size: 2.25rem;
+		line-height: 130%;
+		cursor: pointer;
+		z-index: 10;
+		transition: .25s;
+		margin-right: 4rem;
+		@media (max-width: $desktop) {
+			font-size: 1.5rem;
+			margin-right: 1.5625rem;
+		}
+		@media (max-width: $mobile) {
+			display: none;
+		}
+	}
+	&__leaderboard:hover {
+		button {
+			transition: .25s;
+			text-decoration: underline;
+		}
+	}
+	&__mobileBtns {
+		display: flex;
+		align-items: center;
+		@media (max-width: $mobile) {
+			gap: 0.9375rem;
+		}
+	}
+	&__walletBtn {
+		button {
+			font-weight: 600;
+			font-size: 1.25rem;
+			border: 2px solid #fff;
+			border-radius: 60px;
+			z-index: 10;
+			cursor: pointer;
+			transition: .25s;
+			padding: 1.5625rem 1.5625rem 1.4375rem 1.5625rem;
+			@media (max-width: $desktop) {
+				padding: 1.5625rem 1.5625rem 1.4375rem 1.5625rem;
+			}
+			@media (max-width: $mobile) {
+				padding: 0.625rem 0.9375rem 0.5rem 0.9375rem;
+			}
+		}
+		span {
+			@media (max-width: $mobile) {
+				display: none;
+			}
+		}
+		svg {
+			display: none;
+			@media (max-width: $mobile) {
+				display: flex;
+			}
+		}
+		button:hover {
+			transition: .25s;
+			color: #000000;
+			background-color: #ffffff;
+			@media (max-width: $mobile) {
+				color: #ffffff;
+				background-color: transparent;
+			}
+		}
+	}
+
+// Burger menu
+	&__mobileBurger-btn {
+		display: none;
+		@media (max-width: $mobile) {
+			display: block!important;
+		}
+	}
+	&__mobileBurger-line {
+		width: 20px;
+		height: 2px;
+		background-color: #ffffff;
+		display: block;
+		margin: 4px auto;
+		-webkit-transition: all 0.3s ease-in-out;
+		-o-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
+	&__mobileBurger-btn:hover {
+		cursor: pointer;
+	}
+	&__mobileMenu {
+		display: none;
+		border: 0.0625rem solid rgba(255, 255, 255, 0.1);
+		// position: absolute;
+		margin-top: 2rem;
+		right: 1.25rem;
+		flex-direction: column;
+		position: absolute;
+		background-color: #292f4f!important;
+		z-index: 100;
+		border-radius: 0.625rem;
+	}
+	&__mobileMenu-links {
+		font-weight: 500;
+		font-size: 1.125rem;
+		line-height: 100%;
+		color: #fff;
+		width: 16.5625rem;
+		padding: 1.25rem 0 1.25rem 1.25rem;
+		border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.1);
+	}
+	&__mobileMenu-links:last-child {
+		border-bottom: none;
+	}
+}
+
+.header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(2){
+	opacity: 0;
+  }
+  
+  .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(1){
+	-webkit-transform: translateY(7px) rotate(45deg);
+	-ms-transform: translateY(7px) rotate(45deg);
+	-o-transform: translateY(7px) rotate(45deg);
+	transform: translateY(7px) rotate(45deg);
+  }
+  
+  .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(3){
+	-webkit-transform: translateY(-5px) rotate(-45deg);
+	-ms-transform: translateY(-5px) rotate(-45deg);
+	-o-transform: translateY(-5px) rotate(-45deg);
+	transform: translateY(-5px) rotate(-45deg);
+  }
