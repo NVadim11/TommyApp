@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.34fe7ee8.css",
+    "main.css": "/TommyApp/static/css/main.cb98d76d.css",
     "main.js": "/TommyApp/static/js/main.8eaec437.js",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
     "static/media/Grandstander-ExtraLightItalic.ttf": "/TommyApp/static/media/Grandstander-ExtraLightItalic.cd374ab1c2b7dc331d80.ttf",
@@ -22,11 +22,11 @@
     "static/media/Grandstander-Black.ttf": "/TommyApp/static/media/Grandstander-Black.ebb29a8f529f3b9a58bb.ttf",
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
     "index.html": "/TommyApp/index.html",
-    "main.34fe7ee8.css.map": "/TommyApp/static/css/main.34fe7ee8.css.map",
+    "main.cb98d76d.css.map": "/TommyApp/static/css/main.cb98d76d.css.map",
     "main.8eaec437.js.map": "/TommyApp/static/js/main.8eaec437.js.map"
   },
   "entrypoints": [
-    "static/css/main.34fe7ee8.css",
+    "static/css/main.cb98d76d.css",
     "static/js/main.8eaec437.js"
   ]
 }
