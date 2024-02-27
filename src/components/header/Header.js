@@ -1,9 +1,24 @@
-import React from "react"
+import React, { useState } from "react"
 import './Header.scss'
 
 function Header() {
+
+	const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
+	
+	function leaderboardOpenToggler() {	
+		setLeaderboardOpen(true)
+	}
+
+	function leaderboardCloseToggler() {	
+		setLeaderboardOpen(false)
+	}
+
+	const popupClsTgl = isLeaderboardOpen ? "popupLeaderboard_show" : null;
+	const popupClasses = `popupLeaderboard ${popupClsTgl}`
+
 	return (
-<header className="header">
+		<>
+		<header className="header">
 	<div className="header__container">
 		<div className="header__logo">
 			<a href="#">
@@ -11,7 +26,7 @@ function Header() {
 			</a>
 		</div>
 		<div className="header__leaderboard">
-			<button data-leaderboard-popup="#leaderboard">
+			<button onClick={leaderboardOpenToggler}>
 				Leadboard
 			</button>
 		</div>
@@ -34,7 +49,7 @@ function Header() {
 					<span className="header__mobileBurger-line"></span>
 				</div>
 				<div className="header__mobileMenu">
-					<a className="header__mobileMenu-links" data-leaderboard-popup="#leaderboard">
+					<a className="header__mobileMenu-links">
 						Leadboard
 					</a>
 					<a className="header__mobileMenu-links" href="https://www.youtube.com/" targer="_blank">
@@ -45,10 +60,104 @@ function Header() {
 					</a>
 				</div>
 			</div>
-		</div>
-		
+		</div>		
 	</div>
 </header>
+	{isLeaderboardOpen && (
+			<div id="leaderboard" aria-hidden="true" className={popupClasses}>
+			<div className="popupLeaderboard__wrapper">
+				<div className="popupLeaderboard__content">
+					<button onClick={leaderboardCloseToggler} type="button" className="popupLeaderboard__close">X
+						</button>
+					<div className="popupLeaderboard__title">
+						<h4>Leaderboard</h4>
+					</div>
+					<div className="popupLeaderboard__crownIcon">
+					</div>
+					<div className="popupLeaderboard__playerList">
+						<ul className="popupLeaderboard__table">
+							<li className="popupLeaderboard__tableItem firstPlaceBorder">
+								<div className="popupLeaderboard__itemData">
+									<div className="popupLeaderboard__id firstPlace">
+										<span>#1</span>
+									</div>
+									<div className="popupLeaderboard__playerIcon">
+									</div>
+									<div className="popupLeaderboard__playerName firstPlace">
+										<span>Player</span>
+									</div>
+									<div className="popupLeaderboard__coins firstPlace">
+										<span>99999</span>
+									</div>
+								</div>
+							</li>
+							<li className="popupLeaderboard__tableItem">
+								<div className="popupLeaderboard__itemData">
+									<div className="popupLeaderboard__id">
+										<span>#1</span>
+									</div>
+									<div className="popupLeaderboard__playerIcon">
+									</div>
+									<div className="popupLeaderboard__playerName">
+										<span>Player</span>
+									</div>
+									<div className="popupLeaderboard__coins">
+										<span>99999</span>
+									</div>
+								</div>
+							</li>
+							<li className="popupLeaderboard__tableItem">
+								<div className="popupLeaderboard__itemData">
+									<div className="popupLeaderboard__id">
+										<span>#1</span>
+									</div>
+									<div className="popupLeaderboard__playerIcon">
+									</div>
+									<div className="popupLeaderboard__playerName">
+										<span>Player</span>
+									</div>
+									<div className="popupLeaderboard__coins">
+										<span>99999</span>
+									</div>
+								</div>
+							</li>
+							<li className="popupLeaderboard__tableItem">
+								<div className="popupLeaderboard__itemData">
+									<div className="popupLeaderboard__id">
+										<span>#1</span>
+									</div>
+									<div className="popupLeaderboard__playerIcon">
+									</div>
+									<div className="popupLeaderboard__playerName">
+										<span>Player</span>
+									</div>
+									<div className="popupLeaderboard__coins">
+										<span>99999</span>
+									</div>
+								</div>
+							</li>
+							<li className="popupLeaderboard__tableItem">
+								<div className="popupLeaderboard__itemData">
+									<div className="popupLeaderboard__id">
+										<span>#1</span>
+									</div>
+									<div className="popupLeaderboard__playerIcon">
+									</div>
+									<div className="popupLeaderboard__playerName">
+										<span>Player</span>
+									</div>
+									<div className="popupLeaderboard__coins">
+										<span>99999</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+	)}	
+		</>
 	)
 }
 
