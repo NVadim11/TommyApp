@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.9b41f491.css",
-    "main.js": "/TommyApp/static/js/main.790db22d.js",
+    "main.css": "/TommyApp/static/css/main.1fbe1a40.css",
+    "main.js": "/TommyApp/static/js/main.9fa5a6a0.js",
     "static/media/idle.gif": "/TommyApp/static/media/idle.b99e8c54f54b2866bda0.gif",
     "static/media/speak.gif": "/TommyApp/static/media/speak.969e977014ea57107cc8.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
+    "static/media/logo.svg": "/TommyApp/static/media/logo.2d9c4064ec8c24e777243773aa1ce1b6.svg",
     "static/media/Grandstander-ExtraLightItalic.ttf": "/TommyApp/static/media/Grandstander-ExtraLightItalic.cd374ab1c2b7dc331d80.ttf",
     "static/media/Grandstander-ExtraBoldItalic.ttf": "/TommyApp/static/media/Grandstander-ExtraBoldItalic.29fc7dc343efa9613acd.ttf",
     "static/media/Grandstander-LightItalic.ttf": "/TommyApp/static/media/Grandstander-LightItalic.0503d4cd3e2f23e285d6.ttf",
@@ -24,11 +25,11 @@
     "static/media/Grandstander-Black.ttf": "/TommyApp/static/media/Grandstander-Black.ebb29a8f529f3b9a58bb.ttf",
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
     "index.html": "/TommyApp/index.html",
-    "main.9b41f491.css.map": "/TommyApp/static/css/main.9b41f491.css.map",
-    "main.790db22d.js.map": "/TommyApp/static/js/main.790db22d.js.map"
+    "main.1fbe1a40.css.map": "/TommyApp/static/css/main.1fbe1a40.css.map",
+    "main.9fa5a6a0.js.map": "/TommyApp/static/js/main.9fa5a6a0.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b41f491.css",
-    "static/js/main.790db22d.js"
+    "static/css/main.1fbe1a40.css",
+    "static/js/main.9fa5a6a0.js"
   ]
 }
