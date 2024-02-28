@@ -1,12 +1,20 @@
-import React from "react"
+import React, { useState } from "react"
 import './Footer.scss'
 
 function Footer() {
+
+	const [isVisible, setIsVisible] = useState(true);
+      
+	const toggleVisibility = () => {
+		setIsVisible(!isVisible);
+	};
+
 	return (
 <footer className="footer">
 	<div className="footer__container">
 		<div className="soundToggler">
-			<div className="soundToggler__itemOn">
+		{isVisible ? (
+			<div className="soundToggler__itemOn" onClick={toggleVisibility}>
 				<button>
 					<svg width="23" height="19" viewBox="0 0 23 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M19.697 4.80667C19.697 4.80667 21.2996 6.37109 21.2996 8.97844C21.2996 11.5858 19.697 13.1502 19.697 13.1502" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -14,7 +22,8 @@ function Footer() {
 					  </svg>
 				</button>
 			</div>
-			<div className="soundToggler__itemOff">
+				) : (
+			<div className="soundToggler__itemOff" onClick={toggleVisibility}>
 				<button>
 					<svg width="26" height="19" viewBox="0 0 26 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M20.1947 11.5865L22.2812 9.50001M22.2812 9.50001L24.3677 7.41351M22.2812 9.50001L20.1947 7.41351M22.2812 9.50001L24.3677 11.5865" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -22,6 +31,7 @@ function Footer() {
 					</svg>
 				</button>
 			</div>
+				)}
 		</div>
 		<div className="footer__socials">
 			<div className="footer__twBtn">
