@@ -76,7 +76,7 @@ function Main() {
                     </div>
                     <div className="mainContent__backBtn" onClick={toggleVisibility}>
                         <button >
-                            &lt; Back
+                            &lt; Stop Farm
                         </button>
                     </div>
                     <div className="mainContent__coinBox">

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import './Header.scss'
 import logo from '../../img/logo.svg'
 
@@ -16,6 +16,27 @@ function Header() {
 
 	const popupClsTgl = isLeaderboardOpen ? "popupLeaderboard_show" : null;
 	const popupClasses = `popupLeaderboard ${popupClsTgl}`
+
+	const [isShown, setIsShown] = useState(false);
+  	const containerRef = useRef(null);
+
+	  const toggleVisibility = () => {
+		setIsShown(!isShown);
+	  };
+
+	  useEffect(() => {
+		const handleOutsideClick = (event) => {
+		  if (containerRef.current && !containerRef.current.contains(event.target)) {
+			setIsShown(false);
+		  }
+		};
+	
+		document.addEventListener('mousedown', handleOutsideClick);
+	
+		return () => {
+		  document.removeEventListener('mousedown', handleOutsideClick);
+		};
+	  }, []);
 
 	return (
 		<>
@@ -43,13 +64,14 @@ function Header() {
 				</button>
 			</div>
 
-			<div className="header__mobileBurger">
-				<div className="header__mobileBurger-btn">
+			<div className="header__mobileBurger" ref={containerRef}>
+				<div className="header__mobileBurger-btn" onClick={toggleVisibility}>
 					<span className="header__mobileBurger-line"></span>
 					<span className="header__mobileBurger-line"></span>
 					<span className="header__mobileBurger-line"></span>
 				</div>
-				<div className="header__mobileMenu">
+			
+				{isShown && <div className="header__mobileMenu">
 					<a className="header__mobileMenu-links">
 						Leadboard
 					</a>
@@ -59,7 +81,7 @@ function Header() {
 					<a className="header__mobileMenu-links" href="https://web.telegram.org/" target="_blank">
 						Telegram
 					</a>
-				</div>
+				</div>}
 			</div>
 		</div>		
 	</div>
