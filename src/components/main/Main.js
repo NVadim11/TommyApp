@@ -1,5 +1,7 @@
 import React from "react"
 import './Main.scss'
+import tomIdle from '../../img/idle.gif'
+import tomSpeak from '../../img/speak.gif'
 
 function Main() {
 	return (
@@ -26,12 +28,9 @@ function Main() {
                             </svg> */}
                                                 </button>
                     </div>
-                    {/* <div className="mainContent__catBox">
-                        <img className="mainContent__catIdle" draggable="false" src="img/idle.svg" alt="">                
-                        <img className="mainContent__catIdle" draggable="false" src="img/idle.gif" alt="">
-                        <object className="mainContent__catIdle" data="img/idle.svg" type="image/svg+xml">
-                        </object>
-                    </div> */}
+                    <div className="mainContent__catBox">
+                        <img className="mainContent__catIdle" draggable="false" src={tomIdle} alt={tomIdle}/>                
+                    </div>
                 </div>
                 <div className="mainContent__phaseTwo">
                     <div className="mainContent__energyBox">
@@ -52,12 +51,8 @@ function Main() {
                         </div>
                     </div>
                     <div className="mainContent__catBox">
-                                    {/* <object id="catIdle" className="mainContent__catIdle" data="img/idle.svg" type="image/svg+xml">
-                        </object>
-                        <object id="catActive" className="mainContent__catMeow" data="img/speaking.svg" type="image/svg+xml">
-                        </object>
-                        <img id="catIdle" className="mainContent__catIdle" src="img/idle.svg" draggable="false" alt=""/>
-                        <img id="catActive" className="mainContent__catMeow" src="img/speaking.svg" draggable="false" alt=""/> */}
+                        <img id="catIdle" className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
+                        <img id="catActive" className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
                     </div>
                     <div className="mainContent__sayBtn">
                         <button>
