@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.1fbe1a40.css",
-    "main.js": "/TommyApp/static/js/main.9fa5a6a0.js",
+    "main.css": "/TommyApp/static/css/main.2ec908ba.css",
+    "main.js": "/TommyApp/static/js/main.d7668c7e.js",
     "static/media/idle.gif": "/TommyApp/static/media/idle.b99e8c54f54b2866bda0.gif",
     "static/media/speak.gif": "/TommyApp/static/media/speak.969e977014ea57107cc8.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
@@ -25,11 +25,11 @@
     "static/media/Grandstander-Black.ttf": "/TommyApp/static/media/Grandstander-Black.ebb29a8f529f3b9a58bb.ttf",
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
     "index.html": "/TommyApp/index.html",
-    "main.1fbe1a40.css.map": "/TommyApp/static/css/main.1fbe1a40.css.map",
-    "main.9fa5a6a0.js.map": "/TommyApp/static/js/main.9fa5a6a0.js.map"
+    "main.2ec908ba.css.map": "/TommyApp/static/css/main.2ec908ba.css.map",
+    "main.d7668c7e.js.map": "/TommyApp/static/js/main.d7668c7e.js.map"
   },
   "entrypoints": [
-    "static/css/main.1fbe1a40.css",
-    "static/js/main.9fa5a6a0.js"
+    "static/css/main.2ec908ba.css",
+    "static/js/main.d7668c7e.js"
   ]
 }
