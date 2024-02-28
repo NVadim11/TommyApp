@@ -38,6 +38,8 @@ function Header() {
 		};
 	  }, []);
 
+	
+
 	return (
 		<>
 		<header className="header">
@@ -90,7 +92,10 @@ function Header() {
 			<div id="leaderboard" aria-hidden="true" className={popupClasses}>
 			<div className="popupLeaderboard__wrapper">
 				<div className="popupLeaderboard__content">
-					<button onClick={leaderboardCloseToggler} type="button" className="popupLeaderboard__close">X
+					<button onClick={leaderboardCloseToggler} type="button" className="popupLeaderboard__close">
+					<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9.5 9.5L2 2M9.5 9.5L17 17M9.5 9.5L17 2M9.5 9.5L2 17" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
 						</button>
 					<div className="popupLeaderboard__title">
 						<h4>Leaderboard</h4>
