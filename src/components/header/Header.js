@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import './Header.scss'
+import logo from '../../img/logo.svg'
 
 function Header() {
 
@@ -22,7 +23,7 @@ function Header() {
 	<div className="header__container">
 		<div className="header__logo">
 			<a href="#">
-				<img src="img/logo.svg" alt=""/>
+				<img src={logo} alt={logo}/>
 			</a>
 		</div>
 		<div className="header__leaderboard">

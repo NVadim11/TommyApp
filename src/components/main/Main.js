@@ -2,6 +2,8 @@ import React from "react"
 import './Main.scss'
 import tomIdle from '../../img/idle.gif'
 import tomSpeak from '../../img/speak.gif'
+import smile from '../../img/smile.png'
+import smileHov from '../../img/smileHov.png'
 
 function Main() {
 	return (
@@ -56,7 +58,10 @@ function Main() {
                     </div>
                     <div className="mainContent__sayBtn">
                         <button>
-                            Say!
+                            Say
+                            <img className="mainContent__sayImg" src={smile} alt={smile}/>
+                            <img className="mainContent__sayImg" src={smileHov} alt={smileHov}/>
+                            !
                         </button>
                     </div>
                     {/* <div className="mainContent__backBtn">
