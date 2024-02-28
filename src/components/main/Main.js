@@ -5,6 +5,7 @@ import smileHov from '../../img/smileHov.png'
 import tomSpeak from '../../img/speak.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
+import catCoinMove from '../../img/cat_coin_move.png'
 
 
 function Main() {
@@ -85,7 +86,7 @@ function Main() {
                         </button>
                     </div>
                     <div className="mainContent__coinBox">
-                        <div className="mainContent__coinImg" draggable="false"><img src="@img/cat_coin_move.svg" alt=""draggable="false"/></div>
+                        <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt={catCoinMove} draggable="false"/></div>
                         <div className="mainContent__coinAmount"><span id="coinAmount">0</span></div>
                     </div>
                     {/* <div className="mainContent__animation">
