@@ -1,20 +1,52 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import catCoinMove from '../../img/cat_coin_move.png'
 import tomIdle from '../../img/idle.gif'
-import smile from '../../img/smile.png'
-import smileHov from '../../img/smileHov.png'
 import tomSpeak from '../../img/speak.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
-import catCoinMove from '../../img/cat_coin_move.png'
 
 
 function Main() {
 
-        const [isVisible, setIsVisible] = useState(true);
-      
-        const toggleVisibility = () => {
-          setIsVisible(!isVisible);
-        };
+    const [isVisible, setIsVisible] = useState(true);
+    const [isFirstImage, setIsFirstImage] = useState(true);
+    let [coins, setCoins] = useState(0);
+    let [energy, setEnergy] = useState(1000);
+  
+    const coinClickHandler = () => {
+      if (energy > 0) {
+        setCoins(coins += 1);
+        setEnergy(energy -= 1);
+      }
+    };
+  
+  
+    const toggleVisibility = () => {
+      setIsVisible(!isVisible);
+    };
+
+    useEffect(() => {
+    let timerId;
+    const handleClick = () => {
+        coinClickHandler();
+        setIsFirstImage(false);
+        clearInterval(timerId);
+        timerId = setTimeout(() => {
+        setIsFirstImage(true);
+      }, 1000);
+    };
+
+    timerId = setTimeout(() => {
+      setIsFirstImage(true);
+    }, 1000);
+
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+      clearInterval(timerId);
+    };
+  }, []);
 
 	return (
         <div className="mainContent">
@@ -30,7 +62,7 @@ function Main() {
                             et dolore magna.
                         </p>
                     </div>
-                    <div className="mainContent__startBtn" onClick={toggleVisibility}>
+                    <div className="mainContent__startBtn" onClick={toggleVisibility}>      
                         <button>Start farm 
                                 <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
@@ -54,27 +86,30 @@ function Main() {
                                     fill="white" />
                             </svg>
                             <div className="mainContent__energyValue">
-                                <p className="energyCount" id="energyCount">1000</p>
+                                <p className="energyCount" id="energyCount">{energy}</p>
                                 <span>/</span>
                                 <p className="maximumEnergy" id="maximumEnergy">1000</p>
                             </div>
                         </div>
                         <div className="mainContent__energyBar">
-                            <progress className="filledBar" id="filledBar" max="1000" value="1000"></progress>
+                            <progress className="filledBar" id="filledBar" max="1000" value={energy}></progress>
                         </div>
                     </div>
                     <div className="mainContent__catBox">
-                        <img id="catIdle" className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
-                        <img id="catActive" onClick={soundPlay} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
+                    {isFirstImage ? (
+                        <img id="catGif" onClick={soundPlay} className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
+                        ) : (
+                        <img id="catGif" onClick={soundPlay} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
+                        )}
                     </div>
-                    <div className="mainContent__sayBtn">
-                        <button onClick={soundPlay}>
+                    {/* <div className="mainContent__sayBtn">
+                        <button>
                             Say
                             <img className="mainContent__sayImg" src={smile} alt={smile}/>
                             <img className="mainContent__sayImgHov" src={smileHov} alt={smileHov}/>
                             !
                         </button>
-                    </div>
+                    </div> */}
                     <div className="mainContent__backBtn" onClick={toggleVisibility}>
                         <button >
                             <span>
@@ -86,8 +121,8 @@ function Main() {
                         </button>
                     </div>
                     <div className="mainContent__coinBox">
-                        <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt={catCoinMove} draggable="false"/></div>
-                        <div className="mainContent__coinAmount"><span id="coinAmount">0</span></div>
+                    <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt={catCoinMove} draggable="false"/></div>
+                        <div className="mainContent__coinAmount"><span id="coinAmount">{coins}</span></div>
                     </div>
                     {/* <div className="mainContent__animation">
                         <div className="mainContent__coinOne">

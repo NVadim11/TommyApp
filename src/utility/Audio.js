@@ -10,4 +10,3 @@ audio.muted = !audio.muted;
 }
 
 export { soundPlay, toggleMuteAllSounds }
-
