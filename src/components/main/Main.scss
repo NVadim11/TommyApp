@@ -33,7 +33,7 @@ $desktop: 1919.98px;
 	&__phaseOne {
 			height: 33.125rem;
 			position: relative;
-			display: none;
+			display: flex;
 			flex-direction: column;
 			.mainContent__catBox {
 					@media (max-width: $mobile) {
@@ -144,57 +144,75 @@ $desktop: 1919.98px;
 			}
 	}
 	&__sayBtn {
-	display: flex;
-			align-self: center;
-			position: relative;
-	z-index: 200;
-	button {
-		border: 0.125rem solid #fff;
-		border-radius: 3.75rem;
-		overflow: hidden;
-		font-size: 1.375rem;
-		padding: 0.9375rem 4.0625rem;
 		display: flex;
-		align-items: center;
-		text-align: center;
-		svg {
-			margin: 0 0.3125rem;
-		}
-					@media (max-width: $mobile) {
-							padding: 1.25rem 4.5rem;
-							font-size: 1.125rem;
-						}
-	}
-			@media (max-width: $mobile) {
-				 order: 3;
-				 margin: 1.875rem 0 0 0;
-			 }
-	button:hover {
-		transition: .25s;
-					color: #000000;
-					background-color: #ffffff;
-		svg {
-			fill: #ffffff;
-							transition: .25s;
-							@media (max-width: $mobile) {
-								}
-			defs {
-				image {
-					transition: .25s;
-					filter: invert(100%);
-											@media (max-width: $mobile) {
-													filter: invert(0);
-											}
-				}					
+				align-self: center;
+				position: relative;
+		z-index: 200;
+		button {
+			border: 0.125rem solid #fff;
+			border-radius: 3.75rem;
+			overflow: hidden;
+			font-size: 1.375rem;
+			padding: 0.9375rem 4.0625rem;
+			display: flex;
+			align-items: center;
+			text-align: center;
+			svg {
+				margin: 0 0.3125rem;
 			}
+						@media (max-width: $mobile) {
+								padding: 1.25rem 4.5rem;
+								font-size: 1.125rem;
+							}
 		}
-					@media (max-width: $mobile) {
-							background-color: transparent;
-							color: #ffffff;
-						}
+				@media (max-width: $mobile) {
+					order: 3;
+					margin: 1.875rem 0 0 0;
+				}
+		button:hover {
+			transition: .25s;
+						color: #000000;
+						background-color: #ffffff;
+			svg {
+				fill: #ffffff;
+								transition: .25s;
+								@media (max-width: $mobile) {
+									}
+				defs {
+					image {
+						transition: .25s;
+						filter: invert(100%);
+												@media (max-width: $mobile) {
+														filter: invert(0);
+												}
+					}					
+				}
+			}
+				@media (max-width: $mobile) {
+						background-color: transparent;
+						color: #ffffff;
+					}
+		}
 	}
+	&__sayBtn:hover {
+		.mainContent__sayImg {
+			display: none;
+		}
+		.mainContent__sayImgHov {
+			display: flex;
+		}
 	}
 	&__sayImg {
+		width: 2.5rem;
+		height: 2rem;
+		margin: 0 0.3125rem;
+		@media (max-width: $mobile) {
+			width: 1.75rem;
+			height: 1.375rem;
+		}
+	}
+	&__sayImgHov {
+		display: none;
 		width: 2.5rem;
 		height: 2rem;
 		margin: 0 0.3125rem;
