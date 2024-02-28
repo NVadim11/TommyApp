@@ -181,9 +181,15 @@ $desktop: 1919.98px;
 	&__sayBtn:hover {
 		.mainContent__sayImg {
 			display: none;
+			@media (max-width: $mobile) {
+				display: flex;
+		}
 		}
 		.mainContent__sayImgHov {
 			display: flex;
+			@media (max-width: $mobile) {
+				display: none;
+		}
 		}
 	}
 	&__sayImg {
@@ -371,7 +377,6 @@ $desktop: 1919.98px;
 					color: rgba(255, 255, 255, 0.5);
 			}
 			@media (max-width: $mobile) {
-					right: 0;
 					top: 0.9375rem;
 					padding: 0.625rem 0.625rem 0.5938rem 0.625rem;
 				 }
