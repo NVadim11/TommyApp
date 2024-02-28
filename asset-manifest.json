@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.16475424.css",
-    "main.js": "/TommyApp/static/js/main.d872438e.js",
+    "main.css": "/TommyApp/static/css/main.6e1fbd0a.css",
+    "main.js": "/TommyApp/static/js/main.3adac525.js",
     "static/media/idle.gif": "/TommyApp/static/media/idle.b99e8c54f54b2866bda0.gif",
     "static/media/speak.gif": "/TommyApp/static/media/speak.969e977014ea57107cc8.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
@@ -26,11 +26,11 @@
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
     "static/media/cat_coin_move.png": "/TommyApp/static/media/cat_coin_move.11ca9490bb4e11c10748.png",
     "index.html": "/TommyApp/index.html",
-    "main.16475424.css.map": "/TommyApp/static/css/main.16475424.css.map",
-    "main.d872438e.js.map": "/TommyApp/static/js/main.d872438e.js.map"
+    "main.6e1fbd0a.css.map": "/TommyApp/static/css/main.6e1fbd0a.css.map",
+    "main.3adac525.js.map": "/TommyApp/static/js/main.3adac525.js.map"
   },
   "entrypoints": [
-    "static/css/main.16475424.css",
-    "static/js/main.d872438e.js"
+    "static/css/main.6e1fbd0a.css",
+    "static/js/main.3adac525.js"
   ]
 }
