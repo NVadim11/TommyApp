@@ -1,9 +1,10 @@
-import React,  { useState }  from "react"
-import './Main.scss'
+import React, { useState } from "react"
 import tomIdle from '../../img/idle.gif'
-import tomSpeak from '../../img/speak.gif'
 import smile from '../../img/smile.png'
 import smileHov from '../../img/smileHov.png'
+import tomSpeak from '../../img/speak.gif'
+import { soundPlay } from '../../utility/Audio'
+import './Main.scss'
 
 
 function Main() {
@@ -63,10 +64,10 @@ function Main() {
                     </div>
                     <div className="mainContent__catBox">
                         <img id="catIdle" className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
-                        <img id="catActive" className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
+                        <img id="catActive" onClick={soundPlay} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
                     </div>
                     <div className="mainContent__sayBtn">
-                        <button>
+                        <button onClick={soundPlay}>
                             Say
                             <img className="mainContent__sayImg" src={smile} alt={smile}/>
                             <img className="mainContent__sayImgHov" src={smileHov} alt={smileHov}/>

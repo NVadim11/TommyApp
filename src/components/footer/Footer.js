@@ -1,17 +1,18 @@
 import React, { useState } from "react"
+import { toggleMuteAllSounds } from '../../utility/Audio'
 import './Footer.scss'
 
 function Footer() {
-
 	const [isVisible, setIsVisible] = useState(true);
       
 	const toggleVisibility = () => {
+		toggleMuteAllSounds();
 		setIsVisible(!isVisible);
 	};
 
 	return (
-<footer className="footer">
-	<div className="footer__container">
+	<footer className="footer">
+		<div className="footer__container">
 		<div className="soundToggler">
 		{isVisible ? (
 			<div className="soundToggler__itemOn" onClick={toggleVisibility}>

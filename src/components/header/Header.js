@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react"
-import './Header.scss'
+import React, { useEffect, useRef, useState } from "react"
 import logo from '../../img/logo.svg'
+import './Header.scss'
 
 function Header() {
 
