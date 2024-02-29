@@ -5,13 +5,15 @@ import './Header.scss'
 function Header() {
 
 	const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
-	
+
 	function leaderboardOpenToggler() {	
 		setLeaderboardOpen(true)
 	}
 
 	function leaderboardCloseToggler() {	
 		setLeaderboardOpen(false)
+		const htmlTag = document.getElementById('html');
+		htmlTag.classList.remove('popupLeaderboard-show');
 	}
 
 	const popupClsTgl = isLeaderboardOpen ? "popupLeaderboard_show" : null;
@@ -38,7 +40,20 @@ function Header() {
 		};
 	  }, []);
 
-	
+	  const fadeShow = () => {
+		const htmlTag = document.getElementById('html');
+
+		// Add the class to the element if found
+		if (htmlTag) {
+			console.log(htmlTag);
+			htmlTag.classList.add('popupLeaderboard-show');
+		}
+	  };
+
+	  const leaderBordBtn = () => {
+		leaderboardOpenToggler();
+		fadeShow();
+	  };
 
 	return (
 		<>
@@ -50,7 +65,7 @@ function Header() {
 			</a>
 		</div>
 		<div className="header__leaderboard">
-			<button onClick={leaderboardOpenToggler}>
+			<button onClick={leaderBordBtn}>
 				Leadboard
 			</button>
 		</div>
