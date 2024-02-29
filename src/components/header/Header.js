@@ -42,8 +42,6 @@ function Header() {
 
 	  const fadeShow = () => {
 		const htmlTag = document.getElementById('html');
-
-		// Add the class to the element if found
 		if (htmlTag) {
 			console.log(htmlTag);
 			htmlTag.classList.add('popupLeaderboard-show');
