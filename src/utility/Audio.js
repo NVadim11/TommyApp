@@ -1,6 +1,7 @@
-// https://commondatastorage.googleapis.com/codeskulptor-assets/Collision8-Bit.ogg
-// '../meow.mp3'
-const audio = new Audio('https://commondatastorage.googleapis.com/codeskulptor-assets/Collision8-Bit.ogg');
+import soundEffect from '../meow.mp3'
+const audio = new Audio(soundEffect)
+audio.play()
+
 const soundPlay = () => {	
 	audio.play();
 };
@@ -10,3 +11,4 @@ audio.muted = !audio.muted;
 }
 
 export { soundPlay, toggleMuteAllSounds }
+
