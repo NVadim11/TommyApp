@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import catCoinMove from '../../img/cat_coin_move.png'
-import tomIdle from '../../img/idle.gif'
-import tomSpeak from '../../img/speak.gif'
+import tomIdle from '../../img/idle-gif.gif'
+import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
 
