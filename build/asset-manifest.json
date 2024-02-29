@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.6e1fbd0a.css",
-    "main.js": "/TommyApp/static/js/main.163f94e6.js",
-    "static/media/idle.gif": "/TommyApp/static/media/idle.1f587eb1d75e6419c34c.gif",
-    "static/media/speak.gif": "/TommyApp/static/media/speak.7ba6ffc34a1c048133d5.gif",
+    "main.css": "/TommyApp/static/css/main.d293a0f4.css",
+    "main.js": "/TommyApp/static/js/main.a5d71416.js",
+    "static/media/idle-gif.gif": "/TommyApp/static/media/idle-gif.1f587eb1d75e6419c34c.gif",
+    "static/media/speak-gif.gif": "/TommyApp/static/media/speak-gif.7ba6ffc34a1c048133d5.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
     "static/media/logo.svg": "/TommyApp/static/media/logo.2d9c4064ec8c24e777243773aa1ce1b6.svg",
     "static/media/Grandstander-ExtraLightItalic.ttf": "/TommyApp/static/media/Grandstander-ExtraLightItalic.cd374ab1c2b7dc331d80.ttf",
@@ -26,11 +26,11 @@
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
     "static/media/cat_coin_move.png": "/TommyApp/static/media/cat_coin_move.11ca9490bb4e11c10748.png",
     "index.html": "/TommyApp/index.html",
-    "main.6e1fbd0a.css.map": "/TommyApp/static/css/main.6e1fbd0a.css.map",
-    "main.163f94e6.js.map": "/TommyApp/static/js/main.163f94e6.js.map"
+    "main.d293a0f4.css.map": "/TommyApp/static/css/main.d293a0f4.css.map",
+    "main.a5d71416.js.map": "/TommyApp/static/js/main.a5d71416.js.map"
   },
   "entrypoints": [
-    "static/css/main.6e1fbd0a.css",
-    "static/js/main.163f94e6.js"
+    "static/css/main.d293a0f4.css",
+    "static/js/main.a5d71416.js"
   ]
 }
