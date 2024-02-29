@@ -5,6 +5,8 @@ import tomSpeak from '../../img/speak.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
 
+console.log("TEST COMMIT")
+
 
 function Main() {
 
