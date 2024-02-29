@@ -50,6 +50,7 @@ function Header() {
 	  const leaderBordBtn = () => {
 		leaderboardOpenToggler();
 		fadeShow();
+		setIsShown(false);
 	  };
 
 	return (
@@ -125,6 +126,9 @@ function Header() {
 										<span>#1</span>
 									</div>
 									<div className="popupLeaderboard__playerIcon">
+										<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="15" cy="15" r="15" fill="#D9D9D9"/>
+										</svg>
 									</div>
 									<div className="popupLeaderboard__playerName">
 										<span>Player</span>
@@ -140,6 +144,9 @@ function Header() {
 										<span>#1</span>
 									</div>
 									<div className="popupLeaderboard__playerIcon">
+										<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="15" cy="15" r="15" fill="#D9D9D9"/>
+										</svg>
 									</div>
 									<div className="popupLeaderboard__playerName">
 										<span>Player</span>
@@ -155,6 +162,9 @@ function Header() {
 										<span>#1</span>
 									</div>
 									<div className="popupLeaderboard__playerIcon">
+										<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="15" cy="15" r="15" fill="#D9D9D9"/>
+										</svg>
 									</div>
 									<div className="popupLeaderboard__playerName">
 										<span>Player</span>
@@ -170,6 +180,9 @@ function Header() {
 										<span>#1</span>
 									</div>
 									<div className="popupLeaderboard__playerIcon">
+										<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="15" cy="15" r="15" fill="#D9D9D9"/>
+										</svg>
 									</div>
 									<div className="popupLeaderboard__playerName">
 										<span>Player</span>
@@ -185,6 +198,9 @@ function Header() {
 										<span>#1</span>
 									</div>
 									<div className="popupLeaderboard__playerIcon">
+										<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="15" cy="15" r="15" fill="#D9D9D9"/>
+										</svg>
 									</div>
 									<div className="popupLeaderboard__playerName">
 										<span>Player</span>

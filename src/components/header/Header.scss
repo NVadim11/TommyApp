@@ -1,6 +1,6 @@
 // variables
-$mobile: 1399.98px;
-$desktop: 1919.98px;
+$mobile: 87.4988rem;
+$desktop: 119.9988rem;
 
 .header {
 	background: transparent;
@@ -47,6 +47,10 @@ $desktop: 1919.98px;
 		img {
 			width: 100%;
 			max-width: 100%;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
 		}
 	}
 	&__leaderboard {
@@ -82,8 +86,8 @@ $desktop: 1919.98px;
 		button {
 			font-weight: 600;
 			font-size: 1.25rem;
-			border: 2px solid #fff;
-			border-radius: 60px;
+			border: 0.125rem solid #fff;
+			border-radius: 3.75rem;
 			z-index: 10;
 			cursor: pointer;
 			transition: .25s;
@@ -125,11 +129,11 @@ $desktop: 1919.98px;
 		}
 	}
 	&__mobileBurger-line {
-		width: 20px;
-		height: 2px;
+		width: 1.25rem;
+		height: 0.125rem;
 		background-color: #ffffff;
 		display: block;
-		margin: 4px auto;
+		margin: 0.25rem auto;
 		-webkit-transition: all 0.3s ease-in-out;
 		-o-transition: all 0.3s ease-in-out;
 		transition: all 0.3s ease-in-out;
@@ -168,24 +172,24 @@ $desktop: 1919.98px;
   }
   
   .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(1){
-	-webkit-transform: translateY(7px) rotate(45deg);
-	-ms-transform: translateY(7px) rotate(45deg);
-	-o-transform: translateY(7px) rotate(45deg);
-	transform: translateY(7px) rotate(45deg);
+	-webkit-transform: translateY(0.4375rem) rotate(45deg);
+	-ms-transform: translateY(0.4375rem) rotate(45deg);
+	-o-transform: translateY(0.4375rem) rotate(45deg);
+	transform: translateY(0.4375rem) rotate(45deg);
   }
   
   .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(3){
-	-webkit-transform: translateY(-5px) rotate(-45deg);
-	-ms-transform: translateY(-5px) rotate(-45deg);
-	-o-transform: translateY(-5px) rotate(-45deg);
-	transform: translateY(-5px) rotate(-45deg);
+	-webkit-transform: translateY(-0.3125rem) rotate(-45deg);
+	-ms-transform: translateY(-0.3125rem) rotate(-45deg);
+	-o-transform: translateY(-0.3125rem) rotate(-45deg);
+	transform: translateY(-0.3125rem) rotate(-45deg);
   }
 
 	// Leaderboard
 
 	// variables
-$mobile: 1399.98px;
-$desktop: 1919.98px;
+$mobile: 87.4988rem;
+$desktop: 119.9988rem;
 
 body::after {
 	content: "";
@@ -262,7 +266,7 @@ body::after {
 		padding: 2.4375rem 3.0625rem;
 		border-radius: 1.875rem;
 		backdrop-filter: blur(1.5rem);
-		box-shadow: inset -4px -4px 4px 0 rgba(0, 0, 0, 0.25);
+		box-shadow: inset -0.25rem -0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
 		background: linear-gradient(180deg, #5b16c975 0%, #27075b21 100%);
 		@media (max-width: $mobile) {
 			padding: 3.25rem 1.25rem;
@@ -300,9 +304,15 @@ body::after {
 	}
 	&__crownIcon {
 		max-width: fit-content;
-		margin: 4rem 0 0.5625rem 2.6875rem;
+		margin: 4rem 0 0.5625rem 2.9375rem;
 		@media (max-width: $mobile) {
-			margin: 2.5rem 0 0.625rem 2.375rem;
+			margin: 2.5rem 0 0.625rem 2.4375rem;
+		}
+		svg {
+			@media (max-width: $mobile) {
+				width: 1.8125rem;
+				height: 1.3944rem;
+			}
 		}
 	}
 	&__playerList {
@@ -318,10 +328,10 @@ body::after {
 		border: 0.125rem solid #fff;
 		display: flex;
 		border-radius: 3.75rem;
-		padding: 0.9375rem 0.9375rem 0.9375rem 0.9375rem;
+		padding: 0.9375rem 0.9375rem 0.8125rem 0.9375rem;
 		width: 26.4375rem;
 		@media (max-width: $mobile) {
-			padding: 0.9375rem;
+			padding: 0.6875rem 0.6875rem 0.5625rem 0.6875rem;
 			width: 17.3125rem;
 		}
 	}
@@ -348,19 +358,25 @@ body::after {
 		width: 100%;	
 	}
 	&__id {
-		margin-right: 0.625rem;
+		padding-top: 0.25rem;
 		@media (max-width: $mobile) {
 			font-size: 1.125rem;
 		}
 	}
 	&__playerIcon {
-		margin-right: 0.625rem;
+		display: flex;
+		margin: 0 0.625rem;
 		svg {
-			height: 1.25rem;
-			width: 1.25rem;
+			height: 1.875rem;
+			width: 1.875rem;
+			@media (max-width: $mobile) {
+				width: 1.25rem;
+				height: 1.25rem;
+			}
 		}
 	}
 	&__playerName {
+		padding-top: 0.25rem;
 		@media (max-width: $mobile) {
 			font-size: 1rem;
 		}
@@ -369,6 +385,7 @@ body::after {
 		display: flex;
 		width: 100%;
     	justify-content: flex-end;
+		padding-top: 0.25rem;
 		@media (max-width: $mobile) {
 			font-size: 1rem;
 		}	
