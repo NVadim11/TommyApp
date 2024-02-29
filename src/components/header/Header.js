@@ -43,7 +43,6 @@ function Header() {
 	  const fadeShow = () => {
 		const htmlTag = document.getElementById('html');
 		if (htmlTag) {
-			console.log(htmlTag);
 			htmlTag.classList.add('popupLeaderboard-show');
 		}
 	  };
@@ -87,7 +86,7 @@ function Header() {
 				</div>
 			
 				{isShown && <div className="header__mobileMenu">
-					<a className="header__mobileMenu-links">
+					<a className="header__mobileMenu-links" onClick={leaderBordBtn}>
 						Leadboard
 					</a>
 					<a className="header__mobileMenu-links" href="https://www.youtube.com/" targer="_blank">
