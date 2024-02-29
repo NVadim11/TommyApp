@@ -8,20 +8,20 @@ import './Main.scss'
 function Main() {
 
     const [idleState, setidleState] = useState(true);
-    const [currentImage, setCurrentImage] = useState(1);
+    const [currentImage, setCurrentImage] = useState(true);
   
     const startFarm = () => {
-        setCurrentImage(1)
+        setCurrentImage(true)
         setidleState(!idleState);
     };
 
     const stopFarm = () => {
-        setCurrentImage(2)
+        setCurrentImage(false)
         setidleState(!idleState);
     };
 
     const firstClick = () => {
-        setCurrentImage(2)
+        setCurrentImage(false)
         soundPlay()
     }
 
@@ -73,7 +73,7 @@ function Main() {
                         </div>
                     </div>
                     <div className="mainContent__catBox">
-                    {currentImage === 1 ? (
+                    {currentImage === true ? (
                         <img id="catGif" onClick={firstClick} className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
                         ) : (
                         <img id="catGif" onClick={soundPlay} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
