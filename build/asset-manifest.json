@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.d293a0f4.css",
+    "main.css": "/TommyApp/static/css/main.d8e18fce.css",
     "main.js": "/TommyApp/static/js/main.a5d71416.js",
     "static/media/idle-gif.gif": "/TommyApp/static/media/idle-gif.1f587eb1d75e6419c34c.gif",
     "static/media/speak-gif.gif": "/TommyApp/static/media/speak-gif.7ba6ffc34a1c048133d5.gif",
@@ -26,11 +26,11 @@
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
     "static/media/cat_coin_move.png": "/TommyApp/static/media/cat_coin_move.11ca9490bb4e11c10748.png",
     "index.html": "/TommyApp/index.html",
-    "main.d293a0f4.css.map": "/TommyApp/static/css/main.d293a0f4.css.map",
+    "main.d8e18fce.css.map": "/TommyApp/static/css/main.d8e18fce.css.map",
     "main.a5d71416.js.map": "/TommyApp/static/js/main.a5d71416.js.map"
   },
   "entrypoints": [
-    "static/css/main.d293a0f4.css",
+    "static/css/main.d8e18fce.css",
     "static/js/main.a5d71416.js"
   ]
 }
