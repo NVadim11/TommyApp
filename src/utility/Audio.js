@@ -1,6 +1,5 @@
 import soundEffect from '../meow.mp3'
 const audio = new Audio(soundEffect)
-audio.play()
 
 const soundPlay = () => {	
 	audio.play();

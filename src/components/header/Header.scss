@@ -314,12 +314,6 @@ body::after {
 		width: 100%;
 		gap: 0.625rem;
 	}
-	.firstPlace {
-		color: #fff500;		
-	}
-	.firstPlaceBorder {
-		border: 0.125rem solid #fff500;
-	}
 	&__tableItem {
 		border: 0.125rem solid #fff;
 		display: flex;
@@ -329,6 +323,18 @@ body::after {
 		@media (max-width: $mobile) {
 			padding: 0.9375rem;
 			width: 17.3125rem;
+		}
+	}
+	&__tableItem:first-child {
+		border: 0.125rem solid #fff500;
+		.popupLeaderboard__id {
+			color: #fff500;	
+		}
+		.popupLeaderboard__playerName {
+			color: #fff500;	
+		}
+		.popupLeaderboard__coins {
+			color: #fff500;	
 		}
 	}
 	&__itemData {
