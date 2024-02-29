@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import catCoinMove from '../../img/cat_coin_move.png'
 import tomIdle from '../../img/idle-gif.gif'
 import tomSpeak from '../../img/speak-gif.gif'
@@ -9,6 +9,35 @@ function Main() {
 
     const [idleState, setidleState] = useState(true);
     const [currentImage, setCurrentImage] = useState(true);
+    const [currCoins, setCurrCoins] = useState(0);
+    const [currEnergy, setCurrEnergy] = useState(1000);
+    const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    const energyInterval = setInterval(() => {
+      if (currEnergy < 1000) {
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 1, 1000));
+      }
+    }, 1000);
+
+    return () => clearInterval(energyInterval);
+  }, [currEnergy]);
+
+  useEffect(() => {
+    if (idleState) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  }, [idleState]);
+
+  const coinClicker = (event) => {
+    soundPlay();
+    if (!event.isTrusted || currEnergy < 1) return;   
+        setCurrCoins(prevScore => prevScore + 1);
+        setCurrEnergy(prevEnergy => prevEnergy - 1);
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => setCurrentImage(true), 1000);
+  };
   
     const startFarm = () => {
         setCurrentImage(true)
@@ -20,9 +49,13 @@ function Main() {
         setidleState(!idleState);
     };
 
-    const firstClick = () => {
+    const firstClick = (event) => {
         setCurrentImage(false)
         soundPlay()
+        if (!event.isTrusted || currEnergy < 1) return;   
+        setCurrCoins(prevScore => prevScore + 1);
+        setCurrEnergy(prevEnergy => prevEnergy - 1);
+        timeoutRef.current = setTimeout(() => setCurrentImage(true), 1000);
     }
 
 	return (
@@ -63,20 +96,20 @@ function Main() {
                                     fill="white" />
                             </svg>
                             <div className="mainContent__energyValue">
-                                <p className="energyCount" id="energyCount">1000</p>
+                                <p className="energyCount" id="energyCount">{currEnergy}</p>
                                 <span>/</span>
                                 <p className="maximumEnergy" id="maximumEnergy">1000</p>
                             </div>
                         </div>
                         <div className="mainContent__energyBar">
-                            <progress className="filledBar" id="filledBar" max="1000" value="1000"></progress>
+                            <progress className="filledBar" id="filledBar" max="1000" value={currEnergy}></progress>
                         </div>
                     </div>
                     <div className="mainContent__catBox">
                     {currentImage === true ? (
                         <img id="catGif" onClick={firstClick} className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
                         ) : (
-                        <img id="catGif" onClick={soundPlay} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
+                        <img id="catGif" onClick={coinClicker} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
                         )}
                     </div>
                     {/* <div className="mainContent__sayBtn">
@@ -98,8 +131,8 @@ function Main() {
                         </button>
                     </div>
                     <div className="mainContent__coinBox">
-                    <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt={catCoinMove} draggable="false"/></div>
-                        <div className="mainContent__coinAmount"><span id="coinAmount">0</span></div>
+                    <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt="coin animation" draggable="false"/></div>
+                        <div className="mainContent__coinAmount"><span id="coinAmount">{currCoins}</span></div>
                     </div>
                     {/* <div className="mainContent__animation">
                         <div className="mainContent__coinOne">
