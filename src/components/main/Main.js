@@ -1,59 +1,34 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import catCoinMove from '../../img/cat_coin_move.png'
 import tomIdle from '../../img/idle-gif.gif'
 import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
 
-console.log("TEST COMMIT")
-
-
 function Main() {
 
-    const [isVisible, setIsVisible] = useState(true);
-    const [isFirstImage, setIsFirstImage] = useState(true);
-    let [coins, setCoins] = useState(0);
-    let [energy, setEnergy] = useState(1000);
+    const [idleState, setidleState] = useState(true);
+    const [currentImage, setCurrentImage] = useState(1);
   
-    const coinClickHandler = () => {
-      if (energy > 0) {
-        setCoins(coins += 1);
-        setEnergy(energy -= 1);
-      }
-    };
-  
-  
-    const toggleVisibility = () => {
-      setIsVisible(!isVisible);
+    const startFarm = () => {
+        setCurrentImage(1)
+        setidleState(!idleState);
     };
 
-    useEffect(() => {
-    let timerId;
-    const handleClick = () => {
-        coinClickHandler();
-        setIsFirstImage(false);
-        clearInterval(timerId);
-        timerId = setTimeout(() => {
-        setIsFirstImage(true);
-      }, 1000);
+    const stopFarm = () => {
+        setCurrentImage(2)
+        setidleState(!idleState);
     };
 
-    timerId = setTimeout(() => {
-      setIsFirstImage(true);
-    }, 1000);
-
-    document.addEventListener('click', handleClick);
-
-    return () => {
-      document.removeEventListener('click', handleClick);
-      clearInterval(timerId);
-    };
-  }, []);
+    const firstClick = () => {
+        setCurrentImage(2)
+        soundPlay()
+    }
 
 	return (
         <div className="mainContent">
             <div className="mainContent__container">
-            {isVisible ? (
+            {idleState ? (
                 <div className="mainContent__phaseOne">
                     <div className="mainContent__title">
                         <h4>Crypto Talking Tom</h4>
@@ -64,7 +39,7 @@ function Main() {
                             et dolore magna.
                         </p>
                     </div>
-                    <div className="mainContent__startBtn" onClick={toggleVisibility}>      
+                    <div className="mainContent__startBtn" onClick={startFarm}>      
                         <button>Start farm 
                                 <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
@@ -88,18 +63,18 @@ function Main() {
                                     fill="white" />
                             </svg>
                             <div className="mainContent__energyValue">
-                                <p className="energyCount" id="energyCount">{energy}</p>
+                                <p className="energyCount" id="energyCount">1000</p>
                                 <span>/</span>
                                 <p className="maximumEnergy" id="maximumEnergy">1000</p>
                             </div>
                         </div>
                         <div className="mainContent__energyBar">
-                            <progress className="filledBar" id="filledBar" max="1000" value={energy}></progress>
+                            <progress className="filledBar" id="filledBar" max="1000" value="1000"></progress>
                         </div>
                     </div>
                     <div className="mainContent__catBox">
-                    {isFirstImage ? (
-                        <img id="catGif" onClick={soundPlay} className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
+                    {currentImage === 1 ? (
+                        <img id="catGif" onClick={firstClick} className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
                         ) : (
                         <img id="catGif" onClick={soundPlay} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
                         )}
@@ -112,8 +87,8 @@ function Main() {
                             !
                         </button>
                     </div> */}
-                    <div className="mainContent__backBtn" onClick={toggleVisibility}>
-                        <button >
+                    <div className="mainContent__backBtn" onClick={stopFarm}>
+                        <button>
                             <span>
                             &lt; Stop Farm
                             </span>
@@ -124,7 +99,7 @@ function Main() {
                     </div>
                     <div className="mainContent__coinBox">
                     <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt={catCoinMove} draggable="false"/></div>
-                        <div className="mainContent__coinAmount"><span id="coinAmount">{coins}</span></div>
+                        <div className="mainContent__coinAmount"><span id="coinAmount">0</span></div>
                     </div>
                     {/* <div className="mainContent__animation">
                         <div className="mainContent__coinOne">
