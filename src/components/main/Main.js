@@ -80,9 +80,9 @@ function Main() {
             navigator.vibrate(50);
           }
         };
-        document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
+        document.querySelector("mainContent__catBox").addEventListener('touchstart', handleTap);    
         return () => {
-          document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
+          document.querySelector("mainContent__catBox").removeEventListener('touchstart', handleTap);
         };
       }, []);
 
