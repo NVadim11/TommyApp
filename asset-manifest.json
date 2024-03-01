@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TommyApp/static/css/main.2512617a.css",
-    "main.js": "/TommyApp/static/js/main.15ad02db.js",
+    "main.js": "/TommyApp/static/js/main.9e27e020.js",
     "static/media/idle-gif.gif": "/TommyApp/static/media/idle-gif.1f587eb1d75e6419c34c.gif",
     "static/media/speak-gif.gif": "/TommyApp/static/media/speak-gif.7ba6ffc34a1c048133d5.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
@@ -29,10 +29,10 @@
     "static/media/cat_coin.png": "/TommyApp/static/media/cat_coin.b12a525efe9f3830eea9.png",
     "index.html": "/TommyApp/index.html",
     "main.2512617a.css.map": "/TommyApp/static/css/main.2512617a.css.map",
-    "main.15ad02db.js.map": "/TommyApp/static/js/main.15ad02db.js.map"
+    "main.9e27e020.js.map": "/TommyApp/static/js/main.9e27e020.js.map"
   },
   "entrypoints": [
     "static/css/main.2512617a.css",
-    "static/js/main.15ad02db.js"
+    "static/js/main.9e27e020.js"
   ]
 }
