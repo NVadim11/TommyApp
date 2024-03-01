@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import catCoinMove from '../../img/cat_coin_move.png'
+import catCoin from '../../img/cat_coin.png'
 import tomIdle from '../../img/idle-gif.gif'
 import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
@@ -11,6 +12,7 @@ function Main() {
     const [currentImage, setCurrentImage] = useState(true);
     const [currCoins, setCurrCoins] = useState(0);
     const [currEnergy, setCurrEnergy] = useState(1000);
+    const [coinState, setCoinState] = useState(false);
     const timeoutRef = useRef(null);
 
   useEffect(() => {
@@ -32,11 +34,13 @@ function Main() {
 
   const coinClicker = (event) => {
     soundPlay();
+    setCoinState(true)
     if (!event.isTrusted || currEnergy < 1) return;   
         setCurrCoins(prevScore => prevScore + 1);
         setCurrEnergy(prevEnergy => prevEnergy - 1);
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1000);
+        timeoutRef.current = setTimeout(() => setCoinState(false), 2000);
   };
   
     const startFarm = () => {
@@ -47,6 +51,7 @@ function Main() {
     const stopFarm = () => {
         setCurrentImage(false)
         setidleState(!idleState);
+        setCoinState(false)
     };
 
     const firstClick = (event) => {
@@ -148,17 +153,18 @@ function Main() {
                     <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt="coin animation" draggable="false"/></div>
                         <div className="mainContent__coinAmount"><span id="coinAmount">{currCoins}</span></div>
                     </div>
-                    {/* <div className="mainContent__animation">
+                    {coinState && (
+                    <div className="mainContent__animation">
                         <div className="mainContent__coinOne">
-                            <img src="img/cat_coin_move.svg" alt=""/>
+                            <img src={catCoinMove} alt=""/>
                         </div>
                         <div className="mainContent__coinTwo">
-                            <img src="img/cat_coin.svg" alt=""/>
+                            <img src={catCoin} alt=""/>
                         </div>
                         <div className="mainContent__coinThree">
-                            <img src="img/cat_coin.svg" alt=""/>
+                            <img src={catCoin} alt=""/>
                         </div>
-                        <div className="mainContent__coinFour">
+                        {/* <div className="mainContent__coinFour">
                             <img src="img/cat_coin.svg" alt=""/>
                         </div>
                         <div className="mainContent__coinFive">
@@ -169,8 +175,9 @@ function Main() {
                         </div>
                         <div className="mainContent__coinSeven">
                             <img src="img/cat_coin.svg" alt=""/>
-                        </div>
-                    </div> */}
+                        </div> */}
+                    </div>
+                    )}
                 </div>
                   )}
             </div>
