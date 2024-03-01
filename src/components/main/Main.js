@@ -15,20 +15,18 @@ function Main() {
     const [currEnergy, setCurrEnergy] = useState(1000);
     const timeoutRef = useRef(null);
     const coinRef = useRef(null);
-
-    useEffect(() => {
-        if (setCurrentImage) {
-            const handleTap = () => {
-                if ('vibrate' in navigator) {
-                navigator.vibrate(50);
-                }
-            };
-            document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
-            return () => {
-                document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
-            };
-        }
-    }, [setCurrentImage]);
+    
+    // useEffect(() => {
+    //     const handleTap = () => {
+    //         if ('vibrate' in navigator) {
+    //         navigator.vibrate(50);
+    //         }
+    //     };
+    //     document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
+    //     return () => {
+    //         document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
+    //     };
+    // }, []);
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
