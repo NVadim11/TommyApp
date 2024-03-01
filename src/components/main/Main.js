@@ -58,6 +58,18 @@ function Main() {
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1000);
     }
 
+    useEffect(() => {
+        const handleTap = () => {
+          if ('vibrate' in navigator) {
+            navigator.vibrate(50);
+          }
+        };
+        document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
+        return () => {
+          document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
+        };
+      }, []);
+
 	return (
         <div className="mainContent">
             <div className="mainContent__container">
@@ -105,13 +117,15 @@ function Main() {
                             <progress className="filledBar" id="filledBar" max="1000" value={currEnergy}></progress>
                         </div>
                     </div>
-                    <div className="mainContent__catBox">
                     {currentImage === true ? (
-                        <img id="catGif" onClick={firstClick} className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
+                        <div className="mainContent__catBox" onClick={firstClick}>
+                        <img id="catGif" className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
+                        </div>
                         ) : (
-                        <img id="catGif" onClick={coinClicker} className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
+                        <div className="mainContent__catBox" onClick={coinClicker}>
+                        <img id="catGif" className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
+                        </div>
                         )}
-                    </div>
                     {/* <div className="mainContent__sayBtn">
                         <button>
                             Say
