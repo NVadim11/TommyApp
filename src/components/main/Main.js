@@ -17,16 +17,18 @@ function Main() {
     const coinRef = useRef(null);
 
     useEffect(() => {
-        const handleTap = () => {
-            if ('vibrate' in navigator) {
-            navigator.vibrate(50);
-            }
-        };
-        document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
-        return () => {
-            document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
-        };
-        }, []);
+        if (currentImage) {
+            const handleTap = () => {
+                if ('vibrate' in navigator) {
+                navigator.vibrate(50);
+                }
+            };
+            document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
+            return () => {
+                document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
+            };
+        }
+    }, [currentImage]);
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
