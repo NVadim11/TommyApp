@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TommyApp/static/css/main.99faed6d.css",
-    "main.js": "/TommyApp/static/js/main.f074ccf4.js",
+    "main.js": "/TommyApp/static/js/main.08887edc.js",
     "static/media/idle-gif.gif": "/TommyApp/static/media/idle-gif.1f587eb1d75e6419c34c.gif",
     "static/media/speak-gif.gif": "/TommyApp/static/media/speak-gif.7ba6ffc34a1c048133d5.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
@@ -28,10 +28,10 @@
     "static/media/cat_coin_move.png": "/TommyApp/static/media/cat_coin_move.11ca9490bb4e11c10748.png",
     "index.html": "/TommyApp/index.html",
     "main.99faed6d.css.map": "/TommyApp/static/css/main.99faed6d.css.map",
-    "main.f074ccf4.js.map": "/TommyApp/static/js/main.f074ccf4.js.map"
+    "main.08887edc.js.map": "/TommyApp/static/js/main.08887edc.js.map"
   },
   "entrypoints": [
     "static/css/main.99faed6d.css",
-    "static/js/main.f074ccf4.js"
+    "static/js/main.08887edc.js"
   ]
 }
