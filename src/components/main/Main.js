@@ -64,7 +64,7 @@ function Main() {
             {idleState ? (
                 <div className="mainContent__phaseOne">
                     <div className="mainContent__title">
-                        <h4>Crypto Talking Tom</h4>
+                        <h4>Tom The Cat</h4>
                     </div>
                     <div className="mainContent__descr">
                         <p>
