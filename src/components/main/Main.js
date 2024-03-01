@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
-import catCoinMove from '../../img/cat_coin_move.png'
 import catCoin from '../../img/cat_coin.png'
+import catCoinMove from '../../img/cat_coin_move.png'
 import tomIdle from '../../img/idle-gif.gif'
 import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
@@ -10,10 +10,11 @@ function Main() {
 
     const [idleState, setidleState] = useState(true);
     const [currentImage, setCurrentImage] = useState(true);
+    const [coinState, setCoinState] = useState(false);
     const [currCoins, setCurrCoins] = useState(0);
     const [currEnergy, setCurrEnergy] = useState(1000);
-    const [coinState, setCoinState] = useState(false);
     const timeoutRef = useRef(null);
+    const coinRef = useRef(null);
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
@@ -32,15 +33,34 @@ function Main() {
     }
   }, [idleState]);
 
-  const coinClicker = (event) => {
-    soundPlay();
-    setCoinState(true)
+  useEffect(() => {
+    if (coinState) {
+      clearTimeout(coinRef.current);
+      coinRef.current = null;
+    }
+  }, [coinState]);
+
+
+  const firstClick = (event) => {
     if (!event.isTrusted || currEnergy < 1) return;   
-        setCurrCoins(prevScore => prevScore + 1);
-        setCurrEnergy(prevEnergy => prevEnergy - 1);
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => setCurrentImage(true), 1000);
-        timeoutRef.current = setTimeout(() => setCoinState(false), 2000);
+    setCurrentImage(false)
+    soundPlay()
+    setCurrCoins(prevScore => prevScore + 1);
+    setCurrEnergy(prevEnergy => prevEnergy - 1);
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);    
+}
+
+  const coinClicker = (event) => {
+    if (!event.isTrusted || currEnergy < 1) return;    
+    setCoinState(true)
+    soundPlay();
+    setCurrCoins(prevScore => prevScore + 1);
+    setCurrEnergy(prevEnergy => prevEnergy - 1);
+    clearTimeout(timeoutRef.current);
+    clearTimeout(coinRef.current);
+    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
+    coinRef.current = setTimeout(() => setCoinState(false), 4000);
   };
   
     const startFarm = () => {
@@ -53,15 +73,6 @@ function Main() {
         setidleState(!idleState);
         setCoinState(false)
     };
-
-    const firstClick = (event) => {
-        setCurrentImage(false)
-        soundPlay()
-        if (!event.isTrusted || currEnergy < 1) return;   
-        setCurrCoins(prevScore => prevScore + 1);
-        setCurrEnergy(prevEnergy => prevEnergy - 1);
-        timeoutRef.current = setTimeout(() => setCurrentImage(true), 1000);
-    }
 
     useEffect(() => {
         const handleTap = () => {
