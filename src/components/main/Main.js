@@ -17,7 +17,7 @@ function Main() {
     const coinRef = useRef(null);
 
     useEffect(() => {
-        if (currentImage) {
+        if (setCurrentImage) {
             const handleTap = () => {
                 if ('vibrate' in navigator) {
                 navigator.vibrate(50);
@@ -28,7 +28,7 @@ function Main() {
                 document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
             };
         }
-    }, [currentImage]);
+    }, [setCurrentImage]);
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
