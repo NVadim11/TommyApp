@@ -15,6 +15,18 @@ function Main() {
     const [currEnergy, setCurrEnergy] = useState(1000);
     const timeoutRef = useRef(null);
     const coinRef = useRef(null);
+    
+    // useEffect(() => {
+    //     const handleTap = () => {
+    //         if ('vibrate' in navigator) {
+    //         navigator.vibrate(50);
+    //         }
+    //     };
+    //     document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
+    //     return () => {
+    //         document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
+    //     };
+    // }, []);
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
@@ -73,18 +85,6 @@ function Main() {
         setidleState(!idleState);
         setCoinState(false)
     };
-
-    useEffect(() => {
-        const handleTap = () => {
-          if ('vibrate' in navigator) {
-            navigator.vibrate(50);
-          }
-        };
-        document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
-        return () => {
-          document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
-        };
-      }, []);
 
 	return (
         <div className="mainContent">
