@@ -24,7 +24,14 @@ function Header() {
 
 	  const toggleVisibility = () => {
 		setIsShown(!isShown);
+		burgerAnimation(!isToggled);
 	  };
+
+	  const [isToggled, setIsToggled] = useState(false);
+
+	  const burgerAnimation = () => {
+		setIsToggled(!isToggled);
+	  }
 
 	  useEffect(() => {
 		const handleOutsideClick = (event) => {
@@ -79,8 +86,8 @@ function Header() {
 				</button>
 			</div>
 
-			<div className="header__mobileBurger" ref={containerRef}>
-				<div className="header__mobileBurger-btn" onClick={toggleVisibility}>
+			<div className="header__mobileBurger"  ref={containerRef} onClick={toggleVisibility}>
+				<div className={isToggled ? 'header__mobileBurger-btn is-active' : 'header__mobileBurger-btn'}>
 					<span className="header__mobileBurger-line"></span>
 					<span className="header__mobileBurger-line"></span>
 					<span className="header__mobileBurger-line"></span>

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TommyApp/static/css/main.62c42225.css",
-    "main.js": "/TommyApp/static/js/main.1d03d09f.js",
+    "main.js": "/TommyApp/static/js/main.6606f20e.js",
     "static/media/idle-gif.gif": "/TommyApp/static/media/idle-gif.1f587eb1d75e6419c34c.gif",
     "static/media/speak-gif.gif": "/TommyApp/static/media/speak-gif.7ba6ffc34a1c048133d5.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
@@ -29,10 +29,10 @@
     "static/media/meow.mp3": "/TommyApp/static/media/meow.80ab3b197a6061556c8e.mp3",
     "index.html": "/TommyApp/index.html",
     "main.62c42225.css.map": "/TommyApp/static/css/main.62c42225.css.map",
-    "main.1d03d09f.js.map": "/TommyApp/static/js/main.1d03d09f.js.map"
+    "main.6606f20e.js.map": "/TommyApp/static/js/main.6606f20e.js.map"
   },
   "entrypoints": [
     "static/css/main.62c42225.css",
-    "static/js/main.1d03d09f.js"
+    "static/js/main.6606f20e.js"
   ]
 }
