@@ -60,10 +60,10 @@ $desktop: 119.9988rem;
 		cursor: pointer;
 		z-index: 10;
 		transition: .25s;
-		margin-right: 4rem;
+		margin-right: -8rem;
 		@media (max-width: $desktop) {
 			font-size: 1.5rem;
-			margin-right: 1.5625rem;
+			margin-right: -11.25rem;
 		}
 		@media (max-width: $mobile) {
 			display: none;
@@ -78,8 +78,23 @@ $desktop: 119.9988rem;
 	&__mobileBtns {
 		display: flex;
 		align-items: center;
+		gap: 1.5625rem;
 		@media (max-width: $mobile) {
 			gap: 0.625rem;
+		}
+	}
+	&__totalScore {
+		font-weight: 600;
+		font-size: 1.25rem;
+		color: #fff;
+		span {
+			margin-left: 0.625rem;
+		}
+		@media (max-width: $desktop) {
+			font-size: 1rem;
+		}
+		@media (max-width: $mobile) {
+			display: none;
 		}
 	}
 	&__walletBtn {
