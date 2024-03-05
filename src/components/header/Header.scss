@@ -169,21 +169,21 @@ $desktop: 119.9988rem;
 
 .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(2){
 	opacity: 0;
-  }
+}
   
-  .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(1){
-	-webkit-transform: translateY(9px) rotate(45deg);
-	-ms-transform: translateY(9px) rotate(45deg);
-	-o-transform: translateY(9px) rotate(45deg);
-	transform: translateY(9px) rotate(45deg);
-  }
+.header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(1){
+	-webkit-transform: translateY(0.5625rem) rotate(45deg);
+	-ms-transform: translateY(0.5625rem) rotate(45deg);
+	-o-transform: translateY(0.5625rem) rotate(45deg);
+	transform: translateY(0.5625rem) rotate(45deg);
+}
   
-  .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(3){
-	-webkit-transform: translateY(-7px) rotate(-45deg);
-	-ms-transform: translateY(-7px) rotate(-45deg);
-	-o-transform: translateY(-7px) rotate(-45deg);
-	transform: translateY(-7px) rotate(-45deg);
-  }
+.header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(3){
+	-webkit-transform: translateY(-0.4375rem) rotate(-45deg);
+	-ms-transform: translateY(-0.4375rem) rotate(-45deg);
+	-o-transform: translateY(-0.4375rem) rotate(-45deg);
+	transform: translateY(-0.4375rem) rotate(-45deg);
+}
 
 	// Leaderboard
 

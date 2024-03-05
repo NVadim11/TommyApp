@@ -37,6 +37,7 @@ function Header() {
 		const handleOutsideClick = (event) => {
 		  if (containerRef.current && !containerRef.current.contains(event.target)) {
 			setIsShown(false);
+			setIsToggled(false);
 		  }
 		};
 	
