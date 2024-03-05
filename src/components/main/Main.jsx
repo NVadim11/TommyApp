@@ -175,13 +175,13 @@ function Main() {
                         <div className="mainContent__coinThree">
                             <img src={catCoin} alt=""/>
                         </div>
-                        {/* <div className="mainContent__coinFour">
-                            <img src="img/cat_coin.svg" alt=""/>
+                        <div className="mainContent__coinFour">
+                            <img src={catCoin} alt=""/>
                         </div>
                         <div className="mainContent__coinFive">
-                            <img src="img/cat_coin.svg" alt=""/>
+                            <img src={catCoin} alt=""/>
                         </div>
-                        <div className="mainContent__coinSix">
+                        {/* <div className="mainContent__coinSix">
                             <img src="img/cat_coin.svg" alt=""/>
                         </div>
                         <div className="mainContent__coinSeven">
