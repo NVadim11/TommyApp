@@ -98,20 +98,21 @@ $desktop: 119.9988rem;
 		}
 	}
 	&__walletBtn {
-		button {
-			font-weight: 600;
-			font-size: 1.25rem;
-			border: 0.125rem solid #fff;
-			border-radius: 3.75rem;
-			z-index: 10;
+		.wallet-adapter-button {
+			background: transparent!important;
+			font-weight: 600!important;
+			font-size: 1.25rem!important;
+			border: 0.125rem solid #fff!important;
+			border-radius: 3.75rem!important;
+			z-index: 10!important;
 			cursor: pointer;
-			transition: .25s;
-			padding: 1.5625rem 1.5625rem 1.4375rem 1.5625rem;
+			transition: .25s!important;
+			padding: 1.5625rem 1.5625rem 1.4375rem 1.5625rem!important;
 			@media (max-width: $desktop) {
-				padding: 1.5625rem 1.5625rem 1.4375rem 1.5625rem;
+				padding: 1.5625rem 1.5625rem 1.4375rem 1.5625rem!important;
 			}
 			@media (max-width: $mobile) {
-				padding: 0.625rem 0.9375rem 0.5rem 0.9375rem;
+				padding: 0.625rem 0.9375rem 0.5rem 0.9375rem!important;
 			}
 		}
 		span {
@@ -125,7 +126,7 @@ $desktop: 119.9988rem;
 				display: flex;
 			}
 		}
-		button:hover {
+		.wallet-adapter-button:hover {
 			transition: .25s;
 			color: #000000;
 			background-color: #ffffff;
@@ -134,7 +135,7 @@ $desktop: 119.9988rem;
 				background-color: transparent;
 			}
 		}
-	}
+	}	
 
 // Burger menu
 	&__mobileBurger-btn {
@@ -180,6 +181,11 @@ $desktop: 119.9988rem;
 	&__mobileMenu-links:last-child {
 		border-bottom: none;
 	}
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+	background-color: #fff!important;
+	color: #000000!important;
 }
 
 .header__mobileBurger-btn.is-active .header__mobileBurger-line:nth-child(2){
