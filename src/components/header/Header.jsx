@@ -1,7 +1,6 @@
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import React, { useEffect, useRef, useState } from "react"
 import logo from '../../img/logo.svg'
-import SolanaWalletButton from '../PostTest'
 import './Header.scss'
 
 function Header() {
@@ -84,7 +83,6 @@ function Header() {
 						169020
 					</span>
 					</div>
-					<SolanaWalletButton />
 					<div className="header__walletBtn">
       		<WalletMultiButton />
 					</div>

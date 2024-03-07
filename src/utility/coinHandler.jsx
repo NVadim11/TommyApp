@@ -1,24 +1,20 @@
 import { useWallet } from '@solana/wallet-adapter-react'
-
 import axios from 'axios'
-import { useState } from 'react'
 
-
-function SolanaWalletButton() {
-  const { publicKey } = useWallet();
-  const [isLoading, setIsLoading] = useState(false);
+  const { publicKey, wallet } = useWallet();
 
   const postKey = publicKey?.toBase58();
+  const walletName = wallet.adapter.name;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
+  const coinSubmitHandler = async (event) => {
+    event.preventDefault(); 
 
     try {
       const response = await axios.post(
         'https://admin.prodtest1.space/api/users',
         {
           walletAddress: postKey,
+          walletName: walletName
         },
         {
           headers: {
@@ -38,14 +34,5 @@ function SolanaWalletButton() {
       setIsLoading(false);
     }
   };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <button type="submit" disabled={!publicKey || isLoading}>
-        {isLoading ? 'Loading...' : 'Submit'}
-      </button>
-    </form>
-  );
-}
-
-export default SolanaWalletButton;
+  
+  export default coinSubmitHandler;
