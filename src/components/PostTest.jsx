@@ -1,32 +1,33 @@
 import { useWallet } from '@solana/wallet-adapter-react'
+
 import axios from 'axios'
 import { useState } from 'react'
 
 
 function SolanaWalletButton() {
-  const { publicKey, wallet } = useWallet();
+  const { publicKey } = useWallet();
   const [isLoading, setIsLoading] = useState(false);
 
   const postKey = publicKey?.toBase58();
-  const postName = wallet?.name;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://admin.prodtest1.space/api/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        'https://admin.prodtest1.space/api/users',
+        {
           walletAddress: postKey,
-          walletName: postName,	
-        }),
-      });
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error('Failed to submit data');
       }
 
