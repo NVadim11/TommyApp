@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.213c36c4.css",
-    "main.js": "/TommyApp/static/js/main.31f6b182.js",
+    "main.css": "/TommyApp/static/css/main.2070bc0b.css",
+    "main.js": "/TommyApp/static/js/main.7bda311d.js",
     "static/js/620.b2b70518.chunk.js": "/TommyApp/static/js/620.b2b70518.chunk.js",
     "static/js/280.2fc3b2ee.chunk.js": "/TommyApp/static/js/280.2fc3b2ee.chunk.js",
     "static/js/609.b33b505a.chunk.js": "/TommyApp/static/js/609.b33b505a.chunk.js",
-    "static/js/604.8ad27ff5.chunk.js": "/TommyApp/static/js/604.8ad27ff5.chunk.js",
+    "static/js/604.c5608bbf.chunk.js": "/TommyApp/static/js/604.c5608bbf.chunk.js",
     "static/media/idle-gif.gif": "/TommyApp/static/media/idle-gif.1f587eb1d75e6419c34c.gif",
     "static/media/speak-gif.gif": "/TommyApp/static/media/speak-gif.7ba6ffc34a1c048133d5.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
@@ -34,7 +34,7 @@
     "index.html": "/TommyApp/index.html"
   },
   "entrypoints": [
-    "static/css/main.213c36c4.css",
-    "static/js/main.31f6b182.js"
+    "static/css/main.2070bc0b.css",
+    "static/js/main.7bda311d.js"
   ]
 }
