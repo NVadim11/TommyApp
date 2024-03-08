@@ -445,6 +445,12 @@ $desktop: 1919.98px;
 			height: 7rem;   
 			left: 1.25rem;
 			margin-top: 10rem;
+			@media (max-width: $mobile) {
+				width: 2.6875rem;
+				height: 2.625rem;
+				left: 11.25rem;
+				animation: 2.4s linear 0s infinite coinOne;
+			}
 			img {
 					max-width: 100%;
 			}
@@ -456,6 +462,12 @@ $desktop: 1919.98px;
 			width: 5.3125rem;
 			height: 6.5rem;  
 			margin-top: 10rem;
+			@media (max-width: $mobile) {
+				right: 11rem;
+				width: 2.8125rem;
+				height: 4rem;  
+				animation: 3.6s linear 0s infinite coinTwo;
+			}
 			img {
 					max-width: 100%;
 			} 
@@ -463,10 +475,16 @@ $desktop: 1919.98px;
 	&__coinThree {
 			position: absolute;
 			animation: 4s linear 0s infinite coinThree;
-			width: 45px;
-			height: 64px; 
+			width: 2.8125rem;
+			height: 4rem; 
 			left: 30%; 
 			margin-top: 15rem;
+			@media (max-width: $mobile) {
+				left: 35%; 
+				animation: 4.6s linear 0s infinite coinThree;
+				width: 2.1875rem;
+				height: 3.375rem; 
+			}
 			img {
 					max-width: 100%;
 			} 
@@ -527,7 +545,7 @@ $desktop: 1919.98px;
 	}
 	to {
 			transform: translateY(40rem);
-			opacity: 0;
+			opacity: 0.8;
 	}
 }
 
