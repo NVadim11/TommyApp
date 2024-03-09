@@ -1,10 +1,15 @@
+import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import axios from 'axios'
 import React, { useEffect, useRef, useState } from "react"
 import logo from '../../img/logo.svg'
-import './Header.scss'
 import { toggleMuteAllSounds } from '../../utility/Audio'
+import './Header.scss'
 
 function Header() {
+	const { publicKey, connected } = useWallet();
+  const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
+  const postKey = publicKey?.toBase58();
 
 	const [isVisible, setIsVisible] = useState(true);
       
@@ -12,8 +17,34 @@ function Header() {
 		toggleMuteAllSounds();
 		setIsVisible(!isVisible);
 	};
+	
+	const connectSubmitHandler = async () => {
+    try {
+      const response = await axios.post(
+        'https://admin.prodtest1.space/api/users',
+        {
+          walletAddress: postKey,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      if (response.status !== 200) {
+        throw new Error('Failed to submit data');
+      }
+      console.log('Data submitted successfully');
+    } catch (error) {
+      console.error('Error submitting data:', error.message);
+    }
+  };
 
-	const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
+  useEffect(() => {
+    if (connected === true) {
+      connectSubmitHandler();
+    }
+  }, [connected]); // 
 
 	function leaderboardOpenToggler() {	
 		setLeaderboardOpen(true)
