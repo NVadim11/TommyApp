@@ -4,7 +4,6 @@ import catCoinMove from '../../img/cat_coin_move.png'
 import tomIdle from '../../img/idle-gif.gif'
 import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
-// import coinSubmitHandler from '../../utility/coinHandler'
 import './Main.scss'
 
 function Main() {
@@ -16,6 +15,18 @@ function Main() {
     const [currEnergy, setCurrEnergy] = useState(1000);
     const timeoutRef = useRef(null);
     const coinRef = useRef(null);
+    
+    // useEffect(() => {
+    //     const handleTap = () => {
+    //         if ('vibrate' in navigator) {
+    //         navigator.vibrate(50);
+    //         }
+    //     };
+    //     document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
+    //     return () => {
+    //         document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
+    //     };
+    // }, []);
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
@@ -41,6 +52,7 @@ function Main() {
     }
   }, [coinState]);
 
+
   const firstClick = (event) => {
     if (!event.isTrusted || currEnergy < 1) return;   
     setCurrentImage(false)
@@ -48,7 +60,7 @@ function Main() {
     setCurrCoins(prevScore => prevScore + 1);
     setCurrEnergy(prevEnergy => prevEnergy - 1);
     clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
+    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);    
 }
 
   const coinClicker = (event) => {
@@ -74,7 +86,7 @@ function Main() {
         setCoinState(false)
     };
 
-return (
+	return (
         <div className="mainContent">
             <div className="mainContent__container">
             {idleState ? (
@@ -130,6 +142,14 @@ return (
                         <img id="catGif" className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
                         </div>
                         )}
+                    {/* <div className="mainContent__sayBtn">
+                        <button>
+                            Say
+                            <img className="mainContent__sayImg" src={smile} alt={smile}/>
+                            <img className="mainContent__sayImgHov" src={smileHov} alt={smileHov}/>
+                            !
+                        </button>
+                    </div> */}
                     <div className="mainContent__backBtn" onClick={stopFarm}>
                         <button>
                             <span>
@@ -173,7 +193,7 @@ return (
                   )}
             </div>
         </div>
-    )
+	)
 }
 
 export default Main;

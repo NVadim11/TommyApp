@@ -2,6 +2,7 @@
 $mobile: 87.4988rem;
 $desktop: 119.9988rem;
 
+
 .header {
 	background: transparent;
 	width: 100%;
@@ -30,6 +31,9 @@ $desktop: 119.9988rem;
 			width: 100%;
 			padding: 0 1.25rem;
 		}
+		@media (max-width: 26.25rem) {
+			justify-content: flex-end;
+		}
 	}
 	&__logo {
 		cursor: pointer;
@@ -43,6 +47,9 @@ $desktop: 119.9988rem;
 		@media (max-width: $mobile) {
 			height: 1.375rem;
 			width: 8.5rem;
+		}
+		@media (max-width: 26.25rem) {
+			display: none;
 		}
 		img {
 			width: 100%;
@@ -98,6 +105,9 @@ $desktop: 119.9988rem;
 		}
 	}
 	&__walletBtn {
+		.wallet-adapter-button-start-icon {
+			margin-right: 6px!important;
+		}
 		.wallet-adapter-button {
 			background: transparent!important;
 			font-weight: 600!important;
@@ -113,6 +123,7 @@ $desktop: 119.9988rem;
 			}
 			@media (max-width: $mobile) {
 				padding: 0.625rem 0.9375rem 0.5rem 0.9375rem!important;
+				font-size: 1rem!important;
 			}
 		}
 		span {
