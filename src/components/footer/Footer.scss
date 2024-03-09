@@ -3,6 +3,11 @@ $mobile: 1399.98px;
 $desktop: 1919.98px;
 
 .footer {
+	.soundToggler {
+		@media (max-width: $mobile) {
+			display: none;
+		}
+	}
 	display: flex;
 	width: 120rem;
 	margin: 0 auto;
