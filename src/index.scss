@@ -5,13 +5,16 @@
 .wrapper {
 	background-color: #000000;
 	position: relative;
+<<<<<<< HEAD
   min-height: 100%;
+=======
 	background-image: url("img/bg.png");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 	position: relative;
   	min-height: 100%;
+>>>>>>> 970e607d70edf2b27bac3f8bedf32b09ca1b2f46
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
