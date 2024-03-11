@@ -41,17 +41,22 @@ const Code = ({ setIsValid, isValid, setRef }) => {
   const [codeVal, setCodeVal] = useState("");
 
   const onCodeChange = (val) => {
-    setCodeVal(val)
+    setCodeVal(val);
     if (val.length === 5) {
       setIsValid(true);
-      setRef(true)
+      setRef(true);
     } else {
       setIsValid(false);
     }
   };
   return (
     <DefaultContainer>
-      <Box display="flex" alignItems={"center"} flexDirection="column" sx={{mb: {lg: '160px', xs: "80px"}}}>
+      <Box
+        display="flex"
+        alignItems={"center"}
+        flexDirection="column"
+        sx={{ mb: { lg: "160px", xs: "80px" } }}
+      >
         <Typography
           variant="h2"
           sx={{ maxWidth: "680px", textAlign: "center", mb: "60px" }}
@@ -65,7 +70,9 @@ const Code = ({ setIsValid, isValid, setRef }) => {
           autoFocus={false}
           {...props}
         />
-        <Typography variant="h5" sx={{mt: '60px'}}>Already registered?</Typography>
+        <Typography variant="h5" sx={{ mt: "60px" }}>
+          Already registered?
+        </Typography>
         <Typography variant="body2">Log in with your wallet.</Typography>
       </Box>
     </DefaultContainer>
