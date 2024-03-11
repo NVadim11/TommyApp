@@ -5,10 +5,7 @@
 .wrapper {
 	background-color: #000000;
 	position: relative;
-	background-image: url("img/bg.png");
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
+  min-height: 100%;
 	position: relative;
   	min-height: 100%;
 	display: flex;
@@ -152,6 +149,14 @@
 	font-display: swap;
 	src: local('Grandstander'), url("/fonts/Grandstander-Thin.ttf") format("truetype");
 	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: WorkSans;
+	font-display: swap;
+	src: local('WorkSans'), url("/fonts/WorkSans-Medium.ttf") format("truetype");
+	font-weight: 500;
 	font-style: normal;
 }
 
