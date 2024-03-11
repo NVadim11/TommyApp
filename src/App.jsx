@@ -1,24 +1,24 @@
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { ThemeProvider } from "@emotion/react"
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base"
 import {
   ConnectionProvider,
   WalletProvider,
-} from "@solana/wallet-adapter-react";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import "@solana/wallet-adapter-react-ui/styles.css";
+} from "@solana/wallet-adapter-react"
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui"
+import "@solana/wallet-adapter-react-ui/styles.css"
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
   TorusWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from "@solana/web3.js";
-import React, { useMemo } from "react";
-import "./App.scss";
-import Footer from "./components/footer/Footer";
-import Header from "./components/header/Header";
-import Main from "./components/main/Main";
-import Landing from "./components/Landing";
-import { ThemeProvider } from "@emotion/react";
-import { theme } from "./theme";
+} from "@solana/wallet-adapter-wallets"
+import { clusterApiUrl } from "@solana/web3.js"
+import React, { useMemo } from "react"
+import "./App.scss"
+import Landing from "./components/Landing"
+import Footer from "./components/footer/Footer"
+import Header from "./components/header/Header"
+import Main from "./components/main/Main"
+import { theme } from "./theme"
 
 function App() {
   return (
@@ -59,8 +59,8 @@ const Content = () => {
     <div className="wrapper">
       <Header />
       <main className="main">
-        <Main />
-        <Footer />
+      <Main />
+      <Footer />
       </main>
       <Landing />
     </div>

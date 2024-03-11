@@ -1,3 +1,4 @@
+import { useWallet } from '@solana/wallet-adapter-react'
 import React, { useEffect, useRef, useState } from "react"
 import catCoin from '../../img/cat_coin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
@@ -8,25 +9,16 @@ import './Main.scss'
 
 function Main() {
 
-    const [idleState, setidleState] = useState(true);
-    const [currentImage, setCurrentImage] = useState(true);
-    const [coinState, setCoinState] = useState(false);
-    const [currCoins, setCurrCoins] = useState(0);
-    const [currEnergy, setCurrEnergy] = useState(1000);
-    const timeoutRef = useRef(null);
-    const coinRef = useRef(null);
-    
-    // useEffect(() => {
-    //     const handleTap = () => {
-    //         if ('vibrate' in navigator) {
-    //         navigator.vibrate(50);
-    //         }
-    //     };
-    //     document.querySelector(".mainContent__catBox").addEventListener('touchstart', handleTap);    
-    //     return () => {
-    //         document.querySelector(".mainContent__catBox").removeEventListener('touchstart', handleTap);
-    //     };
-    // }, []);
+const [idleState, setidleState] = useState(true);
+const [currentImage, setCurrentImage] = useState(true);
+const [coinState, setCoinState] = useState(false);
+const [currCoins, setCurrCoins] = useState(0);
+const [currEnergy, setCurrEnergy] = useState(1000);
+const timeoutRef = useRef(null);
+const coinRef = useRef(null);  
+
+const { publicKey, connected } = useWallet();
+const walletAddress = publicKey?.toBase58();
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
@@ -76,8 +68,12 @@ function Main() {
   };
   
     const startFarm = () => {
-        setCurrentImage(true)
-        setidleState(!idleState);
+        if (connected === true) {
+            setCurrentImage(true)
+            setidleState(!idleState);   
+		} else {
+            alert("please connect wallet");
+        } 
     };
 
     const stopFarm = () => {
@@ -142,14 +138,6 @@ function Main() {
                         <img id="catGif" className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
                         </div>
                         )}
-                    {/* <div className="mainContent__sayBtn">
-                        <button>
-                            Say
-                            <img className="mainContent__sayImg" src={smile} alt={smile}/>
-                            <img className="mainContent__sayImgHov" src={smileHov} alt={smileHov}/>
-                            !
-                        </button>
-                    </div> */}
                     <div className="mainContent__backBtn" onClick={stopFarm}>
                         <button>
                             <span>
