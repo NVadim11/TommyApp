@@ -451,6 +451,12 @@ $desktop: 1919.98px;
 			height: 7rem;   
 			left: 1.25rem;
 			margin-top: 10rem;
+			@media (max-width: $mobile) {
+				width: 2.6875rem;
+				height: 2.625rem;
+				left: 11.25rem;
+				animation: 2.4s linear 0s infinite coinOne;
+			}
 			img {
 					max-width: 100%;
 			}
@@ -462,6 +468,12 @@ $desktop: 1919.98px;
 			width: 5.3125rem;
 			height: 6.5rem;  
 			margin-top: 10rem;
+			@media (max-width: $mobile) {
+				right: 11rem;
+				width: 2.8125rem;
+				height: 4rem;  
+				animation: 3.6s linear 0s infinite coinTwo;
+			}
 			img {
 					max-width: 100%;
 			} 
@@ -469,10 +481,16 @@ $desktop: 1919.98px;
 	&__coinThree {
 			position: absolute;
 			animation: 4s linear 0s infinite coinThree;
-			width: 45px;
-			height: 64px; 
+			width: 2.8125rem;
+			height: 4rem; 
 			left: 30%; 
 			margin-top: 15rem;
+			@media (max-width: $mobile) {
+				left: 35%; 
+				animation: 4.6s linear 0s infinite coinThree;
+				width: 2.1875rem;
+				height: 3.375rem; 
+			}
 			img {
 					max-width: 100%;
 			} 
@@ -526,6 +544,57 @@ $desktop: 1919.98px;
 	}
 }
 
+
+
+.mainFooter {
+	display: flex;
+	// width: 120rem;
+	// margin: 0 auto;
+	// padding: 1.75rem 0;
+		@media (max-width: $desktop) {
+			// width: 90rem;
+		}
+		@media (max-width: $mobile) {
+			margin-top: 1.875rem;
+			padding: 0;
+		}
+	&__container {
+		// padding: 0 15.125rem;
+		width: 100%;
+		display: flex;
+		// justify-content: space-between;
+		// align-items: center;
+		@media (max-width: $desktop) {
+			// padding: 0 8.125rem;
+		}
+	}
+	&__socials {
+		display: flex;
+		flex-direction: row;
+		gap: 0.75rem;
+		@media (max-width: $mobile) {
+			display: none;
+		}
+	}
+	&__link {
+		border: 0.125rem solid #fff;
+		border-radius: 3.75rem;
+		padding: 1rem 1.0625rem 0.875rem 0.8125rem;
+		width: 3.125rem;
+		height: 3.125rem;
+		font-weight: 600;
+		font-size: 1rem;
+		text-transform: uppercase;
+		color: #fff;
+	}
+	&__link:hover {
+		transition: .25s;
+		color: #000000;
+		background-color: #ffffff;
+		cursor: pointer;
+	}
+}
+
 @keyframes coinOne {
 	from {
 			transform: translateY(0px);
@@ -533,7 +602,7 @@ $desktop: 1919.98px;
 	}
 	to {
 			transform: translateY(40rem);
-			opacity: 0;
+			opacity: 0.8;
 	}
 }
 
