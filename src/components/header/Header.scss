@@ -8,6 +8,11 @@ $desktop: 119.9988rem;
 		@media (max-width: $mobile) {
 			display: block;
 		}
+		@media (max-width: 26.25rem) {
+			position: absolute;
+			left: 0;
+			margin-left: 1.25rem;
+		}
 	}
 	background: transparent;
 	width: 100%;
