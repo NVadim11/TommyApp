@@ -16,6 +16,30 @@ function Header() {
 	const [isVisible, setIsVisible] = useState(true);
     const intervalRef = useRef(null);
 
+    const [isElementPresent, setIsElementPresent] = useState(false);
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutationsList) => {
+      mutationsList.forEach((mutation) => {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          const targetElement = document.getElementById('header__totalScore');
+          if (targetElement) {
+            setIsElementPresent(true);
+          }
+        } else if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
+          const targetElement = document.getElementById('header__totalScore');
+          if (!targetElement) {
+            setIsElementPresent(false);
+          }
+        }
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
+
     const wallet_address = publicKey?.toBase58();
 
     const toggleVisibilitySound = () => {
@@ -143,14 +167,14 @@ function Header() {
                             <img src={logo} alt={logo}/>
                         </a>
                     </div>
-                    <div className="header__leaderboard">
+                    <div className={isElementPresent ? "header__leaderboard header__leaderboardCenter" : "header__leaderboard"}>
                         <button onClick={leaderBordBtn}>
                             Leaderboard
                         </button>
                     </div>
                     <div className="header__mobileBtns">
                         {connected && totalPoints !== null && (
-                            <div className="header__totalScore">
+                            <div id="header__totalScore" className="header__totalScore">
                                 Total Points: <span>{totalPoints}</span>
                             </div>
                         )}

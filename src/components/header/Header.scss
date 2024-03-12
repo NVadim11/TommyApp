@@ -85,9 +85,18 @@ $desktop: 119.9988rem;
 		cursor: pointer;
 		z-index: 10;
 		transition: .25s;
-		margin-right: -9.6rem;
+		// margin-right: -9.6rem;
 		@media (max-width: $desktop) {
 			font-size: 1.5rem;
+			// margin-right: -11.25rem;
+		}
+		@media (max-width: $mobile) {
+			display: none;
+		}
+	}
+	&__leaderboardCenter {
+		margin-right: -9.6rem;
+		@media (max-width: $desktop) {
 			margin-right: -11.25rem;
 		}
 		@media (max-width: $mobile) {
