@@ -30,12 +30,9 @@ function Header() {
                 { wallet_address: wallet_address },
                 { headers: { 'Content-Type': 'application/json' } }
             );
-            if (response.status !== 201) {
-                throw new Error('Failed to submit data');
-            }
-            console.log('Data submitted successfully');
+            console.log('wallet_address submitted successfully');
         } catch (error) {
-            console.error('Error submitting data:', error.message);
+            console.error('Error submitting wallet_address:', error.message);
         }
     };
 
@@ -43,9 +40,9 @@ function Header() {
         try {
             const response = await axios.get(`https://admin.prodtest1.space/api/users/${wallet_address}`);
             setTotalPoints(response.data?.wallet_balance);
-            console.log('Data requested successfully');
+            console.log('totalPoints requested successfully');
         } catch (error) {
-            console.error('Error requesting data:', error.message);
+            console.error('Error requesting totalPoints:', error.message);
         }
     };
 

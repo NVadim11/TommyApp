@@ -1,4 +1,5 @@
 import { useWallet } from '@solana/wallet-adapter-react'
+import axios from 'axios'
 import React, { useEffect, useRef, useState } from "react"
 import catCoin from '../../img/cat_coin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
@@ -8,76 +9,96 @@ import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
 function Main() {
 
-const [idleState, setidleState] = useState(true);
-const [currentImage, setCurrentImage] = useState(true);
-const [coinState, setCoinState] = useState(false);
-const [currCoins, setCurrCoins] = useState(0);
-const [currEnergy, setCurrEnergy] = useState(1000);
-const timeoutRef = useRef(null);
-const coinRef = useRef(null);  
+    const [idleState, setidleState] = useState(true);
+    const [currentImage, setCurrentImage] = useState(true);
+    const [coinState, setCoinState] = useState(false);
+    const [currCoins, setCurrCoins] = useState(0);
+    const [currEnergy, setCurrEnergy] = useState(1000);
+    const [isCoinsChanged, setIsCoinsChanged] = useState(false);
+    const timeoutRef = useRef(null);
+    const coinRef = useRef(null);  
+    
+    const { publicKey, connected } = useWallet();
+    const wallet_address = publicKey?.toBase58();
 
-const { publicKey, connected } = useWallet();
-const walletAddress = publicKey?.toBase58();
-
-  useEffect(() => {
-    const energyInterval = setInterval(() => {
-      if (currEnergy < 1000) {
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 1, 1000));
+    useEffect(() => {
+        const energyInterval = setInterval(() => {
+          if (currEnergy < 1000) {
+            setCurrEnergy(prevEnergy => Math.min(prevEnergy + 1, 1000));
+          }
+        }, 1000);
+    
+        return () => clearInterval(energyInterval);
+      }, [currEnergy]);
+    
+    useEffect(() => {
+        const timer = setTimeout(() => {
+          if (isCoinsChanged) {
+            submitData();
+            setIsCoinsChanged(false);
+          }
+        }, 10000);
+        return () => clearTimeout(timer);
+      }, [currCoins, wallet_address, isCoinsChanged]);
+    
+    const submitData = async () => {
+        try {
+          const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
+            score: currCoins,
+            wallet_address: wallet_address
+          });
+    
+          console.log('Coins submitted successfully:', response.data);
+          // You can handle the response here
+        } catch (error) {
+          console.error('Error submitting coins:', error);
+          // You can handle errors here
+        }
+    };
+    
+    const updateCurrCoins = (newCoins) => {
+      if (newCoins !== currCoins) {
+        setCurrCoins(newCoins);
+        setIsCoinsChanged(true);
       }
-    }, 1000);
-
-    return () => clearInterval(energyInterval);
-  }, [currEnergy]);
-
-  useEffect(() => {
-    if (idleState) {
+    };
+    
+    const firstClick = (event) => {
+      if (!event.isTrusted || currEnergy < 1) return;   
+      setCurrentImage(false)
+      const newCoinCount = currCoins + 1;
+      updateCurrCoins(newCoinCount);
+      soundPlay();
+      setCurrEnergy(prevEnergy => prevEnergy - 1);
       clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
+      timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);    
     }
-  }, [idleState]);
-
-  useEffect(() => {
-    if (coinState) {
+    
+    const coinClicker = (event) => {
+      if (!event.isTrusted || currEnergy < 1) return;    
+      setCoinState(true);
+      const newCoinCount = currCoins + 1;
+      updateCurrCoins(newCoinCount);
+      soundPlay();
+      setCurrEnergy(prevEnergy => prevEnergy - 1);
+      clearTimeout(timeoutRef.current);
       clearTimeout(coinRef.current);
-      coinRef.current = null;
-    }
-  }, [coinState]);
-
-
-  const firstClick = (event) => {
-    if (!event.isTrusted || currEnergy < 1) return;   
-    setCurrentImage(false)
-    soundPlay()
-    setCurrCoins(prevScore => prevScore + 1);
-    setCurrEnergy(prevEnergy => prevEnergy - 1);
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);    
-}
-
-  const coinClicker = (event) => {
-    if (!event.isTrusted || currEnergy < 1) return;    
-    setCoinState(true)
-    soundPlay();
-    setCurrCoins(prevScore => prevScore + 1);
-    setCurrEnergy(prevEnergy => prevEnergy - 1);
-    clearTimeout(timeoutRef.current);
-    clearTimeout(coinRef.current);
-    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
-    coinRef.current = setTimeout(() => setCoinState(false), 4000);
-  };
-  
+      timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
+      coinRef.current = setTimeout(() => setCoinState(false), 4000);
+    };
+    
     const startFarm = () => {
         if (connected === true) {
             setCurrentImage(true)
-            setidleState(!idleState);   
-		} else {
+            setidleState(prevState => !prevState);   
+        } else {
             alert("please connect wallet");
         } 
     };
-
+    
     const stopFarm = () => {
         setCurrentImage(false)
-        setidleState(!idleState);
+        setidleState(prevState => !prevState);
         setCoinState(false)
     };
 
