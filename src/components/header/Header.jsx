@@ -75,6 +75,7 @@ function Header() {
             setTotalPoints(null);
             connectSubmitHandler();
             totalPointsFetch();
+            localStorage.setItem("wallet_id", wallet_address);
         }
     }, [connected, wallet_address]);
 

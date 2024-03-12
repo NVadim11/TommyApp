@@ -10,97 +10,104 @@ import './Main.scss'
 function Main() {
 
     const [idleState, setidleState] = useState(true);
-    const [currentImage, setCurrentImage] = useState(true);
-    const [coinState, setCoinState] = useState(false);
-    const [currCoins, setCurrCoins] = useState(0);
-    const [currEnergy, setCurrEnergy] = useState(1000);
-    const [isCoinsChanged, setIsCoinsChanged] = useState(false);
-    const timeoutRef = useRef(null);
-    const coinRef = useRef(null);  
-    
-    const { publicKey, connected } = useWallet();
-    const wallet_address = publicKey?.toBase58();
+const [currentImage, setCurrentImage] = useState(true);
+const [coinState, setCoinState] = useState(false);
+const [currCoins, setCurrCoins] = useState(0);
+const [currEnergy, setCurrEnergy] = useState(1000);
+const [isCoinsChanged, setIsCoinsChanged] = useState(false);
+const timeoutRef = useRef(null);
+const coinRef = useRef(null);
+const accumulatedCoinsRef = useRef(0); // To accumulate coins
 
-    useEffect(() => {
-        const energyInterval = setInterval(() => {
-          if (currEnergy < 1000) {
+const { publicKey, connected } = useWallet();
+const wallet_address = publicKey?.toBase58();
+
+useEffect(() => {
+    const energyInterval = setInterval(() => {
+        if (currEnergy < 1000) {
             setCurrEnergy(prevEnergy => Math.min(prevEnergy + 1, 1000));
-          }
-        }, 1000);
-    
-        return () => clearInterval(energyInterval);
-      }, [currEnergy]);
-    
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          if (isCoinsChanged) {
-            submitData();
-            setIsCoinsChanged(false);
-          }
-        }, 10000);
-        return () => clearTimeout(timer);
-      }, [currCoins, wallet_address, isCoinsChanged]);
-    
-    const submitData = async () => {
-        try {
-          const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
-            score: currCoins,
-            wallet_address: wallet_address
-          });
-    
-          console.log('Coins submitted successfully:', response.data);
-          // You can handle the response here
-        } catch (error) {
-          console.error('Error submitting coins:', error);
-          // You can handle errors here
         }
-    };
-    
-    const updateCurrCoins = (newCoins) => {
-      if (newCoins !== currCoins) {
-        setCurrCoins(newCoins);
-        setIsCoinsChanged(true);
-      }
-    };
-    
-    const firstClick = (event) => {
-      if (!event.isTrusted || currEnergy < 1) return;   
-      setCurrentImage(false)
-      const newCoinCount = currCoins + 1;
-      updateCurrCoins(newCoinCount);
-      soundPlay();
-      setCurrEnergy(prevEnergy => prevEnergy - 1);
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);    
+    }, 1000);
+
+    return () => clearInterval(energyInterval);
+}, [currEnergy]);
+
+useEffect(() => {
+    const timer = setInterval(() => {
+        if (isCoinsChanged) {
+            submitData(accumulatedCoinsRef.current); // Pass accumulated coins
+            setIsCoinsChanged(false);
+            accumulatedCoinsRef.current = 0; // Reset accumulated coins after submission
+        }
+    }, 4900);
+
+    return () => clearTimeout(timer);
+}, [isCoinsChanged]);
+
+const submitData = async (coins) => {
+    try {
+        const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
+            score: coins, // Submit accumulated coins
+            wallet_address: wallet_address
+        });
+
+        console.log('Coins submitted successfully:', response.data);
+        // You can handle the response here
+    } catch (error) {
+        console.error('Error submitting coins:', error);
+        // You can handle errors here
     }
-    
-    const coinClicker = (event) => {
-      if (!event.isTrusted || currEnergy < 1) return;    
-      setCoinState(true);
-      const newCoinCount = currCoins + 1;
-      updateCurrCoins(newCoinCount);
-      soundPlay();
-      setCurrEnergy(prevEnergy => prevEnergy - 1);
-      clearTimeout(timeoutRef.current);
-      clearTimeout(coinRef.current);
-      timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
-      coinRef.current = setTimeout(() => setCoinState(false), 4000);
+};
+
+const updateCurrCoins = (newCoins) => {
+    setCurrCoins(prevCoins => prevCoins + newCoins); // Accumulate new coins
+    accumulatedCoinsRef.current += newCoins; // Accumulate coins for submission
+    setIsCoinsChanged(true);
+};
+
+const firstClick = (event) => {
+    if (!event.isTrusted || currEnergy < 1) return;
+    setCurrentImage(false);
+    updateCurrCoins(1); // Increment coins by 1
+    soundPlay();
+    setCurrEnergy(prevEnergy => prevEnergy - 1);
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
+};
+
+const coinClicker = (event) => {
+    if (!event.isTrusted || currEnergy < 1) return;
+    setCoinState(true);
+    updateCurrCoins(1); // Increment coins by 1
+    soundPlay();
+    setCurrEnergy(prevEnergy => prevEnergy - 1);
+    clearTimeout(timeoutRef.current);
+    clearTimeout(coinRef.current);
+    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
+    coinRef.current = setTimeout(() => setCoinState(false), 4000);
+};
+
+useEffect(() => {
+    if (connected === false)
+    return () => {
+        setCurrCoins(0);
     };
-    
-    const startFarm = () => {
-        if (connected === true) {
-            setCurrentImage(true)
-            setidleState(prevState => !prevState);   
-        } else {
-            alert("please connect wallet");
-        } 
-    };
-    
-    const stopFarm = () => {
-        setCurrentImage(false)
+}, [connected]);
+
+const startFarm = () => {
+    if (connected === true) {
+        setCurrentImage(true);
         setidleState(prevState => !prevState);
-        setCoinState(false)
-    };
+    } else {       
+        alert("please connect wallet");
+    }
+};
+
+const stopFarm = () => {
+    setCurrentImage(false);
+    setidleState(prevState => !prevState);
+    setCoinState(false);    
+};
 
 	return (
         <div className="mainContent">
