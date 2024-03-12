@@ -61,6 +61,8 @@ const Content = () => {
       <main className="main">
       <Main />
       <Footer />
+      <div className="bgImage">
+      </div>
       </main>
       <Landing />
     </div>

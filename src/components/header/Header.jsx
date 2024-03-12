@@ -13,14 +13,14 @@ function Header() {
     const [totalPoints, setTotalPoints] = useState(null);
     const [leaderboardData, setLeaderboardData] = useState([]);
     const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
-		const [isVisible, setIsVisible] = useState(true);
+	const [isVisible, setIsVisible] = useState(true);
     const intervalRef = useRef(null);
 
     const wallet_address = publicKey?.toBase58();
 
     const toggleVisibilitySound = () => {
         toggleMuteAllSounds();
-        setIsToggled(!isToggled);
+        setIsVisible(!isVisible);
     };
 
     const connectSubmitHandler = async () => {

@@ -4,6 +4,13 @@ $desktop: 119.9988rem;
 
 
 .header {
+	position: relative;
+	z-index: 1000;
+	height: 5.75rem;
+	@media (max-width: $mobile) {
+		height: 4.3125rem;
+		align-items: center;
+	}
 	.soundToggler {
 		display: none;
 		@media (max-width: $mobile) {

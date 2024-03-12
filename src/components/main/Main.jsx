@@ -6,7 +6,6 @@ import tomIdle from '../../img/idle-gif.gif'
 import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
-
 function Main() {
 
 const [idleState, setidleState] = useState(true);

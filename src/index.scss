@@ -5,19 +5,17 @@
 .wrapper {
 	background-color: #000000;
 	position: relative;
-  min-height: 100%;
-	position: relative;
   	min-height: 100%;
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
   	overflow: hidden;
 	@supports (overflow: clip) {
 		overflow: clip;
 	}
 	// Притискаємо footer
 	> main {
-		flex: 1 1 auto;
+		// flex: 1 1 auto;
 	}
 	// Фікс для слайдерів
 	> * {
@@ -191,8 +189,8 @@ a:active {
 }
 html,
 body {
-	height: 100%;
-	min-width: $minWidth + px;
+	// height: 100%;
+	// min-width: $minWidth + px;
 }
 body {
 	color: $mainColor;
