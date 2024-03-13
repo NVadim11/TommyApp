@@ -9,7 +9,7 @@ import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
 function Main() {
 
-    const [idleState, setidleState] = useState(true);
+const [idleState, setidleState] = useState(true);
 const [currentImage, setCurrentImage] = useState(true);
 const [coinState, setCoinState] = useState(false);
 const [currCoins, setCurrCoins] = useState(0);
@@ -17,7 +17,7 @@ const [currEnergy, setCurrEnergy] = useState(1000);
 const [isCoinsChanged, setIsCoinsChanged] = useState(false);
 const timeoutRef = useRef(null);
 const coinRef = useRef(null);
-const accumulatedCoinsRef = useRef(0); // To accumulate coins
+const accumulatedCoinsRef = useRef(0);
 
 const { publicKey, connected } = useWallet();
 const wallet_address = publicKey?.toBase58();
@@ -35,9 +35,9 @@ useEffect(() => {
 useEffect(() => {
     const timer = setInterval(() => {
         if (isCoinsChanged) {
-            submitData(accumulatedCoinsRef.current); // Pass accumulated coins
+            submitData(accumulatedCoinsRef.current);
             setIsCoinsChanged(false);
-            accumulatedCoinsRef.current = 0; // Reset accumulated coins after submission
+            accumulatedCoinsRef.current = 0;
         }
     }, 4900);
 
@@ -47,28 +47,26 @@ useEffect(() => {
 const submitData = async (coins) => {
     try {
         const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
-            score: coins, // Submit accumulated coins
+            score: coins,
             wallet_address: wallet_address
         });
 
         console.log('Coins submitted successfully:', response.data);
-        // You can handle the response here
     } catch (error) {
         console.error('Error submitting coins:', error);
-        // You can handle errors here
     }
 };
 
 const updateCurrCoins = (newCoins) => {
-    setCurrCoins(prevCoins => prevCoins + newCoins); // Accumulate new coins
-    accumulatedCoinsRef.current += newCoins; // Accumulate coins for submission
+    setCurrCoins(prevCoins => prevCoins + newCoins);
+    accumulatedCoinsRef.current += newCoins;
     setIsCoinsChanged(true);
 };
 
 const firstClick = (event) => {
     if (!event.isTrusted || currEnergy < 1) return;
     setCurrentImage(false);
-    updateCurrCoins(1); // Increment coins by 1
+    updateCurrCoins(1); //
     soundPlay();
     setCurrEnergy(prevEnergy => prevEnergy - 1);
     clearTimeout(timeoutRef.current);
@@ -78,7 +76,7 @@ const firstClick = (event) => {
 const coinClicker = (event) => {
     if (!event.isTrusted || currEnergy < 1) return;
     setCoinState(true);
-    updateCurrCoins(1); // Increment coins by 1
+    updateCurrCoins(1);
     soundPlay();
     setCurrEnergy(prevEnergy => prevEnergy - 1);
     clearTimeout(timeoutRef.current);
@@ -98,9 +96,7 @@ const startFarm = () => {
     if (connected === true) {
         setCurrentImage(true);
         setidleState(prevState => !prevState);
-    } else {       
-        alert("please connect wallet");
-    }
+    }    
 };
 
 const stopFarm = () => {
