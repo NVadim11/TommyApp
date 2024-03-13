@@ -93,10 +93,10 @@ useEffect(() => {
 }, [connected]);
 
 const startFarm = () => {
-    if (connected === true) {
+    // if (connected === true) {
         setCurrentImage(true);
         setidleState(prevState => !prevState);
-    }    
+    // }    
 };
 
 const stopFarm = () => {

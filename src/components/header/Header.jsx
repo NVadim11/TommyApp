@@ -249,11 +249,6 @@ function Header() {
                                                 <div className="popupLeaderboard__id">
                                                     <span>{player.position}</span>
                                                 </div>
-                                                <div className="popupLeaderboard__playerIcon">
-                                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <circle cx="15" cy="15" r="15" fill="#D9D9D9"/>
-                                                    </svg>
-                                                </div>
                                                 <div className="popupLeaderboard__playerName">
                                                     <span>{player.wallet_address.slice(0, 4) + '..' + player.wallet_address.slice(-4)}</span>
                                                 </div>

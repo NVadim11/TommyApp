@@ -5,7 +5,7 @@ $desktop: 119.9988rem;
 
 .header {
 	position: relative;
-	z-index: 1000;
+	z-index: 100;
 	height: 5.75rem;
 	@media (max-width: $mobile) {
 		height: 4.3125rem;
@@ -219,6 +219,9 @@ $desktop: 119.9988rem;
 	&__mobileMenu-links:last-child {
 		border-bottom: none;
 	}
+	&__mobileMenu-links:hover {
+		cursor: pointer;
+	}
 }
 
 .wallet-adapter-button:not([disabled]):hover {
@@ -363,9 +366,9 @@ body::after {
 	}
 	&__crownIcon {
 		max-width: fit-content;
-		margin: 4rem 0 0.5625rem 2.9375rem;
+		margin: 4rem 0 0.5625rem 6.25rem;
 		@media (max-width: $mobile) {
-			margin: 2.5rem 0 0.625rem 2.4375rem;
+			margin: 2.5rem 0 0.625rem 4.375rem;
 		}
 		svg {
 			@media (max-width: $mobile) {
@@ -400,6 +403,7 @@ body::after {
 			color: #fff500;	
 		}
 		.popupLeaderboard__playerName {
+			margin-left: 10%;
 			color: #fff500;	
 		}
 		.popupLeaderboard__coins {
@@ -422,20 +426,21 @@ body::after {
 			font-size: 1.125rem;
 		}
 	}
-	&__playerIcon {
-		display: flex;
-		margin: 0 0.625rem;
-		svg {
-			height: 1.875rem;
-			width: 1.875rem;
-			@media (max-width: $mobile) {
-				width: 1.25rem;
-				height: 1.25rem;
-			}
-		}
-	}
+	// &__playerIcon {
+	// 	display: flex;
+	// 	margin: 0 0.625rem;
+	// 	svg {
+	// 		height: 1.875rem;
+	// 		width: 1.875rem;
+	// 		@media (max-width: $mobile) {
+	// 			width: 1.25rem;
+	// 			height: 1.25rem;
+	// 		}
+	// 	}
+	// }
 	&__playerName {
 		padding-top: 0.25rem;
+		margin-left: 10%;
 		@media (max-width: $mobile) {
 			font-size: 1rem;
 		}
