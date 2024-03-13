@@ -11,8 +11,8 @@ function Footer() {
 	};
 
 	return (
-	<footer className="footer">
-		<div className="footer__container">
+	<footer className="footerMain">
+		<div className="footerMain__container">
 		<div className="soundToggler">
 		{isVisible ? (
 			<div className="soundToggler__itemOn" onClick={toggleVisibility}>
@@ -34,11 +34,11 @@ function Footer() {
 			</div>
 				)}
 		</div>
-		<div className="footer__socials">
-			<div className="footer__twBtn">
+		<div className="footerMain__socials">
+			<div className="footerMain__twBtn">
 				<a href="#">TW</a>
 			</div>
-			<div className="footer__tgBtn">
+			<div className="footerMain__tgBtn">
 				<a href="#">TG</a>
 			</div>
 		</div>
