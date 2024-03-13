@@ -1,13 +1,12 @@
-import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
-import axios from 'axios'
-import React, { useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import logo from '../../img/logo.svg'
 import { toggleMuteAllSounds } from '../../utility/Audio'
 import './Header.scss'
+import { AuthContext } from '../helper/contexts'
 
 function Header() {
-    const { publicKey, connected } = useWallet();
+    const authContext = useContext(AuthContext);
     const [isToggled, setIsToggled] = useState(false);
     const [isShown, setIsShown] = useState(false);
     const [totalPoints, setTotalPoints] = useState(null);

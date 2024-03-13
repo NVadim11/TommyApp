@@ -1,16 +1,24 @@
 import { createTheme } from "@mui/material/styles";
+
 export const theme = createTheme({
   typography: {
     fontFamily: "Grandstander",
     h2: {
-      fontSize: 60,
+      fontSize: 34,
       fontWeight: 700,
-      lineHeight: "60px",
+      lineHeight: "34px",
+      '@media (min-width: 600px)': {
+        fontSize: 60,
+        lineHeight: "60px"
+      }
     },
     h3: {
-      fontSize: 35,
+      fontSize: 28,
       fontWeight: 700,
       color: "#fff",
+      '@media (min-width: 600px)': {
+        fontSize: 35,
+      }
     },
     h4: {
       fontSize: 40,
@@ -20,7 +28,10 @@ export const theme = createTheme({
     h5: {
       color: "#fff",
       fontWeight: 600,
-      fontSize: 30,
+      fontSize: 16,
+      '@media (min-width: 600px)': {
+        fontSize: 30,
+      }
     },
     body2: {
       fontSize: 18,
@@ -29,10 +40,13 @@ export const theme = createTheme({
       color: "#fff",
     },
     body1: {
-      fontSize: 24,
+      fontSize: 18,
       fontWeight: 500,
       lineHeight: "130%",
       fontFamily: "WorkSans",
+      '@media (min-width: 600px)': {
+        fontSize: 24,
+      }
     },
     caption: {
       fontSize: 22,

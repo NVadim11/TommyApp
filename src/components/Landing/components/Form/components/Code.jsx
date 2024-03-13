@@ -2,6 +2,8 @@ import { Typography, Box } from "@mui/material";
 import { DefaultContainer } from "../../default";
 import ReactCodeInput from "react-code-input";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useCheckCodeMutation } from "../../../../../services/phpService";
 
 const props = {
   className: "reactCodeInput",
@@ -39,14 +41,25 @@ const props = {
 
 const Code = ({ setIsValid, isValid, setRef }) => {
   const [codeVal, setCodeVal] = useState("");
+  const [checkCode] = useCheckCodeMutation();
+  const { code } = useParams();
 
-  const onCodeChange = (val) => {
+  const onCodeChange = async (val) => {
+    console.log(val)
     setCodeVal(val);
-    if (val.length === 5) {
+    if (code && val === code) {
       setIsValid(true);
       setRef(true);
-    } else {
-      setIsValid(false);
+    } else if (val.length === 5) {
+      try {
+        const res = await checkCode(val.toLocaleUpperCase()).unwrap();
+        if (res === 201) {
+          setIsValid(true)
+          setRef(true)
+        }
+      } catch (e) {
+        console.log("error", e)
+      }
     }
   };
   return (
