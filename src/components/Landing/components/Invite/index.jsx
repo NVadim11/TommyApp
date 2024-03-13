@@ -10,8 +10,48 @@ import envelope from "../../decoration/invite/envelope.svg";
 import share from "../../decoration/invite/link.svg";
 import money from "../../decoration/invite/money.svg";
 import copy from "../../decoration/invite/copy.svg";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../helper/contexts";
+import { useGenerateCodeMutation } from "../../../../services/phpService";
 
 const Invite = () => {
+  const authContext = useContext(AuthContext);
+  const [generateCode] = useGenerateCodeMutation();
+  const [code, setCode] = useState("");
+
+  useEffect(() => {
+    if (authContext && authContext.referral_code) {
+      setCode(authContext.referral_code);
+    }
+  }, [authContext]);
+
+  const copyCode = async () => {
+    if ('clipboard' in navigator) {
+      return await navigator.clipboard.writeText(code);
+    } else {
+      return document.execCommand('copy', true, code);
+    }
+  };
+
+  const copyLink = async () => {
+    if ('clipboard' in navigator) {
+      return await navigator.clipboard.writeText(`${window.location.href}${code}`);
+    } else {
+      return document.execCommand('copy', true, `${window.location.href}${code}`);
+    }
+  }
+
+  const generateCodeCallback = async () => {
+    try {
+      if(authContext.wallet_address){
+        const res = await generateCode(authContext.wallet_address).unwrap();
+        res && res.code && setCode(res.code);
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <DefaultContainer>
       <Box
@@ -30,7 +70,7 @@ const Invite = () => {
             maxWidth={500}
             width="100%"
           >
-            Invite friends. Earn together
+            Invite friends. <br /> Earn together
           </Typography>
           <Box className="invite__friends" data-aos="fade-left">
             <Typography variant="h6" sx={{ fontWeight: "medium" }}>
@@ -88,8 +128,9 @@ const Invite = () => {
                   variant="body2"
                   sx={{ mb: "15px" }}
                 >
-                  Code
+                  {code.length ? code : "Code"}
                   <IconButton
+                    onClick={() => copyCode()}
                     aria-label="copy"
                     color="primary"
                     sx={{
@@ -112,8 +153,9 @@ const Invite = () => {
                   variant="body2"
                   sx={{ mb: "15px" }}
                 >
-                  link
+                  {code.length ? `${window.location.href}${code}` : "link"}
                   <IconButton
+                  onClick={() => copyLink()}
                     aria-label="copy"
                     color="primary"
                     sx={{
@@ -129,6 +171,7 @@ const Invite = () => {
               </Box>
               <Box className="invite__item-group">
                 <Button
+                onClick={generateCodeCallback}
                   sx={{
                     color: "white",
                     textTransform: "capitalize",

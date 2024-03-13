@@ -14,7 +14,7 @@ const Quote = () => {
           m: "0 auto",
           mt: "36px",
           mb: "126px",
-          p: { md: "50px 90px", xs: "20px 30px" },
+          p: { md: "50px 90px", xs: "25px" },
           border: "3px solid #fff",
           borderRadius: "30px",
           width: "90%",
@@ -25,14 +25,14 @@ const Quote = () => {
           md={2}
           xs={12}
           display="flex"
-          justifyContent={"end"}
           alignItems={"end"}
           sx={{
             pr: { md: "40px" },
             mb: { xs: "40px", md: "0" },
+            justifyContent: {xs: "start", md: "end"}
           }}
         >
-          <img src={quote} />
+          <img src={quote} className="quote_img"/>
         </Grid>
         <Grid item md={10} xs={12}>
           <Typography variant="body1">

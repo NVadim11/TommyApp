@@ -7,7 +7,7 @@ import cat from "../../decoration/cat.png";
 
 const Footer = () => {
   return (
-    <Box className="footer footer__wrapper">
+    <Box className="footer__wrapper">
       <DefaultContainer
         padding={{ xl: "0 8.125rem", lg: "0 5rem", xs: "0 20px" }}
       >

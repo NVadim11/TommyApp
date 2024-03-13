@@ -7,6 +7,7 @@ import logo2 from "../../decoration/logos/logo2.png";
 import logo3 from "../../decoration/logos/logo3.png";
 import logo4 from "../../decoration/logos/logo4.png";
 import logo5 from "../../decoration/logos/logo5.png";
+import { Parallax } from "react-scroll-parallax";
 
 const Story = () => {
   return (
@@ -23,7 +24,8 @@ const Story = () => {
           <div className="story__item" data-aos="fade-right">
             <Box>
               <Typography variant="h2" sx={{ position: "relative" }}>
-                <img className="dec dec-ellipse" src={ellipse} />
+                  <img className="dec dec-ellipse" src={ellipse} />
+
                 The Story
               </Typography>
               <Typography

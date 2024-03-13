@@ -13,19 +13,16 @@ import {
 import { clusterApiUrl } from "@solana/web3.js";
 import React, { useMemo } from "react";
 import "./App.scss";
-import Footer from "./components/footer/Footer";
-import Header from "./components/header/Header";
-import Main from "./components/main/Main";
-import Landing from "./components/Landing";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme";
+import AppRouter from "./components/Router";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Context>
-        <Content />
-      </Context>
+        <Context>
+          <AppRouter />
+        </Context>
     </ThemeProvider>
   );
 }
@@ -51,18 +48,5 @@ const Context = ({ children }) => {
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
-  );
-};
-
-const Content = () => {
-  return (
-    <div className="wrapper">
-      <Header />
-      <main className="main">
-        <Main />
-        <Footer />
-      </main>
-      <Landing />
-    </div>
   );
 };
