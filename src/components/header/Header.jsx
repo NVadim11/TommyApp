@@ -1,9 +1,10 @@
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import React, { useContext, useEffect, useRef, useState } from "react"
 import logo from '../../img/logo.svg'
+import { useGetInitialLeaderboardQuery, useGetLeaderboardMutation } from '../../services/phpService'
 import { toggleMuteAllSounds } from '../../utility/Audio'
-import './Header.scss'
 import { AuthContext } from '../helper/contexts'
+import './Header.scss'
 
 function Header() {
     const authContext = useContext(AuthContext);
@@ -13,9 +14,10 @@ function Header() {
     const [leaderboardData, setLeaderboardData] = useState([]);
     const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
 	const [isVisible, setIsVisible] = useState(true);
-    const intervalRef = useRef(null);
-
     const [isElementPresent, setIsElementPresent] = useState(false);
+
+    const [reqLeaderboard] = useGetLeaderboardMutation();
+    const {data: initLeaderboard, isLoading: initLeaderboardLoading} = useGetInitialLeaderboardQuery();
 
   useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
@@ -38,88 +40,40 @@ function Header() {
 
     return () => observer.disconnect();
   }, []);
-
-    const wallet_address = publicKey?.toBase58();
-
+  
     const toggleVisibilitySound = () => {
         toggleMuteAllSounds();
         setIsVisible(!isVisible);
     };
 
-    const connectSubmitHandler = async () => {
-        try {
-            const response = await axios.post(
-                'https://admin.prodtest1.space/api/users',
-                { wallet_address: wallet_address },
-                { headers: { 'Content-Type': 'application/json' } }
-            );
-            console.log('wallet_address submitted successfully');
-        } catch (error) {
-            console.error('Error submitting wallet_address:', error.message);
-        }
-    };
-
-    const totalPointsFetch = async () => {
-        try {
-            const response = await axios.get(`https://admin.prodtest1.space/api/users/${wallet_address}`);
-            setTotalPoints(response.data?.wallet_balance);
-            console.log('totalPoints requested successfully');
-        } catch (error) {
-            console.error('Error requesting totalPoints:', error.message);
-        }
-    };
-
     useEffect(() => {
-        if (connected) {
-            setTotalPoints(null);
-            connectSubmitHandler();
-            totalPointsFetch();
-            localStorage.setItem("wallet_id", wallet_address);
-        }
-    }, [connected, wallet_address]);
-
-    useEffect(() => {
-        if (connected) {
-            intervalRef.current = setInterval(totalPointsFetch, 10000);
-        } else {
-            clearInterval(intervalRef.current);
-        }
-
-        return () => clearInterval(intervalRef.current);
-    }, [connected]);
-		
-		useEffect(() => {
-			const leaderboardFetch = async () => {
-					try {
-							const response = await axios.get(`https://admin.prodtest1.space/api/liderbord/${wallet_address}`);
-							setLeaderboardData(response.data);
-							console.log('Leaderboard data fetched successfully:', response.data);
-					} catch (error) {
-							console.error('Error fetching leaderboard data:', error.message);
-					}
-			};
-	
-			if (connected) {
-					leaderboardFetch(); // Fetch leaderboard data immediately upon connection
-					const intervalId = setInterval(leaderboardFetch, 10000); // Set interval for fetching leaderboard data
-					return () => clearInterval(intervalId); // Cleanup function to clear interval
-			}
-	}, [connected, wallet_address]);
+        if (Object.keys(authContext).length) {
+            setTotalPoints(null);        }
+    }, [authContext]);
 
 	useEffect(() => {
-    const leaderboardFetchOnLoad = async () => {
-        try {
-            const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
-            setLeaderboardData(response.data);
-            console.log('Leaderboard data fetched successfully:', response.data);
-        } catch (error) {
-            console.error('Error fetching leaderboard data:', error.message);
-        }
-    };
+		if (Object.keys(authContext).length) {
+            leaderboardRefresh();
+			const intervalId = setInterval(leaderboardRefresh, 2000);
+			return () => clearInterval(intervalId); // Cleanup function to clear interval
+		}
+	}, [authContext]);
 
-    leaderboardFetchOnLoad();
-	}, []);
-	
+	useEffect(() => {   
+        if (!initLeaderboardLoading) {
+            setLeaderboardData(initLeaderboard);
+            console.log('Leaderboard data fetched successfully:', initLeaderboard);
+        }
+    }, [initLeaderboardLoading]);
+
+    const leaderboardRefresh = async () => {       
+        try {
+            const res = await reqLeaderboard(authContext.wallet_address).unwrap();
+            setLeaderboardData(res)        
+        } catch (error) {
+            console.log("failed to fetch new leaderboard");
+        }
+    }   
 
     const toggleVisibility = () => {
         setIsShown(!isShown);
@@ -173,7 +127,7 @@ function Header() {
                         </button>
                     </div>
                     <div className="header__mobileBtns">
-                        {connected && totalPoints !== null && (
+                        {authContext && totalPoints !== null && (
                             <div id="header__totalScore" className="header__totalScore">
                                 Total Points: <span>{totalPoints}</span>
                             </div>

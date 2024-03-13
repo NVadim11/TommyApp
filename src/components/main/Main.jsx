@@ -7,6 +7,7 @@ import tomIdle from '../../img/idle-gif.gif'
 import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
+
 function Main() {
 
 const [idleState, setidleState] = useState(true);
@@ -66,7 +67,7 @@ const updateCurrCoins = (newCoins) => {
 const firstClick = (event) => {
     if (!event.isTrusted || currEnergy < 1) return;
     setCurrentImage(false);
-    updateCurrCoins(1); //
+    updateCurrCoins(1);
     soundPlay();
     setCurrEnergy(prevEnergy => prevEnergy - 1);
     clearTimeout(timeoutRef.current);
@@ -93,10 +94,8 @@ useEffect(() => {
 }, [connected]);
 
 const startFarm = () => {
-    // if (connected === true) {
         setCurrentImage(true);
         setidleState(prevState => !prevState);
-    // }    
 };
 
 const stopFarm = () => {
@@ -105,7 +104,7 @@ const stopFarm = () => {
     setCoinState(false);    
 };
 
-	return (
+return (
         <div className="mainContent">
             <div className="mainContent__container">
             {idleState ? (
@@ -204,7 +203,7 @@ const stopFarm = () => {
                   )}
             </div>
         </div>
-	)
+)
 }
 
 export default Main;
