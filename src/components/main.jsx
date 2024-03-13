@@ -10,6 +10,8 @@ const MainComponent = () => {
       <main className="main">
         <Main />
         <Footer />
+        <div className="bgImage">
+      </div>
       </main>
       <Landing />
     </div>
