@@ -6,12 +6,13 @@ $desktop: 1919.98px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	height: 100vh;
-	background-image: url("../../img/bg.png");
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
+	// height: 100vh;
+	// background-image: url("../../img/bg.png");
+	// background-repeat: no-repeat;
+	// background-position: center;
+	// background-size: cover;
 	position: relative;
+	z-index: 10;
 }
 
 .mainContent {
@@ -23,6 +24,8 @@ $desktop: 1919.98px;
 	margin: 5.25rem 0 0 0;
 	width: 120rem;
 	margin: 0 auto;
+	position: relative;
+	z-index: 1000;
 	@media (max-width: $desktop) {
 		width: 90rem;
 		padding: 0 8.125rem;
@@ -42,6 +45,9 @@ $desktop: 1919.98px;
 			position: relative;
 			display: flex;
 			flex-direction: column;
+			@media (max-width: $mobile) {
+				height: 100%;
+			}
 		.mainContent__catBox {
 			margin: 0;
 				@media (max-width: $mobile) {
@@ -65,6 +71,9 @@ $desktop: 1919.98px;
 			flex-direction: column;
 			justify-content: flex-end;
 			position: relative;
+			@media (max-width: $mobile) {
+				height: 100%;
+			}
 			.mainContent__catBox {
 				margin: 0;
 				@media (max-width: $mobile) {
@@ -146,7 +155,7 @@ $desktop: 1919.98px;
 			button:hover {       
 					transition: .25s;
 					color: #000000;
-					background-color: #ffffff;    
+					background-color: #ffffff;   
 					@media (max-width: $mobile) {
 							color: #ffffff;
 							background-color: transparent;  
@@ -595,6 +604,29 @@ $desktop: 1919.98px;
 	}
 }
 
+.bgImage {
+	position: absolute;
+	background: linear-gradient(180deg, #331F49 0%, #5D51D5 100%);
+	background-image: url("../../img/bg.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: calc(100% + 5.75rem);
+	width: 100%;
+	top: -5.75rem;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	// img {
+	// 	background-image: url("../../img/bg.png");
+	// 	background-repeat: no-repeat;
+	// 	background-position: center;
+	// 	background-size: cover;
+	// }	
+	@media (max-width: $mobile) {
+		top: -4.3125rem;
+		height: calc(100% + 4.3125rem);
+	}
+}
+
 @keyframes coinOne {
 	from {
 			transform: translateY(0px);
@@ -605,7 +637,6 @@ $desktop: 1919.98px;
 			opacity: 0.8;
 	}
 }
-
 @keyframes coinTwo {
 	from {
 			transform: translateY(0px);

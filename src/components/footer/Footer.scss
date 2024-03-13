@@ -3,6 +3,8 @@ $mobile: 1399.98px;
 $desktop: 1919.98px;
 
 .footer {
+	position: relative;
+	z-index: 10;
 	.soundToggler {
 		@media (max-width: $mobile) {
 			display: none;

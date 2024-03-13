@@ -9,6 +9,7 @@ import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
   TorusWalletAdapter,
+  TrezorWalletAdapter
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
 import React, { useMemo } from "react";
@@ -38,6 +39,7 @@ const Context = ({ children }) => {
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
       new TorusWalletAdapter(),
+      new TrezorWalletAdapter(),
     ],
     []
   );
