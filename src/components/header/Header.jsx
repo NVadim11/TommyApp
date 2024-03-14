@@ -1,16 +1,18 @@
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import logo from "../../img/logo.svg";
+import { useWallet } from '@solana/wallet-adapter-react'
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
+import React, { useContext, useEffect, useRef, useState } from "react"
+import logo from "../../img/logo.svg"
 import {
   useGetInitialLeaderboardQuery,
   useGetLeaderboardQuery,
-} from "../../services/phpService";
-import { toggleMuteAllSounds } from "../../utility/Audio";
-import { AuthContext } from "../helper/contexts";
-import "./Header.scss";
+} from "../../services/phpService"
+import { toggleMuteAllSounds } from "../../utility/Audio"
+import { AuthContext } from "../helper/contexts"
+import "./Header.scss"
 
 function Header() {
   const authContext = useContext(AuthContext);
+  const { connected } = useWallet();
   const [isToggled, setIsToggled] = useState(false);
   const [isShown, setIsShown] = useState(false);
   const [totalPoints, setTotalPoints] = useState(null);
@@ -58,7 +60,7 @@ function Header() {
 
   useEffect(() => {
     if (Object.keys(authContext).length) {
-      setTotalPoints(null);
+      setTotalPoints(authContext.wallet_balance);
     }
   }, [authContext]);
 
@@ -74,6 +76,12 @@ function Header() {
       console.log("Leaderboard data fetched successfully:", initLeaderboard);
     }
   }, [initLeaderboardLoading]);
+
+  useEffect(() => {
+    if (connected === false){
+      setTotalPoints(null);
+    }
+  }, [connected]);
 
   const toggleVisibility = () => {
     setIsShown(!isShown);
