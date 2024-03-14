@@ -11,7 +11,7 @@ const root = combineReducers({
 });
 
 export const store = configureStore({
-  reducer: { root },
+  reducer: root,
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) =>

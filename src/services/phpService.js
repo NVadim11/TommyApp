@@ -1,11 +1,12 @@
 // Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 
 // Define a service using a base URL and expected endpoints
 export const phpApi = createApi({
   reducerPath: "phpApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://admin.prodtest1.space/api" }),
-  tagTypes: ["php"],
+  tagTypes: ["Php", "Php2"],
   endpoints: (builder) => ({
     getUserByWalletId: builder.mutation({
       query: (wallet_address) => ({
@@ -31,18 +32,15 @@ export const phpApi = createApi({
       query: (wallet) => ({
         url: `/generate-referral-code/${wallet}`,
         method: "GET"
-      })
+      }),
+      invalidatesTags: ["Php"]
     }),
-    getLeaderboard: builder.mutation({
-      query: (wallet) => ({
-        url: `/liderbord/${wallet}`,
-        method: "GET"
-      })
+    getLeaderboard: builder.query({
+      query: (wallet) => `/liderbord/${wallet}`
     }),
     getInitialLeaderboard: builder.query({
-      query: () => ({
-        url: "/liders"
-      })
+      query: () => "/liders",
+      providesTags: ["Php"]
     })
   }),
 });
@@ -54,6 +52,6 @@ export const {
   useCheckCodeMutation,
   useCreateUserMutation,
   useGenerateCodeMutation,
-  useGetLeaderboardMutation,
+  useGetLeaderboardQuery,
   useGetInitialLeaderboardQuery
 } = phpApi;

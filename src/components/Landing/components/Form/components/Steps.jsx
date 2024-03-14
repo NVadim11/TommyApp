@@ -12,7 +12,6 @@ import { AuthContext } from "../../../../helper/contexts";
 const Steps = ({ isCodeValid }) => {
   const [requestAuth] = useTwitterAuthMutation();
   const authContext = useContext(AuthContext);
-  console.log(authContext);
   const location = useLocation();
   const formRef = useRef(null);
 
