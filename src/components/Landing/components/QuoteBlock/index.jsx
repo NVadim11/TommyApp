@@ -1,7 +1,7 @@
-import { Grid, Typography } from "@mui/material";
-import DefaultContainer from "../default/Container";
+import { Grid, Typography } from "@mui/material"
+import DefaultContainer from "../default/Container"
 
-import quote from "./img/quote.png";
+import quote from "./img/quote.png"
 
 const Quote = () => {
   return (
@@ -36,13 +36,12 @@ const Quote = () => {
         </Grid>
         <Grid item md={10} xs={12}>
           <Typography variant="body1">
-            With Talking Tom, we have created a revolutionary digital currency
+            With Tim The Cat, we have created a revolutionary digital currency
             that is designed for simplicity, security, and accessibility.
           </Typography>
           <Typography variant="body1" sx={{ mt: "20px" }}>
             Our goal is to provide a seamless crypto experience for everyone.
-            Whether you are an experienced trader or a curious beginner, Talking
-            Tom is here to meet your needs and assist you in exploring the world
+            Whether you are an experienced trader or a curious beginner, Tim The Cat is here to meet your needs and assist you in exploring the world
             of digital currencies.
           </Typography>
         </Grid>

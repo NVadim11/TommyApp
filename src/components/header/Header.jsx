@@ -1,13 +1,13 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
+import axios from 'axios'
 import React, { useContext, useEffect, useRef, useState } from "react"
 import logo from "../../img/logo.svg"
 import {
-  useGetInitialLeaderboardQuery,
-  useGetLeaderboardQuery,
+  useGetLeaderboardMutation
 } from "../../services/phpService"
 import { toggleMuteAllSounds } from "../../utility/Audio"
-import { AuthContext } from "../helper/contexts"
+import { AuthContext } from '../helper/contexts'
 import "./Header.scss"
 
 function Header() {
@@ -21,12 +21,7 @@ function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [isElementPresent, setIsElementPresent] = useState(false);
 
-  const {data: getLeaderboardData} = useGetLeaderboardQuery(
-    authContext.wallet_address,
-    { skip: !Object.keys(authContext).length }
-  );
-  const { data: initLeaderboard, isLoading: initLeaderboardLoading } =
-    useGetInitialLeaderboardQuery();
+  const [getLeaderboard] = useGetLeaderboardMutation();
 
   useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
@@ -57,31 +52,72 @@ function Header() {
     toggleMuteAllSounds();
     setIsVisible(!isVisible);
   };
-
-  useEffect(() => {
-    if (Object.keys(authContext).length) {
-      setTotalPoints(authContext.wallet_balance);
+  
+  const leaderboardRefresh = async () => {  
+    try {      
+        const res = await getLeaderboard(authContext.wallet_address).unwrap();
+        setLeaderboardData(res);
+        console.log('setLeaderboardData(res)', res);    
+    } catch (error) {
+        console.log(error);
     }
-  }, [authContext]);
+}
 
-  useEffect(() => {
-  	if (getLeaderboardData?.length) {
-        setLeaderboardData(getLeaderboardData);
-    }
-  }, [getLeaderboardData]);
+useEffect(() => {
+    const fetchData = async () => {
+        if (Object.keys(authContext).length) {
+            await leaderboardRefresh();
+            const intervalId = setInterval(leaderboardRefresh, 10000);
+            return intervalId;
+        }
+    };
 
-  useEffect(() => {
-    if (!initLeaderboardLoading && initLeaderboard?.length) {
-      setLeaderboardData(initLeaderboard);
-      console.log("Leaderboard data fetched successfully:", initLeaderboard);
-    }
-  }, [initLeaderboardLoading]);
+    let intervalId;
 
-  useEffect(() => {
-    if (connected === false){
-      setTotalPoints(null);
+    fetchData().then((id) => {
+        intervalId = id;
+    });
+
+    return () => {
+        clearInterval(intervalId);
+    };
+}, [authContext]);
+
+useEffect(() => {
+  const fetchLeaderboardData = async () => {
+    try {
+      const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
+      setLeaderboardData(response.data);
+      console.log('setLeaderboardData(response.data)', response.data);
+    } catch (error) {
+      console.error('Error fetching leaderboard data:', error.message);
     }
-  }, [connected]);
+  };
+
+  const intervalId = setInterval(() => {
+    fetchLeaderboardData();
+  }, 10000);
+
+  if (connected === true) {
+    clearInterval(intervalId);
+  }
+
+  return () => {
+    clearInterval(intervalId);
+  };
+}, [connected]);
+
+useEffect(() => {
+  if (connected === true) {
+    setTotalPoints(authContext.wallet_balance);
+  }
+}, [authContext, authContext.wallet_balance]);
+
+useEffect(() => {
+  if (!connected) {
+    setTotalPoints(null);
+  }
+}, [connected]);
 
   const toggleVisibility = () => {
     setIsShown(!isShown);

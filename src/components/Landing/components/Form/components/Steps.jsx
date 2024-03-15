@@ -1,13 +1,13 @@
-import { Typography, Button } from "@mui/material";
-import check from "../../../decoration/check.svg";
-import twitter from "../../../decoration/twitter.svg";
-import discord from "../../../decoration/discord.svg";
-import cat from "../../../decoration/catForm.png";
-import { useTwitterAuthMutation } from "../../../../../services/auth";
-import catMob from "../../../decoration/mobCat.png";
-import { useLocation } from "react-router-dom";
-import { useContext, useEffect, useRef } from "react";
-import { AuthContext } from "../../../../helper/contexts";
+import { Typography } from "@mui/material"
+import { useContext, useEffect, useRef } from "react"
+import { useLocation } from "react-router-dom"
+import { useTwitterAuthMutation } from "../../../../../services/auth"
+import { AuthContext } from "../../../../helper/contexts"
+import cat from "../../../decoration/catForm.png"
+import check from "../../../decoration/check.svg"
+import discord from "../../../decoration/discord.svg"
+import catMob from "../../../decoration/mobCat.png"
+import twitter from "../../../decoration/twitter.svg"
 
 const Steps = ({ isCodeValid }) => {
   const [requestAuth] = useTwitterAuthMutation();
@@ -58,7 +58,7 @@ const Steps = ({ isCodeValid }) => {
             <span className="number">2</span>
             <div>
               <Typography variant="h5">
-                Follow @crypto_tom on Twitter
+                Follow @Tim_The_Cat on Twitter
               </Typography>
               {authContext.twitter === 1 && (
                 <img src={check} width="35px" height="35px" />
@@ -78,7 +78,7 @@ const Steps = ({ isCodeValid }) => {
           <div>
             <span className="number">3</span>
             <div>
-              <Typography variant="h5">Join Crypto Tom Discord</Typography>
+              <Typography variant="h5">Join Tim The Cat Discord</Typography>
               {authContext.discord === 1 && (
                 <img src={check} width="35px" height="35px" />
               )}

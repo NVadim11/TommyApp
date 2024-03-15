@@ -1,13 +1,12 @@
-import { Box, Typography } from "@mui/material";
-import ellipse from "../../decoration/ellipse.svg";
-import cat from "./img/cat.jpg";
-import catSm from "./img/cat-sm.jpg";
-import logo1 from "../../decoration/logos/logo1.png";
-import logo2 from "../../decoration/logos/logo2.png";
-import logo3 from "../../decoration/logos/logo3.png";
-import logo4 from "../../decoration/logos/logo4.png";
-import logo5 from "../../decoration/logos/logo5.png";
-import { Parallax } from "react-scroll-parallax";
+import { Box, Typography } from "@mui/material"
+import ellipse from "../../decoration/ellipse.svg"
+import logo1 from "../../decoration/logos/logo1.png"
+import logo2 from "../../decoration/logos/logo2.png"
+import logo3 from "../../decoration/logos/logo3.png"
+import logo4 from "../../decoration/logos/logo4.png"
+import logo5 from "../../decoration/logos/logo5.png"
+import catSm from "./img/cat-sm.jpg"
+import cat from "./img/cat.jpg"
 
 const Story = () => {
   return (
@@ -38,23 +37,23 @@ const Story = () => {
               </Typography>
               <Typography variant="body2" sx={{ textIndent: "25px" }}>
                 Guided by his profound love for animals, Raj took the cat home,
-                naming him Tom, and provided care, warmth, and toys, showcasing
+                naming him Tim, and provided care, warmth, and toys, showcasing
                 his affection.
               </Typography>
               <Typography variant="body2" sx={{ textIndent: "25px" }}>
-                As Solana grew, Tom, always by Raj's side during work and Zoom
+                As Solana grew, Tim, always by Raj's side during work and Zoom
                 calls, became a beloved mascot of the innovative Solana
                 community.
               </Typography>
               <Typography variant="body2" sx={{ textIndent: "25px" }}>
-                Inspired by Tom's presence, the community launched "Tom The Cat
-                Token" and a game, allowing users to engage with Tom virtually
+                Inspired by Tim's presence, the community launched "Tim The Cat
+                Token" and a game, allowing users to engage with Tim virtually
                 while supporting homeless cats.
               </Typography>
               <Typography variant="body2" sx={{ textIndent: "25px" }}>
-                This initiative not only celebrated Tom but also reflected the
+                This initiative not only celebrated Tim but also reflected the
                 community's commitment to animal welfare, turning Raj's rescue
-                of Tom into a global mission to help animals in need through the
+                of Tim into a global mission to help animals in need through the
                 strength of the Solana community.
               </Typography>
             </Box>

@@ -1,11 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useWallet } from "@solana/wallet-adapter-react";
-import axios from "axios";
-import MainComponent from "./main";
-import { Discord, Twitter } from "./auth";
-import { AuthContext } from "./helper/contexts";
-import { useCreateUserMutation, useGetUserByWalletIdMutation } from "../services/phpService";
+import { useWallet } from "@solana/wallet-adapter-react"
+import { useEffect, useState } from "react"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { useCreateUserMutation, useGetUserByWalletIdMutation } from "../services/phpService"
+import { Discord, Twitter } from "./auth"
+import { AuthContext } from "./helper/contexts"
+import MainComponent from "./main"
 
 const router = createBrowserRouter([
   {
@@ -49,6 +48,7 @@ const AppRouter = () => {
   useEffect(() => {
     if (connected === true) {
       connectSubmitHandler();
+      console.log("connected")
       localStorage.setItem("wallet_id", wallet_address);
     }
   }, [connected]);

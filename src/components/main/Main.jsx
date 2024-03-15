@@ -14,7 +14,7 @@ const [idleState, setidleState] = useState(true);
 const [currentImage, setCurrentImage] = useState(true);
 const [coinState, setCoinState] = useState(false);
 const [currCoins, setCurrCoins] = useState(0);
-const [currEnergy, setCurrEnergy] = useState(1000);
+const [currEnergy, setCurrEnergy] = useState(0);
 const [isCoinsChanged, setIsCoinsChanged] = useState(false);
 const timeoutRef = useRef(null);
 const coinRef = useRef(null);
@@ -25,8 +25,8 @@ const wallet_address = publicKey?.toBase58();
 
 useEffect(() => {
     const energyInterval = setInterval(() => {
-        if (currEnergy < 1000) {
-            setCurrEnergy(prevEnergy => Math.min(prevEnergy + 1, 1000));
+        if (currEnergy >= 1) {
+            setCurrEnergy(prevEnergy => Math.min(prevEnergy - 1, prevEnergy));
         }
     }, 1000);
 
@@ -65,21 +65,21 @@ const updateCurrCoins = (newCoins) => {
 };
 
 const firstClick = (event) => {
-    if (!event.isTrusted || currEnergy < 1) return;
+    if (!event.isTrusted || currEnergy === 1000) return;
     setCurrentImage(false);
     updateCurrCoins(1);
     soundPlay();
-    setCurrEnergy(prevEnergy => prevEnergy - 1);
+    setCurrEnergy(prevEnergy => prevEnergy + 1);
     clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
 };
 
 const coinClicker = (event) => {
-    if (!event.isTrusted || currEnergy < 1) return;
+    if (!event.isTrusted || currEnergy === 1000) return;
     setCoinState(true);
     updateCurrCoins(1);
     soundPlay();
-    setCurrEnergy(prevEnergy => prevEnergy - 1);
+    setCurrEnergy(prevEnergy => prevEnergy + 1);
     clearTimeout(timeoutRef.current);
     clearTimeout(coinRef.current);
     timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
@@ -110,7 +110,7 @@ return (
             {idleState ? (
                 <div className="mainContent__phaseOne">
                     <div className="mainContent__title">
-                        <h4>Tom The Cat</h4>
+                        <h4>Tim The Cat</h4>
                     </div>
                     <div className="mainContent__descr">
                         <p>

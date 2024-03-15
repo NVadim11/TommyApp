@@ -1,11 +1,10 @@
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material"
+import Accordion from "@mui/material/Accordion"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import AccordionSummary from "@mui/material/AccordionSummary"
 
-import { ReactComponent as ArrowIcon } from "../../decoration/arrow.svg";
 
-import arrow from "../../decoration/arrow.svg";
+import arrow from "../../decoration/arrow.svg"
 
 const AccordionArrowIcon = () => {
   return (
@@ -62,7 +61,7 @@ const FaqAccordion = () => {
           }}
         >
           <Typography variant="h3" sx={{ color: "#FFFFFF", mr: "15px" }}>
-            How do I Buy and Sell $TOM?
+            How do I Buy and Sell $TIMCAT?
           </Typography>
         </AccordionSummary>
         <AccordionDetails
@@ -72,7 +71,7 @@ const FaqAccordion = () => {
           }}
         >
           <Typography variant="h5">
-            The Talking Tom movement is like no other on the Solana blockchain,
+            The Talking Tim movement is like no other on the Solana blockchain,
             bringing dog lovers from all around the crypto space and uniting
             them into one.
           </Typography>
@@ -122,7 +121,7 @@ const FaqAccordion = () => {
           }}
         >
           <Typography variant="h5">
-            The Talking Tom movement is like no other on the Solana blockchain,
+            The Talking Tim movement is like no other on the Solana blockchain,
             bringing dog lovers from all around the crypto space and uniting
             them into one.
           </Typography>
@@ -162,7 +161,7 @@ const FaqAccordion = () => {
           }}
         >
           <Typography variant="h3" sx={{ color: "#FFFFFF", mr: "15px" }}>
-            How do I Buy and Sell $TOM?
+            How do I Buy and Sell $TIMCAT?
           </Typography>
         </AccordionSummary>
         <AccordionDetails
@@ -172,7 +171,7 @@ const FaqAccordion = () => {
           }}
         >
           <Typography variant="h5">
-            The Talking Tom movement is like no other on the Solana blockchain,
+            The Talking Tim movement is like no other on the Solana blockchain,
             bringing dog lovers from all around the crypto space and uniting
             them into one.
           </Typography>

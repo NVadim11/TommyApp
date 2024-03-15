@@ -1,11 +1,11 @@
-import { Box, Paper, Typography } from "@mui/material";
-import DefaultContainer from "../default/Container";
+import { Box, Paper, Typography } from "@mui/material"
+import DefaultContainer from "../default/Container"
 
-import bot from "./img/bot.svg";
-import power from "./img/power.svg";
-import tokens from "./img/tokens.svg";
-import star from "../../decoration/star.svg";
-import ellipse from "../../decoration/ellipse.svg";
+import ellipse from "../../decoration/ellipse.svg"
+import star from "../../decoration/star.svg"
+import bot from "./img/bot.svg"
+import power from "./img/power.svg"
+import tokens from "./img/tokens.svg"
 
 const Features = () => {
   return (
@@ -39,20 +39,20 @@ const Features = () => {
               sx={{ width: "100%", mt: "28px", mb: "30px" }}
             >
               Solana's first public BuyBot on Telegram. Promoting
-              cross-pollination and offering free exposure through "Talking Tom
+              cross-pollination and offering free exposure through "Tim The Cat
               Trending". As adoption grows, a small fee for trending will be
               introduced, with a chance for free inclusion. Generated revenue
               feeds into the Treat Jar (Treasury) for transparency, contributing
-              to $Talking Tom`s growth.
+              to $Tim The Cat`s growth.
             </Typography>
             <img src={bot} width={76} height={76} />
           </Paper>
           <Paper className="feature" data-aos="zoom-in">
             <Typography variant="h3" sx={{ width: "100%" }}>
-              Talking Tom Staking
+              Tim The Cat Staking
             </Typography>
             <Typography variant="body2" sx={{ width: "100%", mt: "20px" }}>
-              Unlock the full potential of your $Talking Tom investment with our
+              Unlock the full potential of your $Tim The Cat investment with our
               Staking Pool Utility. Seamlessly stake your coins, earn
               sustainable rewards, and contribute to Solana's decentralization.
               User-friendly and secure, it's the hassle-free way to maximize
@@ -65,7 +65,7 @@ const Features = () => {
               Further Utilities
             </Typography>
             <Typography variant="body2" sx={{ width: "100%", mt: "20px" }}>
-              $Talking Tom is set to transform the Solana ecosystem, delivering
+              $Tim The Cat is set to transform the Solana ecosystem, delivering
               essential utilities for the evolving needs of users. Our
               commitment ensures a dynamic contribution to Solana's long-term
               growth, serving hundreds of thousands of users.

@@ -1,11 +1,12 @@
-import DefaultContainer from "../default/Container";
+import DefaultContainer from "../default/Container"
 
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material"
 
-import logo from "../../decoration/logo.svg";
-import cat from "../../decoration/cat.png";
+import cat from "../../decoration/cat.png"
+import logo from "../../decoration/logo.svg"
 
 const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <Box className="footer__wrapper">
       <DefaultContainer
@@ -67,9 +68,9 @@ const Footer = () => {
           </Box>
           <Box className="footer__text">
             <Typography variant="body2">
-              Crypto Tom is more than just a cryptocurrency, it is also a way to
+            Tim The Cat is more than just a cryptocurrency, it is also a way to
               connect with other dog meme lovers and make a difference in the
-              world. Join the Crypto Tom movement today and help us make the
+              world. Join the Tim The Cat movement today and help us make the
               world a more fun and inclusive place for everyone!
             </Typography>
           </Box>
@@ -81,7 +82,7 @@ const Footer = () => {
               variant="body2"
               sx={{ fontWeight: "400", opacity: "0.7" }}
             >
-              © 2024 Crypto Tom • All Rights Reserved
+              © {year} Tim The Cat • All Rights Reserved
             </Typography>
           </Box>
         </Box>
