@@ -23,6 +23,8 @@ function Header() {
 
   const [getLeaderboard] = useGetLeaderboardMutation();
 
+
+  console.log("123");
   useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
       mutationsList.forEach((mutation) => {
