@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from "react"
 import catCoin from '../../img/cat_coin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
-import tomIdle from '../../img/idle-gif.gif'
+import tomIdle from '../../img/3_idle.gif'
 import tomSpeak from '../../img/speak-gif.gif'
 import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
