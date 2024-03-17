@@ -24,7 +24,6 @@ function Header() {
   const [getLeaderboard] = useGetLeaderboardMutation();
 
 
-  console.log("123");
   useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
       mutationsList.forEach((mutation) => {
@@ -244,8 +243,12 @@ useEffect(() => {
             <div className="header__walletBtn">
               <WalletMultiButton />
             </div>
-            <div
-              className="header__mobileBurger"
+            <div className="header__inviteBtn">
+              <button>
+                Invite a friend
+              </button>
+            </div>
+            <div className="header__mobileBurger"
               ref={containerRef}
               onClick={toggleVisibility}
             >

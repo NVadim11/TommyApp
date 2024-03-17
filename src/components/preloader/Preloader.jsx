@@ -1,10 +1,16 @@
-import React from "react"
-
+import { useEffect } from 'react';
 import "./Preloader.scss"
+import cat from '../../img/cat2.png';
 
-function Preloader() {
+const Preloader = ({ loaded }) => {
+
+  useEffect(() => {
+  }, []);
+
   return (
-		<h2>🌀 Loading...</h2>
+    <div className={`preloader${loaded ? ' loaded' : ''}`}>
+      <img src={cat} alt="Tim The Cat" />
+    </div>
   );
 };
 
