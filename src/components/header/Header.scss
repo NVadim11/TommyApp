@@ -269,7 +269,15 @@ body::after {
 .popupLeaderboard-show body::after {
 	opacity: 1;
 }
-.popupLeaderboard {
+.popupInvite-show body::after {
+	opacity: 1;
+}
+.popupAirdrop-show body::after {
+	opacity: 1;
+}
+.popupLeaderboard,
+.popupInvite,
+.popupAirdrop {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -283,7 +291,10 @@ body::after {
 		padding: 5.4375rem 1.25rem 5.4375rem 1.25rem;
 	}
 }
-.popupLeaderboard_show {
+.popupLeaderboard_show,
+.popupInvite_show,
+.popupAirdrop_show
+ {
 	z-index: 300;
 	display: block;
 	overflow: auto;
@@ -292,7 +303,15 @@ body::after {
 .popupLeaderboard_show .popupLeaderboard__content {
 	display: block;
 }
-.popupLeaderboard__wrapper {
+.popupInvite_show .popupInvite__content {
+	display: block;
+}
+.popupAirdrop_show .popupAirdrop__content {
+	display: block;
+}
+.popupLeaderboard__wrapper,
+.popupInvite__wrapper,
+.popupAirdrop__wrapper {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -303,7 +322,9 @@ body::after {
 	justify-content: center;
 	align-items: center;
 }
-.popupLeaderboard__content {
+.popupLeaderboard__content,
+.popupInvite__content, 
+.popupAirdrop__content {
 	// visibility: hidden;
 	// transform: scale(0);
 	display: none;
@@ -454,4 +475,178 @@ body::after {
 			font-size: 1rem;
 		}	
 	}
+}
+
+.popupInvite {
+	&__wrapper {
+		width: auto;
+		margin: 0 8.125rem;
+	}
+	&__content {
+		position: relative;
+		max-width: fit-content;
+		backdrop-filter: blur(1.125rem);
+		background: rgba(124, 48, 247, 0.45);
+		// backdrop-filter: blur(1.5rem);
+		box-shadow: inset -0.25rem -0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+		// background: linear-gradient(180deg, #5b16c975 0%, #27075b21 100%);
+		display: flex;
+		flex-direction: column;
+		padding: 4.625rem 3.4375rem 4rem 3.4375rem;
+		border: 0.125rem solid #fff;
+		border-radius: 1.875rem;
+	}
+	&__close {
+		position: absolute;
+		top: 1.875rem;
+		right: 1.875rem;
+		@media (max-width: $mobile) {
+			top: 1.5625rem;
+			right: 1.5625rem;
+		}
+		svg {
+			@media (max-width: $mobile) {
+				height: 0.9375rem;
+				width: 0.9375rem;
+			}
+		}
+	}
+	h3 {
+		font-weight: 700;
+		font-size: 2.5rem;
+		line-height: 100%;
+		color: #fff;
+	}
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 3.75rem;
+		h6 {
+			font-weight: 700;
+			font-size: 1.75rem;
+			line-height: 100%;
+			color: #fff;
+		}
+	}
+	&__headerDescr {
+		display: flex;
+		flex-direction: column;
+	}
+	&__headerItem {
+		display: flex;
+		align-items: center;
+		h3 {
+			font-weight: 600;
+			font-size: 2.5rem;
+			color: #fff;
+		}
+		img {
+			width: 1.875rem;
+			height: 1.9375rem;
+			margin-right: 0.3125rem;
+		}
+	}
+	&__grid {
+		--_gap: 10rem;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--_gap);
+		align-items: center;
+	}
+	&__gridItem {
+		
+	}
+	&__list {
+		position: relative;
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+	&__list-item {
+		margin-bottom: 1.25rem;
+		position: relative;
+		padding: 0 0 0 4.125rem;
+		&:not(:last-child) {
+			&::before {
+			  content: '';
+			  position: absolute;
+			  top: 50px;
+			  left: 23px;
+			  background-image: url("data:image/svg+xml,%3Csvg width='2' height='73' viewBox='0 0 2 73' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='1' y1='72' x2='1' y2='1' stroke='white' stroke-width='2' stroke-linecap='round' stroke-dasharray='10 10'/%3E%3C/svg%3E%0A");
+			  width: 2px;
+			  height: 100%;
+			}
+		  }
+	}
+
+	&__icon {
+		position: absolute;
+		left: 0;
+		top: 0;
+		background-color: #000;
+		border-radius: 50%;
+	}
+	&__list-itemDescr {
+		h5 {
+			font-weight: 600;
+			font-size: 1.625rem;
+			line-height: 100%;
+			color: #fff;
+		}
+		p {
+			font-weight: 400;
+			font-size: 1.125rem;
+			line-height: 140%;
+			color: #fff;
+			margin-top: 0.625rem;
+		}
+	}
+	&__item-box {
+		border: 0.125rem solid #fff;
+		border-radius: 1.875rem;
+		padding: 3.125rem 1.875rem;
+	}
+	&__item-group {
+		display: flex;
+		flex-direction: column;
+		&:not(:last-child) {
+			margin-bottom: 1.875rem;
+		  }
+		p {
+			font-weight: 400;
+			font-size: 1.125rem;
+			line-height: 140%;
+			color: #fff;
+			&:not(:last-child) {
+				margin-bottom: 0.9375rem;
+			}
+		}
+	}
+	&__input {
+		border: 0.1875rem solid #fff;
+		border-radius: 1.25rem;
+		padding: 1.375rem 1.5625rem 1.1875rem 1.5625rem;
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		font-weight: 400;
+		font-size: 1.125rem;
+		line-height: 140%;
+		color: #fff;
+	}
+	&__input-btn {
+		img {
+
+		}
+	}
+	&__submit {
+		display: flex;
+		align-self: flex-end;
+		font-weight: 600;
+		font-size: 1.625rem;
+		color: #fff;
+	}
+}
+
+.popupAirdrop {
+
 }

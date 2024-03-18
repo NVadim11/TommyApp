@@ -12,7 +12,7 @@ const MainComponent = () => {
 	useEffect(() => {
 		const preloaderTimeout = setTimeout(() => {
 			setPreloaderLoaded(true);
-		}, 1500);
+		}, 2000);
 
 		const timeout = setTimeout(() => {
 			AOS.init({

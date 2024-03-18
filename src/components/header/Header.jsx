@@ -3,6 +3,11 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
 import axios from 'axios'
 import React, { useContext, useEffect, useRef, useState } from "react"
 import logo from "../../img/logo.svg"
+import people from "../../img/people-icon.svg"
+import envelope from "../../img/envelope.svg"
+import link from "../../img/link.svg"
+import money from "../../img/money.svg"
+import copy from "../../img/copy.svg"
 import {
   useGetLeaderboardMutation
 } from "../../services/phpService"
@@ -17,12 +22,26 @@ function Header() {
   const [isShown, setIsShown] = useState(false);
   const [totalPoints, setTotalPoints] = useState(null);
   const [leaderboardData, setLeaderboardData] = useState([]);
+
   const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
+  const [isInviteOpen, setInviteOpen] = useState(false);
+  const [isAirOpen, setAirOpen] = useState(false);
+
   const [isVisible, setIsVisible] = useState(true);
   const [isElementPresent, setIsElementPresent] = useState(false);
 
   const [getLeaderboard] = useGetLeaderboardMutation();
 
+  const popupClsTgl = isLeaderboardOpen ? "popupLeaderboard_show" : null;
+  const popupClasses = `popupLeaderboard ${popupClsTgl}`;
+
+  const popupInvTgl = isInviteOpen ? "popupInvite_show" : null;
+  const popupInvite = `popupInvite ${popupInvTgl}`;
+
+  const popupAirTgl= isAirOpen ? "popupLeaderboard_show" : null;
+  const popupAir = `popupLeaderboard ${popupAirTgl}`;
+
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
@@ -142,7 +161,29 @@ useEffect(() => {
     setIsShown(false);
   };
 
+  const inviteFriendsBtn = () => {
+    setInviteOpen(true);
+    fadeShowInvite();
+    setIsShown(false);
+  }
+
+  const airdropBtn = () => {
+    setAirOpen(true);
+    fadeShow();
+    setIsShown(false);
+  }
+
   const fadeShow = () => {
+    const htmlTag = document.getElementById("html");
+    if (htmlTag) htmlTag.classList.add("popupLeaderboard-show");
+  };
+
+  const fadeShowInvite = () => {
+    const htmlTag = document.getElementById("html");
+    if (htmlTag) htmlTag.classList.add("popupInvite-show");
+  };
+
+  const fadeAirInvite = () => {
     const htmlTag = document.getElementById("html");
     if (htmlTag) htmlTag.classList.add("popupLeaderboard-show");
   };
@@ -153,9 +194,11 @@ useEffect(() => {
     if (htmlTag) htmlTag.classList.remove("popupLeaderboard-show");
   };
 
-  const popupClsTgl = isLeaderboardOpen ? "popupLeaderboard_show" : null;
-  const popupClasses = `popupLeaderboard ${popupClsTgl}`;
-  const containerRef = useRef(null);
+  const inviteCloseToggler = () => {
+    setInviteOpen(false);
+    const htmlTag = document.getElementById("html");
+    if (htmlTag) htmlTag.classList.remove("popupInvite-show");
+  };
 
   return (
     <>
@@ -244,7 +287,7 @@ useEffect(() => {
               <WalletMultiButton />
             </div>
             <div className="header__inviteBtn">
-              <button>
+              <button onClick={inviteFriendsBtn}>
                 Invite a friend
               </button>
             </div>
@@ -362,6 +405,98 @@ useEffect(() => {
           </div>
         </div>
       )}
+      {
+        isInviteOpen && (
+          <div id="popupInvite" aria-hidden="true" className={popupInvite}>
+          <div className="popupInvite__wrapper">
+            <div className="popupInvite__content">
+              <button onClick={inviteCloseToggler} type="button" className="popupInvite__close"
+              >
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 19 19"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.5 9.5L2 2M9.5 9.5L17 17M9.5 9.5L17 2M9.5 9.5L2 17"
+                    stroke="white"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <h3>
+                Invite friends. 
+                <br />
+                Earn together
+              </h3>
+              <div className="popupInvite__header">
+                <h6>
+                  How it Works
+                </h6>
+                <div className="popupInvite__headerDescr">
+                  <h6>
+                    Referred Friends:
+                  </h6>
+                  <div className="popupInvite__headerItem">
+                    <img src={people} alt="people"/>
+                      <h3>200</h3>
+                  </div>
+                </div>
+              </div>
+              <div className="popupInvite__grid">
+                <div className="popupInvite__gridItem">
+                  <ul className="popupInvite__list">
+                    <li className="popupInvite__list-item">
+                      <img src={envelope} alt="" className="popupInvite__icon" />
+                      <div className="popupInvite__list-itemDescr">
+                        <h5>Get referral link</h5>
+                        <p>Register and get your unique referral link and code</p>
+                      </div>
+                    </li>
+                    <li className="popupInvite__list-item">
+                      <img src={link} alt="" className="popupInvite__icon" />
+                      <div className="popupInvite__list-itemDescr">
+                        <h5>Invite your friends</h5>
+                        <p>Invite your friends to register via your link or code</p>
+                      </div>
+                    </li>
+                    <li className="popupInvite__list-item">
+                      <img src={money} alt="" className="popupInvite__icon" />
+                      <div className="popupInvite__list-itemDescr">
+                        <h5>Earn crypto together</h5>
+                        <p>You will receive up to $2,000 USD when your friends stake CRO on Crypto.com Exchange</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div className="popupInvite__gridItem">
+                  <div className="popupInvite__item-box">
+                    <div className="popupInvite__item-group">
+                      <p>Your referral link</p>
+                      <p className="popupInvite__input">
+                        link
+                        <button className="popupInvite__input-btn">
+                            <img src={copy} alt=""/>
+                        </button>
+                      </p>
+                    </div>
+                    <div className="popupInvite__item-group">
+                      <button className="popupInvite__submit">
+                        Generate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        )
+      }
     </>
   );
 }
