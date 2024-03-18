@@ -1,13 +1,22 @@
-import soundEffect from '../meow.mp3'
-const audio = new Audio(soundEffect)
-	
-const soundPlay = () => {	
-	audio.play();
+import sadCatIdleSound from '../audio/1idle.mp3'
+import sadCatClickSound from '../audio/1talk.mp3'
+
+const audio = new Audio();
+audio.preload = 'auto'; // Preload audio for better responsiveness
+
+const playSadCatClick = () => {
+  audio.src = sadCatClickSound;
+  audio.play();
+};
+
+const playSadCatIdle = () => {
+  audio.src = sadCatIdleSound;
+  audio.play();
 };
 
 function toggleMuteAllSounds() {
-audio.muted = !audio.muted;
+  audio.muted = !audio.muted;
 }
 
-export { soundPlay, toggleMuteAllSounds }
+export { playSadCatClick, playSadCatIdle, toggleMuteAllSounds }
 

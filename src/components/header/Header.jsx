@@ -2,12 +2,12 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
 import axios from 'axios'
 import React, { useContext, useEffect, useRef, useState } from "react"
-import logo from "../../img/logo.svg"
-import people from "../../img/people-icon.svg"
+import copy from "../../img/copy.svg"
 import envelope from "../../img/envelope.svg"
 import link from "../../img/link.svg"
+import logo from "../../img/logo.svg"
 import money from "../../img/money.svg"
-import copy from "../../img/copy.svg"
+import people from "../../img/people-icon.svg"
 import {
   useGetLeaderboardMutation
 } from "../../services/phpService"
@@ -17,7 +17,7 @@ import "./Header.scss"
 
 function Header() {
   const authContext = useContext(AuthContext);
-  const { connected } = useWallet();
+  const { connected, publicKey } = useWallet();
   const [isToggled, setIsToggled] = useState(false);
   const [isShown, setIsShown] = useState(false);
   const [totalPoints, setTotalPoints] = useState(null);
@@ -30,7 +30,9 @@ function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [isElementPresent, setIsElementPresent] = useState(false);
 
-  const [getLeaderboard] = useGetLeaderboardMutation();
+  const intervalRef = useRef(null);
+  const initLeadersRef = useRef(null);
+  const wallet_address = publicKey?.toBase58();
 
   const popupClsTgl = isLeaderboardOpen ? "popupLeaderboard_show" : null;
   const popupClasses = `popupLeaderboard ${popupClsTgl}`;
@@ -42,6 +44,7 @@ function Header() {
   const popupAir = `popupLeaderboard ${popupAirTgl}`;
 
   const containerRef = useRef(null);
+  const [getLeaderboard] = useGetLeaderboardMutation();
 
   useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
@@ -72,72 +75,86 @@ function Header() {
     toggleMuteAllSounds();
     setIsVisible(!isVisible);
   };
-  
-  const leaderboardRefresh = async () => {  
-    try {      
-        const res = await getLeaderboard(authContext.wallet_address).unwrap();
-        setLeaderboardData(res);
-        console.log('setLeaderboardData(res)', res);    
+
+  const fetchTotalPoints = async () => {
+    try {
+      const response = await axios.get(`https://admin.prodtest1.space/api/users/${wallet_address}`);
+      setTotalPoints(response.data?.wallet_balance);
+      console.log('Total points fetched successfully');
     } catch (error) {
-        console.log(error);
+      console.error('Error fetching total points:', error.message);
     }
-}
+  };
 
-useEffect(() => {
-    const fetchData = async () => {
-        if (Object.keys(authContext).length) {
-            await leaderboardRefresh();
-            const intervalId = setInterval(leaderboardRefresh, 10000);
-            return intervalId;
-        }
-    };
-
-    let intervalId;
-
-    fetchData().then((id) => {
-        intervalId = id;
-    });
-
-    return () => {
-        clearInterval(intervalId);
-    };
-}, [authContext]);
-
-useEffect(() => {
   const fetchLeaderboardData = async () => {
     try {
       const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
       setLeaderboardData(response.data);
-      console.log('setLeaderboardData(response.data)', response.data);
+      console.log('Leaderboard data fetched successfully');
     } catch (error) {
       console.error('Error fetching leaderboard data:', error.message);
     }
   };
 
-  const intervalId = setInterval(() => {
+  useEffect(() => {
     fetchLeaderboardData();
-  }, 10000);
+    initLeadersRef.current = setInterval(() => {
+      fetchLeaderboardData();
+    }, 10000);
+    if (connected) {
+      clearInterval(initLeadersRef.current);
+      setTotalPoints(null);
+      fetchTotalPoints();      
+      intervalRef.current = setInterval(() => {
+        fetchTotalPoints();
+        fetchLeaderboardData();
+      }, 10000);
+      localStorage.setItem("wallet_id", wallet_address);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+  }, [connected, wallet_address]);
 
-  if (connected === true) {
-    clearInterval(intervalId);
-  }
+  // useEffect(() => {
+  //   if (connected) {
+  //     fetchTotalPoints();
+  //     fetchLeaderboardData();
+  //   }
+  // }, [authContext, connected]);
 
-  return () => {
-    clearInterval(intervalId);
-  };
-}, [connected]);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (Object.keys(authContext).length) {
+        const res = await getLeaderboard(authContext.wallet_address).unwrap();
+        setLeaderboardData(res);
+        const intervalId = setInterval(() => {
+          getLeaderboard(authContext.wallet_address)
+            .unwrap()
+            .then((data) => setLeaderboardData(data))
+            .catch((error) => console.error('Error refreshing leaderboard:', error));
+        }, 10000);
+        return intervalId;
+      }
+    };
 
-useEffect(() => {
-  if (connected === true) {
-    setTotalPoints(authContext.wallet_balance);
-  }
-}, [authContext, authContext.wallet_balance]);
+    let intervalId;
 
-useEffect(() => {
-  if (!connected) {
-    setTotalPoints(null);
-  }
-}, [connected]);
+    if (connected) {
+      fetchData().then((id) => {
+        intervalId = id;
+      });
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [authContext, connected]);
+
+  useEffect(() => {
+    if (!connected) {
+      setTotalPoints(null);
+    }
+  }, [connected]);
 
   const toggleVisibility = () => {
     setIsShown(!isShown);

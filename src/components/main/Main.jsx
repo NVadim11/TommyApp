@@ -1,108 +1,159 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from "react"
+import sadIdle from '../../img/1_idle.gif'
+import sadSpeak from '../../img/1talk.gif'
+// import sadToNormal from '../../img/1to2.gif'
+import normalIdle from '../../img/2_idle.gif'
+import normalSpeak from '../../img/2talk.gif'
+// import normaltoHappy from '../../img/2to3.gif'
+import smileIdle from '../../img/3_idle.gif'
+import smileSpeak from '../../img/3talk.gif'
+// import smileToHappy from '../../img/3to4.gif'
+import happyIdle from '../../img/4_idle.gif'
+import finalForm from '../../img/4_to_boost.gif'
+import happySpeak from '../../img/4talk.gif'
+// import goldForm from '../../img/gold.gif'
 import catCoin from '../../img/cat_coin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
-import tomIdle from '../../img/3_idle.gif'
-import tomSpeak from '../../img/speak-gif.gif'
-import { soundPlay } from '../../utility/Audio'
 import './Main.scss'
 
 function Main() {
 
-const [idleState, setidleState] = useState(true);
-const [currentImage, setCurrentImage] = useState(true);
-const [coinState, setCoinState] = useState(false);
-const [currCoins, setCurrCoins] = useState(0);
-const [currEnergy, setCurrEnergy] = useState(0);
-const [isCoinsChanged, setIsCoinsChanged] = useState(false);
-const timeoutRef = useRef(null);
-const coinRef = useRef(null);
-const accumulatedCoinsRef = useRef(0);
+    const [idleState, setidleState] = useState(true);
+    const [currentImage, setCurrentImage] = useState(true);
+    const [coinState, setCoinState] = useState(false);
+    const [currCoins, setCurrCoins] = useState(0);
+    const [currEnergy, setCurrEnergy] = useState(0);
+    const [isCoinsChanged, setIsCoinsChanged] = useState(false);
+    const [catIdle, setCatIdle] = useState(sadIdle);
+    const [catSpeak, setCatSpeak] = useState(sadSpeak);
+    const timeoutRef = useRef(null);
+    const coinRef = useRef(null);
+    const accumulatedCoinsRef = useRef(0);
 
-const { publicKey, connected } = useWallet();
-const wallet_address = publicKey?.toBase58();
+    const { publicKey, connected } = useWallet();
+    const wallet_address = publicKey?.toBase58();
 
-useEffect(() => {
-    const energyInterval = setInterval(() => {
-        if (currEnergy >= 1) {
-            setCurrEnergy(prevEnergy => Math.min(prevEnergy - 1, prevEnergy));
-        }
-    }, 1000);
+    useEffect(() => {
+        const energyInterval = setInterval(() => {
+            if (currEnergy >= 1) {
+                let energyDecrement = 1;
+                if (currEnergy >= 751 && currEnergy <= 990) {
+                    energyDecrement = 2;
+                } else if (currEnergy >= 991 && currEnergy <= 1000) {
+                    energyDecrement = 3;
+                }
+                setCurrEnergy(prevEnergy => Math.max(prevEnergy - energyDecrement, 0));
+            }
+        }, 1000);
 
-    return () => clearInterval(energyInterval);
-}, [currEnergy]);
+        return () => clearInterval(energyInterval);
+    }, [currEnergy]);
 
-useEffect(() => {
-    const timer = setInterval(() => {
-        if (isCoinsChanged) {
-            submitData(accumulatedCoinsRef.current);
-            setIsCoinsChanged(false);
-            accumulatedCoinsRef.current = 0;
-        }
-    }, 4900);
-
-    return () => clearTimeout(timer);
-}, [isCoinsChanged]);
-
-const submitData = async (coins) => {
-    try {
-        const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
-            score: coins,
-            wallet_address: wallet_address
-        });
-
-        console.log('Coins submitted successfully:', response.data);
-    } catch (error) {
-        console.error('Error submitting coins:', error);
+    // Modify updateCurrCoins function to return newCoins based on currEnergy
+    const updateCurrCoins = () => {
+    let catIdleImage = catIdle; // Assuming catIdle is your default idle image
+    let catSpeakImage = catSpeak; // Assuming catSpeak is your default speak image
+    let clickNewCoins = 0; // Initialize clickNewCoins
+    if (currEnergy >= 0 && currEnergy <= 250) {
+        catIdleImage = sadIdle;
+        catSpeakImage = sadSpeak;
+        clickNewCoins = 1;
+    } else if (currEnergy >= 251 && currEnergy <= 500) {
+        catIdleImage = normalIdle;
+        catSpeakImage = normalSpeak;
+        clickNewCoins = 2;
+    } else if (currEnergy >= 501 && currEnergy <= 750) {
+        catIdleImage = smileIdle;
+        catSpeakImage = smileSpeak;
+        clickNewCoins = 3;
+    } else if (currEnergy >= 751 && currEnergy <= 990) {
+        catIdleImage = happyIdle;
+        catSpeakImage = happySpeak;
+        clickNewCoins = 4;
+    } else if (currEnergy >= 991 && currEnergy <= 1000) {
+        catIdleImage = happyIdle;
+        catSpeakImage = finalForm;
+        clickNewCoins = 5;
     }
+    
+    setCatIdle(catIdleImage);
+    setCatSpeak(catSpeakImage);
+    setIsCoinsChanged(true); // Trigger coins update
+    return clickNewCoins;
 };
 
-const updateCurrCoins = (newCoins) => {
-    setCurrCoins(prevCoins => prevCoins + newCoins);
-    accumulatedCoinsRef.current += newCoins;
-    setIsCoinsChanged(true);
-};
+    useEffect(() => {
+        updateCurrCoins();
+    }, [currEnergy]);
 
-const firstClick = (event) => {
-    if (!event.isTrusted || currEnergy === 1000) return;
-    setCurrentImage(false);
-    updateCurrCoins(1);
-    soundPlay();
-    setCurrEnergy(prevEnergy => prevEnergy + 1);
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
-};
 
-const coinClicker = (event) => {
-    if (!event.isTrusted || currEnergy === 1000) return;
-    setCoinState(true);
-    updateCurrCoins(1);
-    soundPlay();
-    setCurrEnergy(prevEnergy => prevEnergy + 1);
-    clearTimeout(timeoutRef.current);
-    clearTimeout(coinRef.current);
-    timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
-    coinRef.current = setTimeout(() => setCoinState(false), 4000);
-};
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (isCoinsChanged) {
+                submitData(accumulatedCoinsRef.current);
+                setIsCoinsChanged(false);
+                accumulatedCoinsRef.current = 0;
+            }
+        }, 4900);
+    
+        return () => clearTimeout(timer);
+    }, [isCoinsChanged]);
 
-useEffect(() => {
-    if (connected === false)
-    return () => {
-        setCurrCoins(0);
+    const submitData = async (coins) => {
+        try {
+            const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
+                score: coins,
+                wallet_address: wallet_address
+            });
+    
+            console.log('Coins submitted successfully:', response.data);
+        } catch (error) {
+            console.error('Error submitting coins:', error);
+        }
     };
-}, [connected]);
 
-const startFarm = () => {
+    const firstClick = (event) => {
+        if (!event.isTrusted) return;
+        setCurrentImage(false);
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000)); // Increment energy by 1
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
+        const clickNewCoins = updateCurrCoins(); // Calculate newCoins based on current energy
+        setCurrCoins(prevCoins => prevCoins + clickNewCoins); // Add newCoins to currCoins
+        accumulatedCoinsRef.current += clickNewCoins; // Update accumulated coins
+    };
+    
+    const coinClicker = (event) => {
+        if (!event.isTrusted) return;
+        setCoinState(true);
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000)); // Increment energy by 1
+        clearTimeout(timeoutRef.current);
+        clearTimeout(coinRef.current);
+        timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
+        coinRef.current = setTimeout(() => setCoinState(false), 4000);
+        const clickNewCoins = updateCurrCoins(); // Calculate newCoins based on current energy
+        setCurrCoins(prevCoins => prevCoins + clickNewCoins); // Add newCoins to currCoins
+        accumulatedCoinsRef.current += clickNewCoins; // Update accumulated coins
+    };
+
+    useEffect(() => {
+        if (connected === false) {
+            setCurrCoins(0);
+        }
+    }, [connected]);
+
+    const startFarm = () => {
         setCurrentImage(true);
         setidleState(prevState => !prevState);
-};
+    };
 
-const stopFarm = () => {
-    setCurrentImage(false);
-    setidleState(prevState => !prevState);
-    setCoinState(false);    
-};
+    const stopFarm = () => {
+        setCurrentImage(false);
+        setidleState(prevState => !prevState);
+        setCoinState(false);
+    };
 
 return (
         <div className="mainContent">
@@ -129,7 +180,7 @@ return (
                         </button>
                     </div>
                     <div className="mainContent__catBox">
-                        <img className="mainContent__catIdle" draggable="false" src={tomIdle} alt={tomIdle}/>                
+                        <img className="mainContent__catIdle" draggable="false" src={catIdle} alt="cat animation"/>                
                     </div>
                 </div>
                  ) : (
@@ -153,11 +204,11 @@ return (
                     </div>
                     {currentImage === true ? (
                         <div className="mainContent__catBox" onClick={firstClick}>
-                        <img id="catGif" className="mainContent__catIdle" src={tomIdle} draggable="false" alt={tomIdle}/>
+                        <img id="catGif" className="mainContent__catIdle" src={catIdle} draggable="false" alt="cat animation"/>
                         </div>
                         ) : (
                         <div className="mainContent__catBox" onClick={coinClicker}>
-                        <img id="catGif" className="mainContent__catMeow" src={tomSpeak} draggable="false" alt={tomSpeak}/>
+                        <img id="catGif" className="mainContent__catMeow" src={catSpeak} draggable="false" alt="cat animation"/>
                         </div>
                         )}
                     <div className="mainContent__backBtn" onClick={stopFarm}>
@@ -166,7 +217,7 @@ return (
                             &lt; Stop Farm
                             </span>
                             <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1.5L11 11.5M1 11.5L11 1.5" stroke="white" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M1 1.5L11 11.5M1 11.5L11 1.5" stroke="white" strokeOpacity="0.5" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
                     </div>
