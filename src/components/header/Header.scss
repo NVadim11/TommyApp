@@ -1,4 +1,5 @@
 // variables
+$small: 37.5rem;
 $mobile: 87.4988rem;
 $desktop: 119.9988rem;
 
@@ -174,6 +175,17 @@ $desktop: 119.9988rem;
 			}
 		}
 	}	
+	&__inviteBtn,
+	&__airdropBtn {
+		border: 0.125rem solid #fff;
+		border-radius: 3.75rem;
+		button {
+			font-weight: 600;
+			font-size: 1rem;
+			color: #fff;
+			padding: 0.9375rem 0.9375rem 0.8125rem 0.9375rem;
+		}
+	}
 
 // Burger menu
 	&__mobileBurger-btn {
@@ -481,6 +493,12 @@ body::after {
 	&__wrapper {
 		width: auto;
 		margin: 0 8.125rem;
+		@media (max-width: $mobile) {
+			margin: 0 1.875rem;
+		}
+		@media (max-width: $small) {
+			margin: 0;
+		}
 	}
 	&__content {
 		position: relative;
@@ -516,21 +534,46 @@ body::after {
 		font-size: 2.5rem;
 		line-height: 100%;
 		color: #fff;
+		@media (max-width: $mobile) {
+			font-size: 1.875rem;
+		}
 	}
 	&__header {
 		display: flex;
 		justify-content: space-between;
 		margin-top: 3.75rem;
+		@media (max-width: $mobile) {
+			margin-top: 1.25rem;
+		}
 		h6 {
 			font-weight: 700;
 			font-size: 1.75rem;
 			line-height: 100%;
 			color: #fff;
+			display: flex;
+			@media (max-width: $mobile) {
+				order: 2;
+				font-size: 1.75rem;
+				margin-bottom: 1.25rem;
+				margin-top: 3.75rem;
+			}
+		}
+		@media (max-width: $mobile) {
+			flex-direction: column;
 		}
 	}
 	&__headerDescr {
 		display: flex;
 		flex-direction: column;
+		h6 {
+			@media (max-width: $mobile) {
+				font-size: 1.25rem;
+				margin: 0;
+			}
+		}
+		@media (max-width: $mobile) {
+			order: 1;
+		}
 	}
 	&__headerItem {
 		display: flex;
@@ -539,6 +582,9 @@ body::after {
 			font-weight: 600;
 			font-size: 2.5rem;
 			color: #fff;
+			@media (max-width: $mobile) {
+				font-size: 1.75rem;
+			}
 		}
 		img {
 			width: 1.875rem;
@@ -552,6 +598,11 @@ body::after {
 		grid-template-columns: repeat(2, 1fr);
 		gap: var(--_gap);
 		align-items: center;
+		@media (max-width: $mobile) {
+			grid-template-columns: 1fr;
+			--_gap: 2.5rem;
+			gap: var(--_gap);
+		}
 	}
 	&__gridItem {
 		
@@ -591,6 +642,9 @@ body::after {
 			font-size: 1.625rem;
 			line-height: 100%;
 			color: #fff;
+			@media (max-width: $small) {
+				font-size: 1rem;
+			}
 		}
 		p {
 			font-weight: 400;
@@ -598,12 +652,18 @@ body::after {
 			line-height: 140%;
 			color: #fff;
 			margin-top: 0.625rem;
+			@media (max-width: $small) {
+				font-size: 0.875rem;
+			}
 		}
 	}
 	&__item-box {
 		border: 0.125rem solid #fff;
 		border-radius: 1.875rem;
 		padding: 3.125rem 1.875rem;
+		@media (max-width: $small) {
+			padding: 1.875rem 0.9375rem;
+		}
 	}
 	&__item-group {
 		display: flex;
@@ -648,5 +708,43 @@ body::after {
 }
 
 .popupAirdrop {
-
+	&__wrapper {
+		width: auto;
+		margin: 0 8.125rem;
+		@media (max-width: $mobile) {
+			margin: 0 1.875rem;
+		}
+		@media (max-width: $small) {
+			margin: 0;
+		}
+	}
+	&__content {
+		position: relative;
+		max-width: fit-content;
+		backdrop-filter: blur(1.125rem);
+		background: rgba(124, 48, 247, 0.45);
+		// backdrop-filter: blur(1.5rem);
+		box-shadow: inset -0.25rem -0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+		// background: linear-gradient(180deg, #5b16c975 0%, #27075b21 100%);
+		display: flex;
+		flex-direction: column;
+		padding: 4.625rem 3.4375rem 4rem 3.4375rem;
+		border: 0.125rem solid #fff;
+		border-radius: 1.875rem;
+	}
+	&__close {
+		position: absolute;
+		top: 1.875rem;
+		right: 1.875rem;
+		@media (max-width: $mobile) {
+			top: 1.5625rem;
+			right: 1.5625rem;
+		}
+		svg {
+			@media (max-width: $mobile) {
+				height: 0.9375rem;
+				width: 0.9375rem;
+			}
+		}
+	}
 }

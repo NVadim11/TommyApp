@@ -40,8 +40,8 @@ function Header() {
   const popupInvTgl = isInviteOpen ? "popupInvite_show" : null;
   const popupInvite = `popupInvite ${popupInvTgl}`;
 
-  const popupAirTgl= isAirOpen ? "popupLeaderboard_show" : null;
-  const popupAir = `popupLeaderboard ${popupAirTgl}`;
+  const popupAirTgl= isAirOpen ? "popupAirdrop_show" : null;
+  const popupAirdrop = `popupAirdrop ${popupAirTgl}`;
 
   const containerRef = useRef(null);
   const [getLeaderboard] = useGetLeaderboardMutation();
@@ -186,7 +186,7 @@ function Header() {
 
   const airdropBtn = () => {
     setAirOpen(true);
-    fadeShow();
+    fadeShowAir();
     setIsShown(false);
   }
 
@@ -200,9 +200,9 @@ function Header() {
     if (htmlTag) htmlTag.classList.add("popupInvite-show");
   };
 
-  const fadeAirInvite = () => {
+  const fadeShowAir = () => {
     const htmlTag = document.getElementById("html");
-    if (htmlTag) htmlTag.classList.add("popupLeaderboard-show");
+    if (htmlTag) htmlTag.classList.add("popupAirdrop-show");
   };
 
   const leaderboardCloseToggler = () => {
@@ -215,6 +215,12 @@ function Header() {
     setInviteOpen(false);
     const htmlTag = document.getElementById("html");
     if (htmlTag) htmlTag.classList.remove("popupInvite-show");
+  };
+
+  const airCloseToggler = () => {
+    setAirOpen(false);
+    const htmlTag = document.getElementById("html");
+    if (htmlTag) htmlTag.classList.remove("popupAirdrop-show");
   };
 
   return (
@@ -306,6 +312,11 @@ function Header() {
             <div className="header__inviteBtn">
               <button onClick={inviteFriendsBtn}>
                 Invite a friend
+              </button>
+            </div>
+            <div className="header__airdropBtn">
+              <button onClick={airdropBtn}>
+                Claim an airdrop
               </button>
             </div>
             <div className="header__mobileBurger"
@@ -498,6 +509,7 @@ function Header() {
                         link
                         <button className="popupInvite__input-btn">
                             <img src={copy} alt=""/>
+                            <span></span>
                         </button>
                       </p>
                     </div>
@@ -512,6 +524,35 @@ function Header() {
             </div>
           </div>
         </div>
+        )
+      }
+      {
+        isAirOpen && (
+          <div id="popupAirdrop" aria-hidden="true" className={popupAirdrop}>
+            <div className="popupAirdrop__wrapper">
+            <div className="popupAirdrop__content">
+              <button onClick={airCloseToggler} type="button" className="popupAirdrop__close"
+              >
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 19 19"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.5 9.5L2 2M9.5 9.5L17 17M9.5 9.5L17 2M9.5 9.5L2 17"
+                    stroke="white"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <p>test</p>
+            </div>
+            </div>
+          </div>
         )
       }
     </>
