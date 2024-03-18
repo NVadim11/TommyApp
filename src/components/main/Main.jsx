@@ -3,13 +3,10 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from "react"
 import sadIdle from '../../img/1_idle.gif'
 import sadSpeak from '../../img/1talk.gif'
-// import sadToNormal from '../../img/1to2.gif'
 import normalIdle from '../../img/2_idle.gif'
 import normalSpeak from '../../img/2talk.gif'
-// import normaltoHappy from '../../img/2to3.gif'
 import smileIdle from '../../img/3_idle.gif'
 import smileSpeak from '../../img/3talk.gif'
-// import smileToHappy from '../../img/3to4.gif'
 import happyIdle from '../../img/4_idle.gif'
 import finalForm from '../../img/4_to_boost.gif'
 import happySpeak from '../../img/4talk.gif'
@@ -17,6 +14,11 @@ import happySpeak from '../../img/4talk.gif'
 import catCoin from '../../img/cat_coin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
 import './Main.scss'
+
+//////
+//////
+//////
+//////
 
 function Main() {
 
@@ -31,63 +33,66 @@ function Main() {
     const timeoutRef = useRef(null);
     const coinRef = useRef(null);
     const accumulatedCoinsRef = useRef(0);
-
     const { publicKey, connected } = useWallet();
     const wallet_address = publicKey?.toBase58();
 
     useEffect(() => {
         const energyInterval = setInterval(() => {
-            if (currEnergy >= 1) {
+            setCurrEnergy(prevEnergy => {
                 let energyDecrement = 1;
-                if (currEnergy >= 751 && currEnergy <= 990) {
+                if (prevEnergy >= 751 && prevEnergy <= 990) {
                     energyDecrement = 2;
-                } else if (currEnergy >= 991 && currEnergy <= 1000) {
+                } else if (prevEnergy >= 991 && prevEnergy <= 1000) {
                     energyDecrement = 3;
                 }
-                setCurrEnergy(prevEnergy => Math.max(prevEnergy - energyDecrement, 0));
-            }
+                return Math.max(prevEnergy - energyDecrement, 0);
+            });
         }, 1000);
 
         return () => clearInterval(energyInterval);
+    }, []);
+
+    useEffect(() => {
+        if (currEnergy <= 0) {
+            setCurrEnergy(0);
+        }
     }, [currEnergy]);
 
-    // Modify updateCurrCoins function to return newCoins based on currEnergy
     const updateCurrCoins = () => {
-    let catIdleImage = catIdle; // Assuming catIdle is your default idle image
-    let catSpeakImage = catSpeak; // Assuming catSpeak is your default speak image
-    let clickNewCoins = 0; // Initialize clickNewCoins
-    if (currEnergy >= 0 && currEnergy <= 250) {
-        catIdleImage = sadIdle;
-        catSpeakImage = sadSpeak;
-        clickNewCoins = 1;
-    } else if (currEnergy >= 251 && currEnergy <= 500) {
-        catIdleImage = normalIdle;
-        catSpeakImage = normalSpeak;
-        clickNewCoins = 2;
-    } else if (currEnergy >= 501 && currEnergy <= 750) {
-        catIdleImage = smileIdle;
-        catSpeakImage = smileSpeak;
-        clickNewCoins = 3;
-    } else if (currEnergy >= 751 && currEnergy <= 990) {
-        catIdleImage = happyIdle;
-        catSpeakImage = happySpeak;
-        clickNewCoins = 4;
-    } else if (currEnergy >= 991 && currEnergy <= 1000) {
-        catIdleImage = happyIdle;
-        catSpeakImage = finalForm;
-        clickNewCoins = 5;
-    }
-    
-    setCatIdle(catIdleImage);
-    setCatSpeak(catSpeakImage);
-    setIsCoinsChanged(true); // Trigger coins update
-    return clickNewCoins;
-};
+        let catIdleImage = catIdle;
+        let catSpeakImage = catSpeak;
+        let clickNewCoins = 0;
+        if (currEnergy >= 0 && currEnergy <= 250) {
+            catIdleImage = sadIdle;
+            catSpeakImage = sadSpeak;
+            clickNewCoins = 1;
+        } else if (currEnergy >= 251 && currEnergy <= 500) {
+            catIdleImage = normalIdle;
+            catSpeakImage = normalSpeak;
+            clickNewCoins = 2;
+        } else if (currEnergy >= 501 && currEnergy <= 750) {
+            catIdleImage = smileIdle;
+            catSpeakImage = smileSpeak;
+            clickNewCoins = 3;
+        } else if (currEnergy >= 751 && currEnergy <= 990) {
+            catIdleImage = happyIdle;
+            catSpeakImage = happySpeak;
+            clickNewCoins = 4;
+        } else if (currEnergy >= 991 && currEnergy <= 1000) {
+            catIdleImage = happyIdle;
+            catSpeakImage = finalForm;
+            clickNewCoins = 5;
+        }
+        
+        setCatIdle(catIdleImage);
+        setCatSpeak(catSpeakImage);
+        setIsCoinsChanged(true);
+        return clickNewCoins;
+    };
 
     useEffect(() => {
         updateCurrCoins();
     }, [currEnergy]);
-
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -98,7 +103,7 @@ function Main() {
             }
         }, 4900);
     
-        return () => clearTimeout(timer);
+        return () => clearInterval(timer);
     }, [isCoinsChanged]);
 
     const submitData = async (coins) => {
@@ -117,25 +122,25 @@ function Main() {
     const firstClick = (event) => {
         if (!event.isTrusted) return;
         setCurrentImage(false);
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000)); // Increment energy by 1
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000));
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
-        const clickNewCoins = updateCurrCoins(); // Calculate newCoins based on current energy
-        setCurrCoins(prevCoins => prevCoins + clickNewCoins); // Add newCoins to currCoins
-        accumulatedCoinsRef.current += clickNewCoins; // Update accumulated coins
+        const clickNewCoins = updateCurrCoins();
+        setCurrCoins(prevCoins => prevCoins + clickNewCoins);
+        accumulatedCoinsRef.current += clickNewCoins;
     };
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
         setCoinState(true);
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000)); // Increment energy by 1
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000));
         clearTimeout(timeoutRef.current);
         clearTimeout(coinRef.current);
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
         coinRef.current = setTimeout(() => setCoinState(false), 4000);
-        const clickNewCoins = updateCurrCoins(); // Calculate newCoins based on current energy
-        setCurrCoins(prevCoins => prevCoins + clickNewCoins); // Add newCoins to currCoins
-        accumulatedCoinsRef.current += clickNewCoins; // Update accumulated coins
+        const clickNewCoins = updateCurrCoins();
+        setCurrCoins(prevCoins => prevCoins + clickNewCoins);
+        accumulatedCoinsRef.current += clickNewCoins;
     };
 
     useEffect(() => {
@@ -158,7 +163,7 @@ function Main() {
 return (
         <div className="mainContent">
             <div className="mainContent__container">
-            {idleState ? (
+                {idleState ? (
                 <div className="mainContent__phaseOne">
                     <div className="mainContent__title">
                         <h4>Tim The Cat</h4>
