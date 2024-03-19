@@ -2,7 +2,7 @@ import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import Main from "./main/Main";
 import AOS from "aos";
-import Landing from "./Landing";
+// import Landing from "./Landing";
 import { useEffect, useState } from "react";
 import Preloader from "./preloader/Preloader";
 
@@ -30,11 +30,11 @@ const MainComponent = () => {
       <Header />
       <main className="main">
         <Main />
-        <Footer />
-        <div className="bgImage">
-      </div>
+        {/* <div className="bgImage">
+      </div> */}
       </main>
-      <Landing />
+      {/* <Landing /> */}
+      <Footer />
     </div>
   );
 };

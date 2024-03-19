@@ -13,6 +13,7 @@ import {
 } from "../../services/phpService"
 import { toggleMuteAllSounds } from "../../utility/Audio"
 import { AuthContext } from '../helper/contexts'
+import { useGenerateCodeMutation } from "../../services/phpService";
 import "./Header.scss"
 
 function Header() {
@@ -223,6 +224,34 @@ function Header() {
     if (htmlTag) htmlTag.classList.remove("popupAirdrop-show");
   };
 
+  const [code, setCode] = useState("");
+  const [generateCode] = useGenerateCodeMutation();
+
+  useEffect(() => {
+    if (authContext && authContext.referral_code) {
+      setCode(authContext.referral_code);
+    }
+  }, [authContext]);
+
+  const copyLink = async () => {
+    if ('clipboard' in navigator) {
+      return await navigator.clipboard.writeText(`${window.location.href}${code}`);
+    } else {
+      return document.execCommand('copy', true, `${window.location.href}${code}`);
+    }
+  }
+
+  const generateCodeCallback = async () => {
+    try {
+      if(authContext.wallet_address){
+        const res = await generateCode(authContext.wallet_address).unwrap();
+        res && res.code && setCode(res.code);
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <>
       <header className="header">
@@ -314,69 +343,13 @@ function Header() {
                 Invite a friend
               </button>
             </div>
-            <div className="header__mobileBurger"
-              ref={containerRef}
-              onClick={toggleVisibility}
-            >
-              <div
-                className={
-                  isToggled
-                    ? "header__mobileBurger-btn is-active"
-                    : "header__mobileBurger-btn"
-                }
-              >
-                <span className="header__mobileBurger-line"></span>
-                <span className="header__mobileBurger-line"></span>
-                <span className="header__mobileBurger-line"></span>
-              </div>
-              {isShown && (
-                <div className="header__mobileMenu">
-                  <a
-                    className="header__mobileMenu-links"
-                    onClick={leaderBordBtn}
-                  >
-                    Leadboard
-                  </a>
-                  <a
-                    className="header__mobileMenu-links"
-                    onClick={inviteFriendsBtn}
-                    rel="noopener noreferrer"
-                  >
-                    Invite a friend
-                  </a>
-                  <a
-                    className="header__mobileMenu-links"
-                    onClick={airdropBtn}
-                    rel="noopener noreferrer"
-                  >
-                    Claim an airdrop
-                  </a>
-                  <a
-                    className="header__mobileMenu-links"
-                    href="https://www.youtube.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    tw
-                  </a>
-                  <a
-                    className="header__mobileMenu-links"
-                    href="https://web.telegram.org/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Telegram
-                  </a>
-                </div>
-              )}
-            </div>
           </div>
         </div>
-        <div className="header__airdropBtn">
+        {/* <div className="header__airdropBtn">
           <button onClick={airdropBtn}>
             Claim an airdrop
           </button>
-        </div>
+        </div> */}
       </header>
       {isLeaderboardOpen && (
         <div id="leaderboard" aria-hidden="true" className={popupClasses}>
@@ -520,15 +493,15 @@ function Header() {
                     <div className="popupInvite__item-group">
                       <p>Your referral link</p>
                       <p className="popupInvite__input">
-                        link
-                        <button className="popupInvite__input-btn">
+                        {code.length ? `${window.location.href}${code}` : "link"}
+                        <button onClick={() => copyLink()} className="popupInvite__input-btn">
                             <img src={copy} alt=""/>
-                            <span></span>
+                            {/* <span></span> */}
                         </button>
                       </p>
                     </div>
                     <div className="popupInvite__item-group">
-                      <button className="popupInvite__submit">
+                      <button className="popupInvite__submit" onClick={generateCodeCallback}>
                         Generate
                       </button>
                     </div>
@@ -540,7 +513,7 @@ function Header() {
         </div>
         )
       }
-      {
+      {/* {
         isAirOpen && (
           <div id="popupAirdrop" aria-hidden="true" className={popupAirdrop}>
             <div className="popupAirdrop__wrapper">
@@ -622,7 +595,7 @@ function Header() {
             </div>
           </div>
         )
-      }
+      } */}
     </>
   );
 }

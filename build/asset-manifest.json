@@ -1,7 +1,12 @@
 {
   "files": {
+<<<<<<< Updated upstream
     "main.css": "/TommyApp/static/css/main.bb27b34a.css",
     "main.js": "/TommyApp/static/js/main.403b6add.js",
+=======
+    "main.css": "/TommyApp/static/css/main.9c9e4356.css",
+    "main.js": "/TommyApp/static/js/main.72e10cd9.js",
+>>>>>>> Stashed changes
     "static/js/620.0af777c5.chunk.js": "/TommyApp/static/js/620.0af777c5.chunk.js",
     "static/js/280.6897828c.chunk.js": "/TommyApp/static/js/280.6897828c.chunk.js",
     "static/js/609.cd187691.chunk.js": "/TommyApp/static/js/609.cd187691.chunk.js",
@@ -74,7 +79,12 @@
     "static/media/check.svg": "/TommyApp/static/media/check.45798ce82aa61a4c61a038949a5ef76f.svg"
   },
   "entrypoints": [
+<<<<<<< Updated upstream
     "static/css/main.bb27b34a.css",
     "static/js/main.403b6add.js"
+=======
+    "static/css/main.9c9e4356.css",
+    "static/js/main.72e10cd9.js"
+>>>>>>> Stashed changes
   ]
 }
