@@ -586,6 +586,9 @@ $desktop: 1919.98px;
 			line-height: 100%;
 			color: #fff;
 			margin-top: 1.25rem;
+			@media (max-width: $mobile) {
+				font-size: 1.25rem;
+			}
 		}
 	}
 	&__items {
@@ -598,7 +601,8 @@ $desktop: 1919.98px;
 		// border-bottom: 2px solid rgba(255, 255, 255, 0.5);
 		align-items: center;
 		justify-content: space-between;
-		span {
+		@media (max-width: $mobile) {
+			flex-direction: column;
 		}
 	}
 	&__item:last-child {
@@ -616,9 +620,10 @@ $desktop: 1919.98px;
 		font-size: 1.125rem;
 		transition: .25s;
 		@media (max-width: $mobile) {
+			margin-top: 0.9375rem;
 			font-size: 1rem;
 			padding: 0.625rem 0.9375rem 0.5625rem 0.9375rem;
-	}
+		}
 	}
 	&__item-btn:hover {       
 		transition: .25s;

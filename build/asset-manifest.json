@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.99d6b5b6.css",
+    "main.css": "/TommyApp/static/css/main.57178b87.css",
     "main.js": "/TommyApp/static/js/main.e76382d4.js",
     "static/js/620.0af777c5.chunk.js": "/TommyApp/static/js/620.0af777c5.chunk.js",
     "static/js/280.6897828c.chunk.js": "/TommyApp/static/js/280.6897828c.chunk.js",
@@ -50,7 +50,7 @@
     "index.html": "/TommyApp/index.html"
   },
   "entrypoints": [
-    "static/css/main.99d6b5b6.css",
+    "static/css/main.57178b87.css",
     "static/js/main.e76382d4.js"
   ]
 }
