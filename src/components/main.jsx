@@ -30,11 +30,19 @@ const MainComponent = () => {
       <Header />
       <main className="main">
         <Main />
-        {/* <div className="bgImage">
-      </div> */}
       </main>
       {/* <Landing /> */}
       <Footer />
+      <div className="bgImageFirst">
+      </div>
+      {/* <div className="bgImageSecond">
+      </div> */}
+      {/* <div className="bgImageThird">
+      </div> */}
+      {/* <div className="bgImageFourth">
+      </div> */}
+      {/* <div className="bgImageFives">
+      </div> */}
     </div>
   );
 };

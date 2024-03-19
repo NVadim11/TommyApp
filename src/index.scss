@@ -9,11 +9,11 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-  	overflow: hidden;
-	background-image: url("../src/img/bg.png");
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
+  	// overflow: hidden;
+	// background-image: url("../src/img/bg.png");
+	// background-repeat: no-repeat;
+	// background-position: center;
+	// background-size: cover;
 	@supports (overflow: clip) {
 		overflow: clip;
 	}

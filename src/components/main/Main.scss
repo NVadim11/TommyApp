@@ -608,9 +608,6 @@ $desktop: 1919.98px;
 	&__item:last-child {
 		margin-bottom: 0;
 	}
-	&__item-number {
-
-	}
 	&__item-btn {
 		border: 0.125rem solid #fff;
 		border-radius: 3.75rem;
@@ -685,16 +682,17 @@ $desktop: 1919.98px;
 	}
 }
 
-.bgImage {
+.bgImageFirst {
 	position: absolute;
 	background: linear-gradient(180deg, #331F49 0%, #5D51D5 100%);
-	background-image: url("../../img/bg.png");
+	background-image: url("../../img/bgFirst.png");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	height: calc(100% + 5.75rem);
+	// height: calc(100% + 5.75rem);
+	height: 100%;
 	width: 100%;
-	top: -5.75rem;
+	// top: -5.75rem;
 	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 	// img {
 	// 	background-image: url("../../img/bg.png");
@@ -703,8 +701,104 @@ $desktop: 1919.98px;
 	// 	background-size: cover;
 	// }	
 	@media (max-width: $mobile) {
-		top: -4.3125rem;
-		height: calc(100% + 4.3125rem);
+		// top: -4.3125rem;
+		// height: calc(100% + 4.3125rem);
+	}
+}
+
+.bgImageSecond {
+	position: absolute;
+	background: linear-gradient(180deg, #331F49 0%, #5D51D5 100%);
+	background-image: url("../../img/bgSecond.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	// height: calc(100% + 5.75rem);
+	height: 100%;
+	width: 100%;
+	// top: -5.75rem;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	// img {
+	// 	background-image: url("../../img/bg.png");
+	// 	background-repeat: no-repeat;
+	// 	background-position: center;
+	// 	background-size: cover;
+	// }	
+	@media (max-width: $mobile) {
+		// top: -4.3125rem;
+		// height: calc(100% + 4.3125rem);
+	}
+}
+
+.bgImageThird {
+	position: absolute;
+	background: linear-gradient(180deg, #331F49 0%, #5D51D5 100%);
+	background-image: url("../../img/bgThird.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	// height: calc(100% + 5.75rem);
+	height: 100%;
+	width: 100%;
+	// top: -5.75rem;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	// img {
+	// 	background-image: url("../../img/bg.png");
+	// 	background-repeat: no-repeat;
+	// 	background-position: center;
+	// 	background-size: cover;
+	// }	
+	@media (max-width: $mobile) {
+		// top: -4.3125rem;
+		// height: calc(100% + 4.3125rem);
+	}
+}
+
+.bgImageFourth {
+	position: absolute;
+	background: linear-gradient(180deg, #331F49 0%, #5D51D5 100%);
+	background-image: url("../../img/bgFourth.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	// height: calc(100% + 5.75rem);
+	height: 100%;
+	width: 100%;
+	// top: -5.75rem;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	// img {
+	// 	background-image: url("../../img/bg.png");
+	// 	background-repeat: no-repeat;
+	// 	background-position: center;
+	// 	background-size: cover;
+	// }	
+	@media (max-width: $mobile) {
+		// top: -4.3125rem;
+		// height: calc(100% + 4.3125rem);
+	}
+}
+
+.bgImageFives {
+	position: absolute;
+	background: linear-gradient(180deg, #331F49 0%, #5D51D5 100%);
+	background-image: url("../../img/bgFives.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	// height: calc(100% + 5.75rem);
+	height: 100%;
+	width: 100%;
+	// top: -5.75rem;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	// img {
+	// 	background-image: url("../../img/bg.png");
+	// 	background-repeat: no-repeat;
+	// 	background-position: center;
+	// 	background-size: cover;
+	// }	
+	@media (max-width: $mobile) {
+		// top: -4.3125rem;
+		// height: calc(100% + 4.3125rem);
 	}
 }
 
