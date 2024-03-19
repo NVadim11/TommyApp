@@ -665,6 +665,9 @@ body::after {
 		margin-bottom: 1.25rem;
 		position: relative;
 		padding: 0 0 0 4.125rem;
+		@media (max-width: $small) {
+			padding: 0;
+			}
 		&:not(:last-child) {
 			&::before {
 			  content: '';
@@ -674,6 +677,9 @@ body::after {
 			  background-image: url("data:image/svg+xml,%3Csvg width='2' height='73' viewBox='0 0 2 73' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='1' y1='72' x2='1' y2='1' stroke='white' stroke-width='2' stroke-linecap='round' stroke-dasharray='10 10'/%3E%3C/svg%3E%0A");
 			  width: 2px;
 			  height: 100%;
+			  @media (max-width: $small) {
+				display: none;
+				}
 			}
 		  }
 	}
@@ -684,6 +690,9 @@ body::after {
 		top: 0;
 		background-color: #000;
 		border-radius: 50%;
+		@media (max-width: $small) {
+			display: none;
+		}
 	}
 	&__list-itemDescr {
 		h5 {
@@ -711,7 +720,8 @@ body::after {
 		border-radius: 1.875rem;
 		padding: 3.125rem 1.875rem;
 		@media (max-width: $small) {
-			padding: 1.875rem 0.9375rem;
+			padding: 1.875rem 0.9375rem;border:none;
+			padding: 0;
 		}
 	}
 	&__item-group {
@@ -728,6 +738,9 @@ body::after {
 			&:not(:last-child) {
 				margin-bottom: 0.9375rem;
 			}
+			@media (max-width: $small) {
+				font-size: 1.25rem;
+			}
 		}
 	}
 	&__input {
@@ -741,6 +754,11 @@ body::after {
 		font-size: 1.125rem;
 		line-height: 140%;
 		color: #fff;
+		@media (max-width: $small) {
+			font-size: 0.875rem!important;
+			padding: 0;
+			border: none;
+		}
 	}
 	&__input-btn {
 		img {

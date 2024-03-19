@@ -547,9 +547,9 @@ function Header() {
                 <div className="popupInvite__gridItem">
                   <div className="popupInvite__item-box">
                     <div className="popupInvite__item-group">
-                      <p>Your referral link</p>
+                      <p>Your referral link:</p>
                       <p className="popupInvite__input">
-                        {code.length ? `${window.location.href}${code}` : "link"}
+                        {code.length ? `${(window.location.href).slice(7,(window.location.href).length)}${code}` : "link"}
                         <button onClick={() => copyLink()} className="popupInvite__input-btn">
                             <img src={copy} alt=""/>
                             {/* <span></span> */}
