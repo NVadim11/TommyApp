@@ -1,16 +1,11 @@
 {
   "files": {
-<<<<<<< Updated upstream
-    "main.css": "/TommyApp/static/css/main.bb27b34a.css",
-    "main.js": "/TommyApp/static/js/main.403b6add.js",
-=======
-    "main.css": "/TommyApp/static/css/main.9c9e4356.css",
-    "main.js": "/TommyApp/static/js/main.72e10cd9.js",
->>>>>>> Stashed changes
+    "main.css": "/TommyApp/static/css/main.2d08fe0c.css",
+    "main.js": "/TommyApp/static/js/main.a0edf365.js",
     "static/js/620.0af777c5.chunk.js": "/TommyApp/static/js/620.0af777c5.chunk.js",
     "static/js/280.6897828c.chunk.js": "/TommyApp/static/js/280.6897828c.chunk.js",
     "static/js/609.cd187691.chunk.js": "/TommyApp/static/js/609.cd187691.chunk.js",
-    "static/js/559.8371da5b.chunk.js": "/TommyApp/static/js/559.8371da5b.chunk.js",
+    "static/js/559.ac5a8278.chunk.js": "/TommyApp/static/js/559.ac5a8278.chunk.js",
     "static/js/688.debb6611.chunk.js": "/TommyApp/static/js/688.debb6611.chunk.js",
     "static/media/1_idle.gif": "/TommyApp/static/media/1_idle.3966a07355ead4addd83.gif",
     "static/media/4_idle.gif": "/TommyApp/static/media/4_idle.d02a5ac57c3408f525b0.gif",
@@ -23,14 +18,8 @@
     "static/media/2talk.gif": "/TommyApp/static/media/2talk.a1cea502cec53e00ccb8.gif",
     "static/media/bg.png": "/TommyApp/static/media/bg.a7882cf2fc5286f130d1.png",
     "static/media/logo.svg": "/TommyApp/static/media/logo.7cbfffe940bb1e33cb592a1b6d8326c9.svg",
-    "static/media/mobCat.png": "/TommyApp/static/media/mobCat.57746acbac16bce0c135.png",
-    "static/media/catForm.png": "/TommyApp/static/media/catForm.4eef2edf4355ffcae0b6.png",
-    "static/media/cat-sm.jpg": "/TommyApp/static/media/cat-sm.35c8a3721e263fc7f87b.jpg",
-    "static/media/cat.jpg": "/TommyApp/static/media/cat.b71065a2a9e7f4a3ea3d.jpg",
     "static/media/WorkSans-Medium.ttf": "/TommyApp/static/media/WorkSans-Medium.905f58df4c3ad21ca78d.ttf",
-    "static/media/cat.png": "/TommyApp/static/media/cat.1f5729fbe26fd6213afc.png",
     "static/media/cat2.png": "/TommyApp/static/media/cat2.e1503440ffdb4bc65223.png",
-    "static/media/coin-lg-opacity.png": "/TommyApp/static/media/coin-lg-opacity.446846ad70bcf7d4194b.png",
     "static/media/Grandstander-ExtraLightItalic.ttf": "/TommyApp/static/media/Grandstander-ExtraLightItalic.cd374ab1c2b7dc331d80.ttf",
     "static/media/Grandstander-ExtraBoldItalic.ttf": "/TommyApp/static/media/Grandstander-ExtraBoldItalic.29fc7dc343efa9613acd.ttf",
     "static/media/Grandstander-LightItalic.ttf": "/TommyApp/static/media/Grandstander-LightItalic.0503d4cd3e2f23e285d6.ttf",
@@ -49,42 +38,19 @@
     "static/media/Grandstander-Light.ttf": "/TommyApp/static/media/Grandstander-Light.6b4c6de9a5cfad355695.ttf",
     "static/media/Grandstander-Black.ttf": "/TommyApp/static/media/Grandstander-Black.ebb29a8f529f3b9a58bb.ttf",
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
-    "static/media/coin-lg.png": "/TommyApp/static/media/coin-lg.4929af979f10365ac1bb.png",
     "static/media/1talk.mp3": "/TommyApp/static/media/1talk.ad919b3f2cc2da3b6a4a.mp3",
     "static/media/cat_coin_move.png": "/TommyApp/static/media/cat_coin_move.11ca9490bb4e11c10748.png",
     "static/media/cat_coin.png": "/TommyApp/static/media/cat_coin.b12a525efe9f3830eea9.png",
     "static/media/1idle.mp3": "/TommyApp/static/media/1idle.0670f0df69a0745c2101.mp3",
-    "static/media/swap.jpg": "/TommyApp/static/media/swap.2725723276d826dd23d6.jpg",
-    "static/media/coin-sm.png": "/TommyApp/static/media/coin-sm.5483c8276d7918e4b49e.png",
-    "static/media/quote.png": "/TommyApp/static/media/quote.f05620e5c1dfbd80a840.png",
-    "static/media/tokens.svg": "/TommyApp/static/media/tokens.21ce9a01707e1abfbaa99d2ae22c99ef.svg",
-    "static/media/icon3.svg": "/TommyApp/static/media/icon3.d494424d0a4c64873ecdb450803793cc.svg",
-    "static/media/icon4.svg": "/TommyApp/static/media/icon4.f2af5f71f82514b3f525f7f63e01927c.svg",
-    "static/media/icon1.svg": "/TommyApp/static/media/icon1.346a563feaf8f953ca04f92e82a3ee00.svg",
-    "static/media/bot.svg": "/TommyApp/static/media/bot.38d1390269bdc78e7c95a77f8efc2271.svg",
-    "static/media/icon2.svg": "/TommyApp/static/media/icon2.258329e943af587d298342091f8f386e.svg",
-    "static/media/power.svg": "/TommyApp/static/media/power.a6683517ae20b5a4fe9ecb0694493e20.svg",
-    "static/media/twitter.svg": "/TommyApp/static/media/twitter.3f307c759fa9e72ffea2760fbcc3c8c6.svg",
-    "static/media/people-icon.svg": "/TommyApp/static/media/people-icon.5dfbca7d344212085b4fae2210227cdd.svg",
-    "static/media/money.svg": "/TommyApp/static/media/money.05bf1610825df2437c2af9d6cc1f43ea.svg",
-    "static/media/envelope.svg": "/TommyApp/static/media/envelope.ad77cac2de50fb40907cd936a75bfcf5.svg",
-    "static/media/link.svg": "/TommyApp/static/media/link.f498aa5cc050dc1fa2f4618af8341488.svg",
-    "static/media/star.svg": "/TommyApp/static/media/star.7612e3bc38069fa302b09a714ad9f341.svg",
-    "static/media/copy.svg": "/TommyApp/static/media/copy.23a0ad47e514fc4d82318b2ddb8ed960.svg",
-    "static/media/discord.svg": "/TommyApp/static/media/discord.021145a6e50cb596576cc4a3d77c6b83.svg",
-    "static/media/ellipse.svg": "/TommyApp/static/media/ellipse.99efa86959f2b29de6ce62a7e3299363.svg",
-    "static/media/arrow.svg": "/TommyApp/static/media/arrow.7abd1ea65f603e8770b0d2840cffb372.svg",
-    "static/media/stepsbg.svg": "/TommyApp/static/media/stepsbg.a5f9a79bf58f52b5a203.svg",
-    "index.html": "/TommyApp/index.html",
-    "static/media/check.svg": "/TommyApp/static/media/check.45798ce82aa61a4c61a038949a5ef76f.svg"
+    "static/media/people-icon.svg": "/TommyApp/static/media/people-icon.f416f02a404341fe3e57ff92a082672b.svg",
+    "static/media/money.svg": "/TommyApp/static/media/money.1cec3ae150a11392284a9cc6bb76ba3e.svg",
+    "static/media/envelope.svg": "/TommyApp/static/media/envelope.81382d0fd7a7fa80722341631b2a3ee9.svg",
+    "static/media/link.svg": "/TommyApp/static/media/link.f71365e59d99b2e9e290c97516f5e973.svg",
+    "static/media/copy.svg": "/TommyApp/static/media/copy.7f86c828162b5b60758a61c526137384.svg",
+    "index.html": "/TommyApp/index.html"
   },
   "entrypoints": [
-<<<<<<< Updated upstream
-    "static/css/main.bb27b34a.css",
-    "static/js/main.403b6add.js"
-=======
-    "static/css/main.9c9e4356.css",
-    "static/js/main.72e10cd9.js"
->>>>>>> Stashed changes
+    "static/css/main.2d08fe0c.css",
+    "static/js/main.a0edf365.js"
   ]
 }

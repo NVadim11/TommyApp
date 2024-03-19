@@ -1,6 +1,6 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import axios from 'axios'
-import React, { useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import sadIdle from '../../img/1_idle.gif'
 import sadSpeak from '../../img/1talk.gif'
 import normalIdle from '../../img/2_idle.gif'
@@ -13,6 +13,9 @@ import happySpeak from '../../img/4talk.gif'
 // import goldForm from '../../img/gold.gif'
 import catCoin from '../../img/cat_coin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
+import { useLocation } from "react-router-dom"
+import { useTwitterAuthMutation } from "../../services/auth"
+import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
 //////
@@ -35,6 +38,12 @@ function Main() {
     const accumulatedCoinsRef = useRef(0);
     const { publicKey, connected } = useWallet();
     const wallet_address = publicKey?.toBase58();
+    const [requestAuth] = useTwitterAuthMutation();
+    const authContext = useContext(AuthContext);
+    const location = useLocation();
+    const formRef = useRef(null);
+
+    const executeScroll = () => formRef.current.scrollIntoView();
 
     useEffect(() => {
         const energyInterval = setInterval(() => {
@@ -160,6 +169,22 @@ function Main() {
         setCoinState(false);
     };
 
+    const loginTwitter = async () => {
+        try {
+          const res = await requestAuth().unwrap();
+          window.location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${res.token}`;
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
+      useEffect(() => {
+        if (location.state && location.state?.auth) {
+          executeScroll();
+          window.history.replaceState({}, "");
+        }
+      }, []);
+
 return (
         <div className="mainContent">
             <div className="mainContent__container">
@@ -174,8 +199,57 @@ return (
                             et dolore magna.
                         </p>
                     </div>
-                    <div className="mainContent__startBtn" onClick={startFarm}>      
-                        <button>Start farm 
+                    
+                    <div className="mainContent__form" ref={formRef}> 
+                        <div id="steps" aria-hidden="true" className="steps">
+                            <div className="steps__header">
+                                <p>
+                                You're almost there,
+                                <br />
+                                connect your wallet and
+                                </p>
+                                <h4>
+                                To start a game:
+                                    </h4>
+                            </div>
+                            <div className="steps__items">
+                                {/* <div className="steps__item"> */}
+                                    {/* <div className="steps__item-number">
+                                        <span >1</span>
+                                    </div> */}
+                                    {/* <span>
+                                        Connect your wallet
+                                    </span>
+                                </div> */}
+                                <div className="steps__item">
+                                    {/* <div className="steps__item-number">
+                                        <span>2</span>
+                                    </div> */}
+                                    <span>
+                                            Follow @crypto_tom on Twitter
+                                        </span>
+                                    {authContext.twitter != 1 && (
+                                        <button className="steps__item-btn" onClick={loginTwitter}>
+                                            Connect
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="steps__item">
+                                    {/* <div className="steps__item-number">
+                                        <span>3</span>
+                                    </div> */}
+                                    <span>
+                                            Join Crypto Telegram
+                                        </span>
+                                    <button className="steps__item-btn">
+                                        Connect
+                                    </button>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div className="mainContent__startBtn-box">
+                        <button className="mainContent__startBtn" onClick={startFarm}>Play
                                 <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
                                     <path
@@ -183,7 +257,7 @@ return (
                                         fill="white" />
                                 </svg>
                         </button>
-                    </div>
+                    </div> 
                     <div className="mainContent__catBox">
                         <img className="mainContent__catIdle" draggable="false" src={catIdle} alt="cat animation"/>                
                     </div>
@@ -219,7 +293,7 @@ return (
                     <div className="mainContent__backBtn" onClick={stopFarm}>
                         <button>
                             <span>
-                            &lt; Stop Farm
+                            &lt; Stop
                             </span>
                             <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 1.5L11 11.5M1 11.5L11 1.5" stroke="white" strokeOpacity="0.5" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
