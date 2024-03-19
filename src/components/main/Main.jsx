@@ -8,24 +8,21 @@ import normalSpeak from '../../img/2talk.gif'
 import smileIdle from '../../img/3_idle.gif'
 import smileSpeak from '../../img/3talk.gif'
 import happyIdle from '../../img/4_idle.gif'
-import finalForm from '../../img/4_to_boost.gif'
 import happySpeak from '../../img/4talk.gif'
+import finalForm from '../../img/finalForm.gif'
 import smile from '../../img/smile.png'
 // import goldForm from '../../img/gold.gif'
+import { useLocation } from "react-router-dom"
 import catCoin from '../../img/cat_coin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
-import { useLocation } from "react-router-dom"
 import { useTwitterAuthMutation } from "../../services/auth"
+import Boost from '../boost/Boost'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
-//////
-//////
-//////
-//////
-
 function Main() {
 
+    const authContext = useContext(AuthContext);
     const [idleState, setidleState] = useState(true);
     const [currentImage, setCurrentImage] = useState(true);
     const [coinState, setCoinState] = useState(false);
@@ -40,11 +37,20 @@ function Main() {
     const { publicKey, connected } = useWallet();
     const wallet_address = publicKey?.toBase58();
     const [requestAuth] = useTwitterAuthMutation();
-    const authContext = useContext(AuthContext);
     const location = useLocation();
     const formRef = useRef(null);
 
     const executeScroll = () => formRef.current.scrollIntoView();
+    const [isChildClicked, setIsChildClicked] = useState(false);
+
+    const handleChildClick = (clicked) => {
+      setIsChildClicked(clicked); // Receive clicked status from child component
+      boostActive();
+    };
+
+    const boostActive = () => {
+        alert('BOOST ACTIVE');
+    }
 
     useEffect(() => {
         const energyInterval = setInterval(() => {
@@ -132,7 +138,7 @@ function Main() {
     const firstClick = (event) => {
         if (!event.isTrusted) return;
         setCurrentImage(false);
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000));
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 5, 1000));
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
         const clickNewCoins = updateCurrCoins();
@@ -143,7 +149,7 @@ function Main() {
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
         setCoinState(true);
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 10, 1000));
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 5, 1000));
         clearTimeout(timeoutRef.current);
         clearTimeout(coinRef.current);
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
@@ -226,10 +232,12 @@ return (
                                     {/* <div className="steps__item-number">
                                         <span>2</span>
                                     </div> */}
-                                    <span>
+                                    {authContext.twitter !== 1 && (
+                                        <span>
                                             Follow @crypto_tom on Twitter
                                         </span>
-                                    {authContext.twitter != 1 && (
+                                        )}
+                                    {authContext.twitter !== 1 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
                                             Connect
                                         </button>
@@ -240,8 +248,8 @@ return (
                                         <span>3</span>
                                     </div> */}
                                     <span>
-                                            Join Crypto Telegram
-                                        </span>
+                                        Join Crypto Telegram
+                                    </span>
                                     <button className="steps__item-btn">
                                         Connect
                                     </button>
@@ -265,6 +273,9 @@ return (
                 </div>
                  ) : (
                 <div className="mainContent__phaseTwo">
+                    <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+                        <Boost onClick={handleChildClick} />
+                    </div>
                     <div className="mainContent__energyBox">
                         <div className="mainContent__energyContainer">
                             <img src={smile} alt=""/>

@@ -9,11 +9,11 @@ import logo from "../../img/logo.svg"
 import money from "../../img/money.svg"
 import people from "../../img/people-icon.svg"
 import {
+  useGenerateCodeMutation,
   useGetLeaderboardMutation
 } from "../../services/phpService"
 import { toggleMuteAllSounds } from "../../utility/Audio"
 import { AuthContext } from '../helper/contexts'
-import { useGenerateCodeMutation } from "../../services/phpService";
 import "./Header.scss"
 
 function Header() {
@@ -81,7 +81,12 @@ function Header() {
     try {
       const response = await axios.get(`https://admin.prodtest1.space/api/users/${wallet_address}`);
       setTotalPoints(response.data?.wallet_balance);
+      // console.log(response.data?.twitter)
       console.log('Total points fetched successfully');
+      // if (response.data?.twitter === 1) {
+      //   alert("HELLO WORLD")
+
+      // }
     } catch (error) {
       console.error('Error fetching total points:', error.message);
     }

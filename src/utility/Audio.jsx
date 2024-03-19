@@ -1,16 +1,16 @@
-import sadCatIdleSound from '../audio/1idle.mp3'
-import sadCatClickSound from '../audio/1talk.mp3'
+import sadCatIdle from '../audio/1idle.mp3'
+import sadCatClick from '../audio/1talk.mp3'
 
 const audio = new Audio();
 audio.preload = 'auto'; // Preload audio for better responsiveness
 
 const playSadCatClick = () => {
-  audio.src = sadCatClickSound;
+  audio.src = sadCatClick;
   audio.play();
 };
 
 const playSadCatIdle = () => {
-  audio.src = sadCatIdleSound;
+  audio.src = sadCatIdle;
   audio.play();
 };
 
