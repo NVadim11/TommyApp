@@ -36,10 +36,10 @@ function Footer() {
 		</div>
 		<div className="footerMain__socials">
 			<div className="footerMain__twBtn">
-				<a href="#">TW</a>
+				<a href="https://twitter.com/TimCatSol">TW</a>
 			</div>
 			<div className="footerMain__tgBtn">
-				<a href="#">TG</a>
+				<a href="https://web.telegram.org/">TG</a>
 			</div>
 		</div>
 	</div>
