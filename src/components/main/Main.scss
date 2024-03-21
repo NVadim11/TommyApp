@@ -101,7 +101,6 @@ $desktop: 1919.98px;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		bottom: 80px;
 		right: 250px;
 		border-radius: 60px;	
 		width: 120px;
@@ -199,7 +198,8 @@ $desktop: 1919.98px;
 	&__refFriends {
 		position: absolute;
 		right: 20%;
-		bottom: 90%;
+		top: 10%;
+		scale: 140%;
 		@media (max-width: $mobile) {
 			right: 4%;
 			top: 40%;
@@ -210,6 +210,7 @@ $desktop: 1919.98px;
 		position: absolute;
 		right: 32%;
 		top: 25%;
+		scale: 140%;
 		@media (max-width: $mobile) {
 			right: 6%;
 			top: 70%;
@@ -220,6 +221,7 @@ $desktop: 1919.98px;
 		position: absolute;
 		left: 30%;
 		top: 13%;
+		scale: 140%;
 		@media (max-width: $mobile) {
 			left: 6%;
 			top: 55%;
@@ -353,7 +355,6 @@ $desktop: 1919.98px;
 			align-items: center;
 			width: 385px;
 			height: 581px;
-			cursor: pointer;
 			@media (max-width: $mobile) {
 				width: 15rem;
 		}

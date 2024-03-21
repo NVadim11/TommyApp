@@ -1,15 +1,16 @@
+import { motion } from "framer-motion"
 import React, { useEffect, useState } from 'react'
-import boostCoin from '../../img/boostCoin.png'
+import boostCoin from '../../img/cat_coin_move.png'
 import './Boost.scss'
 
 const Boost = ({ onClick }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 300, y: 150 });
   const [visible, setVisible] = useState(true); // Start with visible true
   const [clicked, setClicked] = useState(false);
 
   const randomizePosition = () => {
-    const maxX = window.innerWidth - 400; // Considering width of 150px
-    const maxY = window.innerHeight - 400; // Considering height of 150px
+    const maxX = window.innerWidth - 500; // Considering width of 150px
+    const maxY = window.innerHeight - 500; // Considering height of 150px
     const x = Math.random() * maxX;
     const y = Math.random() * maxY;
     setPosition({ x, y });
@@ -17,8 +18,8 @@ const Boost = ({ onClick }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setVisible(false); // Hide the Boost component after 3 seconds
-    }, 3000);
+      setVisible(false);
+    }, 8500);
 
     return () => clearTimeout(timer);
   }, [visible]);
@@ -26,7 +27,7 @@ const Boost = ({ onClick }) => {
   useEffect(() => {
     if (!visible) {
       randomizePosition(); // Randomize position when Boost disappears
-      const timeout = Math.random() * (5000 - 1000) + 1000; // Random timeout between 1 to 5 seconds
+      const timeout = Math.random() * (10000 - 1000) + 1000;
       const boostTimer = setTimeout(() => {
         setVisible(true); // Show the Boost component
       }, timeout);
@@ -44,23 +45,66 @@ const Boost = ({ onClick }) => {
   };
 
   return visible ? (
-    <div
-      className={`boost-element ${clicked ? 'clicked' : ''}`}
-      style={{
-        position: 'absolute',
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        cursor: 'pointer',
-        width: '150px',
-        height: '150px',
-        borderRadius: '150px',
-        overflow: 'hidden',
-        zIndex: 1500
+    <motion.div
+      initial={{
+        y: 7,
+        rotate: 0,
+        opacity: 1 // Initial opacity set to 0
       }}
-      onClick={handleClick}
+      animate={{
+        y: [0, -15, 0],
+        rotate: [0, 3, -7, 0]
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut"
+      }}
+      style={{ position: 'absolute', zIndex: 1500 }}
     >
-      <img src={boostCoin} alt="Boost coin" style={{ width: '100%', height: '100%', userSelect: 'none' }} />
-    </div>
+      <motion.div
+        animate={{
+          opacity: [0, 1] // Transition from 0 to 1 opacity
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "mirror", // Apply mirror effect to opacity animation
+          ease: "easeInOut"
+        }}
+      >
+        <div
+          className={`boost-element ${clicked ? 'clicked' : ''}`}
+          style={{
+            position: 'absolute',
+            left: `${position.x}px`,
+            top: `${position.y}px`,
+            cursor: 'pointer',
+            width: '150px',
+            height: '150px',
+            borderRadius: '150px',
+            overflow: 'hidden',
+            zIndex: 1500
+          }}
+          onClick={handleClick}
+        >
+            <motion.img
+            src={boostCoin}
+            alt="Boost coin"
+            style={{ width: '100%', height: '100%', userSelect: 'none' }}
+            initial={{ opacity: 0, rotate: 0 }} // Initial opacity set to 0 and rotation set to 0 degrees
+            animate={{ opacity: 1, rotate: 360 }} // Animate opacity to 1 and rotate 360 degrees
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "mirror", // Apply mirror effect to image opacity and rotation animation
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+      </motion.div>
+    </motion.div>
   ) : null;
 };
 
