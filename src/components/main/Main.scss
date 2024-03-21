@@ -65,6 +65,11 @@ $desktop: 1919.98px;
 				}
 			}
 		}
+		.mainContent__startBtn-box {
+			@media (max-width: $mobile) {
+				display: none;
+			}
+		}
 	}
 	&__phaseTwo {
 			display: flex;
@@ -128,6 +133,11 @@ $desktop: 1919.98px;
 		display: flex;
 		flex-direction: column;
 		width: 385px;
+		@media (max-width: $mobile) {
+			order: 1;
+			position: relative;
+			bottom: 0;
+		}
 	}
 	&__title {
 			margin: 5.375rem 0 0 0;
@@ -136,7 +146,7 @@ $desktop: 1919.98px;
 			line-height: 100%;
 			max-width: 23.75rem;
 			@media (max-width: $mobile) {
-				margin: 1.875rem 0 0 0;
+				// margin: 1.875rem 0 0 0;
 				font-size: 1.5rem;
 				max-width: 100%;
 				text-align: center;
@@ -171,7 +181,7 @@ $desktop: 1919.98px;
 				position: relative;
 				display: flex;
 				align-self: center;
-				order: 1;
+				order: 4;
 				width: 100%;
 				text-align: center;
 			}
