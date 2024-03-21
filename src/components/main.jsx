@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import Preloader from "./preloader/Preloader"
 
 const MainComponent = () => {
+
   const [preloaderLoaded, setPreloaderLoaded] = useState(false);
 
 	useEffect(() => {
@@ -29,20 +30,10 @@ const MainComponent = () => {
       <Preloader loaded={preloaderLoaded} />
       <Header />
       <main className="main">
-        <Main />
+      <Main />
       </main>
       {/* <Landing /> */}
       <Footer />
-      <div className="bgImageFirst">
-      </div>
-      {/* <div className="bgImageSecond">
-      </div> */}
-      {/* <div className="bgImageThird">
-      </div> */}
-      {/* <div className="bgImageFourth">
-      </div> */}
-      {/* <div className="bgImageFives">
-      </div> */}
     </div>
   );
 };

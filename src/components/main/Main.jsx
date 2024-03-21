@@ -20,7 +20,7 @@ import Boost from '../boost/Boost'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
-function Main() {
+function Main({}) {
 
     const authContext = useContext(AuthContext);
     const [idleState, setidleState] = useState(true);
@@ -39,6 +39,27 @@ function Main() {
     const [requestAuth] = useTwitterAuthMutation();
     const location = useLocation();
     const formRef = useRef(null);
+
+    const [bgImages] = useState({
+        bgImageFirst: 'img/bgFirst.png',
+        bgImageSecond: 'img/bgSecond.png',
+        bgImageThird: 'img/bgThird.png',
+        bgImageFourth: 'img/bgFourth.png',
+        bgImageFives: 'img/bgFives.png'
+      });
+    
+      let backgroundImageUrl = bgImages.bgImageFirst;
+      if (currEnergy >= 0 && currEnergy <= 250) {
+        backgroundImageUrl =  bgImages.bgImageFirst;
+    } else if (currEnergy >= 251 && currEnergy <= 500) {
+        backgroundImageUrl =  bgImages.bgImageSecond;
+    } else if (currEnergy >= 501 && currEnergy <= 750) {
+        backgroundImageUrl =  bgImages.bgImageThird;
+    } else if (currEnergy >= 751 && currEnergy <= 990) {
+        backgroundImageUrl =  bgImages.bgImageFourth;
+    } else if (currEnergy >= 991 && currEnergy <= 1000) {
+        backgroundImageUrl =  bgImages.bgImageFives;
+    }
 
     const executeScroll = () => formRef.current.scrollIntoView();
     const [isChildClicked, setIsChildClicked] = useState(false);
@@ -74,6 +95,8 @@ function Main() {
         }
     }, [currEnergy]);
 
+    
+
     const updateCurrCoins = () => {
         let catIdleImage = catIdle;
         let catSpeakImage = catSpeak;
@@ -82,28 +105,34 @@ function Main() {
             catIdleImage = sadIdle;
             catSpeakImage = sadSpeak;
             clickNewCoins = 1;
+            backgroundImageUrl =  bgImages.bgImageFirst;
         } else if (currEnergy >= 251 && currEnergy <= 500) {
             catIdleImage = normalIdle;
             catSpeakImage = normalSpeak;
             clickNewCoins = 2;
+            backgroundImageUrl =  bgImages.bgImageSecond;
         } else if (currEnergy >= 501 && currEnergy <= 750) {
             catIdleImage = smileIdle;
             catSpeakImage = smileSpeak;
             clickNewCoins = 3;
+            backgroundImageUrl =  bgImages.bgImageThird;
         } else if (currEnergy >= 751 && currEnergy <= 990) {
             catIdleImage = happyIdle;
             catSpeakImage = happySpeak;
             clickNewCoins = 4;
+            backgroundImageUrl =  bgImages.bgImageFourth;
         } else if (currEnergy >= 991 && currEnergy <= 1000) {
             catIdleImage = happyIdle;
             catSpeakImage = finalForm;
             clickNewCoins = 5;
+            backgroundImageUrl =  bgImages.bgImageFives;
         }
         
         setCatIdle(catIdleImage);
         setCatSpeak(catSpeakImage);
         setIsCoinsChanged(true);
         return clickNewCoins;
+
     };
 
     useEffect(() => {
@@ -194,6 +223,8 @@ function Main() {
 
 return (
         <div className="mainContent">
+            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${backgroundImageUrl})`}}>
+            </div>
             <div className="mainContent__container">
                 {idleState ? (
                 <div className="mainContent__phaseOne">
@@ -456,6 +487,7 @@ return (
             )}
             </div>
         </div>
+        
 )
 }
 
