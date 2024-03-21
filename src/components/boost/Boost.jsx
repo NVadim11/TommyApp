@@ -19,7 +19,7 @@ const Boost = ({ onClick }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 8500);
+    }, 8300);
 
     return () => clearTimeout(timer);
   }, [visible]);
@@ -37,7 +37,6 @@ const Boost = ({ onClick }) => {
   }, [visible]);
 
   const handleClick = () => {
-    console.log('Element clicked!');
     setVisible(false);
     setClicked(true);
     onClick(true); // Pass clicked status to parent component
@@ -56,7 +55,7 @@ const Boost = ({ onClick }) => {
         rotate: [0, 3, -7, 0]
       }}
       transition={{
-        duration: 5,
+        duration: 4,
         repeat: Infinity,
         repeatType: "mirror",
         ease: "easeInOut"
@@ -68,7 +67,7 @@ const Boost = ({ onClick }) => {
           opacity: [0, 1] // Transition from 0 to 1 opacity
         }}
         transition={{
-          duration: 5,
+          duration: 4,
           repeat: Infinity,
           repeatType: "mirror", // Apply mirror effect to opacity animation
           ease: "easeInOut"
@@ -96,7 +95,7 @@ const Boost = ({ onClick }) => {
             initial={{ opacity: 0, rotate: 0 }} // Initial opacity set to 0 and rotation set to 0 degrees
             animate={{ opacity: 1, rotate: 360 }} // Animate opacity to 1 and rotate 360 degrees
             transition={{
-              duration: 5,
+              duration: 4,
               repeat: Infinity,
               repeatType: "mirror", // Apply mirror effect to image opacity and rotation animation
               ease: "easeInOut"

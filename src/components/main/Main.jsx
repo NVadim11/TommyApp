@@ -16,6 +16,7 @@ import smile from '../../img/smile.png'
 import { useLocation } from "react-router-dom"
 import catCoinMove from '../../img/cat_coin_move.png'
 import { useTwitterAuthMutation } from "../../services/auth"
+import { playSadCatClick } from '../../utility/Audio'
 import Boost from '../boost/Boost'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
@@ -166,6 +167,7 @@ function Main({}) {
 
     const firstClick = (event) => {
         if (!event.isTrusted) return;
+        playSadCatClick();
         setCurrentImage(false);
         setCurrEnergy(prevEnergy => Math.min(prevEnergy + 5, 1000));
         clearTimeout(timeoutRef.current);
@@ -177,6 +179,7 @@ function Main({}) {
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
+        playSadCatClick();
         setCoinState(true);
         setCurrEnergy(prevEnergy => Math.min(prevEnergy + 5, 1000));
         clearTimeout(timeoutRef.current);
@@ -271,12 +274,12 @@ return (
                                     {/* <div className="steps__item-number">
                                         <span>2</span>
                                     </div> */}
-                                    {authContext.twitter !== 1 && (
+                                    {authContext.twitter !== 0 && (
                                         <span>
                                             Follow @TimCatSol on Twitter
                                         </span>
                                         )}
-                                    {authContext.twitter !== 1 && (
+                                    {authContext.twitter !== 0 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
                                             Connect
                                         </button>
