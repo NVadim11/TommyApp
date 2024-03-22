@@ -21,8 +21,7 @@ import { playSadCatClick } from '../../utility/Audio'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
-function Main({}) {
-
+function Main() {
     const authContext = useContext(AuthContext);
     const [idleState, setidleState] = useState(true);
     const [currentImage, setCurrentImage] = useState(true);
@@ -43,7 +42,35 @@ function Main({}) {
 
     const [position, setPosition] = useState({ x: '50%', y: '50%' });   
     const [visible, setVisible] = useState(true); // Start with visible true
-    const [clicked, setClicked] = useState(false);
+    // const [clicked, setClicked] = useState(false);
+
+    let [happinesVal, setHappinesVal] = useState(5)
+    let [clickNewCoins, setClickNewCoins] = useState(1)
+
+    let catIdleImage = catIdle;
+    let catSpeakImage = catSpeak;
+
+    const handleBoostClick = () => {
+        console.log("123123123")
+        // Save the current states
+        const previousCatSpeakImage = catSpeakImage;
+        const previousHappinessVal = happinesVal;
+        const previousClickNewCoins = clickNewCoins;
+    
+        // Update states for boost effect
+        setCatSpeak(goldForm);
+        setHappinesVal(10);
+        setClickNewCoins(10);
+        setVisible(false); // Assuming you want to hide Boost component temporarily
+    
+        // Revert states after 10 seconds
+        setTimeout(() => {
+            setCatSpeak(previousCatSpeakImage);
+            setHappinesVal(previousHappinessVal);
+            setClickNewCoins(previousClickNewCoins);
+            setVisible(true); // Show the Boost component again
+        }, 10000);
+    };
 
     const randomizePosition = () => {
         const maxX = window.innerWidth - 800; // Considering width of 150px
@@ -71,12 +98,6 @@ function Main({}) {
           return () => clearTimeout(boostTimer);
         }
       }, [visible]);
-    
-      const handleBoostClick = () => {
-        setVisible(false);
-        setClicked(true);
-        randomizePosition(); // Randomize position when Boost is clicked
-      };
 
     const [bgImages] = useState({
         bgImageFirst: 'img/bgFirst.png',
@@ -122,27 +143,6 @@ function Main({}) {
             setCurrEnergy(0);
         }
     }, [currEnergy]);    
-
-    let catIdleImage = catIdle;
-    let catSpeakImage = catSpeak;
-    let clickNewCoins = 0;
-    let happinesVal = 5;
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            clickNewCoins = clickNewCoins;
-            catSpeakImage = catSpeakImage;
-            happinesVal = happinesVal;
-        }, 10000)
-        if (clicked === true) {
-            clickNewCoins = 10;
-            catSpeakImage = goldForm;
-            happinesVal = 10;
-        }
-        return () => {
-          clearTimeout(timer);
-        };
-    }, []);
 
     const updateCurrCoins = () => {
         if (currEnergy >= 0 && currEnergy <= 250) {
@@ -518,7 +518,7 @@ return (
         }}
       >
                                 <div
-          className={`boost-element ${clicked ? 'clicked' : ''}`}
+          className='boost-element'
           style={{
             position: 'absolute',
             left: `${position.x}px`,
