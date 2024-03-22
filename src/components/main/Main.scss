@@ -100,6 +100,13 @@ $desktop: 1919.98px;
 					height: 100%;
 			}
 	}
+	&__boostBox {
+		display: flex;
+		width: 600px;
+		height: 600px;
+		position: relative;
+		background-color: #FFFFFF;
+	}
 	&__tapCat {
 		position: absolute;
 		display: flex;

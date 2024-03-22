@@ -14,10 +14,10 @@ import finalForm from '../../img/finalForm.gif'
 import smile from '../../img/smile.png'
 // import goldForm from '../../img/gold.gif'
 import { useLocation } from "react-router-dom"
+import boostCoin from '../../img/boostCoin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
 import { useTwitterAuthMutation } from "../../services/auth"
 import { playSadCatClick } from '../../utility/Audio'
-import Boost from '../boost/Boost'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
@@ -41,6 +41,43 @@ function Main({}) {
     const location = useLocation();
     const formRef = useRef(null);
 
+    const [position, setPosition] = useState({ x: '50%', y: '50%' });   
+    const [visible, setVisible] = useState(true); // Start with visible true
+    const [clicked, setClicked] = useState(false);
+
+    const randomizePosition = () => {
+        const maxX = window.innerWidth - 800; // Considering width of 150px
+        const maxY = window.innerHeight - 800; // Considering height of 150px
+        const x = Math.random() * maxX; // Adding half of the element width
+        const y = Math.random() * maxY; // Adding half of the element height
+        setPosition({ x, y });
+      };
+    
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setVisible(false);
+        }, 8300);
+    
+        return () => clearTimeout(timer);
+      }, [visible]);
+    
+      useEffect(() => {
+        if (!visible) {
+          randomizePosition(); // Randomize position when Boost disappears
+          const timeout = Math.random() * (2000 - 1000) + 1000;
+          const boostTimer = setTimeout(() => {
+            setVisible(true); // Show the Boost component
+          }, timeout);    
+          return () => clearTimeout(boostTimer);
+        }
+      }, [visible]);
+    
+      const handleBoostClick = () => {
+        setVisible(false);
+        setClicked(true);
+        randomizePosition(); // Randomize position when Boost is clicked
+      };
+
     const [bgImages] = useState({
         bgImageFirst: 'img/bgFirst.png',
         bgImageSecond: 'img/bgSecond.png',
@@ -63,16 +100,6 @@ function Main({}) {
     }
 
     const executeScroll = () => formRef.current.scrollIntoView();
-    const [isChildClicked, setIsChildClicked] = useState(false);
-
-    const handleChildClick = (clicked) => {
-      setIsChildClicked(clicked); // Receive clicked status from child component
-      boostActive();
-    };
-
-    const boostActive = () => {
-        alert('BOOST ACTIVE');
-    }
 
     useEffect(() => {
         const energyInterval = setInterval(() => {
@@ -94,9 +121,7 @@ function Main({}) {
         if (currEnergy <= 0) {
             setCurrEnergy(0);
         }
-    }, [currEnergy]);
-
-    
+    }, [currEnergy]);    
 
     const updateCurrCoins = () => {
         let catIdleImage = catIdle;
@@ -274,12 +299,12 @@ return (
                                     {/* <div className="steps__item-number">
                                         <span>2</span>
                                     </div> */}
-                                    {authContext.twitter !== 0 && (
+                                    {authContext.twitter !== 1 && (
                                         <span>
                                             Follow @TimCatSol on Twitter
                                         </span>
                                         )}
-                                    {authContext.twitter !== 0 && (
+                                    {authContext.twitter !== 1 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
                                             Connect
                                         </button>
@@ -394,8 +419,7 @@ return (
                 </div>
                  ) : (
                 <div className="mainContent__phaseTwo">
-                    <div style={{ position: 'relative'}}>
-                        <Boost onClick={handleChildClick} />
+                    <div style={{ position: 'relative'}}>                        
                     </div>
                     <motion.div
               initial={{
@@ -427,8 +451,7 @@ return (
                             </div>
                         </div>
                         <div className="mainContent__energyBar">
-                            <progress className="filledBar" id="filledBar" max="1000" value={currEnergy}>
-                                
+                            <progress className="filledBar" id="filledBar" max="1000" value={currEnergy}>                                
                             </progress>
                         </div>
                         <div className="mainContent__energyHint">
@@ -446,7 +469,69 @@ return (
                         <div className="mainContent__catBox" onClick={coinClicker}>
                         <img id="catGif" className="mainContent__catMeow" src={catSpeak} draggable="false" alt="cat animation"/>
                         </div>
-                        )}
+                    )}
+                        {visible ? (
+                            <motion.div
+                                initial={{
+        y: 7,
+        rotate: 0,
+        opacity: 1 // Initial opacity set to 0
+      }}
+      animate={{
+        y: [0, -10, 0],
+        rotate: [0, 3, -7, 0]
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        repeatType: "mirror",
+        ease: "easeInOut" 
+      }}
+                                style={{ position: 'absolute', top: '50%', left: 0, zIndex: 1500 }}
+                            >
+                                <motion.div
+        animate={{
+          opacity: [0, 1] // Transition from 0 to 1 opacity
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          repeatType: "mirror", // Apply mirror effect to opacity animation
+          ease: "easeInOut"
+        }}
+      >
+                                <div
+          className={`boost-element ${clicked ? 'clicked' : ''}`}
+          style={{
+            position: 'absolute',
+            left: `${position.x}px`,
+            top: `${position.y}px`,
+            cursor: 'pointer',
+            width: '150px',
+            height: '150px',
+            borderRadius: '150px',
+            overflow: 'hidden',
+            zIndex: 1500
+          }}
+          onClick={handleBoostClick}
+        >
+            <motion.img
+            src={boostCoin}
+            alt="Boost coin"
+            style={{ width: '100%', height: '100%', userSelect: 'none' }}
+            initial={{ opacity: 0, rotate: 0 }} // Initial opacity set to 0 and rotation set to 0 degrees
+            animate={{ opacity: 1, rotate: 360 }} // Animate opacity to 1 and rotate 360 degrees
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "mirror", // Apply mirror effect to image opacity and rotation animation
+              ease: "easeInOut"
+            }}
+          />
+                                </div>
+                                </motion.div>
+                            </motion.div>
+                        ) : null}
                     <div className="mainContent__backBtn" onClick={stopFarm}>
                         <button>
                             <span>
@@ -484,13 +569,12 @@ return (
                         <div className="mainContent__coinSeven">
                             <img src="img/cat_coin.svg" alt=""/>
                         </div> */}
-                    </div>
-                    )}
                 </div>
-            )}
+                )}
             </div>
-        </div>
-        
+        )}
+    </div>
+</div>
 )
 }
 
