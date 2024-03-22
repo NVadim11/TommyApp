@@ -221,6 +221,7 @@ $desktop: 1919.98px;
 			display: flex;
 			flex-direction: column;
 			background: rgba(0, 0, 0, 0.3);
+			z-index: 1000;
 			@media (max-width: $mobile) {
 				padding: 1.875rem 0.8125rem 2.1875rem 0.8125rem;
 				position: relative;
@@ -256,18 +257,19 @@ $desktop: 1919.98px;
 		scale: 140%;
 		left: 31.875rem;
 		top: -10.625rem;
+		width: 6.25rem;
 		@media (max-width: $desktop) {
 			left: 22.5rem;
 		}
 		@media (max-width: $mobile) {
 			scale: 80%;
 			top:25rem;
-			left: 10rem;
+			left: 120px;
 		}
 		@media (max-width: 47.9988rem) {
 			scale: 60%;
 			top:20rem;
-			left: 6.25rem;
+			left: 5rem;
 		}
 	}
 	&__petCat {
@@ -275,6 +277,7 @@ $desktop: 1919.98px;
 		scale: 140%;
 		left: 35.625rem;
 		top: 7.5rem;
+		width: 6.25rem;
 		@media (max-width: $desktop) {
 			left: 22.5rem;
 		}
@@ -294,18 +297,19 @@ $desktop: 1919.98px;
 		scale: 140%;
 		left: 1100px;
 		top: -4.375rem;
+		width: 6.25rem;
 		@media (max-width: $desktop) {
 			left: 46.875rem;
 		}
 		@media (max-width: $mobile) {
 			top:230px;
-			left: 150px;
+			left: 5.625rem;
 			scale: 80%;
 		}
 		@media (max-width: 47.9988rem) {
 			scale: 60%;
 			top:11.875rem;
-			left: 6.875rem;
+			left: 3.125rem;
 		}
 	}
 	&__startBtn-box {
