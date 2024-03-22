@@ -357,32 +357,32 @@ return (
                             </button>
                     </div> 
                     <div className="mainContent__guideItems">
-                            <motion.div
-              initial={{
-                y: 7,
-                rotate: 0
-              }}
-              animate={{
-                y: [0, -30, 0],
-                rotate: [0, 3, -7, 0],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                repeatType: "mirror",
-                ease: "easeInOut"
-              }} style={{ position: 'absolute' }}>
-                        <div className="mainContent__refFriends">
-                        <svg width="37" height="27" viewBox="0 0 37 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M29.9966 6.75658C29.7623 10.0083 27.349 12.5132 24.7174 12.5132C22.0858 12.5132 19.6686 10.0091 19.4382 6.75658C19.1983 3.37379 21.5475 1 24.7174 1C27.8874 1 30.2366 3.43535 29.9966 6.75658Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M24.717 17.1182C19.6105 17.1182 14.7 19.6471 13.4698 24.5721C13.3068 25.2236 13.7166 25.8682 14.3881 25.8682H35.0466C35.7181 25.8682 36.1255 25.2236 35.9649 24.5721C34.7347 19.5682 29.8242 17.1182 24.717 17.1182Z" stroke="white" strokeWidth="2" strokeMiterlimit="10" />
-  <path d="M14.3425 8.13317C14.1601 10.5832 12.2594 12.5127 10.2107 12.5127C8.1619 12.5127 6.25815 10.5839 6.07884 8.13317C5.89252 5.58436 7.74248 3.7627 10.2107 3.7627C12.6788 3.7627 14.5288 5.63112 14.3425 8.13317Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  <path d="M14.8158 17.5424C13.3827 16.9038 11.8043 16.6582 10.1314 16.6582C6.00277 16.6582 2.02499 18.6545 1.02857 22.5429C0.897561 23.0572 1.22944 23.5661 1.77251 23.5661H10.6872" stroke="white" strokeWidth="2" strokMiterlimit="10" strokeLinecap="round" />
-                        </svg>
-                        <p>Reffer Your Friends</p>
-                        </div>
-                            </motion.div>
-                            <motion.div
+                        <motion.div
+            initial={{
+            y: 7,
+            rotate: 0
+            }}
+            animate={{
+            y: [0, -30, 0],
+            rotate: [0, 3, -7, 0],
+            }}
+            transition={{
+            duration: 5,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut"
+            }} style={{ position: 'absolute' }}>
+                    <div className="mainContent__refFriends">
+                    <svg width="37" height="27" viewBox="0 0 37 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.9966 6.75658C29.7623 10.0083 27.349 12.5132 24.7174 12.5132C22.0858 12.5132 19.6686 10.0091 19.4382 6.75658C19.1983 3.37379 21.5475 1 24.7174 1C27.8874 1 30.2366 3.43535 29.9966 6.75658Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+<path d="M24.717 17.1182C19.6105 17.1182 14.7 19.6471 13.4698 24.5721C13.3068 25.2236 13.7166 25.8682 14.3881 25.8682H35.0466C35.7181 25.8682 36.1255 25.2236 35.9649 24.5721C34.7347 19.5682 29.8242 17.1182 24.717 17.1182Z" stroke="white" strokeWidth="2" strokeMiterlimit="10" />
+<path d="M14.3425 8.13317C14.1601 10.5832 12.2594 12.5127 10.2107 12.5127C8.1619 12.5127 6.25815 10.5839 6.07884 8.13317C5.89252 5.58436 7.74248 3.7627 10.2107 3.7627C12.6788 3.7627 14.5288 5.63112 14.3425 8.13317Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+<path d="M14.8158 17.5424C13.3827 16.9038 11.8043 16.6582 10.1314 16.6582C6.00277 16.6582 2.02499 18.6545 1.02857 22.5429C0.897561 23.0572 1.22944 23.5661 1.77251 23.5661H10.6872" stroke="white" strokeWidth="2" strokMiterlimit="10" strokeLinecap="round" />
+                    </svg>
+                    <p>Reffer Your Friends</p>
+                    </div>
+                        </motion.div>
+                        <motion.div
               initial={{
                 y: 7,
                 rotate: 0
@@ -492,7 +492,7 @@ return (
                         <img id="catGif" className="mainContent__catMeow" src={catSpeak} draggable="false" alt="cat animation"/>
                         </div>
                     )}
-                        {visible ? (
+                        {/* {visible ? (
                             <motion.div
                                 initial={{
         y: 7,
@@ -553,17 +553,20 @@ return (
                                 </div>
                                 </motion.div>
                             </motion.div>
-                        ) : null}
-                    <div className="mainContent__backBtn" onClick={stopFarm}>
-                        <button>
-                            <span>
-                            &lt; Stop
-                            </span>
-                            <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1.5L11 11.5M1 11.5L11 1.5" stroke="white" strokeOpacity="0.5" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
+                        ) : null} */}
+                    <div className="mainContent__backBtn-box">
+                        <div className="mainContent__backBtn" onClick={stopFarm}>
+                    <button>
+                        <span>
+                        &lt; Stop
+                        </span>
+                        <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1.5L11 11.5M1 11.5L11 1.5" stroke="white" strokeOpacity="0.5" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                        </div>
                     </div>
+                  
                     <div className="mainContent__coins">
                         <div className="mainContent__coinBox">
                         <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt="coin animation" draggable="false"/></div>
