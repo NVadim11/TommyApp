@@ -2,6 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import axios from 'axios'
 import { motion } from "framer-motion"
 import React, { useContext, useEffect, useRef, useState } from "react"
+import { useLocation } from "react-router-dom"
 import sadIdle from '../../img/1_idle.gif'
 import sadSpeak from '../../img/1talk.gif'
 import normalIdle from '../../img/2_idle.gif'
@@ -10,12 +11,11 @@ import smileIdle from '../../img/3_idle.gif'
 import smileSpeak from '../../img/3talk.gif'
 import happyIdle from '../../img/4_idle.gif'
 import happySpeak from '../../img/4talk.gif'
-import finalForm from '../../img/finalForm.gif'
-import smile from '../../img/smile.png'
-// import goldForm from '../../img/gold.gif'
-import { useLocation } from "react-router-dom"
 import boostCoin from '../../img/boostCoin.png'
 import catCoinMove from '../../img/cat_coin_move.png'
+import finalForm from '../../img/finalForm.gif'
+import goldForm from '../../img/gold.gif'
+import smile from '../../img/smile.png'
 import { useTwitterAuthMutation } from "../../services/auth"
 import { playSadCatClick } from '../../utility/Audio'
 import { AuthContext } from '../helper/contexts'
@@ -123,10 +123,28 @@ function Main({}) {
         }
     }, [currEnergy]);    
 
+    let catIdleImage = catIdle;
+    let catSpeakImage = catSpeak;
+    let clickNewCoins = 0;
+    let happinesVal = 5;
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            clickNewCoins = clickNewCoins;
+            catSpeakImage = catSpeakImage;
+            happinesVal = happinesVal;
+        }, 10000)
+        if (clicked === true) {
+            clickNewCoins = 10;
+            catSpeakImage = goldForm;
+            happinesVal = 10;
+        }
+        return () => {
+          clearTimeout(timer);
+        };
+    }, []);
+
     const updateCurrCoins = () => {
-        let catIdleImage = catIdle;
-        let catSpeakImage = catSpeak;
-        let clickNewCoins = 0;
         if (currEnergy >= 0 && currEnergy <= 250) {
             catIdleImage = sadIdle;
             catSpeakImage = sadSpeak;
@@ -158,7 +176,6 @@ function Main({}) {
         setCatSpeak(catSpeakImage);
         setIsCoinsChanged(true);
         return clickNewCoins;
-
     };
 
     useEffect(() => {
@@ -194,7 +211,7 @@ function Main({}) {
         if (!event.isTrusted) return;
         playSadCatClick();
         setCurrentImage(false);
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 5, 1000));
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinesVal, 1000));
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
         const clickNewCoins = updateCurrCoins();
@@ -206,7 +223,7 @@ function Main({}) {
         if (!event.isTrusted) return;
         playSadCatClick();
         setCoinState(true);
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + 5, 1000));
+        setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinesVal, 1000));
         clearTimeout(timeoutRef.current);
         clearTimeout(coinRef.current);
         timeoutRef.current = setTimeout(() => setCurrentImage(true), 1150);
