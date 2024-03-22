@@ -747,9 +747,6 @@ $desktop: 1919.98px;
 			color: #fff;
 			display: flex;
 			flex-direction: column;
-			@media (max-width: $mobile) {
-				flex-direction: row;
-			}
 		}
 	}
 	&__item-btn {

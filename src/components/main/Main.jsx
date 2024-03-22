@@ -492,7 +492,7 @@ return (
                         <img id="catGif" className="mainContent__catMeow" src={catSpeak} draggable="false" alt="cat animation"/>
                         </div>
                     )}
-                        {/* {visible ? (
+                        {visible ? (
                             <motion.div
                                 initial={{
         y: 7,
@@ -553,7 +553,7 @@ return (
                                 </div>
                                 </motion.div>
                             </motion.div>
-                        ) : null} */}
+                        ) : null}
                     <div className="mainContent__backBtn-box">
                         <div className="mainContent__backBtn" onClick={stopFarm}>
                     <button>
