@@ -279,11 +279,16 @@ return (
                     </div>
                     <div className="mainContent__descr">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                         </p>
                     </div>
-                    <div className="mainContent__startBtn-box">
+                    <div className="mainContent__descrMob">
+                        <p>
+                            The Cutiest Cat supported 
+                            <span>by Solana Farm</span>
+                        </p>
+                    </div>
+                    {/* <div className="mainContent__startBtn-box">
                             <button className="mainContent__startBtn" onClick={startFarm}>Play
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
@@ -292,8 +297,11 @@ return (
                                             fill="white" />
                                     </svg>
                             </button>
-                        </div>   
+                    </div>    */}
                     </div>                 
+                    <div className="mainContent__catBox">
+                        <img className="mainContent__catIdle" draggable="false" src={catIdle} alt="cat animation"/>                
+                    </div>
                     <div className="mainContent__form" ref={formRef}> 
                         <div id="steps" aria-hidden="true" className="steps">
                             <div className="steps__header">
@@ -316,14 +324,12 @@ return (
                                     {/* <div className="steps__item-number">
                                         <span>2</span>
                                     </div> */}
-                                    {authContext.twitter !== 1 && (
-                                        <span>
-                                            Follow @TimCatSol on Twitter
-                                        </span>
+                                    {authContext.twitter !== 0 && (
+                                        <p>Follow @crypto_tom <span>on Twitter</span></p>
                                         )}
                                     {authContext.twitter !== 1 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
-                                            Connect
+                                            Follow
                                         </button>
                                     )}
                                 </div>
@@ -331,16 +337,17 @@ return (
                                     {/* <div className="steps__item-number">
                                         <span>3</span>
                                     </div> */}
-                                    <span>
-                                        Join Crypto Telegram
-                                    </span>
+                                    <p>
+                                        Join 
+                                        <span>Crypto Telegram</span>
+                                    </p>
                                     <button className="steps__item-btn">
                                         Join
                                     </button>
                                 </div>
                             </div>
                         </div>    
-                        <button className="mainContent__startBtn" onClick={startFarm}>Start a game
+                        <button className="mainContent__startBtn" onClick={startFarm}>Play now!
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
                                         <path
@@ -349,9 +356,6 @@ return (
                                     </svg>
                             </button>
                     </div> 
-                    <div className="mainContent__catBox">
-                        <img className="mainContent__catIdle" draggable="false" src={catIdle} alt="cat animation"/>                
-                    </div>
                     <div className="mainContent__guideItems">
                             <motion.div
               initial={{
@@ -367,7 +371,7 @@ return (
                 repeat: Infinity,
                 repeatType: "mirror",
                 ease: "easeInOut"
-              }} style={{ position: 'absolute', top: '100px', right: '510px', width: '100px' }}>
+              }} style={{ position: 'absolute' }}>
                         <div className="mainContent__refFriends">
                         <svg width="37" height="27" viewBox="0 0 37 27" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M29.9966 6.75658C29.7623 10.0083 27.349 12.5132 24.7174 12.5132C22.0858 12.5132 19.6686 10.0091 19.4382 6.75658C19.1983 3.37379 21.5475 1 24.7174 1C27.8874 1 30.2366 3.43535 29.9966 6.75658Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -392,7 +396,7 @@ return (
                 repeat: Infinity,
                 repeatType: "mirror",
                 ease: "easeInOut"
-              }}style={{ position: 'absolute', top: '270px', right: '570px', width: '100px' }}>
+              }}style={{ position: 'absolute' }}>
                         <div className="mainContent__petCat">
                             <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_3524_231)">
@@ -421,7 +425,7 @@ return (
                 repeat: Infinity,
                 repeatType: "mirror",
                 ease: "easeInOut"
-              }} style={{ position: 'absolute', top: '140px', left: '510px', width: '100px' }}>
+              }} style={{ position: 'absolute' }}>
                         <div className="mainContent__earnPoins">
                             <svg width="38" height="32" viewBox="0 0 38 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M36.5703 17.7393V24.0163C36.5703 26.7364 30.0128 30.2934 21.9238 30.2934C13.8348 30.2934 7.27734 26.7364 7.27734 24.0163V18.7854" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -436,9 +440,10 @@ return (
                 </div>
                  ) : (
                 <div className="mainContent__phaseTwo">
-                    <div style={{ position: 'relative'}}>                        
-                    </div>
-                    <motion.div
+                    {/* <div style={{ position: 'relative'}}>
+                        <Boost onClick={handleChildClick} />
+                    </div> */}
+                    {/* <motion.div
               initial={{
                 y: 70,
                 rotate: 0
@@ -457,7 +462,7 @@ return (
                         <p>Tap the</p>
                         <img src={smile} alt="cat icon"/>
                         </div>
-                            </motion.div>                    
+                            </motion.div>                     */}
                     <div className="mainContent__energyBox">
                         <div className="mainContent__energyContainer">
                             <img src={smile} alt=""/>
@@ -559,9 +564,11 @@ return (
                             </svg>
                         </button>
                     </div>
-                    <div className="mainContent__coinBox">
-                    <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt="coin animation" draggable="false"/></div>
-                        <div className="mainContent__coinAmount"><span id="coinAmount">{currCoins}</span></div>
+                    <div className="mainContent__coins">
+                        <div className="mainContent__coinBox">
+                        <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt="coin animation" draggable="false"/></div>
+                            <div className="mainContent__coinAmount"><span id="coinAmount">{currCoins}</span></div>
+                        </div>
                     </div>
                     {coinState && (
                     <div className="mainContent__animation">
