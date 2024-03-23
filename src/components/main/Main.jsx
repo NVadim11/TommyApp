@@ -108,18 +108,30 @@ function Main() {
         bgImageFives: 'img/bgFives.webp'
       });
     
-      let backgroundImageUrl = bgImages.bgImageFirst;
+    let activeImage = bgImages.bgImageFirst;
+    let opacityFirst = 0;
+    let opacitySecond = 0;
+    let opacityThird = 0;
+    let opacityFourth = 0;
+    let opacityFives = 0;
+
+
       if (currEnergy >= 0 && currEnergy <= 250) {
-        backgroundImageUrl =  bgImages.bgImageFirst;
-    } else if (currEnergy >= 251 && currEnergy <= 500) {
-        backgroundImageUrl =  bgImages.bgImageSecond;
-    } else if (currEnergy >= 501 && currEnergy <= 750) {
-        backgroundImageUrl =  bgImages.bgImageThird;
-    } else if (currEnergy >= 751 && currEnergy <= 990) {
-        backgroundImageUrl =  bgImages.bgImageFourth;
-    } else if (currEnergy >= 991 && currEnergy <= 1000) {
-        backgroundImageUrl =  bgImages.bgImageFives;
-    }
+        activeImage = bgImages.bgImageFirst;
+        opacityFirst = 1;
+      } else if (currEnergy >= 251 && currEnergy <= 500) {
+        activeImage = bgImages.bgImageSecond;
+        opacitySecond = 1;
+      } else if (currEnergy >= 501 && currEnergy <= 750) {
+        activeImage = bgImages.bgImageThird;
+        opacityThird = 1;
+      } else if (currEnergy >= 751 && currEnergy <= 990) {
+        activeImage = bgImages.bgImageFourth;
+        opacityFourth = 1;
+      } else if (currEnergy >= 991 && currEnergy <= 1000) {
+        activeImage = bgImages.bgImageFives;
+        opacityFives = 1;
+      }
 
     const executeScroll = () => formRef.current.scrollIntoView();
 
@@ -150,27 +162,22 @@ function Main() {
             catIdleImage = sadIdle;
             catSpeakImage = sadSpeak;
             clickNewCoins = 1;
-            backgroundImageUrl =  bgImages.bgImageFirst;
         } else if (currEnergy >= 251 && currEnergy <= 500) {
             catIdleImage = normalIdle;
             catSpeakImage = normalSpeak;
             clickNewCoins = 2;
-            backgroundImageUrl =  bgImages.bgImageSecond;
         } else if (currEnergy >= 501 && currEnergy <= 750) {
             catIdleImage = smileIdle;
             catSpeakImage = smileSpeak;
             clickNewCoins = 3;
-            backgroundImageUrl =  bgImages.bgImageThird;
         } else if (currEnergy >= 751 && currEnergy <= 990) {
             catIdleImage = happyIdle;
             catSpeakImage = happySpeak;
             clickNewCoins = 4;
-            backgroundImageUrl =  bgImages.bgImageFourth;
         } else if (currEnergy >= 991 && currEnergy <= 1000) {
             catIdleImage = happyIdle;
             catSpeakImage = finalForm;
             clickNewCoins = 5;
-            backgroundImageUrl =  bgImages.bgImageFives;
         }
         
         setCatIdle(catIdleImage);
@@ -269,8 +276,11 @@ function Main() {
 
 return (
         <div className="mainContent">
-            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${backgroundImageUrl})`}}>
-            </div>
+            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFirst})`, opacity: opacityFirst }}></div>
+            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageSecond})`, opacity: opacitySecond }}></div>
+            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageThird})`, opacity: opacityThird }}></div>
+            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFourth})`, opacity: opacityFourth }}></div>
+            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFives})`, opacity: opacityFives }}></div>
             <div className="mainContent__container">
                 {idleState ? (
                 <div className="mainContent__phaseOne">
