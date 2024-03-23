@@ -101,11 +101,11 @@ function Main() {
     };
 
     const [bgImages] = useState({
-        bgImageFirst: 'img/bgFirst.png',
-        bgImageSecond: 'img/bgSecond.png',
-        bgImageThird: 'img/bgThird.png',
-        bgImageFourth: 'img/bgFourth.png',
-        bgImageFives: 'img/bgFives.png'
+        bgImageFirst: 'img/bgFirst.webp',
+        bgImageSecond: 'img/bgSecond.webp',
+        bgImageThird: 'img/bgThird.webp',
+        bgImageFourth: 'img/bgFourth.webp',
+        bgImageFives: 'img/bgFives.webp'
       });
     
       let backgroundImageUrl = bgImages.bgImageFirst;
