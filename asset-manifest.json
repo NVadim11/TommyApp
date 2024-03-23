@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.3f3f711d.css",
-    "main.js": "/TommyApp/static/js/main.0bb4f51a.js",
+    "main.css": "/TommyApp/static/css/main.b64d673b.css",
+    "main.js": "/TommyApp/static/js/main.24e356d8.js",
     "static/js/648.96145344.chunk.js": "/TommyApp/static/js/648.96145344.chunk.js",
     "static/js/227.331fd19a.chunk.js": "/TommyApp/static/js/227.331fd19a.chunk.js",
     "static/js/609.cd187691.chunk.js": "/TommyApp/static/js/609.cd187691.chunk.js",
@@ -47,15 +47,15 @@
     "static/media/link.svg": "/TommyApp/static/media/link.f71365e59d99b2e9e290c97516f5e973.svg",
     "static/media/copy.svg": "/TommyApp/static/media/copy.7f86c828162b5b60758a61c526137384.svg",
     "index.html": "/TommyApp/index.html",
-    "main.3f3f711d.css.map": "/TommyApp/static/css/main.3f3f711d.css.map",
-    "main.0bb4f51a.js.map": "/TommyApp/static/js/main.0bb4f51a.js.map",
+    "main.b64d673b.css.map": "/TommyApp/static/css/main.b64d673b.css.map",
+    "main.24e356d8.js.map": "/TommyApp/static/js/main.24e356d8.js.map",
     "648.96145344.chunk.js.map": "/TommyApp/static/js/648.96145344.chunk.js.map",
     "227.331fd19a.chunk.js.map": "/TommyApp/static/js/227.331fd19a.chunk.js.map",
     "486.02108bac.chunk.js.map": "/TommyApp/static/js/486.02108bac.chunk.js.map",
     "219.cc4a9d36.chunk.js.map": "/TommyApp/static/js/219.cc4a9d36.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3f3f711d.css",
-    "static/js/main.0bb4f51a.js"
+    "static/css/main.b64d673b.css",
+    "static/js/main.24e356d8.js"
   ]
 }
