@@ -267,12 +267,7 @@ function Header() {
             </a>
           </div>
           <div
-            className={
-              isElementPresent
-                ? "header__leaderboard header__leaderboardCenter"
-                : "header__leaderboard"
-            }
-          >
+            className="header__leaderboard">
             <button onClick={leaderBordBtn}>Leaderboard</button>
           </div>
           <div className="header__mobileBtns">

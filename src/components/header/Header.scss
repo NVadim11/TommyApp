@@ -86,12 +86,13 @@ $desktop: 119.9988rem;
 		cursor: pointer;
 		z-index: 10;
 		transition: .25s;
-		margin-right: -3.6rem;
-		// margin-right: -9.6rem;
+		position: absolute;
+		right: 0;
+		left: -1.875rem;
+		display: flex;
+		justify-content: center;
 		@media (max-width: $desktop) {
 			font-size: 1.5rem;
-			margin-right: -6.25rem;
-			// margin-right: -11.25rem;
 		}
 		@media (max-width: $mobile) {
 			display: none;
@@ -126,14 +127,22 @@ $desktop: 119.9988rem;
 		font-weight: 600;
 		font-size: 1.25rem;
 		color: #fff;
+		position: absolute;
+		top: 6.875rem;
 		span {
 			margin-left: 0.625rem;
 		}
 		@media (max-width: $desktop) {
 			font-size: 1rem;
+			margin-left: 1.25rem;
 		}
 		@media (max-width: $mobile) {
-			display: none;
+			// display: none;
+			top: 5rem;
+			margin-left: 2.5rem;
+		}
+		@media (max-width: 26.25rem) {
+			margin-left: 0;
 		}
 	}
 	&__walletBtn {

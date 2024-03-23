@@ -276,11 +276,11 @@ function Main() {
 
 return (
         <div className="mainContent">
-            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFirst})`, opacity: opacityFirst }}></div>
-            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageSecond})`, opacity: opacitySecond }}></div>
-            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageThird})`, opacity: opacityThird }}></div>
-            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFourth})`, opacity: opacityFourth }}></div>
-            <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFives})`, opacity: opacityFives }}></div>
+        <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFirst})`, opacity: opacityFirst }}></div>
+        <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageSecond})`, opacity: opacitySecond }}></div>
+        <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageThird})`, opacity: opacityThird }}></div>
+        <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFourth})`, opacity: opacityFourth }}></div>
+        <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFives})`, opacity: opacityFives }}></div>
             <div className="mainContent__container">
                 {idleState ? (
                 <div className="mainContent__phaseOne">
@@ -374,8 +374,8 @@ return (
                             rotate: 0
                             }}
                             animate={{
-                            y: [0, -30, 0],
-                            rotate: [0, 2, -4, 0],
+                                y: [0, -30, 0],
+                                rotate: [0, 3, -7, 0],
                             }}
                             transition={{
                             duration: 5,
@@ -429,7 +429,7 @@ return (
               }}
               animate={{
                 y: [0, -10, 0],
-                rotate: [0, 2, -4, 0],
+                rotate: [0, 4, 4, 0],
               }}
               transition={{
                 duration: 5,
