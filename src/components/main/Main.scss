@@ -299,7 +299,7 @@ $desktop: 1919.98px;
 		top: -4.375rem;
 		width: 6.25rem;
 		@media (max-width: $desktop) {
-			left: 46.875rem;
+			left: 45.625rem;
 		}
 		@media (max-width: $mobile) {
 			top:230px;
@@ -328,6 +328,7 @@ $desktop: 1919.98px;
 		font-weight: 600;
 		font-size: 1.375rem;
 		padding: 1.4063rem 2.4375rem 1.3438rem 2.4375rem;
+		background: linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%);
 		svg {
 				margin-left: 0.625rem;
 				transition: .25s;
@@ -337,33 +338,33 @@ $desktop: 1919.98px;
 				padding: 1.25rem 3rem 1.25rem 3rem;
 		}
 	}
-	&__startBtn:hover {       
-				transition: .25s;
-				color: #000000;
-				background-color: #ffffff;   
-				@media (max-width: $mobile) {
-						color: #ffffff;
-						background-color: transparent;  
-				}  
-		svg {
-				fill: #ffffff;
-				@media (max-width: $mobile) {
-						stroke: #000000; 
-				}  
-				circle {
-						stroke: #000000;
-						@media (max-width: $mobile) {
-								stroke: #ffffff; 
-						}  
-				}
-				path {
-						fill: #000000;
-						@media (max-width: $mobile) {
-								fill: #FFFFFF;
-						}  
-				}
-		}
-	}	
+	// &__startBtn:hover {       
+	// 			transition: .25s;
+	// 			color: #000000;
+	// 			background-color: #ffffff;   
+	// 			@media (max-width: $mobile) {
+	// 					color: #ffffff;
+	// 					background-color: transparent;  
+	// 			}  
+	// 	svg {
+	// 			fill: #ffffff;
+	// 			@media (max-width: $mobile) {
+	// 					stroke: #000000; 
+	// 			}  
+	// 			circle {
+	// 					stroke: #000000;
+	// 					@media (max-width: $mobile) {
+	// 							stroke: #ffffff; 
+	// 					}  
+	// 			}
+	// 			path {
+	// 					fill: #000000;
+	// 					@media (max-width: $mobile) {
+	// 							fill: #FFFFFF;
+	// 					}  
+	// 			}
+	// 	}
+	// }	
 	&__catBox {
 			justify-content: center;	
 			z-index: 5;
@@ -543,7 +544,7 @@ $desktop: 1919.98px;
 		position: absolute;
 		bottom: 0;
 		@media (max-width: $mobile) {
-			top: 0;
+			top: 0.9375rem;
 			right: 0;
 			display: block;
 		   }
@@ -567,7 +568,7 @@ $desktop: 1919.98px;
 			}
 			@media (max-width: $mobile) {
 					top: 0.9375rem;
-					padding: 0.625rem 0.625rem 0.5rem 0.625rem;
+					padding: 0.625rem 0.625rem 0.4375rem 0.625rem;
 				 }
 				 span {
 		@media (max-width: $mobile) {
@@ -607,6 +608,13 @@ $desktop: 1919.98px;
 			@media (max-width: $mobile) {
 				right: -50px;
 			}
+			@media (max-width: 40rem) {
+				width: 22.5rem;
+				// right: -20px;
+				right: 0;
+				left: 0;
+				margin: 0 auto;
+			}
 	}
 	&__coinOne {
 			position: absolute;
@@ -621,6 +629,12 @@ $desktop: 1919.98px;
 				left: 11.25rem;
 				animation: 2.4s linear 0s infinite coinOne;
 			}
+			@media (max-width: 40rem) {
+				width: 2.0625rem;
+				height: 2rem;
+				left: 1.875rem;
+				animation: 3.6s linear 0s infinite coinOne;
+			}
 			img {
 					max-width: 100%;
 			}
@@ -633,10 +647,16 @@ $desktop: 1919.98px;
 			height: 6.5rem;  
 			margin-top: 10rem;
 			@media (max-width: $mobile) {
-				right: 11rem;
-				width: 2.8125rem;
-				height: 4rem;  
+				right: 176px;
+				width: 45px;
+				height: 64px;  
 				animation: 3.6s linear 0s infinite coinTwo;
+			}
+			@media (max-width: 40rem) {
+				width: 35px;
+				height: 54px;
+				right: 30px;
+				animation: 5s linear 0s infinite coinOne;
 			}
 			img {
 					max-width: 100%;
@@ -652,8 +672,14 @@ $desktop: 1919.98px;
 			@media (max-width: $mobile) {
 				left: 35%; 
 				animation: 4.6s linear 0s infinite coinThree;
-				width: 2.1875rem;
-				height: 3.375rem; 
+				width: 35px;
+				height: 54px; 
+			}
+			@media (max-width: 40rem) {
+				left: 21%; 
+				animation: 5s linear 0s infinite coinThree;
+				width: 1.5625rem;
+				height: 2.75rem; 
 			}
 			img {
 					max-width: 100%;
@@ -838,7 +864,7 @@ $desktop: 1919.98px;
 	width: 100%;
 	height: calc(100% + 5.75rem);
 	top: -5.75rem;
-	transition: background-image 0.5s ease;
+	transition: opacity 1s ease;
 	box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
