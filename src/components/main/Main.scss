@@ -111,13 +111,6 @@ $desktop: 1919.98px;
 					height: 100%;
 			}
 	}
-	&__boostBox {
-		display: flex;
-		width: 600px;
-		height: 600px;
-		position: relative;
-		background-color: #FFFFFF;
-	}
 	&__tapCat {
 		position: absolute;
 		display: flex;
@@ -321,6 +314,7 @@ $desktop: 1919.98px;
 	}
 	}
 	&__startBtn {
+    transition: opacity 0.25s;
 		display: flex;
 		align-items: center;
 		border: 0.125rem solid #fff;
@@ -338,33 +332,13 @@ $desktop: 1919.98px;
 				padding: 1.25rem 3rem 1.25rem 3rem;
 		}
 	}
-	// &__startBtn:hover {       
-	// 			transition: .25s;
-	// 			color: #000000;
-	// 			background-color: #ffffff;   
-	// 			@media (max-width: $mobile) {
-	// 					color: #ffffff;
-	// 					background-color: transparent;  
-	// 			}  
-	// 	svg {
-	// 			fill: #ffffff;
-	// 			@media (max-width: $mobile) {
-	// 					stroke: #000000; 
-	// 			}  
-	// 			circle {
-	// 					stroke: #000000;
-	// 					@media (max-width: $mobile) {
-	// 							stroke: #ffffff; 
-	// 					}  
-	// 			}
-	// 			path {
-	// 					fill: #000000;
-	// 					@media (max-width: $mobile) {
-	// 							fill: #FFFFFF;
-	// 					}  
-	// 			}
-	// 	}
-	// }	
+	&__startBtn:hover {
+		background: linear-gradient(180deg, #c09aff 0%, #691ee2 90.83%);
+		@media (max-width: $mobile) {
+		background: linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%);
+	}
+	}
+
 	&__catBox {
 			justify-content: center;	
 			z-index: 5;
@@ -543,8 +517,10 @@ $desktop: 1919.98px;
 		display: flex;
 		position: absolute;
 		bottom: 0;
+		border-radius: 3.75rem;
+		overflow: hidden;
 		@media (max-width: $mobile) {
-			top: 0.9375rem;
+			top: 40px;
 			right: 0;
 			display: block;
 		   }
