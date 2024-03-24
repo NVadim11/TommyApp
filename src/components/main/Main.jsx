@@ -311,7 +311,7 @@ return (
                                 </p>
                             </div>
                             <div className="steps__items">
-                            <div className="steps__item">
+                            {/* <div className="steps__item">
     {!connected && (
         <>
             <p>Follow @TimCatSol <span>on Twitter</span></p>
@@ -320,7 +320,17 @@ return (
             </button>
         </>
     )}
-                            </div>
+                            </div> */}
+                            <div className="steps__item">
+                                    {authContext.twitter !== 0 && (
+                                        <p>Follow @TimCatSol <span>on Twitter</span></p>
+                                        )}
+                                    {authContext.twitter !== 0 && (
+                                        <button className="steps__item-btn" onClick={loginTwitter}>
+                                            Follow
+                                        </button>
+                                    )}
+                                </div>
                                 <div className="steps__item">
                                     <p>
                                         Join 
