@@ -311,16 +311,16 @@ return (
                                 </p>
                             </div>
                             <div className="steps__items">
-                                <div className="steps__item">
-                                    {authContext.twitter !== 0 && (
-                                        <p>Follow @TimCatSol <span>on Twitter</span></p>
-                                        )}
-                                    {authContext.twitter !== 1 && (
-                                        <button className="steps__item-btn" onClick={loginTwitter}>
-                                            Follow
-                                        </button>
-                                    )}
-                                </div>
+                            <div className="steps__item">
+    {!connected && (
+        <>
+            <p>Follow @TimCatSol <span>on Twitter</span></p>
+            <button className="steps__item-btn" onClick={loginTwitter}>
+                Follow
+            </button>
+        </>
+    )}
+                            </div>
                                 <div className="steps__item">
                                     <p>
                                         Join 
@@ -332,7 +332,7 @@ return (
                                 </div>
                             </div>
                         </div>    
-                        <button className="mainContent__startBtn" onClick={startFarm}>Play now!
+                        <button className="mainContent__startBtn" onClick={startFarm} disabled={!connected} style={{ opacity: !connected ? '0.5' : '1' }}>Play now!
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
                                         <path

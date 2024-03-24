@@ -1,24 +1,57 @@
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { ThemeProvider } from "@emotion/react"
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base"
 import {
   ConnectionProvider,
   WalletProvider,
-} from "@solana/wallet-adapter-react";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import "@solana/wallet-adapter-react-ui/styles.css";
+} from "@solana/wallet-adapter-react"
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui"
+import "@solana/wallet-adapter-react-ui/styles.css"
 import {
+  AlphaWalletAdapter,
+  AvanaWalletAdapter,
+  BitKeepWalletAdapter,
+  BitgetWalletAdapter,
+  BitpieWalletAdapter,
+  CloverWalletAdapter,
+  Coin98WalletAdapter,
+  CoinbaseWalletAdapter,
+  CoinhubWalletAdapter,
+  FractalWalletAdapter,
+  HuobiWalletAdapter,
+  HyperPayWalletAdapter,
+  KeystoneWalletAdapter,
+  KrystalWalletAdapter,
+  LedgerWalletAdapter,
+  MathWalletAdapter,
+  NekoWalletAdapter,
+  NightlyWalletAdapter,
+  NufiWalletAdapter,
+  OntoWalletAdapter,
+  ParticleAdapter,
   PhantomWalletAdapter,
+  SafePalWalletAdapter,
+  SaifuWalletAdapter,
+  SalmonWalletAdapter,
+  SkyWalletAdapter,
   SolflareWalletAdapter,
+  SolongWalletAdapter,
+  SpotWalletAdapter,
+  TokenPocketWalletAdapter,
+  TokenaryWalletAdapter,
   TorusWalletAdapter,
   TrezorWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from "@solana/web3.js";
-import React, { useMemo } from "react";
-import "./App.scss";
-import { ThemeProvider } from "@emotion/react";
-import { theme } from "./theme";
-import AppRouter from "./components/Router";
-import { Provider } from "react-redux";
-import { store } from "./store";
+  TrustWalletAdapter,
+  UnsafeBurnerWalletAdapter,
+  WalletConnectWalletAdapter,
+  XDEFIWalletAdapter
+} from "@solana/wallet-adapter-wallets"
+import { clusterApiUrl } from "@solana/web3.js"
+import React, { useMemo } from "react"
+import { Provider } from "react-redux"
+import "./App.scss"
+import AppRouter from "./components/Router"
+import { store } from "./store"
+import { theme } from "./theme"
 
 function App() {
   return (
@@ -44,6 +77,40 @@ const Context = ({ children }) => {
       new SolflareWalletAdapter(),
       new TorusWalletAdapter(),
       new TrezorWalletAdapter(),
+      new AlphaWalletAdapter(),
+      new AvanaWalletAdapter(),
+      new BitKeepWalletAdapter(),
+      new BitgetWalletAdapter(), 
+      new BitpieWalletAdapter(), 
+      new CloverWalletAdapter(), 
+      new Coin98WalletAdapter(),
+      new CoinbaseWalletAdapter(),
+      new CoinhubWalletAdapter(),
+      new FractalWalletAdapter(), 
+      new HuobiWalletAdapter(), 
+      new HyperPayWalletAdapter(), 
+      new KeystoneWalletAdapter(),
+      new KrystalWalletAdapter(),
+      new LedgerWalletAdapter(),
+      new MathWalletAdapter(),
+      new NekoWalletAdapter(),
+      new NightlyWalletAdapter(),
+      new NufiWalletAdapter(),
+      new OntoWalletAdapter(),
+      new ParticleAdapter(),
+      new SafePalWalletAdapter(),
+      new SaifuWalletAdapter(),
+      new SalmonWalletAdapter(),
+      new SkyWalletAdapter(),
+      new SolongWalletAdapter(),
+      new SpotWalletAdapter(),
+      new TokenPocketWalletAdapter(),
+      new TokenaryWalletAdapter(),
+      new TorusWalletAdapter(),
+      new TrustWalletAdapter(),
+      new UnsafeBurnerWalletAdapter(),
+      new WalletConnectWalletAdapter(),
+      new XDEFIWalletAdapter()
     ],
     []
   );
