@@ -42,7 +42,7 @@ function Header() {
   const popupInvite = `popupInvite ${popupInvTgl}`;
 
   const popupAirTgl= isAirOpen ? "popupAirdrop_show" : null;
-  const popupAirdrop = `popupAirdrop ${popupAirTgl}`;
+  // const popupAirdrop = `popupAirdrop ${popupAirTgl}`;
 
   const containerRef = useRef(null);
   const [getLeaderboard] = useGetLeaderboardMutation();
@@ -81,12 +81,6 @@ function Header() {
     try {
       const response = await axios.get(`https://admin.prodtest1.space/api/users/${wallet_address}`);
       setTotalPoints(response.data?.wallet_balance);
-      // console.log(response.data?.twitter)
-      console.log('Total points fetched successfully');
-      // if (response.data?.twitter === 1) {
-      //   alert("HELLO WORLD")
-
-      // }
     } catch (error) {
       console.error('Error fetching total points:', error.message);
     }
@@ -96,30 +90,43 @@ function Header() {
     try {
       const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
       setLeaderboardData(response.data);
-      console.log('Leaderboard data fetched successfully');
+      console.log('not connected LB fetched');
     } catch (error) {
       console.error('Error fetching leaderboard data:', error.message);
     }
   };
 
   useEffect(() => {
-    fetchLeaderboardData();
-    initLeadersRef.current = setInterval(() => {
+    if (!connected) {
       fetchLeaderboardData();
-    }, 10000);
-    if (connected) {
-      clearInterval(initLeadersRef.current);
-      setTotalPoints(null);
-      fetchTotalPoints();      
-      intervalRef.current = setInterval(() => {
-        fetchTotalPoints();
+      initLeadersRef.current = setInterval(() => {
         fetchLeaderboardData();
       }, 10000);
-      localStorage.setItem("wallet_id", wallet_address);
     } else {
-      clearInterval(intervalRef.current);
-    }
-  }, [connected, wallet_address]);
+      clearInterval(initLeadersRef.current);
+    }    
+    return () => {
+      clearInterval(initLeadersRef.current);
+    };
+  }, [connected]);
+
+  // useEffect(() => {
+  //   if (connected) {
+  //     fetchLeaderboardData();
+  //     initLeadersRef.current = setInterval(() => {
+  //       fetchLeaderboardData();
+  //     }, 10000);
+  //   } else {
+  //     clearInterval(initLeadersRef.current);
+  //     setTotalPoints(null);
+  //     fetchTotalPoints();      
+  //     intervalRef.current = setInterval(() => {
+  //       fetchTotalPoints();
+  //     }, 10000);
+  //     localStorage.setItem("wallet_id", wallet_address);
+  //   } 
+  //   clearInterval(intervalRef.current);
+  // }, [connected, wallet_address]);
 
   // useEffect(() => {
   //   if (connected) {
@@ -133,11 +140,13 @@ function Header() {
       if (Object.keys(authContext).length) {
         const res = await getLeaderboard(authContext.wallet_address).unwrap();
         setLeaderboardData(res);
+        console.log("fetched connected DB")
         const intervalId = setInterval(() => {
           getLeaderboard(authContext.wallet_address)
             .unwrap()
             .then((data) => setLeaderboardData(data))
             .catch((error) => console.error('Error refreshing leaderboard:', error));
+            console.log("fetched connected DB with interval")
         }, 10000);
         return intervalId;
       }
@@ -190,11 +199,11 @@ function Header() {
     setIsShown(false);
   }
 
-  const airdropBtn = () => {
-    setAirOpen(true);
-    fadeShowAir();
-    setIsShown(false);
-  }
+  // const airdropBtn = () => {
+  //   setAirOpen(true);
+  //   fadeShowAir();
+  //   setIsShown(false);
+  // }
 
   const fadeShow = () => {
     const htmlTag = document.getElementById("html");
@@ -206,10 +215,10 @@ function Header() {
     if (htmlTag) htmlTag.classList.add("popupInvite-show");
   };
 
-  const fadeShowAir = () => {
-    const htmlTag = document.getElementById("html");
-    if (htmlTag) htmlTag.classList.add("popupAirdrop-show");
-  };
+  // const fadeShowAir = () => {
+  //   const htmlTag = document.getElementById("html");
+  //   if (htmlTag) htmlTag.classList.add("popupAirdrop-show");
+  // };
 
   const leaderboardCloseToggler = () => {
     setLeaderboardOpen(false);
@@ -223,11 +232,11 @@ function Header() {
     if (htmlTag) htmlTag.classList.remove("popupInvite-show");
   };
 
-  const airCloseToggler = () => {
-    setAirOpen(false);
-    const htmlTag = document.getElementById("html");
-    if (htmlTag) htmlTag.classList.remove("popupAirdrop-show");
-  };
+  // const airCloseToggler = () => {
+  //   setAirOpen(false);
+  //   const htmlTag = document.getElementById("html");
+  //   if (htmlTag) htmlTag.classList.remove("popupAirdrop-show");
+  // };
 
   const [code, setCode] = useState("");
   const [generateCode] = useGenerateCodeMutation();
