@@ -140,8 +140,10 @@ function Header() {
       if (Object.keys(authContext).length) {
         const res = await getLeaderboard(authContext.wallet_address).unwrap();
         setLeaderboardData(res);
+        fetchTotalPoints();      
         console.log("fetched connected DB")
         const intervalId = setInterval(() => {
+          fetchTotalPoints();      
           getLeaderboard(authContext.wallet_address)
             .unwrap()
             .then((data) => setLeaderboardData(data))

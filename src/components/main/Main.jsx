@@ -19,7 +19,7 @@ import finalForm from '../../img/finalForm.gif'
 import goldForm from '../../img/gold.gif'
 import smile from '../../img/smile.png'
 import { useTwitterAuthMutation } from "../../services/auth"
-import { playSadCatClick } from '../../utility/Audio'
+import { playBoostCatClick, playSadCatClick } from '../../utility/Audio'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
@@ -43,7 +43,7 @@ function Main() {
     const location = useLocation();
     const formRef = useRef(null);
     const [position, setPosition] = useState({ x: '50%', y: '50%' });   
-    const [visible, setVisible] = useState(true); // Start with visible true
+    const [visible, setVisible] = useState(false); // Start with visible true
     const [boostPhase, setBoostPhase] = useState(false);
     const [boostClicked, setBoostClicked] = useState(false);
     let [happinessVal, setHappinessVal] = useState(1)
@@ -52,31 +52,44 @@ function Main() {
     let catIdleImage = catIdle;
     let catSpeakImage = catSpeak;
 
-    const boostClickedHandler = () => {
-        setBoostClicked(true);
-        handleBoostClick();
+    const [boostTimeout, setBoostTimeout] = useState(null);
+    const [disableBoostTimeout, setDisableBoostTimeout] = useState(false);
+
+  const boostClickedHandler = () => {
+    if (!boostClicked) {
+      setBoostClicked(true);
+      handleBoostClick();
     }
+  };
 
-    const handleBoostClick = () => {
-        // Store previous values
-        const prevHappinessVal = happinessVal;
-        const prevClickNewCoins = clickNewCoins;
-    
-        // Set new values
-        setBoostPhase(true);
-        setVisible(false);
-        setHappinessVal(2);
-        setClickNewCoins(5);
-    
-        setTimeout(() => {
-            // Revert back to previous values after 10 seconds
-            setHappinessVal(prevHappinessVal);
-            setClickNewCoins(prevClickNewCoins);
-            setBoostPhase(false);
-            setVisible(true);
-        }, 10000); // Revert back after 10 seconds
-    };
+  const handleBoostClick = () => {
+    // Store previous values
+    const prevHappinessVal = happinessVal;
+    const prevClickNewCoins = clickNewCoins;
 
+    // Set new values
+    setBoostPhase(true);
+    setVisible(false);
+    setHappinessVal(2);
+    setClickNewCoins(5);
+
+    clearTimeout(boostTimeout); // Reset the timeout
+    setDisableBoostTimeout(true); // Disable boost timeout
+    setBoostTimeout(
+      setTimeout(() => {
+        setDisableBoostTimeout(false); // Enable boost timeout after 30 seconds
+      }, 30000)
+    );
+
+    setTimeout(() => {
+      // Revert back to previous values after 10 seconds
+      setHappinessVal(prevHappinessVal);
+      setClickNewCoins(prevClickNewCoins);
+      setBoostPhase(false);
+      setVisible(true);
+    }, 10000); // Revert back after 10 seconds
+  };
+  
     const randomizePosition = () => {
         const maxX = window.innerWidth - 800; // Considering width of 150px
         const maxY = window.innerHeight - 800; // Considering height of 150px
@@ -84,25 +97,27 @@ function Main() {
         const y = Math.random() * maxY; // Adding half of the element height
         setPosition({ x, y });
       };
-    
-      useEffect(() => {
-        const timer = setTimeout(() => {
-          setVisible(false);
-        }, 8300);
-    
-        return () => clearTimeout(timer);
-      }, [visible]);
-    
-      useEffect(() => {
-        if (!visible) {
-            randomizePosition(); // Randomize position when Boost disappears
-            const timeout = Math.random() * (5000 - 1000) + 1000; // Random from 15 to 60 seconds
-            const boostTimer = setTimeout(() => {
-                setVisible(true); // Show the Boost component
-            }, timeout);    
-            return () => clearTimeout(boostTimer);
-        }
-    }, [visible]);
+  
+  useEffect(() => {
+    if (!visible && !boostPhase) {
+      randomizePosition();
+      const minTimeout = 30000; // 30 seconds
+      const maxTimeout = 180000; // 180 seconds (3 minutes)
+      const timeout = Math.random() * (maxTimeout - minTimeout) + minTimeout;
+      const boostTimer = setTimeout(() => {
+        setVisible(true); // Show the Boost component
+      }, timeout);
+      return () => clearTimeout(boostTimer);
+    }
+  }, [visible, boostPhase]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 8300);
+
+    return () => clearTimeout(timer);
+  }, [visible]);
 
     const [bgImages] = useState({
         bgImageFirst: 'img/bgFirst.webp',
@@ -215,7 +230,11 @@ function Main() {
 
     const firstClick = (event) => {
         if (!event.isTrusted) return;
+        if (currEnergy >= 991 && currEnergy <= 1000 || boostClicked === true) {
+            playBoostCatClick()
+          } else {
         playSadCatClick();
+        }     
         setCurrentImage(false);
         setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinessVal, 1000));
         clearTimeout(timeoutRef.current);
@@ -227,7 +246,11 @@ function Main() {
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
+        if (currEnergy >= 991 && currEnergy <= 1000 || boostClicked === true) {
+            playBoostCatClick()
+          } else {
         playSadCatClick();
+        }
         setCoinState(true);
         setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinessVal, 1000));
         clearTimeout(timeoutRef.current);
