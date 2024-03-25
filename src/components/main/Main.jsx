@@ -373,8 +373,8 @@ return (
                                             fill="white" />
                                     </svg>
                                     </WalletMultiButton>
-                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={authContext.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
-                                 opacity: authContext.twitter !== 1 ? '0.5' : '1' }}>Play now!
+                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={authContext.twitter !== 0} style={{ display: !connected ? 'none' : 'flex',
+                                 opacity: authContext.twitter !== 0 ? '0.5' : '1' }}>Play now!
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
                                         <path
