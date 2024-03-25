@@ -1,5 +1,5 @@
-
 import { useWallet } from '@solana/wallet-adapter-react'
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"
 import axios from 'axios'
 import { motion } from "framer-motion"
 import React, { useContext, useEffect, useRef, useState } from "react"
@@ -47,7 +47,7 @@ function Main() {
     const [boostPhase, setBoostPhase] = useState(false);
     const [boostClicked, setBoostClicked] = useState(false);
     let [happinessVal, setHappinessVal] = useState(1)
-    let [clickNewCoins, setClickNewCoins] = useState(1)
+    let [clickNewCoins, setClickNewCoins] = useState(1)    
 
     let catIdleImage = catIdle;
     let catSpeakImage = catSpeak;
@@ -307,21 +307,11 @@ return (
                                 <p>
                                 You're almost there,
                                 <br />
-                                connect your wallet and
+                                connect your wallet
                                 </p>
                             </div>
                             <div className="steps__items">
-                            {/* <div className="steps__item">
-    {!connected && (
-        <>
-            <p>Follow @TimCatSol <span>on Twitter</span></p>
-            <button className="steps__item-btn" onClick={loginTwitter}>
-                Follow
-            </button>
-        </>
-    )}
-                            </div> */}
-                            <div className="steps__item">
+                            <div className="steps__item" style={{ display: !connected ? 'none' : 'flex' }}>
                                     {authContext.twitter !== 0 && (
                                         <p>Follow @TimCatSol <span>on Twitter</span></p>
                                         )}
@@ -331,7 +321,7 @@ return (
                                         </button>
                                     )}
                                 </div>
-                                <div className="steps__item">
+                                <div className="steps__item"style={{ display: !connected ? 'none' : 'flex' }}>
                                     <p>
                                         Join 
                                         <span>Crypto Telegram</span>
@@ -341,8 +331,27 @@ return (
                                     </button>
                                 </div>
                             </div>
-                        </div>    
-                        <button className="mainContent__startBtn" onClick={startFarm} disabled={!connected} style={{ opacity: !connected ? '0.5' : '1' }}>Play now!
+                            </div>    
+                                <WalletMultiButton style={{
+                                        display: !connected ? 'flex' : 'none',
+                                        border: '2px solid #fff',
+                                        borderRadius: '60px',
+                                        marginTop: '1.25rem',
+                                        padding: '1.4063rem 20px 1.3438rem 20px',
+                                        fontSize: '1rem',
+                                        width: 'fit-content',
+                                        background: 'linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%)',
+                                        transition: 'background-color 0.3s'
+                                    }}>Select Wallet                                
+                                    <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg" style={{marginLeft: '10px'}}>
+                                        <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
+                                        <path
+                                            d="M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z"
+                                            fill="white" />
+                                    </svg>
+                                    </WalletMultiButton>
+                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={authContext.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
+                                 opacity: authContext.twitter !== 1 ? '0.5' : '1' }}>Play now!
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
                                         <path
@@ -527,7 +536,6 @@ return (
             width: '150px',
             height: '150px',
             borderRadius: '150px',
-            overflow: 'hidden',
             zIndex: 1500,
             ...(isMobile && {
                 scale: '50%' })

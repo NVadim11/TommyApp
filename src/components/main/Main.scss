@@ -41,32 +41,32 @@ $desktop: 1919.98px;
 			z-index: 5;
 	}
 	&__phaseOne {
-			height: 581px;
-			position: relative;
-			display: flex;
-			align-items: center;
-    		justify-content: space-between;
-			// flex-direction: column;
-			@media (max-width: $mobile) {
-				height: 100%;
-				flex-direction: column;
-			}
+		height: 581px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		@media (max-width: $mobile) {
+			height: 100%;
+			flex-direction: column;
+		}
 		.mainContent__catBox {
 			margin: 0;
-				@media (max-width: $mobile) {
-					position: relative;
-					display: flex;
-					order: 2;
-				}
+			position: absolute;
+			right: 667.5px;
+			@media (max-width: $desktop) {
+				right: 427.3px;
+			}
+			@media (max-width: $mobile) {
+				position: relative;
+				order: 2;
+				right: 0;
+			}
 			img {
 				width: 22.5rem;
-				margin-right: 5rem;
 				@media (max-width: $mobile) {
-					width: 18.4375rem;
-					margin-right: 0;
-				}
-				@media (max-width: 47.9988rem) {
-					width: 12.5625rem;
+					width: 295px;
+					margin: 0;
 				}
 			}
 		}
@@ -77,11 +77,10 @@ $desktop: 1919.98px;
 		}
 	}
 	&__phaseTwo {
-			display: flex;
 			height: 581px;
-			flex-direction: row;
-			// justify-content: flex-end;
 			position: relative;
+			display: flex;
+			align-items: center;
 			justify-content: space-between;
 			@media (max-width: $mobile) {
 				height: 100%;
@@ -321,7 +320,7 @@ $desktop: 1919.98px;
 		border-radius: 3.75rem;
 		font-weight: 600;
 		font-size: 1.375rem;
-		padding: 1.4063rem 2.4375rem 1.3438rem 2.4375rem;
+		padding: 1.4063rem 39px 1.3438rem 2.4375rem;
 		background: linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%);
 		svg {
 				margin-left: 0.625rem;
@@ -340,6 +339,9 @@ $desktop: 1919.98px;
 	}
 
 	&__catBox {
+			margin: 0;
+			position: absolute;
+			right: 667.5px;
 			justify-content: center;	
 			z-index: 5;
 			margin-top: 0;
@@ -349,6 +351,9 @@ $desktop: 1919.98px;
 			align-items: center;
 			// width: 385px;
 			// height: 581px;
+			@media (max-width: $desktop) {
+				right: 427.3px;
+			}
 			@media (max-width: $mobile) {
 				width: 15rem;
 		}
