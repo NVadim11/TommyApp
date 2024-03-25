@@ -43,7 +43,7 @@ function Main() {
     const location = useLocation();
     const formRef = useRef(null);
     const [position, setPosition] = useState({ x: '50%', y: '50%' });   
-    const [visible, setVisible] = useState(false); // Start with visible true
+    const [visible, setVisible] = useState(true); // Start with visible true
     const [boostPhase, setBoostPhase] = useState(false);
     const [boostClicked, setBoostClicked] = useState(false);
     let [happinessVal, setHappinessVal] = useState(1)
@@ -90,18 +90,26 @@ function Main() {
     }, 10000); // Revert back after 10 seconds
   };
   
-    const randomizePosition = () => {
-        const maxX = window.innerWidth - 800; // Considering width of 150px
-        const maxY = window.innerHeight - 800; // Considering height of 150px
-        const x = Math.random() * maxX; // Adding half of the element width
-        const y = Math.random() * maxY; // Adding half of the element height
-        setPosition({ x, y });
-      };
+  const randomizePosition = () => {
+    const elementWidth = 800; // Assuming Boost element width is 150px
+    const elementHeight = 800; // Assuming Boost element height is 150px
+  
+    // Calculate the maximum X and Y coordinates based on the current window size
+    const maxX = Math.max(0, window.innerWidth - elementWidth);
+    const maxY = Math.max(0, window.innerHeight - elementHeight);
+  
+    // Generate random X and Y coordinates within the calculated maximums
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+  
+    // Update the Boost element position
+    setPosition({ x, y });
+  };
   
   useEffect(() => {
     if (!visible && !boostPhase) {
       randomizePosition();
-      const minTimeout = 30000; // 30 seconds
+      const minTimeout = 30000; // 30 seconds47
       const maxTimeout = 180000; // 180 seconds (3 minutes)
       const timeout = Math.random() * (maxTimeout - minTimeout) + minTimeout;
       const boostTimer = setTimeout(() => {
