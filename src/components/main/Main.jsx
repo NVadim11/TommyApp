@@ -18,14 +18,13 @@ import catCoinMove from '../../img/cat_coin_move.png'
 import finalForm from '../../img/finalForm.gif'
 import goldForm from '../../img/gold.gif'
 import smile from '../../img/smile.png'
-import { useTwitterAuthMutation } from "../../services/auth"
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
 function Main() {
     const isMobile = useMediaQuery({ maxWidth: '1439.98px' });
-    const authContext = useContext(AuthContext);
+    const {value} = useContext(AuthContext);
     const [idleState, setidleState] = useState(true);
     const [currentImage, setCurrentImage] = useState(true);
     const [coinState, setCoinState] = useState(false);
@@ -39,7 +38,7 @@ function Main() {
     const accumulatedCoinsRef = useRef(0);
     const { publicKey, connected } = useWallet();
     const wallet_address = publicKey?.toBase58();
-    const [requestAuth] = useTwitterAuthMutation();
+    // const [requestAuth] = useTwitterAuthMutation();
     const location = useLocation();
     const formRef = useRef(null);
     const [position, setPosition] = useState({ x: '50%', y: '50%' });   
@@ -55,23 +54,22 @@ function Main() {
     const [boostTimeout, setBoostTimeout] = useState(null);
     const [disableBoostTimeout, setDisableBoostTimeout] = useState(false);
 
-  const boostClickedHandler = () => {
-    if (!boostClicked) {
-      setBoostClicked(true);
-      handleBoostClick();
+    const boostClickedHandler = () => {
+        setBoostClicked(true);
+        handleBoostClick();
     }
-  };
 
-  const handleBoostClick = () => {
-    // Store previous values
-    const prevHappinessVal = happinessVal;
-    const prevClickNewCoins = clickNewCoins;
 
-    // Set new values
-    setBoostPhase(true);
-    setVisible(false);
-    setHappinessVal(2);
-    setClickNewCoins(5);
+    const handleBoostClick = () => {
+        // Store previous values
+        const prevHappinessVal = happinessVal;
+        const prevClickNewCoins = clickNewCoins;
+    
+        // Set new values
+        setBoostPhase(true);
+        setVisible(false);
+        setHappinessVal(2);
+        setClickNewCoins(5);
 
     clearTimeout(boostTimeout); // Reset the timeout
     setDisableBoostTimeout(true); // Disable boost timeout
@@ -82,13 +80,13 @@ function Main() {
     );
 
     setTimeout(() => {
-      // Revert back to previous values after 10 seconds
-      setHappinessVal(prevHappinessVal);
-      setClickNewCoins(prevClickNewCoins);
-      setBoostPhase(false);
-      setVisible(true);
+        // Revert back to previous values after 10 seconds
+        setHappinessVal(prevHappinessVal);
+        setClickNewCoins(prevClickNewCoins);
+        setBoostPhase(false);
+        setVisible(true);
     }, 10000); // Revert back after 10 seconds
-  };
+};
   
   const randomizePosition = () => {
     const elementWidth = 800; // Assuming Boost element width is 150px
@@ -291,13 +289,13 @@ function Main() {
 
     const loginTwitter = async () => {
         try {
-          const res = await requestAuth().unwrap();
-          window.location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${res.token}`;
+          // const res = await requestAuth().unwrap();
+          window.location.href = `https://api.prodtest1.space/twitter/auth`;
         } catch (e) {
           console.log(e);
         }
       };
-
+      
       useEffect(() => {
         if (location.state && location.state?.auth) {
           executeScroll();
@@ -345,10 +343,10 @@ return (
                             </div>
                             <div className="steps__items">
                             <div className="steps__item" style={{ display: !connected ? 'none' : 'flex' }}>
-                                    {authContext.twitter !== 1 && (
+                                    {value.twitter !==1 && (
                                         <p>Follow @TimCatSol <span>on Twitter</span></p>
                                         )}
-                                    {authContext.twitter !== 1 && (
+                                    {value.twitter !== 1 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
                                             Follow
                                         </button>
@@ -383,8 +381,8 @@ return (
                                             fill="white" />
                                     </svg>
                                     </WalletMultiButton>
-                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={authContext.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
-                                 opacity: authContext.twitter !== 1 ? '0.5' : '1' }}>Play now!
+                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={value.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
+                                 opacity: value.twitter !== 1 ? '0.5' : '1' }}>Play now!
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
                                         <path

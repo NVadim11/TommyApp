@@ -1,25 +1,28 @@
-import { useContext, useEffect } from "react";
-import { useTwitterCallbackMutation } from "../../services/auth";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../helper/contexts";
+import { useContext, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
+import { useTwitterCallbackMutation } from "../../services/auth"
+import { useGetUserByWalletIdMutation } from "../../services/phpService"
+import { AuthContext } from "../helper/contexts"
 
 const Twitter = () => {
-  const authContext = useContext(AuthContext);
+  const {value, setValue} = useContext(AuthContext);
   const [request] = useTwitterCallbackMutation();
   const params = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
+  const [getUser] = useGetUserByWalletIdMutation();
 
   const auth = async () => {
     try {
-      const oauth_token = params.get("oauth_token");
-      const oauth_verifier = params.get("oauth_verifier");
-      if (oauth_token && oauth_verifier) {
+      const twitterAuth = params.get("status");
+      if (twitterAuth === 'followed') {
         const res = await request({
-          oauth_token,
-          oauth_verifier,
-          wallet: authContext.wallet_address,
+          wallet_address: value.wallet_address,
         }).unwrap();
         if (res.status === 201) {
+          const user = await getUser(value.wallet_address).unwrap();
+          if (user) {
+            setValue(user);
+          }
           navigate("/", { state: { auth: true } });
         }
       }
@@ -29,12 +32,11 @@ const Twitter = () => {
   };
 
   useEffect(() => {
-    console.log(authContext)
-    if (authContext && authContext?.wallet_address) {
+    if (value && value?.wallet_address) {
       auth();
     }
-  }, [authContext]);
-  return <>fflflff</>;
+  }, [value]);
+  return <></>;
 };
 
 export default Twitter;

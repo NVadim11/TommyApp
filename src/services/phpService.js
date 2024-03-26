@@ -6,13 +6,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 export const phpApi = createApi({
   reducerPath: "phpApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://admin.prodtest1.space/api" }),
-  tagTypes: ["Php", "Php2"],
+  tagTypes: ["Php", "Php2", "Twitter"],
   endpoints: (builder) => ({
     getUserByWalletId: builder.mutation({
       query: (wallet_address) => ({
         url: `/users/${wallet_address}`,
         method: "GET",
-      })
+      }),
+      providesTags: ["Twitter"]
     }),
     checkCode: builder.mutation({
       query: (code) => ({

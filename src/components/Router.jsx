@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <MainComponent />,
   },
   {
-    path: "/twitter/access-token",
+    path: "/twitter/callback",
     element: <Twitter />,
   },
   {
@@ -31,6 +31,11 @@ const AppRouter = () => {
   const wallet_address = publicKey?.toBase58();
   const [getUser] = useGetUserByWalletIdMutation();
   const [createUser] = useCreateUserMutation();
+
+  const contextValue = {
+    value: auth,
+    setValue: setAuth
+  }
 
   const connectSubmitHandler = async () => {
     try {
@@ -54,7 +59,7 @@ const AppRouter = () => {
   }, [connected]);
 
   return (
-    <AuthContext.Provider value={auth}>
+    <AuthContext.Provider value={contextValue}>
       <RouterProvider router={router} />
     </AuthContext.Provider>
   );

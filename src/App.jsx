@@ -7,11 +7,7 @@ import {
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui"
 import "@solana/wallet-adapter-react-ui/styles.css"
 import {
-  AlphaWalletAdapter,
   AvanaWalletAdapter,
-  BitKeepWalletAdapter,
-  BitgetWalletAdapter,
-  BitpieWalletAdapter,
   CloverWalletAdapter,
   Coin98WalletAdapter,
   CoinbaseWalletAdapter,
@@ -75,13 +71,8 @@ const Context = ({ children }) => {
     () => [
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
-      new TorusWalletAdapter(),
       new TrezorWalletAdapter(),
-      new AlphaWalletAdapter(),
       new AvanaWalletAdapter(),
-      new BitKeepWalletAdapter(),
-      new BitgetWalletAdapter(), 
-      new BitpieWalletAdapter(), 
       new CloverWalletAdapter(), 
       new Coin98WalletAdapter(),
       new CoinbaseWalletAdapter(),

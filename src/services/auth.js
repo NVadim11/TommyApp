@@ -4,7 +4,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 // Define a service using a base URL and expected endpoints
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://api.prodtest1.space" }),
+  tagTypes: ["Twitter"],
   endpoints: (builder) => ({
     twitterAuth: builder.mutation({
       query: () => ({
@@ -14,10 +15,11 @@ export const authApi = createApi({
     }),
     twitterCallback: builder.mutation({
       query: (body) => ({
-        url: `/twitter/access-token`,
+        url: `/twitter-task`,
         method: "POST",
         body: body,
       }),
+      invalidatesTags: ["Twitter"]
     }),
     discordCallback: builder.mutation({
       query: (body) => ({
