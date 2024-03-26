@@ -11,8 +11,7 @@ import { AuthContext } from "../../../../helper/contexts";
 
 const Steps = ({ isCodeValid }) => {
   const [requestAuth] = useTwitterAuthMutation();
-  const authContext = useContext(AuthContext);
-  console.log(authContext);
+  const {value} = useContext(AuthContext);
   const location = useLocation();
   const formRef = useRef(null);
 
@@ -20,8 +19,8 @@ const Steps = ({ isCodeValid }) => {
 
   const loginTwitter = async () => {
     try {
-      const res = await requestAuth().unwrap();
-      window.location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${res.token}`;
+      // const res = await requestAuth().unwrap();
+      window.location.href = `https://api.prodtest1.space/twitter/auth`;
     } catch (e) {
       console.log(e);
     }
@@ -61,12 +60,12 @@ const Steps = ({ isCodeValid }) => {
               <Typography variant="h5">
                 Follow @crypto_tom on Twitter
               </Typography>
-              {authContext.twitter === 1 && (
+              {value.twitter === 1 && (
                 <img src={check} width="35px" height="35px" />
               )}
             </div>
           </div>
-          {authContext.twitter != 1 && (
+          {value.twitter !== 1 && (
             <button className="steps__button" onClick={loginTwitter}>
               <Typography variant="caption" sx={{ mr: "10px" }}>
                 Connect
@@ -80,12 +79,12 @@ const Steps = ({ isCodeValid }) => {
             <span className="number">3</span>
             <div>
               <Typography variant="h5">Join Crypto Tom Discord</Typography>
-              {authContext.discord === 1 && (
+              {value.discord === 1 && (
                 <img src={check} width="35px" height="35px" />
               )}
             </div>
           </div>
-          {authContext.discord != 1 && (
+          {value.discord != 1 && (
             <button className="steps__button" onClick={loginDiscord}>
               <Typography variant="caption" sx={{ mr: "10px" }}>
                 Connect
