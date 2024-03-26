@@ -18,11 +18,6 @@ import catCoinMove from '../../img/cat_coin_move.png'
 import finalForm from '../../img/finalForm.gif'
 import goldForm from '../../img/gold.gif'
 import smile from '../../img/smile.png'
-// import bgOne from '../../img/bgFirst.webp'
-// import bgTwo from '../../img/bgSecond.webp'
-// import bgThree from '../../img/bgThird.webp'
-// import bgFour from '../../img/bgFourth.webp'
-// import bgFife from '../../img/'
 import { useTwitterAuthMutation } from "../../services/auth"
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio'
 import { AuthContext } from '../helper/contexts'
@@ -48,7 +43,7 @@ function Main() {
     const location = useLocation();
     const formRef = useRef(null);
     const [position, setPosition] = useState({ x: '50%', y: '50%' });   
-    const [visible, setVisible] = useState(true); // Start with visible true
+    const [visible, setVisible] = useState(true);
     const [boostPhase, setBoostPhase] = useState(false);
     const [boostClicked, setBoostClicked] = useState(false);
     let [happinessVal, setHappinessVal] = useState(1)
@@ -82,8 +77,8 @@ function Main() {
     setDisableBoostTimeout(true); // Disable boost timeout
     setBoostTimeout(
       setTimeout(() => {
-        setDisableBoostTimeout(false); // Enable boost timeout after 30 seconds
-      }, 30000)
+        setDisableBoostTimeout(false); // Enable boost timeout after 15 seconds
+      }, 15000)
     );
 
     setTimeout(() => {
@@ -114,8 +109,8 @@ function Main() {
   useEffect(() => {
     if (!visible && !boostPhase) {
       randomizePosition();
-      const minTimeout = 30000; // 30 seconds47
-      const maxTimeout = 180000; // 180 seconds (3 minutes)
+      const minTimeout = 15000; // 15 seconds47
+      const maxTimeout = 120000; // 120 seconds (2 minutes)
       const timeout = Math.random() * (maxTimeout - minTimeout) + minTimeout;
       const boostTimer = setTimeout(() => {
         setVisible(true); // Show the Boost component
@@ -212,10 +207,6 @@ function Main() {
         return clickNewCoins;
     };
 
-    // useEffect(() => {
-    //     updateCurrCoins();
-    // }, [currEnergy]);
-
     useEffect(() => {
         const timer = setInterval(() => {
             if (isCoinsChanged) {
@@ -241,21 +232,21 @@ function Main() {
         }
     };
 
-    const firstClick = (event) => {
-        if (!event.isTrusted) return;
-        if (currEnergy >= 991 && currEnergy <= 1000 || boostClicked === true) {
-            playBoostCatClick()
-          } else {
-        playSadCatClick();
-        }     
-        setCurrentImage(false);
-        setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinessVal, 1000));
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
-        const clickNewCoins = updateCurrCoins();
-        setCurrCoins(prevCoins => prevCoins + clickNewCoins);
-        accumulatedCoinsRef.current += clickNewCoins;
-    };
+    // const firstClick = (event) => {
+    //     if (!event.isTrusted) return;
+    //     if (currEnergy >= 991 && currEnergy <= 1000 || boostClicked === true) {
+    //         playBoostCatClick()
+    //       } else {
+    //     playSadCatClick();
+    //     }     
+    //     setCurrentImage(false);
+    //     setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinessVal, 1000));
+    //     clearTimeout(timeoutRef.current);
+    //     timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
+    //     const clickNewCoins = updateCurrCoins();
+    //     setCurrCoins(prevCoins => prevCoins + clickNewCoins);
+    //     accumulatedCoinsRef.current += clickNewCoins;
+    // };
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
@@ -264,6 +255,7 @@ function Main() {
           } else {
         playSadCatClick();
         }
+        setCurrentImage(false);
         setCoinState(true);
         setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinessVal, 1000));
         clearTimeout(timeoutRef.current);
@@ -288,8 +280,13 @@ function Main() {
 
     const stopFarm = () => {
         setCurrentImage(false);
+        setBoostPhase(false)
+        setCoinState(false);
+        setCurrCoins(0);
         setidleState(prevState => !prevState);
         setCoinState(false);
+        setBoostClicked(false);
+        setVisible(false)
     };
 
     const loginTwitter = async () => {
@@ -348,10 +345,10 @@ return (
                             </div>
                             <div className="steps__items">
                             <div className="steps__item" style={{ display: !connected ? 'none' : 'flex' }}>
-                                    {authContext.twitter !== 0 && (
+                                    {authContext.twitter !== 1 && (
                                         <p>Follow @TimCatSol <span>on Twitter</span></p>
                                         )}
-                                    {authContext.twitter !== 0 && (
+                                    {authContext.twitter !== 1 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
                                             Follow
                                         </button>
@@ -386,8 +383,8 @@ return (
                                             fill="white" />
                                     </svg>
                                     </WalletMultiButton>
-                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={authContext.twitter !== 0} style={{ display: !connected ? 'none' : 'flex',
-                                 opacity: authContext.twitter !== 0 ? '0.5' : '1' }}>Play now!
+                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={authContext.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
+                                 opacity: authContext.twitter !== 1 ? '0.5' : '1' }}>Play now!
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
                                         <path
@@ -501,7 +498,7 @@ return (
                         <p>Tap the</p>
                         <img src={smile} alt="cat icon"/>
                         </div>
-                    </motion.div>                    
+                            </motion.div>                    
                     <div className="mainContent__energyBox">
                         <div className="mainContent__energyContainer">
                             <img src={smile} alt=""/>
@@ -523,7 +520,7 @@ return (
                         </div>
                     </div>
                     {currentImage ? (
-                <div className="mainContent__catBox" onClick={firstClick}>
+                <div className="mainContent__catBox" onClick={coinClicker}>
                     <img id="catGif" className="mainContent__catIdle" src={boostPhase ? goldForm : catIdle} draggable="false" alt="cat animation" />
                 </div>
             ) : (
