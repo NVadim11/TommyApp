@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.157711d1.css",
+    "main.css": "/TommyApp/static/css/main.bb2afe2a.css",
     "main.js": "/TommyApp/static/js/main.f014f4dd.js",
     "static/js/648.eb38c7ad.chunk.js": "/TommyApp/static/js/648.eb38c7ad.chunk.js",
     "static/js/227.9a83df08.chunk.js": "/TommyApp/static/js/227.9a83df08.chunk.js",
@@ -60,7 +60,7 @@
     "static/media/link.svg": "/TommyApp/static/media/link.f71365e59d99b2e9e290c97516f5e973.svg",
     "static/media/copy.svg": "/TommyApp/static/media/copy.7f86c828162b5b60758a61c526137384.svg",
     "index.html": "/TommyApp/index.html",
-    "main.157711d1.css.map": "/TommyApp/static/css/main.157711d1.css.map",
+    "main.bb2afe2a.css.map": "/TommyApp/static/css/main.bb2afe2a.css.map",
     "main.f014f4dd.js.map": "/TommyApp/static/js/main.f014f4dd.js.map",
     "648.eb38c7ad.chunk.js.map": "/TommyApp/static/js/648.eb38c7ad.chunk.js.map",
     "227.9a83df08.chunk.js.map": "/TommyApp/static/js/227.9a83df08.chunk.js.map",
@@ -77,7 +77,7 @@
     "916.f166b6be.chunk.js.map": "/TommyApp/static/js/916.f166b6be.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.157711d1.css",
+    "static/css/main.bb2afe2a.css",
     "static/js/main.f014f4dd.js"
   ]
 }
