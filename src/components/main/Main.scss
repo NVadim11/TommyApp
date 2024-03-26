@@ -124,9 +124,22 @@ $desktop: 1919.98px;
 		border: 0.50px solid rgba(255, 255, 255, 0.3);
 		opacity: 1;
 		animation: fadeOut 5s forwards;
+		@media (max-width: $desktop) {
+			right: 150px;
+		} 
+		@media (max-width: $mobile) {
+			right: -7.5rem;
+		} 
+		@media (max-width: 35rem) {
+			width: 5rem;
+			height: 5rem;
+		} 
 		p {
 			margin-bottom: 5px;			
 			font-size: 16px;
+			@media (max-width: 35rem) {
+				font-size: 0.75rem;
+			} 
 		}
 	}
 	@keyframes fadeOut {
@@ -922,5 +935,13 @@ $desktop: 1919.98px;
 	to {
 			transform: translateY(35rem);
 			opacity: 0;
+	}
+}
+
+.mainContent__form {
+	.wallet-adapter-dropdown {
+		button:hover {
+			color: #ffffff!important;
+		}
 	}
 }

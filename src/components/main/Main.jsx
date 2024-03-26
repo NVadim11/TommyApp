@@ -501,7 +501,7 @@ return (
                         <p>Tap the</p>
                         <img src={smile} alt="cat icon"/>
                         </div>
-                            </motion.div>                    
+                    </motion.div>                    
                     <div className="mainContent__energyBox">
                         <div className="mainContent__energyContainer">
                             <img src={smile} alt=""/>
