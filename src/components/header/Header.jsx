@@ -17,7 +17,7 @@ import { AuthContext } from '../helper/contexts'
 import "./Header.scss"
 
 function Header() {
-  const authContext = useContext(AuthContext);
+  const {value} = useContext(AuthContext);
   const { connected, publicKey } = useWallet();
   const [isToggled, setIsToggled] = useState(false);
   const [isShown, setIsShown] = useState(false);
@@ -133,18 +133,18 @@ function Header() {
   //     fetchTotalPoints();
   //     fetchLeaderboardData();
   //   }
-  // }, [authContext, connected]);
+  // }, [value, connected]);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (Object.keys(authContext).length) {
-        const res = await getLeaderboard(authContext.wallet_address).unwrap();
+      if (Object.keys(value).length) {
+        const res = await getLeaderboard(value.wallet_address).unwrap();
         setLeaderboardData(res);
         fetchTotalPoints();      
         console.log("fetched connected DB")
         const intervalId = setInterval(() => {
           fetchTotalPoints();      
-          getLeaderboard(authContext.wallet_address)
+          getLeaderboard(value.wallet_address)
             .unwrap()
             .then((data) => setLeaderboardData(data))
             .catch((error) => console.error('Error refreshing leaderboard:', error));
@@ -165,7 +165,7 @@ function Header() {
     return () => {
       clearInterval(intervalId);
     };
-  }, [authContext, connected]);
+  }, [value, connected]);
 
   useEffect(() => {
     if (!connected) {
@@ -244,10 +244,10 @@ function Header() {
   const [generateCode] = useGenerateCodeMutation();
 
   useEffect(() => {
-    if (authContext && authContext.referral_code) {
-      setCode(authContext.referral_code);
+    if (value && value.referral_code) {
+      setCode(value.referral_code);
     }
-  }, [authContext]);
+  }, [value]);
 
   const copyLink = async () => {
     if ('clipboard' in navigator) {
@@ -259,8 +259,8 @@ function Header() {
 
   const generateCodeCallback = async () => {
     try {
-      if(authContext.wallet_address){
-        const res = await generateCode(authContext.wallet_address).unwrap();
+      if(value.wallet_address){
+        const res = await generateCode(value.wallet_address).unwrap();
         res && res.code && setCode(res.code);
       }
     } catch (e) {
@@ -282,7 +282,7 @@ function Header() {
             <button onClick={leaderBordBtn}>Leaderboard</button>
           </div>
           <div className="header__mobileBtns">
-            {authContext && totalPoints !== null && (
+            {value && totalPoints !== null && (
               <div id="header__totalScore" className="header__totalScore">
                 Total Points: <span>{totalPoints}</span>
               </div>
