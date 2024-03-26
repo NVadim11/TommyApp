@@ -127,6 +127,7 @@ $desktop: 119.9988rem;
 		position: relative;
 		@media (max-width: $mobile) {
 			gap: 0.625rem;
+			position: inherit;
 		}
 	}
 	&__totalScore {

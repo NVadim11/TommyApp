@@ -274,7 +274,7 @@ $desktop: 1919.98px;
 		@media (max-width: 47.9988rem) {
 			scale: 60%;
 			top:20rem;
-			left: 5rem;
+			left: 80px;
 		}
 	}
 	&__petCat {
@@ -294,7 +294,7 @@ $desktop: 1919.98px;
 		@media (max-width: 47.9988rem) {
 			scale: 60%;
 			top: 14.375rem;
-			left: -8.125rem;
+			left: -11.25rem;
 		}
 	}
 	&__earnPoins {
@@ -308,13 +308,13 @@ $desktop: 1919.98px;
 		}
 		@media (max-width: $mobile) {
 			top:230px;
-			left: 5.625rem;
+			left: 90px;
 			scale: 80%;
 		}
 		@media (max-width: 47.9988rem) {
 			scale: 60%;
 			top:11.875rem;
-			left: 3.125rem;
+			left: 90px;
 		}
 	}
 	&__startBtn-box {
