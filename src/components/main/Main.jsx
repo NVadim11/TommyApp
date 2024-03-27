@@ -13,7 +13,7 @@ import smileIdle from '../../img/3_idle.gif'
 import smileSpeak from '../../img/3talk.gif'
 import happyIdle from '../../img/4_idle.gif'
 import happySpeak from '../../img/4talk.gif'
-import boostCoin from '../../img/boostCoin.png'
+import boostCoin from '../../img/boost_coin_side.png'
 import catCoinMove from '../../img/cat_coin_move.png'
 import finalForm from '../../img/finalForm.gif'
 import goldForm from '../../img/gold.gif'
@@ -38,7 +38,6 @@ function Main() {
     const accumulatedCoinsRef = useRef(0);
     const { publicKey, connected } = useWallet();
     const wallet_address = publicKey?.toBase58();
-    // const [requestAuth] = useTwitterAuthMutation();
     const location = useLocation();
     const formRef = useRef(null);
     const [position, setPosition] = useState({ x: '50%', y: '50%' });   
@@ -53,6 +52,33 @@ function Main() {
 
     const [boostTimeout, setBoostTimeout] = useState(null);
     const [disableBoostTimeout, setDisableBoostTimeout] = useState(false);
+
+    const connectSubmitHandler = async () => {
+        try {
+          const response = await axios.post(
+            'https://admin.prodtest1.space/api/users',
+            {
+              wallet_address: wallet_address,
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              }
+            }
+          );
+          if (response.status !== 201) {
+            throw new Error('Failed to submit data');
+          }
+          console.log('Data submitted successfully');
+        } catch (error) {
+          console.error('Error submitting data:', error.message);
+        }
+      };
+      useEffect(() => {
+        if (connected === true) {
+          connectSubmitHandler();
+        }
+      }, [connected]);
 
     const boostClickedHandler = () => {
         setBoostClicked(true);
@@ -160,21 +186,21 @@ function Main() {
 
     const executeScroll = () => formRef.current.scrollIntoView();
 
-    useEffect(() => {
-        const energyInterval = setInterval(() => {
-            setCurrEnergy(prevEnergy => {
-                let energyDecrement = 1;
-                if (prevEnergy >= 751 && prevEnergy <= 990) {
-                    energyDecrement = 2;
-                } else if (prevEnergy >= 991 && prevEnergy <= 1000) {
-                    energyDecrement = 3;
-                }
-                return Math.max(prevEnergy - energyDecrement, 0);
-            });
-        }, 1000);
+    // useEffect(() => {
+    //     const energyInterval = setInterval(() => {
+    //         setCurrEnergy(prevEnergy => {
+    //             let energyDecrement = 1;
+    //             if (prevEnergy >= 751 && prevEnergy <= 990) {
+    //                 energyDecrement = 2;
+    //             } else if (prevEnergy >= 991 && prevEnergy <= 1000) {
+    //                 energyDecrement = 3;
+    //             }
+    //             return Math.max(prevEnergy - energyDecrement, 0);
+    //         });
+    //     }, 1000);
 
-        return () => clearInterval(energyInterval);
-    }, []);
+    //     return () => clearInterval(energyInterval);
+    // }, []);
 
     useEffect(() => {
         if (currEnergy <= 0) {
@@ -229,22 +255,6 @@ function Main() {
             console.error('Error submitting coins:', error);
         }
     };
-
-    // const firstClick = (event) => {
-    //     if (!event.isTrusted) return;
-    //     if (currEnergy >= 991 && currEnergy <= 1000 || boostClicked === true) {
-    //         playBoostCatClick()
-    //       } else {
-    //     playSadCatClick();
-    //     }     
-    //     setCurrentImage(false);
-    //     setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinessVal, 1000));
-    //     clearTimeout(timeoutRef.current);
-    //     timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
-    //     const clickNewCoins = updateCurrCoins();
-    //     setCurrCoins(prevCoins => prevCoins + clickNewCoins);
-    //     accumulatedCoinsRef.current += clickNewCoins;
-    // };
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
@@ -266,7 +276,7 @@ function Main() {
     };
 
     useEffect(() => {
-        if (connected === false) {
+        if (!connected) {
             setCurrCoins(0);
         }
     }, [connected]);
@@ -315,11 +325,12 @@ return (
                 <div className="mainContent__phaseOne">
                     <div className="mainContent__infoBlock">
                     <div className="mainContent__title">
-                        <h4>Tim The Cat</h4>
+                        <h4>Next-Gen Tamagotchi</h4>
                     </div>
                     <div className="mainContent__descr">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        The happier the cat — the more you get 
+                        Make it purr and get rewards
                         </p>
                     </div>
                     <div className="mainContent__descrMob">
@@ -334,40 +345,56 @@ return (
                     </div>
                     <div className="mainContent__form" ref={formRef}> 
                         <div id="steps" aria-hidden="true" className="steps">
-                            <div className="steps__header">
-                                <p>
-                                You're almost there,
-                                <br />
-                                connect your wallet
-                                </p>
-                            </div>
-                            <div className="steps__items">
-                            <div className="steps__item" style={{ display: !connected ? 'none' : 'flex' }}>
-                                    {value.twitter !==1 && (
+                        <div>
+      {connected && value.twitter !==0 ? (
+        <div className="steps__header">
+          <p>
+            You've met requirements,
+            <br />
+            start farming now
+          </p>       
+        </div>
+      ) : (
+        <div className="steps__header">
+        <p>
+        You're almost there,
+        <br />
+        connect your wallet
+        </p> 
+        </div>
+      )}
+    </div>
+    <div className="steps__items"style={{ display: connected ? 'block' : 'none' }}>
+    {value.twitter !==1 && (
+    <div className="steps__item">
+                                    
                                         <p>Follow @TimCatSol <span>on Twitter</span></p>
-                                        )}
+                             
                                     {value.twitter !== 1 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
                                             Follow
                                         </button>
                                     )}
-                                </div>
-                                <div className="steps__item"style={{ display: !connected ? 'none' : 'flex' }}>
+      </div>
+      )}
+    {value.twitter !==1 && (
+    <div className="steps__item"style={{ display: !connected ? 'none' : 'flex' }}>
                                     <p>
-                                        Join 
-                                        <span>Crypto Telegram</span>
+                                    @tomo_cat 
+                                        <span>Telegram</span>
                                     </p>
                                     <button className="steps__item-btn">
                                         Join
                                     </button>
-                                </div>
-                            </div>
-                            </div>    
-                                <WalletMultiButton style={{
+      </div>
+      )}
+    </div>
+    </div>    
+        <WalletMultiButton style={{
                                         display: !connected ? 'flex' : 'none',
                                         border: '2px solid #fff',
                                         borderRadius: '60px',
-                                        marginTop: '1.25rem',
+                                        marginTop: '0',
                                         padding: '1.4063rem 20px 1.3438rem 20px',
                                         fontSize: '1rem',
                                         width: 'fit-content',
@@ -380,7 +407,7 @@ return (
                                             d="M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z"
                                             fill="white" />
                                     </svg>
-                                    </WalletMultiButton>
+            </WalletMultiButton>
                                  <button className="mainContent__startBtn" onClick={startFarm} disabled={value.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
                                  opacity: value.twitter !== 1 ? '0.5' : '1' }}>Play now!
                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -389,7 +416,7 @@ return (
                                             d="M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z"
                                             fill="white" />
                                     </svg>
-                            </button>
+    </button>
                     </div> 
                     <div className="mainContent__guideItems">
                         <motion.div

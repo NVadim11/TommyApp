@@ -47,6 +47,33 @@ function Header() {
   const containerRef = useRef(null);
   const [getLeaderboard] = useGetLeaderboardMutation();
 
+  const connectSubmitHandler = async () => {
+    try {
+      const response = await axios.post(
+        'https://admin.prodtest1.space/api/users',
+        {
+          wallet_address: wallet_address,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      if (response.status !== 201) {
+        throw new Error('Failed to submit data');
+      }
+      console.log('Data submitted successfully');
+    } catch (error) {
+      console.error('Error submitting data:', error.message);
+    }
+  };
+  useEffect(() => {
+    if (connected === true) {
+      connectSubmitHandler();
+    }
+  }, [connected]);
+
   useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
       mutationsList.forEach((mutation) => {
@@ -109,31 +136,6 @@ function Header() {
       clearInterval(initLeadersRef.current);
     };
   }, [connected]);
-
-  // useEffect(() => {
-  //   if (connected) {
-  //     fetchLeaderboardData();
-  //     initLeadersRef.current = setInterval(() => {
-  //       fetchLeaderboardData();
-  //     }, 10000);
-  //   } else {
-  //     clearInterval(initLeadersRef.current);
-  //     setTotalPoints(null);
-  //     fetchTotalPoints();      
-  //     intervalRef.current = setInterval(() => {
-  //       fetchTotalPoints();
-  //     }, 10000);
-  //     localStorage.setItem("wallet_id", wallet_address);
-  //   } 
-  //   clearInterval(intervalRef.current);
-  // }, [connected, wallet_address]);
-
-  // useEffect(() => {
-  //   if (connected) {
-  //     fetchTotalPoints();
-  //     fetchLeaderboardData();
-  //   }
-  // }, [value, connected]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -201,12 +203,6 @@ function Header() {
     setIsShown(false);
   }
 
-  // const airdropBtn = () => {
-  //   setAirOpen(true);
-  //   fadeShowAir();
-  //   setIsShown(false);
-  // }
-
   const fadeShow = () => {
     const htmlTag = document.getElementById("html");
     if (htmlTag) htmlTag.classList.add("popupLeaderboard-show");
@@ -216,11 +212,6 @@ function Header() {
     const htmlTag = document.getElementById("html");
     if (htmlTag) htmlTag.classList.add("popupInvite-show");
   };
-
-  // const fadeShowAir = () => {
-  //   const htmlTag = document.getElementById("html");
-  //   if (htmlTag) htmlTag.classList.add("popupAirdrop-show");
-  // };
 
   const leaderboardCloseToggler = () => {
     setLeaderboardOpen(false);
@@ -233,12 +224,6 @@ function Header() {
     const htmlTag = document.getElementById("html");
     if (htmlTag) htmlTag.classList.remove("popupInvite-show");
   };
-
-  // const airCloseToggler = () => {
-  //   setAirOpen(false);
-  //   const htmlTag = document.getElementById("html");
-  //   if (htmlTag) htmlTag.classList.remove("popupAirdrop-show");
-  // };
 
   const [code, setCode] = useState("");
   const [generateCode] = useGenerateCodeMutation();
@@ -349,11 +334,13 @@ function Header() {
             <div className="header__walletBtn">
               <WalletMultiButton />
             </div>
-            <div className="header__inviteBtn">
-              <button onClick={inviteFriendsBtn}>
-                Invite a friend
-              </button>
-            </div>
+            { connected && (
+              <div className="header__inviteBtn">
+               <button onClick={inviteFriendsBtn}>
+                 Invite a friend
+               </button>
+              </div>
+            )}
             <div className="header__mobileBurger hidden"
               ref={containerRef}
               onClick={toggleVisibility}
@@ -513,20 +500,31 @@ function Header() {
               <h3>
                 Invite friends. 
                 <br />
-                Earn together
+                Get rewards together.
               </h3>
               <div className="popupInvite__header">
                 <h6>
                   How it Works
                 </h6>
+                <div className="popupInvite__refInfo">
+                <div className="popupInvite__headerDescr">
+                  <h6>
+                    Your Bonus:
+                  </h6>
+                  <div className="popupInvite__headerItem">
+                    <h3>%</h3>
+                      <h3>10</h3>
+                  </div>
+                </div>
                 <div className="popupInvite__headerDescr">
                   <h6>
                     Referred Friends:
                   </h6>
                   <div className="popupInvite__headerItem">
                     <img src={people} alt="people"/>
-                      <h3>200</h3>
+                      <h3>{value.referral_balance}</h3>
                   </div>
+                </div>
                 </div>
               </div>
               <div className="popupInvite__grid">
@@ -535,22 +533,22 @@ function Header() {
                     <li className="popupInvite__list-item">
                       <img src={envelope} alt="" className="popupInvite__icon" />
                       <div className="popupInvite__list-itemDescr">
-                        <h5>Get referral link</h5>
-                        <p>Register and get your unique referral link and code</p>
+                        <h5>Sign up</h5>
+                        <p>Get your referral link and code</p>
                       </div>
                     </li>
                     <li className="popupInvite__list-item">
                       <img src={link} alt="" className="popupInvite__icon" />
                       <div className="popupInvite__list-itemDescr">
-                        <h5>Invite your friends</h5>
-                        <p>Invite your friends to register via your link or code</p>
+                        <h5>Invite</h5>
+                        <p>Friends via the referral link</p>
                       </div>
                     </li>
                     <li className="popupInvite__list-item">
                       <img src={money} alt="" className="popupInvite__icon" />
                       <div className="popupInvite__list-itemDescr">
-                        <h5>Earn crypto together</h5>
-                        <p>You will receive up to $2,000 USD when your friends stake CRO on Crypto.com Exchange</p>
+                        <h5>Get rewards</h5>
+                        <p>Receive up to 2k$ for your friends' staking CRO</p>
                       </div>
                     </li>
                   </ul>
@@ -558,9 +556,9 @@ function Header() {
                 <div className="popupInvite__gridItem">
                   <div className="popupInvite__item-box">
                     <div className="popupInvite__item-group">
-                      <p>Your referral link:</p>
+                      <p>Your link</p>
                       <p className="popupInvite__input">
-                        {code.length ? `${(window.location.href).slice(7,(window.location.href).length)}${code}` : "link"}
+                        {code.length ? `${(window.location.href).slice(8,(window.location.href).length)}${code}` : "link"}
                         <button onClick={() => copyLink()} className="popupInvite__input-btn">
                             <img src={copy} alt=""/>
                             {/* <span></span> */}

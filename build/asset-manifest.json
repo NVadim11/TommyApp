@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TommyApp/static/css/main.667932b3.css",
-    "main.js": "/TommyApp/static/js/main.aef14e4c.js",
+    "main.js": "/TommyApp/static/js/main.b2a5ffc7.js",
     "static/js/620.84fe35d5.chunk.js": "/TommyApp/static/js/620.84fe35d5.chunk.js",
     "static/js/280.79fd3d00.chunk.js": "/TommyApp/static/js/280.79fd3d00.chunk.js",
     "static/js/559.a6abebe1.chunk.js": "/TommyApp/static/js/559.a6abebe1.chunk.js",
@@ -63,6 +63,6 @@
   },
   "entrypoints": [
     "static/css/main.667932b3.css",
-    "static/js/main.aef14e4c.js"
+    "static/js/main.b2a5ffc7.js"
   ]
 }

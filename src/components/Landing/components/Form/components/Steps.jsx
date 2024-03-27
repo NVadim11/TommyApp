@@ -26,9 +26,9 @@ const Steps = ({ isCodeValid }) => {
     }
   };
 
-  const loginDiscord = async () => {
-    window.location.href = `https://discord.com/oauth2/authorize?client_id=1215997115390496918&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscord%2Fcallback&scope=identify+guilds+guilds.join+email+connections`;
-  };
+  // const loginDiscord = async () => {
+  //   window.location.href = `https://discord.com/oauth2/authorize?client_id=1215997115390496918&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscord%2Fcallback&scope=identify+guilds+guilds.join+email+connections`;
+  // };
 
   useEffect(() => {
     if (location.state && location.state?.auth) {

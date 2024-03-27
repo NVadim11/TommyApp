@@ -22,12 +22,6 @@ export const phpApi = createApi({
       }),
       invalidatesTags: "php"
     }),
-    createUser: builder.mutation({
-      query: (body) => ({
-        url: "/users",
-        method: "POST"
-      })
-    }),
     generateCode: builder.mutation({
       query: (wallet) => ({
         url: `/generate-referral-code/${wallet}`,

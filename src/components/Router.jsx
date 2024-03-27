@@ -1,7 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react"
 import { useEffect, useState } from "react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { useCreateUserMutation, useGetUserByWalletIdMutation } from "../services/phpService"
+import { useGetUserByWalletIdMutation } from "../services/phpService"
 import { Discord, Twitter } from "./auth"
 import { AuthContext } from "./helper/contexts"
 import MainComponent from "./main"
@@ -30,7 +30,6 @@ const AppRouter = () => {
   const { publicKey, connected } = useWallet();
   const wallet_address = publicKey?.toBase58();
   const [getUser] = useGetUserByWalletIdMutation();
-  const [createUser] = useCreateUserMutation();
 
   const contextValue = {
     value: auth,
@@ -42,9 +41,6 @@ const AppRouter = () => {
       const response = await getUser(wallet_address).unwrap();
       if (response) {
         setAuth(response);
-      } else {
-        const res = await createUser({wallet_address}).unwrap();
-        res && setAuth(res);
       }
     } catch (error) {
       console.error("Error submitting data:", error.message);
@@ -53,7 +49,6 @@ const AppRouter = () => {
   useEffect(() => {
     if (connected === true) {
       connectSubmitHandler();
-      console.log("connected")
       localStorage.setItem("wallet_id", wallet_address);
     }
   }, [connected]);
