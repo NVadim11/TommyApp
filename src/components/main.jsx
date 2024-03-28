@@ -28,11 +28,10 @@ const MainComponent = () => {
   return (
     <div className="wrapper">
       <Preloader loaded={preloaderLoaded} />
-      <Header />
+			<Header />
       <main className="main">
       <Main />
       </main>
-      {/* <Landing /> */}
       <Footer />
     </div>
   );

@@ -19,6 +19,7 @@ import finalForm from '../../img/finalForm.gif'
 import goldForm from '../../img/gold.gif'
 import smile from '../../img/smile.png'
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio'
+import { useClickCount } from '../clickContext'
 import { AuthContext } from '../helper/contexts'
 import './Main.scss'
 
@@ -52,6 +53,12 @@ function Main() {
 
     const [boostTimeout, setBoostTimeout] = useState(null);
     const [disableBoostTimeout, setDisableBoostTimeout] = useState(false);
+
+    const { incrementClickCount } = useClickCount();
+
+    const handleCoinClick = () => {
+      incrementClickCount();
+    };
 
     const connectSubmitHandler = async () => {
         try {
@@ -265,6 +272,7 @@ function Main() {
         }
         setCurrentImage(false);
         setCoinState(true);
+        handleCoinClick();
         setCurrEnergy(prevEnergy => Math.min(prevEnergy + happinessVal, 1000));
         clearTimeout(timeoutRef.current);
         clearTimeout(coinRef.current);
@@ -325,12 +333,11 @@ return (
                 <div className="mainContent__phaseOne">
                     <div className="mainContent__infoBlock">
                     <div className="mainContent__title">
-                        <h4>Next-Gen Tamagotchi</h4>
+                        <h4>Tomo The Cat</h4>
                     </div>
                     <div className="mainContent__descr">
                         <p>
-                        The happier the cat — the more you get 
-                        Make it purr and get rewards
+                        Next-Gen Tamagotchi
                         </p>
                     </div>
                     <div className="mainContent__descrMob">
@@ -368,7 +375,7 @@ return (
     {value.twitter !==1 && (
     <div className="steps__item">
                                     
-                                        <p>Follow @TimCatSol <span>on Twitter</span></p>
+                                        <p>@TimCatSol <span>on Twitter</span></p>
                              
                                     {value.twitter !== 1 && (
                                         <button className="steps__item-btn" onClick={loginTwitter}>
@@ -470,7 +477,7 @@ return (
     </clipPath>
   </defs>
                             </svg>
-                            <p>Pet the Cat</p>
+                            <p>Pet Tomo</p>
                         </div>
                         </motion.div>
                         <motion.div
@@ -539,8 +546,8 @@ return (
                         </div>
                         <div className="mainContent__energyHint">
                             <p>
-                            The happier The Tom — 
-                            The more you get
+                            The happier the cat — the more you get 
+                        Make it purr and get rewards
                             </p>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useRef, useState } from "react"
 import copy from "../../img/copy.svg"
 import envelope from "../../img/envelope.svg"
 import link from "../../img/link.svg"
-import logo from "../../img/logo.svg"
+import logo from "../../img/logo.png"
 import money from "../../img/money.svg"
 import people from "../../img/people-icon.svg"
 import {
@@ -13,6 +13,7 @@ import {
   useGetLeaderboardMutation
 } from "../../services/phpService"
 import { toggleMuteAllSounds } from "../../utility/Audio"
+import { useClickCount } from '../clickContext'
 import { AuthContext } from '../helper/contexts'
 import "./Header.scss"
 
@@ -22,16 +23,13 @@ function Header() {
   const [isToggled, setIsToggled] = useState(false);
   const [isShown, setIsShown] = useState(false);
   const [totalPoints, setTotalPoints] = useState(null);
+  const [totalReferrals, setTotalReferrals] = useState(null);
   const [leaderboardData, setLeaderboardData] = useState([]);
-
   const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
   const [isInviteOpen, setInviteOpen] = useState(false);
-  const [isAirOpen, setAirOpen] = useState(false);
 
   const [isVisible, setIsVisible] = useState(true);
   const [isElementPresent, setIsElementPresent] = useState(false);
-
-  const intervalRef = useRef(null);
   const initLeadersRef = useRef(null);
   const wallet_address = publicKey?.toBase58();
 
@@ -41,8 +39,8 @@ function Header() {
   const popupInvTgl = isInviteOpen ? "popupInvite_show" : null;
   const popupInvite = `popupInvite ${popupInvTgl}`;
 
-  const popupAirTgl= isAirOpen ? "popupAirdrop_show" : null;
-  // const popupAirdrop = `popupAirdrop ${popupAirTgl}`;
+  const { clickCount } = useClickCount();
+  const [inviteAlreadySent, setInviteAlreadySent] = useState(false);
 
   const containerRef = useRef(null);
   const [getLeaderboard] = useGetLeaderboardMutation();
@@ -108,6 +106,7 @@ function Header() {
     try {
       const response = await axios.get(`https://admin.prodtest1.space/api/users/${wallet_address}`);
       setTotalPoints(response.data?.wallet_balance);
+      setTotalReferrals(response.data?.referral_balance);
     } catch (error) {
       console.error('Error fetching total points:', error.message);
     }
@@ -142,10 +141,10 @@ function Header() {
       if (Object.keys(value).length) {
         const res = await getLeaderboard(value.wallet_address).unwrap();
         setLeaderboardData(res);
-        fetchTotalPoints();      
+        fetchTotalPoints();    
         console.log("fetched connected DB")
         const intervalId = setInterval(() => {
-          fetchTotalPoints();      
+          fetchTotalPoints();    
           getLeaderboard(value.wallet_address)
             .unwrap()
             .then((data) => setLeaderboardData(data))
@@ -197,11 +196,26 @@ function Header() {
     setIsShown(false);
   };
 
+  const inviteCloseToggler = () => {
+    setInviteOpen(false);
+    const htmlTag = document.getElementById("html");
+    if (htmlTag) htmlTag.classList.remove("popupInvite-show");
+  };
+
   const inviteFriendsBtn = () => {
     setInviteOpen(true);
     fadeShowInvite();
-    setIsShown(false);
+    setIsShown(false);  
   }
+
+  useEffect(() => {
+    if (clickCount >= 100 && !inviteAlreadySent) {
+      setInviteAlreadySent(true);
+      setTimeout(() => {
+        inviteFriendsBtn();
+      }, 5000);
+    }
+  }, [clickCount, inviteAlreadySent]);
 
   const fadeShow = () => {
     const htmlTag = document.getElementById("html");
@@ -217,12 +231,6 @@ function Header() {
     setLeaderboardOpen(false);
     const htmlTag = document.getElementById("html");
     if (htmlTag) htmlTag.classList.remove("popupLeaderboard-show");
-  };
-
-  const inviteCloseToggler = () => {
-    setInviteOpen(false);
-    const htmlTag = document.getElementById("html");
-    if (htmlTag) htmlTag.classList.remove("popupInvite-show");
   };
 
   const [code, setCode] = useState("");
@@ -474,8 +482,7 @@ function Header() {
           </div>
         </div>
       )}
-      {
-        isInviteOpen && (
+        {isInviteOpen && (
           <div id="popupInvite" aria-hidden="true" className={popupInvite}>
           <div className="popupInvite__wrapper">
             <div className="popupInvite__content">
@@ -516,15 +523,17 @@ function Header() {
                       <h3>10</h3>
                   </div>
                 </div>
-                <div className="popupInvite__headerDescr">
-                  <h6>
-                    Referred Friends:
-                  </h6>
-                  <div className="popupInvite__headerItem">
-                    <img src={people} alt="people"/>
-                      <h3>{value.referral_balance}</h3>
+                {totalReferrals >= 1 && (
+                    <div className="popupInvite__headerDescr">
+                    <h6>
+                      Referred Friends:
+                    </h6>
+                    <div className="popupInvite__headerItem">
+                      <img src={people} alt="people"/>
+                        <h3>{totalReferrals}</h3>
+                    </div>
                   </div>
-                </div>
+                )}
                 </div>
               </div>
               <div className="popupInvite__grid">
