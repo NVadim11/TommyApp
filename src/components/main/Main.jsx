@@ -47,7 +47,7 @@ function Main() {
     const [boostPhase, setBoostPhase] = useState(false);
     const [visible, setVisible] = useState(false);    
 
-    let [happinessVal, setHappinessVal] = useState(100)
+    let [happinessVal, setHappinessVal] = useState(1)
     let [clickNewCoins, setClickNewCoins] = useState(1)    
 
     const [gamePaused, setGamePaused] = useState(false);
@@ -70,7 +70,6 @@ function Main() {
       })
       .then(response => {
         if (response.ok) {
-          console.log('Game paused successfully');
           setGamePaused(true);
         } else {
           console.error('Failed to pause game');
@@ -85,7 +84,10 @@ function Main() {
       if (currEnergy === 1000) {
         const timeoutId = setTimeout(() => {
           pauseGame();
-        }, 15000);
+          setGamePaused(true);
+          setVisible(false);
+          setCurrEnergy(0);
+        }, 10000);
         return () => {
           clearTimeout(timeoutId);
         };
@@ -106,11 +108,9 @@ function Main() {
           const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
           const remainingTime = data.active_at - currentTimeStamp;
           if (remainingTime <= 0) {
-            console.log("CAN PLAY NOW!")
             setGamePaused(false);
             setTimeRemaining(0);
           } else {
-            console.log("TIMER STILL GOING")
             setGamePaused(true);
             setTimeRemaining(remainingTime);
           }
@@ -135,9 +135,6 @@ function Main() {
 
     let catIdleImage = catIdle;
     let catSpeakImage = catSpeak;
-
-    // const [boostTimeout, setBoostTimeout] = useState(null);
-    // const [disableBoostTimeout, setDisableBoostTimeout] = useState(false);
 
     const { incrementClickCount } = useClickCount();
 
@@ -183,7 +180,7 @@ function Main() {
       setBoostPhase(true);
       setVisible(false);
       setHappinessVal(2);
-      setClickNewCoins(5);
+      setClickNewCoins(6);
   
       setTimeout(() => {
           setHappinessVal(prevHappinessVal);
@@ -205,25 +202,24 @@ const randomizePosition = () => {
 };
 
 useEffect(() => {
-    if (!visible) {
-        const showBoostTimeout = setTimeout(() => {
-            randomizePosition();
-            setVisible(true);
-        }, Math.random() * (60000 - 15000) + 15000); 
+  if (!gamePaused) {
+      if (!visible) {
+        randomizePosition();
+          const showBoostTimeout = setTimeout(() => {
+              randomizePosition();
+              setVisible(true);
+          }, Math.random() * (60000 - 15000) + 15000); 
 
-        return () => clearTimeout(showBoostTimeout);
-    }
-}, [visible]);
+          return () => clearTimeout(showBoostTimeout);
+      } else {
+          const hideBoostTimeout = setTimeout(() => {
+              setVisible(false);
+          }, 8300);
 
-useEffect(() => {
-    if (visible) {
-        const hideBoostTimeout = setTimeout(() => {
-            setVisible(false);
-        }, 8300);
-
-        return () => clearTimeout(hideBoostTimeout);
-    }
-}, [visible]);
+          return () => clearTimeout(hideBoostTimeout);
+      }
+  }
+}, [visible, gamePaused]);
 
     const [bgImages] = useState({
         bgImageFirst: 'img/bgFirst.webp',
@@ -349,7 +345,6 @@ useEffect(() => {
         setCurrentImage(false);
         setBoostPhase(false)
         setCoinState(false);
-        setCurrCoins(0);
         setidleState(prevState => !prevState);
         setCoinState(false);
         setBoostPhase(false);
@@ -388,7 +383,7 @@ return (
                     </div>
                     <div className="mainContent__descr">
                         <p>
-                        Next-Gen Tamagotchi
+                        Play With The Next-Gen Tamagotchi <br/> And Get Rewards
                         </p>
                     </div>
                     <div className="mainContent__descrMob">
@@ -423,55 +418,53 @@ return (
     <div className="steps__items"style={{ display: connected ? 'block' : 'none' }}>
     {value.twitter !==1 && (
     <div className="steps__item">
-                                    
-                                        <p>@TimCatSol <span>on Twitter</span></p>
-                             
-                                    {value.twitter !== 1 && (
-                                        <button className="steps__item-btn" onClick={loginTwitter}>
-                                            Follow
-                                        </button>
-                                    )}
+          <p>@TimCatSol <span>on Twitter</span></p>
+      {value.twitter !== 1 && (
+          <button className="steps__item-btn" onClick={loginTwitter}>
+              Follow
+          </button>
+      )}
       </div>
       )}
     {value.twitter !==1 && (
     <div className="steps__item"style={{ display: !connected ? 'none' : 'flex' }}>
-                                    <p>
-                                    @tomo_cat
-                                        <span>Telegram</span>
-                                    </p>
-                                    <button className="steps__item-btn">
-                                        Join
-                                    </button>
+        <p>
+        @tomo_cat
+            <span>Telegram</span>
+        </p>
+        <button className="steps__item-btn">
+            Join
+        </button>
       </div>
       )}
     </div>
     </div>    
         <WalletMultiButton style={{
-                                        display: !connected ? 'flex' : 'none',
-                                        border: '2px solid #fff',
-                                        borderRadius: '60px',
-                                        marginTop: '0',
-                                        padding: '1.4063rem 20px 1.3438rem 20px',
-                                        fontSize: '1rem',
-                                        width: 'fit-content',
-                                        background: 'linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%)',
-                                        transition: 'background-color 0.3s'
-                                    }}>Select Wallet                                
-                                    <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg" style={{marginLeft: '10px'}}>
-                                        <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
-                                        <path
-                                            d="M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z"
-                                            fill="white" />
-                                    </svg>
+          display: !connected ? 'flex' : 'none',
+          border: '2px solid #fff',
+          borderRadius: '60px',
+          marginTop: '0',
+          padding: '1.4063rem 20px 1.3438rem 20px',
+          fontSize: '1rem',
+          width: 'fit-content',
+          background: 'linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%)',
+          transition: 'background-color 0.3s'
+      }}>Select Wallet                                
+         <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg" style={{marginLeft: '10px'}}>
+             <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
+             <path
+               d="M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z"
+               fill="white" />
+         </svg>
             </WalletMultiButton>
-                                 <button className="mainContent__startBtn" onClick={startFarm} disabled={value.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
-                                 opacity: value.twitter !== 1 ? '0.5' : '1' }}>Play now!
-                                    <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
-                                        <path
-                                            d="M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z"
-                                            fill="white" />
-                                    </svg>
+    <button className="mainContent__startBtn" onClick={startFarm} disabled={value.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
+    opacity: value.twitter !== 1 ? '0.5' : '1' }}>Play now!
+       <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+           <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
+           <path
+               d="M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z"
+               fill="white" />
+       </svg>
     </button>
                     </div> 
                     <div className="mainContent__guideItems">
@@ -563,15 +556,15 @@ return (
                 {gamePaused && timeRemaining > 0 && (
                 <>
                 <p style={{
-                  fontSize: '26px',
+                  fontSize: '22px',
                   textAlign: 'center',
                   alignContent: 'center'
-                }}>Time remaining: {formatTime(timeRemaining)}</p>
+                }}>Time remaining: {formatTime(timeRemaining)} minutes</p>
                 <img src={catFace} alt="cat face" style={{
                   width: '275px',
                   marginTop: '15px'}}/>
                   <p style={{
-                  fontSize: '18px',
+                  fontSize: '16px',
                   textAlign: 'center',
                   alignContent: 'center',
                   marginTop: '15px'}}>
@@ -593,12 +586,12 @@ return (
                 </div>
                 )}
               </>
-                    )}
-            </div>
-                    <div style={{ position: 'absolute'}}>
-                    </div>
-                    <motion.div
-                    initial={{
+                )}
+              </div>
+                <div style={{ position: 'absolute'}}>
+                </div>
+                <motion.div
+                        initial={{
                         y: 70,
                         rotate: 0
                         }}
@@ -612,12 +605,14 @@ return (
                               repeatType: "mirror",
                               ease: "easeInOut"
                             }}style={{ position: 'absolute', top: '340px', right: '140px', width: '100px' }}>
-                        <div className="mainContent__tapCat">
-                        <p>Tap the</p>
-                        <img src={smile} alt="cat icon"/>
-                        </div>
-                            </motion.div>                    
-                    <div className="mainContent__energyBox">
+                        {!gamePaused && timeRemaining <= 0 && (
+                            <div className="mainContent__tapCat">
+                            <p>Tap the</p>
+                            <img src={smile} alt="cat icon"/>
+                            </div>
+                        )}
+                  </motion.div>                    
+                <div className="mainContent__energyBox">
                         <div className="mainContent__energyContainer">
                             <img src={smile} alt=""/>
                             <div className="mainContent__energyValue">
@@ -633,12 +628,11 @@ return (
                         <div className="mainContent__energyHint">
                             <p>
                             The happier the cat — the more you get!
-                          Make it purr and get rewards
+                            Make it purr and get rewards
                             </p>
                         </div>
-                    </div>
-                  
-                        {visible ? (
+                </div>                  
+                  {visible ? (
                             <motion.div
                                 initial={{
                                 y: 7,
@@ -705,10 +699,10 @@ return (
                                 </div>
                                 </motion.div>
                             </motion.div>
-                        ) : null}
-                    <div className="mainContent__backBtn-box">
-                        <div className="mainContent__backBtn" onClick={stopFarm}>
-                    <button>
+                  ) : null}
+                <div className="mainContent__backBtn-box">
+                    <div className="mainContent__backBtn" onClick={stopFarm}>
+                <button>
                         <span>
                         &lt; Stop
                         </span>
@@ -717,8 +711,7 @@ return (
                         </svg>
                     </button>
                         </div>
-                    </div>
-                  
+                    </div>                  
                     <div className="mainContent__coins">
                         <div className="mainContent__coinBox">
                         <div className="mainContent__coinImg" draggable="false"><img src={catCoinMove} alt="coin animation" draggable="false"/></div>
@@ -736,18 +729,6 @@ return (
                         <div className="mainContent__coinThree">
                             <img src={catCoinMove} alt=""/>
                         </div>
-                        {/* <div className="mainContent__coinFour">
-                            <img src={catCoin} alt=""/>
-                        </div>
-                        <div className="mainContent__coinFive">
-                            <img src={catCoin} alt=""/>
-                        </div> */}
-                        {/* <div className="mainContent__coinSix">
-                            <img src="img/cat_coin.svg" alt=""/>
-                        </div>
-                        <div className="mainContent__coinSeven">
-                            <img src="img/cat_coin.svg" alt=""/>
-                        </div> */}
                 </div>
                 )}
           </div>
