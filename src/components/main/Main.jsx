@@ -559,25 +559,28 @@ return (
           ) : (
           <div className="mainContent__phaseTwo">
             <div className="gameContentBox">
-              {gamePaused && timeRemaining > 0 && (
-              <>
-              <p style={{
-                fontSize: '26px',
-                textAlign: 'center',
-                alignContent: 'center'
-              }}>Time remaining: {formatTime(timeRemaining)}</p>
-              <img src={catFace} alt="cat face" style={{
-                width: '275px',
-                marginTop: '15px'}}/>
+              <div className="gameContentBox__box">
+                {gamePaused && timeRemaining > 0 && (
+                <>
                 <p style={{
-                fontSize: '18px',
-                textAlign: 'center',
-                alignContent: 'center',
-                marginTop: '15px'}}>
-                  Tomo is tired, comeback when timer is over.
-                </p>
-              </>
-              )}
+                  fontSize: '26px',
+                  textAlign: 'center',
+                  alignContent: 'center'
+                }}>Time remaining: {formatTime(timeRemaining)}</p>
+                <img src={catFace} alt="cat face" style={{
+                  width: '275px',
+                  marginTop: '15px'}}/>
+                  <p style={{
+                  fontSize: '18px',
+                  textAlign: 'center',
+                  alignContent: 'center',
+                  marginTop: '15px'}}>
+                    Tomo is tired, comeback when timer is over.
+                  </p>
+                </>
+                )}
+              </div>
+
               {!gamePaused && timeRemaining <= 0 && (
               <>
               {currentImage ? (

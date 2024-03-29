@@ -77,66 +77,60 @@ $desktop: 1919.98px;
 		}
 	}
 	&__phaseTwo {
-			height: 581px;
-			position: relative;
+		height: 581px;
+		position: relative;
+		display: flex;
+		// align-items: center;
+		@media (max-width: $mobile) {
+			height: 100%;
+			flex-direction: column;
+		}
+		.mainContent__catBox {
+			margin: 0;
+			position: absolute;
+			right: 667.5px;
+			@media (max-width: $desktop) {
+				right: 427.3px;
+			}
+			@media (max-width: $mobile) {
+				position: relative;
+				order: 2;
+				right: 0;
+			}
+			img {
+				width: 22.5rem;
+				@media (max-width: $mobile) {
+					width: 295px;
+					margin: 0;
+				}
+			}
+		}
+		@media (max-width: $mobile) {
+				height: 100%;
+		} 
+		.gameContentBox {
 			display: flex;
-			justify-content: space-between;
+			align-items: center;
+			margin: 0 auto;
 			@media (max-width: $mobile) {
-				height: 100%;
-				flex-direction: column;
-			}			
-			@media (max-width: $mobile) {
-				position: absolute;
-				height: 100%;
-			} 
-			@media (max-width: 558px) {
 				position: relative;
-				}
-			.gameContentBox {
+				order: 2;
+				right: 0;
+				justify-content: center;
+				margin-top: 1.875rem;
+			}
+			&__box {
 				display: flex;
-				position: relative;
-					// width: fit-content;
-					// flex-direction: column;
-					// position: relative;
-					// text-align: center;
-					align-items: center;
-					// align-content: center;
-					@media (max-width: $desktop) {
-					}
-					@media (max-width: $mobile) {	
-					}
-					@media (max-width: 558px) {
-					position: absolute;
-					display: block;
-					}
-			}
-			.mainContent__catBox {
-				margin: 0;
-				position: absolute;
-				left: 812px;
-				bottom: 26px;
-				@media (max-width: $desktop) {
-					left: 572px;
-				}
-				@media (max-width: $mobile) {	
-					position: relative;
-					order: 2;
-					top: 26px;
-					left: 140px;
-					right: auto;
-				}
-				@media (max-width: 558px) {
-				}
+				flex-direction: column;
+				align-items: center;
 				img {
-					width: 22.5rem;
 					@media (max-width: $mobile) {
-						width: 295px;
-						position: absolute;
-						margin: 0;
+						scale: 0.7;
 					}
 				}
 			}
-	}
+		}
+}
 	&__tapCat {
 		position: absolute;
 		display: flex;
@@ -204,7 +198,7 @@ $desktop: 1919.98px;
 			}
 		}
 		@media (max-width: $mobile) {
-			margin-top: 1.875rem;
+			margin-top: 3.75rem;
 		}
 	}
 	&__descr {
@@ -269,6 +263,7 @@ $desktop: 1919.98px;
 				padding: 0.875rem 0.9063rem 13px 0.9063rem;
 				font-size: 1rem;
 				width: fit-content;
+				align-self: center;
 			}
 	}
 	&__guideItems {
@@ -500,7 +495,10 @@ $desktop: 1919.98px;
 	}
 	&__coins {
 		margin-top: 7.5rem;
+		position: absolute;
+		right: 0;
 		@media (max-width: $mobile) {
+			position: relative;
 			justify-content: center;
 			margin-top: 2.5rem;
 			display: flex;
@@ -564,6 +562,7 @@ $desktop: 1919.98px;
 		bottom: 0;
 		border-radius: 3.75rem;
 		overflow: hidden;
+		z-index: 100;
 		@media (max-width: $mobile) {
 			top: 40px;
 			right: 0;
