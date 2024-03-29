@@ -80,35 +80,62 @@ $desktop: 1919.98px;
 			height: 581px;
 			position: relative;
 			display: flex;
-			// align-items: center;
 			justify-content: space-between;
 			@media (max-width: $mobile) {
 				height: 100%;
 				flex-direction: column;
+			}			
+			@media (max-width: $mobile) {
+				position: absolute;
+				height: 100%;
+			} 
+			@media (max-width: 558px) {
+				position: relative;
+				}
+			.gameContentBox {
+				display: flex;
+				position: relative;
+					// width: fit-content;
+					// flex-direction: column;
+					// position: relative;
+					// text-align: center;
+					align-items: center;
+					// align-content: center;
+					@media (max-width: $desktop) {
+					}
+					@media (max-width: $mobile) {	
+					}
+					@media (max-width: 558px) {
+					position: absolute;
+					display: block;
+					}
 			}
 			.mainContent__catBox {
 				margin: 0;
 				position: absolute;
-				right: 667.5px;
+				left: 812px;
+				bottom: 26px;
 				@media (max-width: $desktop) {
-					right: 427.3px;
+					left: 572px;
 				}
-				@media (max-width: $mobile) {
+				@media (max-width: $mobile) {	
 					position: relative;
 					order: 2;
-					right: 0;
+					top: 26px;
+					left: 140px;
+					right: auto;
+				}
+				@media (max-width: 558px) {
 				}
 				img {
 					width: 22.5rem;
 					@media (max-width: $mobile) {
 						width: 295px;
+						position: absolute;
 						margin: 0;
 					}
 				}
 			}
-			@media (max-width: $mobile) {
-					height: 100%;
-			} 
 	}
 	&__tapCat {
 		position: absolute;
@@ -398,6 +425,7 @@ $desktop: 1919.98px;
 		cursor: pointer;
 	}
 	&__energyBox {
+			position: absolute;
 			width: 13.75rem;
 			margin-top: 7.5rem;
 			@media (max-width: $mobile) {

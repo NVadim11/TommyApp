@@ -396,7 +396,7 @@ function Header() {
                   </a>
                   <a
                     className="header__mobileMenu-links"
-                    href="https://web.telegram.org/"
+                    href="https://t.me/tomo_cat"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

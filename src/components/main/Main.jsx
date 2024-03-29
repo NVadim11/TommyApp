@@ -14,6 +14,7 @@ import smileSpeak from '../../img/3talk.gif'
 import happyIdle from '../../img/4_idle.gif'
 import happySpeak from '../../img/4talk.gif'
 import boostCoin from '../../img/boost_coin_side.png'
+import catFace from '../../img/catFace.png'
 import catCoinMove from '../../img/cat_coin_move.png'
 import finalForm from '../../img/finalForm.gif'
 import goldForm from '../../img/gold.gif'
@@ -41,18 +42,102 @@ function Main() {
     const wallet_address = publicKey?.toBase58();
     const location = useLocation();
     const formRef = useRef(null);
+
     const [position, setPosition] = useState({ x: '50%', y: '50%' });   
-    const [visible, setVisible] = useState(true);
     const [boostPhase, setBoostPhase] = useState(false);
-    const [boostClicked, setBoostClicked] = useState(false);
-    let [happinessVal, setHappinessVal] = useState(1)
+    const [visible, setVisible] = useState(false);    
+
+    let [happinessVal, setHappinessVal] = useState(100)
     let [clickNewCoins, setClickNewCoins] = useState(1)    
+
+    const [gamePaused, setGamePaused] = useState(false);
+    const [timeRemaining, setTimeRemaining] = useState(0);
+
+    const pauseGame = () => {
+      const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
+      const futureTimestamp = currentTimeStamp + (30 * 60); // 30 minutes from now
+      // const futureTimestamp = currentTimeStamp + (Math.random() * (2 * 60 * 60 - 30 * 60) + 30 * 60); // Random between 30 minutes and 2 hours
+  
+      fetch('https://admin.prodtest1.space/api/set-activity', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          wallet_address: wallet_address,
+          timestamp: futureTimestamp,
+        }),
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Game paused successfully');
+          setGamePaused(true);
+        } else {
+          console.error('Failed to pause game');
+        }
+      })
+      .catch(error => {
+        console.error('Error pausing game:', error);
+      });
+    };
+
+    useEffect(() => {
+      if (currEnergy === 1000) {
+        const timeoutId = setTimeout(() => {
+          pauseGame();
+        }, 15000);
+        return () => {
+          clearTimeout(timeoutId);
+        };
+      }
+    }, [currEnergy]);
+
+  useEffect(() => {
+    const checkGameStatus = () => {
+      fetch(`https://admin.prodtest1.space/api/users/${wallet_address}`)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Failed to fetch game status');
+          }
+        })
+        .then(data => {
+          const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
+          const remainingTime = data.active_at - currentTimeStamp;
+          if (remainingTime <= 0) {
+            console.log("CAN PLAY NOW!")
+            setGamePaused(false);
+            setTimeRemaining(0);
+          } else {
+            console.log("TIMER STILL GOING")
+            setGamePaused(true);
+            setTimeRemaining(remainingTime);
+          }
+        })
+        .catch(error => {
+          console.error('Error checking game status:', error);
+        });
+    };
+    checkGameStatus();
+
+    const timer = setInterval(() => {
+      checkGameStatus();
+    }, 10000);
+
+    return () => clearInterval(timer);
+  }, [connected]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    return `${minutes}`;
+  };
 
     let catIdleImage = catIdle;
     let catSpeakImage = catSpeak;
 
-    const [boostTimeout, setBoostTimeout] = useState(null);
-    const [disableBoostTimeout, setDisableBoostTimeout] = useState(false);
+    // const [boostTimeout, setBoostTimeout] = useState(null);
+    // const [disableBoostTimeout, setDisableBoostTimeout] = useState(false);
 
     const { incrementClickCount } = useClickCount();
 
@@ -87,76 +172,58 @@ function Main() {
         }
       }, [connected]);
 
-    const boostClickedHandler = () => {
-        setBoostClicked(true);
+      const boostClickedHandler = () => {
         handleBoostClick();
-    }
-
+    };
 
     const handleBoostClick = () => {
-        // Store previous values
-        const prevHappinessVal = happinessVal;
-        const prevClickNewCoins = clickNewCoins;
-    
-        // Set new values
-        setBoostPhase(true);
-        setVisible(false);
-        setHappinessVal(2);
-        setClickNewCoins(5);
-
-    clearTimeout(boostTimeout); // Reset the timeout
-    setDisableBoostTimeout(true); // Disable boost timeout
-    setBoostTimeout(
+      const prevHappinessVal = happinessVal;
+      const prevClickNewCoins = clickNewCoins;
+  
+      setBoostPhase(true);
+      setVisible(false);
+      setHappinessVal(2);
+      setClickNewCoins(5);
+  
       setTimeout(() => {
-        setDisableBoostTimeout(false); // Enable boost timeout after 15 seconds
-      }, 15000)
-    );
+          setHappinessVal(prevHappinessVal);
+          setClickNewCoins(prevClickNewCoins);
+          setBoostPhase(false);
+          setVisible(true);
+      }, 10000);
+  };
 
-    setTimeout(() => {
-        // Revert back to previous values after 10 seconds
-        setHappinessVal(prevHappinessVal);
-        setClickNewCoins(prevClickNewCoins);
-        setBoostPhase(false);
-        setVisible(true);
-    }, 10000); // Revert back after 10 seconds
-};
-  
-  const randomizePosition = () => {
-    const elementWidth = 800; // Assuming Boost element width is 150px
-    const elementHeight = 800; // Assuming Boost element height is 150px
-  
-    // Calculate the maximum X and Y coordinates based on the current window size
+const randomizePosition = () => {
+    const elementWidth = 850;
+    const elementHeight = 850;
     const maxX = Math.max(0, window.innerWidth - elementWidth);
     const maxY = Math.max(0, window.innerHeight - elementHeight);
-  
-    // Generate random X and Y coordinates within the calculated maximums
     const x = Math.random() * maxX;
     const y = Math.random() * maxY;
-  
-    // Update the Boost element position
+
     setPosition({ x, y });
-  };
-  
-  useEffect(() => {
-    if (!visible && !boostPhase) {
-      randomizePosition();
-      const minTimeout = 15000; // 15 seconds47
-      const maxTimeout = 120000; // 120 seconds (2 minutes)
-      const timeout = Math.random() * (maxTimeout - minTimeout) + minTimeout;
-      const boostTimer = setTimeout(() => {
-        setVisible(true); // Show the Boost component
-      }, timeout);
-      return () => clearTimeout(boostTimer);
+};
+
+useEffect(() => {
+    if (!visible) {
+        const showBoostTimeout = setTimeout(() => {
+            randomizePosition();
+            setVisible(true);
+        }, Math.random() * (60000 - 15000) + 15000); 
+
+        return () => clearTimeout(showBoostTimeout);
     }
-  }, [visible, boostPhase]);
+}, [visible]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, 8300);
+useEffect(() => {
+    if (visible) {
+        const hideBoostTimeout = setTimeout(() => {
+            setVisible(false);
+        }, 8300);
 
-    return () => clearTimeout(timer);
-  }, [visible]);
+        return () => clearTimeout(hideBoostTimeout);
+    }
+}, [visible]);
 
     const [bgImages] = useState({
         bgImageFirst: 'img/bgFirst.webp',
@@ -192,22 +259,6 @@ function Main() {
       }
 
     const executeScroll = () => formRef.current.scrollIntoView();
-
-    // useEffect(() => {
-    //     const energyInterval = setInterval(() => {
-    //         setCurrEnergy(prevEnergy => {
-    //             let energyDecrement = 1;
-    //             if (prevEnergy >= 751 && prevEnergy <= 990) {
-    //                 energyDecrement = 2;
-    //             } else if (prevEnergy >= 991 && prevEnergy <= 1000) {
-    //                 energyDecrement = 3;
-    //             }
-    //             return Math.max(prevEnergy - energyDecrement, 0);
-    //         });
-    //     }, 1000);
-
-    //     return () => clearInterval(energyInterval);
-    // }, []);
 
     useEffect(() => {
         if (currEnergy <= 0) {
@@ -265,7 +316,7 @@ function Main() {
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
-        if (currEnergy >= 991 && currEnergy <= 1000 || boostClicked === true) {
+        if (currEnergy >= 991 && currEnergy <= 1000 || boostPhase === true) {
             playBoostCatClick()
           } else {
         playSadCatClick();
@@ -301,7 +352,7 @@ function Main() {
         setCurrCoins(0);
         setidleState(prevState => !prevState);
         setCoinState(false);
-        setBoostClicked(false);
+        setBoostPhase(false);
         setVisible(false)
     };
 
@@ -330,7 +381,7 @@ return (
         <div className="bgImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${bgImages.bgImageFives})`, opacity: opacityFives }}></div>
             <div className="mainContent__container">
                 {idleState ? (
-                <div className="mainContent__phaseOne">
+          <div className="mainContent__phaseOne">
                     <div className="mainContent__infoBlock">
                     <div className="mainContent__title">
                         <h4>Tomo The Cat</h4>
@@ -364,9 +415,7 @@ return (
       ) : (
         <div className="steps__header">
         <p>
-        You're almost there,
-        <br />
-        connect your wallet
+        Connect your wallet
         </p> 
         </div>
       )}
@@ -387,7 +436,7 @@ return (
     {value.twitter !==1 && (
     <div className="steps__item"style={{ display: !connected ? 'none' : 'flex' }}>
                                     <p>
-                                    @tomo_cat 
+                                    @tomo_cat
                                         <span>Telegram</span>
                                     </p>
                                     <button className="steps__item-btn">
@@ -506,9 +555,43 @@ return (
                         </div>
                         </motion.div>
                     </div>
+          </div>
+          ) : (
+          <div className="mainContent__phaseTwo">
+            <div className="gameContentBox">
+              {gamePaused && timeRemaining > 0 && (
+              <>
+              <p style={{
+                fontSize: '26px',
+                textAlign: 'center',
+                alignContent: 'center'
+              }}>Time remaining: {formatTime(timeRemaining)}</p>
+              <img src={catFace} alt="cat face" style={{
+                width: '275px',
+                marginTop: '15px'}}/>
+                <p style={{
+                fontSize: '18px',
+                textAlign: 'center',
+                alignContent: 'center',
+                marginTop: '15px'}}>
+                  Tomo is tired, comeback when timer is over.
+                </p>
+              </>
+              )}
+              {!gamePaused && timeRemaining <= 0 && (
+              <>
+              {currentImage ? (
+                <div className="mainContent__catBox" onClick={coinClicker}>
+              <img id="catGif" className="mainContent__catIdle" src={boostPhase ? goldForm : catIdle} draggable="false" alt="cat animation" />
                 </div>
-                 ) : (
-                <div className="mainContent__phaseTwo">
+                ) : (
+                <div className="mainContent__catBox" onClick={coinClicker}>
+              <img id="catGif" className="mainContent__catMeow" src={boostPhase ? goldForm : catSpeak} draggable="false" alt="cat animation" />
+                </div>
+                )}
+              </>
+                    )}
+            </div>
                     <div style={{ position: 'absolute'}}>
                     </div>
                     <motion.div
@@ -546,20 +629,12 @@ return (
                         </div>
                         <div className="mainContent__energyHint">
                             <p>
-                            The happier the cat — the more you get 
-                        Make it purr and get rewards
+                            The happier the cat — the more you get!
+                          Make it purr and get rewards
                             </p>
                         </div>
                     </div>
-                    {currentImage ? (
-                <div className="mainContent__catBox" onClick={coinClicker}>
-                    <img id="catGif" className="mainContent__catIdle" src={boostPhase ? goldForm : catIdle} draggable="false" alt="cat animation" />
-                </div>
-            ) : (
-                <div className="mainContent__catBox" onClick={coinClicker}>
-                    <img id="catGif" className="mainContent__catMeow" src={boostPhase ? goldForm : catSpeak} draggable="false" alt="cat animation" />
-                </div>
-            )}
+                  
                         {visible ? (
                             <motion.div
                                 initial={{
@@ -672,7 +747,7 @@ return (
                         </div> */}
                 </div>
                 )}
-            </div>
+          </div>
         )}
     </div>
 </div>

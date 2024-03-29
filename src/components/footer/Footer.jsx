@@ -39,7 +39,7 @@ function Footer() {
 				<a href="https://twitter.com/TimCatSol">TW</a>
 			</div>
 			<div className="footerMain__tgBtn">
-				<a href="https://web.telegram.org/">TG</a>
+				<a href="https://t.me/tomo_cat">TG</a>
 			</div>
 		</div>
 	</div>
