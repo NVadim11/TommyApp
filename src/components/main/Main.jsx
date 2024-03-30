@@ -388,8 +388,8 @@ return (
                     </div>
                     <div className="mainContent__descrMob">
                         <p>
-                            The Cutiest Cat supported 
-                            <span>by Solana Farm</span>
+                        Play With The Next-Gen Tamagotchi
+                            <span>And Get Rewards</span>
                         </p>
                     </div>
                     </div>                 
@@ -418,7 +418,7 @@ return (
     <div className="steps__items"style={{ display: connected ? 'block' : 'none' }}>
     {value.twitter !==1 && (
     <div className="steps__item">
-          <p>@TimCatSol <span>on Twitter</span></p>
+          <p>@TomoCatSol <span>on Twitter</span></p>
       {value.twitter !== 1 && (
           <button className="steps__item-btn" onClick={loginTwitter}>
               Follow
@@ -432,9 +432,9 @@ return (
         @tomo_cat
             <span>Telegram</span>
         </p>
-        <button className="steps__item-btn">
+        <a href="https://t.me/tomo_cat" className="steps__item-btn">
             Join
-        </button>
+        </a>
       </div>
       )}
     </div>
@@ -490,7 +490,7 @@ return (
                                         <path d="M14.3425 8.13317C14.1601 10.5832 12.2594 12.5127 10.2107 12.5127C8.1619 12.5127 6.25815 10.5839 6.07884 8.13317C5.89252 5.58436 7.74248 3.7627 10.2107 3.7627C12.6788 3.7627 14.5288 5.63112 14.3425 8.13317Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         <path d="M14.8158 17.5424C13.3827 16.9038 11.8043 16.6582 10.1314 16.6582C6.00277 16.6582 2.02499 18.6545 1.02857 22.5429C0.897561 23.0572 1.22944 23.5661 1.77251 23.5661H10.6872" stroke="white" strokeWidth="2" strokMiterlimit="10" strokeLinecap="round" />
                                     </svg>
-                                    <p>Reffer Your Friends</p>
+                                    <p>Invite Friends</p>
                                     </div>
                         </motion.div>
                         <motion.div
