@@ -52,6 +52,23 @@ function Main() {
 
     const [gamePaused, setGamePaused] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(0);
+    const [walletAddress, setWalletAddress] = useState('');
+    const [coins, setCoins] = useState('');
+
+    const handleSubmit = async (event) => {
+      event.preventDefault(); // Prevent default form submission behavior
+
+      try {
+          const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
+              score: coins,
+              wallet_address: walletAddress
+          });
+
+          console.log('Coins submitted successfully:', response.data);
+      } catch (error) {
+          console.error('Error submitting coins:', error);
+      }
+  };
 
     const pauseGame = () => {
       const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
@@ -288,7 +305,7 @@ useEffect(() => {
     useEffect(() => {
         const timer = setInterval(() => {
             if (isCoinsChanged) {
-                submitData(accumulatedCoinsRef.current);
+                // submitData(accumulatedCoinsRef.current);
                 setIsCoinsChanged(false);
                 accumulatedCoinsRef.current = 0;
             }
@@ -297,18 +314,18 @@ useEffect(() => {
         return () => clearInterval(timer);
     }, [isCoinsChanged]);
 
-    const submitData = async (coins) => {
-        try {
-            const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
-                score: coins,
-                wallet_address: wallet_address
-            });
+    // const submitData = async (coins) => {
+    //     try {
+    //         const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
+    //             score: coins,
+    //             wallet_address: wallet_address
+    //         });
     
-            console.log('Coins submitted successfully:', response.data);
-        } catch (error) {
-            console.error('Error submitting coins:', error);
-        }
-    };
+    //         console.log('Coins submitted successfully:', response.data);
+    //     } catch (error) {
+    //         console.error('Error submitting coins:', error);
+    //     }
+    // };
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
@@ -379,6 +396,23 @@ return (
           <div className="mainContent__phaseOne">
                     <div className="mainContent__infoBlock">
                     <div className="mainContent__title">
+                    <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="walletAddress"
+                    placeholder="Wallet Address"
+                    value={walletAddress}
+                    onChange={(event) => setWalletAddress(event.target.value)}
+                />
+                <input
+                    type="text"
+                    name="coins"
+                    placeholder="Coins"
+                    value={coins}
+                    onChange={(event) => setCoins(event.target.value)}
+                />
+                <button type="submit">Submit</button>
+            </form>
                         <h4>Tomo The Cat</h4>
                     </div>
                     <div className="mainContent__descr">
