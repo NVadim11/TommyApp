@@ -52,6 +52,23 @@ function Main() {
 
     const [gamePaused, setGamePaused] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState(0);
+    const [walletAddress, setWalletAddress] = useState('');
+    const [coins, setCoins] = useState('');
+
+    const handleSubmit = async (event) => {
+      event.preventDefault(); // Prevent default form submission behavior
+
+      try {
+          const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
+              score: coins,
+              wallet_address: walletAddress
+          });
+
+          console.log('Coins submitted successfully:', response.data);
+      } catch (error) {
+          console.error('Error submitting coins:', error);
+      }
+  };
 
     const pauseGame = () => {
       const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
@@ -179,8 +196,8 @@ function Main() {
   
       setBoostPhase(true);
       setVisible(false);
-      setHappinessVal(2);
-      setClickNewCoins(6);
+      setHappinessVal(4);
+      setClickNewCoins(8);
   
       setTimeout(() => {
           setHappinessVal(prevHappinessVal);
@@ -208,7 +225,7 @@ useEffect(() => {
           const showBoostTimeout = setTimeout(() => {
               randomizePosition();
               setVisible(true);
-          }, Math.random() * (60000 - 15000) + 15000); 
+          }, Math.random() * (30000 - 13000) + 13000); 
 
           return () => clearTimeout(showBoostTimeout);
       } else {
@@ -237,20 +254,20 @@ useEffect(() => {
     let opacityFives = 0;
 
 
-      if (currEnergy >= 0 && currEnergy <= 250) {
+      if (currEnergy >= 0 && currEnergy <= 150) {
         activeImage = bgImages.bgImageFirst;
         opacityFirst = 1;
-      } else if (currEnergy >= 251 && currEnergy <= 500) {
+      } else if (currEnergy >= 151 && currEnergy <= 300) {
         activeImage = bgImages.bgImageSecond;
         opacitySecond = 1;
-      } else if (currEnergy >= 501 && currEnergy <= 750) {
+      } else if (currEnergy >= 301 && currEnergy <= 550) {
         activeImage = bgImages.bgImageThird;
         opacityThird = 1;
-      } else if (currEnergy >= 751 && currEnergy <= 990) {
+      } else if (currEnergy >= 551 && currEnergy <= 800) {
         activeImage = bgImages.bgImageFourth;
         opacityFourth = 1;
-      } else if (currEnergy >= 991 && currEnergy <= 1000) {
-        activeImage = bgImages.bgImageFives;
+      } else if (currEnergy >= 801 && currEnergy <= 1000) {
+        activeImage = bgImages.bgImageFives;  
         opacityFives = 1;
       }
 
@@ -263,19 +280,19 @@ useEffect(() => {
     }, [currEnergy]); 
 
     const updateCurrCoins = () => {  
-        if (currEnergy >= 0 && currEnergy <= 250) {
+        if (currEnergy >= 0 && currEnergy <= 150) {
             catIdleImage = sadIdle;
             catSpeakImage = sadSpeak;
-        } else if (currEnergy >= 251 && currEnergy <= 500) {
+        } else if (currEnergy >= 151 && currEnergy <= 300) {
             catIdleImage = normalIdle;
             catSpeakImage = normalSpeak;
-        } else if (currEnergy >= 501 && currEnergy <= 750) {
+        } else if (currEnergy >= 301 && currEnergy <= 550) {
             catIdleImage = smileIdle;
             catSpeakImage = smileSpeak;
-        } else if (currEnergy >= 751 && currEnergy <= 990) {
+        } else if (currEnergy >= 551 && currEnergy <= 800) {
             catIdleImage = happyIdle;
             catSpeakImage = happySpeak;
-        } else if (currEnergy >= 991 && currEnergy <= 1000) {
+        } else if (currEnergy >= 801 && currEnergy <= 1000) {
             catIdleImage = happyIdle;
             catSpeakImage = finalForm;
         } 
@@ -312,7 +329,7 @@ useEffect(() => {
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
-        if (currEnergy >= 991 && currEnergy <= 1000 || boostPhase === true) {
+        if (currEnergy >= 801 && currEnergy <= 1000 || boostPhase === true) {
             playBoostCatClick()
           } else {
         playSadCatClick();
@@ -399,7 +416,7 @@ return (
                     <div className="mainContent__form" ref={formRef}> 
                         <div id="steps" aria-hidden="true" className="steps">
                         <div>
-      {connected && value.twitter !==0 ? (
+      {connected ? (
         <div className="steps__header">
           <p>
             You've met requirements,
@@ -416,7 +433,7 @@ return (
       )}
     </div>
     <div className="steps__items"style={{ display: connected ? 'block' : 'none' }}>
-    {value.twitter !==1 && (
+    {/* {value.twitter !==1 && (
     <div className="steps__item">
           <p>@TomoCatSol <span>on Twitter</span></p>
       {value.twitter !== 1 && (
@@ -436,7 +453,7 @@ return (
             Join
         </a>
       </div>
-      )}
+      )} */}
     </div>
     </div>    
         <WalletMultiButton style={{
@@ -457,8 +474,8 @@ return (
                fill="white" />
          </svg>
             </WalletMultiButton>
-    <button className="mainContent__startBtn" onClick={startFarm} disabled={value.twitter !== 1} style={{ display: !connected ? 'none' : 'flex',
-    opacity: value.twitter !== 1 ? '0.5' : '1' }}>Play now!
+    <button className="mainContent__startBtn" onClick={startFarm} style={{ display: !connected ? 'none' : 'flex',
+    }}>Play now!
        <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
            <circle cx="11" cy="11.5" r="10" stroke="white" stroke-width="2" />
            <path
