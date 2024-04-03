@@ -305,7 +305,7 @@ useEffect(() => {
     useEffect(() => {
         const timer = setInterval(() => {
             if (isCoinsChanged) {
-                // submitData(accumulatedCoinsRef.current);
+                submitData(accumulatedCoinsRef.current);
                 setIsCoinsChanged(false);
                 accumulatedCoinsRef.current = 0;
             }
@@ -314,18 +314,18 @@ useEffect(() => {
         return () => clearInterval(timer);
     }, [isCoinsChanged]);
 
-    // const submitData = async (coins) => {
-    //     try {
-    //         const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
-    //             score: coins,
-    //             wallet_address: wallet_address
-    //         });
+    const submitData = async (coins) => {
+        try {
+            const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
+                score: coins,
+                wallet_address: wallet_address
+            });
     
-    //         console.log('Coins submitted successfully:', response.data);
-    //     } catch (error) {
-    //         console.error('Error submitting coins:', error);
-    //     }
-    // };
+            console.log('Coins submitted successfully:', response.data);
+        } catch (error) {
+            console.error('Error submitting coins:', error);
+        }
+    };
     
     const coinClicker = (event) => {
         if (!event.isTrusted) return;
@@ -396,23 +396,6 @@ return (
           <div className="mainContent__phaseOne">
                     <div className="mainContent__infoBlock">
                     <div className="mainContent__title">
-                    <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="walletAddress"
-                    placeholder="Wallet Address"
-                    value={walletAddress}
-                    onChange={(event) => setWalletAddress(event.target.value)}
-                />
-                <input
-                    type="text"
-                    name="coins"
-                    placeholder="Coins"
-                    value={coins}
-                    onChange={(event) => setCoins(event.target.value)}
-                />
-                <button type="submit">Submit</button>
-            </form>
                         <h4>Tomo The Cat</h4>
                     </div>
                     <div className="mainContent__descr">
@@ -433,7 +416,7 @@ return (
                     <div className="mainContent__form" ref={formRef}> 
                         <div id="steps" aria-hidden="true" className="steps">
                         <div>
-      {connected && value.twitter !==0 ? (
+      {connected ? (
         <div className="steps__header">
           <p>
             You've met requirements,
@@ -450,7 +433,7 @@ return (
       )}
     </div>
     <div className="steps__items"style={{ display: connected ? 'block' : 'none' }}>
-    {value.twitter !==1 && (
+    {/* {value.twitter !==1 && (
     <div className="steps__item">
           <p>@TomoCatSol <span>on Twitter</span></p>
       {value.twitter !== 1 && (
@@ -470,7 +453,7 @@ return (
             Join
         </a>
       </div>
-      )}
+      )} */}
     </div>
     </div>    
         <WalletMultiButton style={{
