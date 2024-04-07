@@ -198,7 +198,7 @@ $desktop: 1919.98px;
 			}
 		}
 		@media (max-width: $mobile) {
-			margin-top: 3.75rem;
+			margin-top: 1.875rem;
 		}
 	}
 	&__descr {
@@ -235,6 +235,112 @@ $desktop: 1919.98px;
 			}
 		}
 
+	}
+	&__walletBtnBox {
+		display: flex;
+		margin-top: 2.5rem;
+		@media (max-width: $mobile) {
+			justify-content: center;
+			margin-top: 0.9375rem;
+		}
+		.wallet-adapter-dropdown {
+			button {
+				border: 2px solid #fff;
+				border-radius: 3.75rem;
+				font-size: 1.375rem;
+				width: fit-content;
+				background: linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%);
+				height: 4.125rem;
+				transition: opacity 0.25s;
+				position: relative;
+				@media (max-width: $mobile) {
+					font-size: 1rem;
+					height: 2.8125rem;
+					padding: 0 0.9375rem;
+				}
+			}
+			.wallet-adapter-button:not([disabled]):hover {
+				color: #ffffff!important;
+			}
+			span {
+				z-index: 10;
+				position: relative;
+			}
+			svg {
+				position: relative;
+				z-index: 10;
+				@media (max-width: $mobile) {
+					width: 1rem;
+					height: 1.0625rem;
+				}
+			}
+			button::before {
+				content: "";
+				background: linear-gradient(-87deg, #c09aff 0%, #691ee2 90.83%);
+				opacity: 0;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				border-radius: 3.75rem;
+				transition: opacity .25s ease-in-out;
+				right: 0;
+			}
+			button:hover:before {
+				opacity: 1;
+				@media (max-width: $mobile) {
+					opacity: 0;
+				}
+			}
+		}
+	}
+	&__startBtn {
+		display: flex;
+		align-items: center;
+		padding: 0 1.5rem;
+		border: 0.125rem solid #fff;
+		border-radius: 3.75rem;
+		font-weight: 600;
+		font-size: 1.375rem;
+		height: 4.125rem;
+		background: linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%);
+		position: relative;
+		svg {
+				margin-left: 0.625rem;
+				transition: .25s;
+				position: relative;
+				z-index: 10;
+				@media (max-width: $mobile) {
+					width: 1rem;
+					height: 1.0625rem;
+					margin-bottom: 3px;
+				}
+		}
+		span {
+			position: relative;
+			z-index: 10;
+		}
+		@media (max-width: $mobile) {
+			font-size: 1rem;
+			height: 2.8125rem;
+			padding: 0 0.9375rem;
+		}
+	}
+	&__startBtn::before {
+		content: "";
+		background: linear-gradient(-87deg, #c09aff 0%, #691ee2 90.83%);
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: 3.75rem;
+		transition: opacity .25s ease-in-out;
+		right: 0;
+	}
+	&__startBtn:hover:before {
+		opacity: 1;
+		@media (max-width: $mobile) {
+			opacity: 0;
+		}
 	}
 	&__form {
 			// position: absolute;	
@@ -345,31 +451,6 @@ $desktop: 1919.98px;
 		max-width: fit-content;
 		@media (max-width: $mobile) {
 			order:3;
-	}
-	}
-	&__startBtn {
-    transition: opacity 0.25s;
-		display: flex;
-		align-items: center;
-		border: 0.125rem solid #fff;
-		border-radius: 3.75rem;
-		font-weight: 600;
-		font-size: 1.375rem;
-		padding: 1.4063rem 39px 1.3438rem 2.4375rem;
-		background: linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%);
-		svg {
-				margin-left: 0.625rem;
-				transition: .25s;
-		}
-		@media (max-width: $mobile) {
-				font-size: 1.125rem;
-				padding: 1.25rem 3rem 1.25rem 3rem;
-		}
-	}
-	&__startBtn:hover {
-		background: linear-gradient(180deg, #c09aff 0%, #691ee2 90.83%);
-		@media (max-width: $mobile) {
-		background: linear-gradient(87deg, #c09aff 0%, #691ee2 90.83%);
 	}
 	}
 
@@ -581,11 +662,13 @@ $desktop: 1919.98px;
 			border-radius: 3.75rem;
 			// padding: 1.125rem 1.5625rem 0.9375rem 1.4375rem;
 			padding: 1.4063rem 2.4375rem 1.3438rem 2.4375rem;
+			transition: .25s;
 			button {
 					font-weight: 600;
 					font-size: 1.375rem;
 					line-height: 95%;
 					color: rgba(255, 255, 255, 0.5);
+					transition: .25s;
 			}
 			@media (max-width: $mobile) {
 					top: 0.9375rem;
@@ -606,11 +689,13 @@ $desktop: 1919.98px;
 	&__backBtn:hover {
 			cursor: pointer;
 			border: 0.125rem solid #fff;
+			transition: .25s;
 			@media (max-width: $mobile) {
 					border-color: rgba(255, 255, 255, 0.5);
 			}
 			button {
 					color: #fff;
+					transition: .25s;
 					@media (max-width: $mobile) {
 							color: rgba(255, 255, 255, 0.5);
 					}
@@ -986,13 +1071,5 @@ $desktop: 1919.98px;
 	to {
 			transform: translateY(35rem);
 			opacity: 0;
-	}
-}
-
-.mainContent__form {
-	.wallet-adapter-dropdown {
-		button:hover {
-			color: #ffffff!important;
-		}
 	}
 }

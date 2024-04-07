@@ -82,39 +82,97 @@ $desktop: 119.9988rem;
 			position: relative;
 		}
 	}
-	&__leaderboard {
-		font-weight: 500;
-		font-size: 2.25rem;
-		line-height: 130%;
-		z-index: 10;
-		transition: .25s;
-		position: absolute;
+	&__centerBtns {
 		display: flex;
-		justify-content: center;
-		right: 0;
-		left: 0;
+		gap: 2.1875rem;
+		margin-right: 120px;
 		@media (max-width: $desktop) {
-			font-size: 1.5rem;
+			margin-right: 90px;
 		}
 		@media (max-width: $mobile) {
 			display: none;
-		}
-		button {
-			cursor: pointer;
-			transition: .25s;
-		}
-		button:hover {
-			transition: .25s;
-			text-decoration: underline;
 		}
 	}
-	&__leaderboardCenter {
-		margin-right: -13.6rem;
-		@media (max-width: $desktop) {
-			margin-right: -15.25rem;
+	&__leaderboardBtn {
+		button {
+			border: 2px solid #fff;
+			border-radius: 3.75rem;
+			height: 2.75rem;
+			padding: 0 15px;
+			background: linear-gradient(87deg, #4b00c6 12.5%, #b796fe 100%);
+			font-weight: 600;
+			font-size: 1rem;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			transition: opacity 0.25s;
+			position: relative;
 		}
-		@media (max-width: $mobile) {
-			display: none;
+		span {
+			position: relative;
+			z-index: 10;
+		}
+		svg {
+			width: 1.125rem;
+			height: 1.125rem;
+			margin-left: 0.625rem;
+			position: relative;
+			z-index: 10;
+		}
+		button::before {
+			content: "";
+			background: linear-gradient(-87deg, #4b00c6 12.5%, #b796fe 100%);
+			opacity: 0;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 3.75rem;
+			transition: opacity .25s ease-in-out;
+			right: 0;
+		}
+		button:hover:before {
+			opacity: 1;
+		}
+	}
+	&__inviteBtn {
+		button {
+			border: 2px solid #fff;
+			border-radius: 3.75rem;
+			padding: 0 15px;
+			height: 2.75rem;
+			background: linear-gradient(87deg, #301bad 0%, #9123d7 68.36%);
+			font-weight: 600;
+			font-size: 1.125rem;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			transition: opacity 0.25s;
+			position: relative;
+		}
+		span {
+			z-index: 10;
+			position: relative;
+		}
+		svg {
+			width: 1.25rem;
+			height: 1.25rem;
+			margin-left: 0.625rem;
+			position: relative;
+			z-index: 10;
+		}
+		button::before {
+			content: "";
+			background: linear-gradient(-87deg, #301bad 0%, #9123d7 68.36%);
+			opacity: 0;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 3.75rem;
+			transition: opacity .25s ease-in-out;
+			right: 0;
+		}
+		button:hover:before {
+			opacity: 1;
 		}
 	}
 	&__mobileBtns {
@@ -153,10 +211,12 @@ $desktop: 119.9988rem;
 		}
 	}
 	&__walletBtn {
+		height: 44px;
 		.wallet-adapter-button-start-icon {
 			margin-right: 6px!important;
 		}
 		.wallet-adapter-button {
+			height: 2.75rem;
 			background: transparent!important;
 			font-weight: 600!important;
 			font-size: 1.25rem!important;
@@ -165,9 +225,9 @@ $desktop: 119.9988rem;
 			z-index: 10!important;
 			cursor: pointer;
 			transition: .25s!important;
-			padding: 1.5625rem 1.5625rem 1.5625rem 1.5625rem!important;
+			// padding: 1.5625rem 1.5625rem 1.5625rem 1.5625rem!important;
 			@media (max-width: $desktop) {
-				padding: 1.5625rem 1.5625rem 1.5625rem 1.5625rem!important;
+				// padding: 1.5625rem 1.5625rem 1.5625rem 1.5625rem!important;
 			}
 			@media (max-width: $mobile) {
 				padding: 0.625rem 0.9375rem 0.5rem 0.9375rem!important;
@@ -175,9 +235,9 @@ $desktop: 119.9988rem;
 			}
 		}
 		span {
-			@media (max-width: $mobile) {
-				display: none;
-			}
+			// @media (max-width: $mobile) {
+			// 	display: none;
+			// }
 		}
 		svg {
 			display: none;
@@ -195,35 +255,6 @@ $desktop: 119.9988rem;
 			}
 		}
 	}	
-	&__inviteBtn {
-		border: 0.125rem solid #fff;
-		border-radius: 3.75rem;
-		transition: .25s;
-		text-align: center;
-		align-items: center;
-		width: 188.45px;
-		height: 54px;
-		@media (max-width: $mobile) {
-		  display: none;
-		}
-		button {
-		  text-align: center;
-		  align-items: center;
-		  width: 100%;
-		  height: 100%;
-		  font-weight: 600;
-		  font-size: 1.25rem;
-		  color: #fff;
-		}
-	  }
-	  &__inviteBtn:hover {
-		transition: .25s;
-		background-color: #ffffff;
-		button {
-		  color: #000000;
-		  transition: .25s;
-		}
-	  }
 	&__airdropBtn {
 		border: 0.125rem solid #fff;
 		border-radius: 3.75rem;
