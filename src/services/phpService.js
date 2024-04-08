@@ -1,5 +1,5 @@
 // Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 // Define a service using a base URL and expected endpoints
 export const phpApi = createApi({
@@ -31,15 +31,30 @@ export const phpApi = createApi({
       query: (wallet) => `/liderbord/${wallet}`,
       method: "GET",
     }),
+    passTask: builder.mutation({
+      query: (body) => ({
+        url: "/pass-task",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Php"],
+    }),
+    updateBalance: builder.mutation({
+      query: (body) => ({
+        url: "/update-balance",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Php"],
+    }),
   }),
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const {
   useGetUserByWalletIdMutation,
   useCheckCodeMutation,
-  useCreateUserMutation,
   useGenerateCodeMutation,
   useGetLeaderboardMutation,
+  usePassTaskMutation,
+  useUpdateBalanceMutation,
 } = phpApi;
