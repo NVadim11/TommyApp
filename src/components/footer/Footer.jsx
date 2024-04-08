@@ -140,13 +140,19 @@ function Footer() {
 						</div>
 						<div className="popupTasks__tabs-btn">
 							<button>
-								Daily (Coming Soon)
+								Daily <span>(Coming Soon)</span>
 							</button>
+							<div className="footerMain__activitiesHint">
+								Coming Soon
+							</div>
 						</div>
 						<div className="popupTasks__tabs-btn">
 							<button>
-								Partnership (Coming Soon)
+								Partnership <span>(Coming Soon)</span>
 							</button>
+							<div className="footerMain__activitiesHint">
+								Coming Soon
+							</div>
 						</div>
 						<div className="popupTasks__tabs-line">
 
