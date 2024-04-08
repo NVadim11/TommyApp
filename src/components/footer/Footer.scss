@@ -411,6 +411,9 @@ body::after {
         padding: 0;
       }
     }
+    button:disabled {
+      opacity: 0.5;
+    }
     span {
       z-index: 10;
       position: relative;
