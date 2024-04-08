@@ -1,6 +1,5 @@
 // Need to use the React-specific entry point to import createApi
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // Define a service using a base URL and expected endpoints
 export const phpApi = createApi({
@@ -13,24 +12,24 @@ export const phpApi = createApi({
         url: `/users/${wallet_address}`,
         method: "GET",
       }),
-      providesTags: ["Twitter"]
+      providesTags: ["Twitter"],
     }),
     checkCode: builder.mutation({
       query: (code) => ({
         url: `/check-referral-code/${code}`,
-        method: "GET"
+        method: "GET",
       }),
-      invalidatesTags: "php"
+      invalidatesTags: "php",
     }),
     generateCode: builder.mutation({
       query: (wallet) => ({
         url: `/generate-referral-code/${wallet}`,
-        method: "GET"
+        method: "GET",
       }),
     }),
     getLeaderboard: builder.mutation({
       query: (wallet) => `/liderbord/${wallet}`,
-      method: "GET"
+      method: "GET",
     }),
   }),
 });
@@ -42,5 +41,5 @@ export const {
   useCheckCodeMutation,
   useCreateUserMutation,
   useGenerateCodeMutation,
-  useGetLeaderboardMutation
+  useGetLeaderboardMutation,
 } = phpApi;

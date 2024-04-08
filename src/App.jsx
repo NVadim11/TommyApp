@@ -1,11 +1,11 @@
-import { ThemeProvider } from "@emotion/react"
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base"
+import { ThemeProvider } from "@emotion/react";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
   ConnectionProvider,
   WalletProvider,
-} from "@solana/wallet-adapter-react"
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui"
-import "@solana/wallet-adapter-react-ui/styles.css"
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import "@solana/wallet-adapter-react-ui/styles.css";
 import {
   AvanaWalletAdapter,
   CloverWalletAdapter,
@@ -39,15 +39,15 @@ import {
   TrustWalletAdapter,
   UnsafeBurnerWalletAdapter,
   WalletConnectWalletAdapter,
-  XDEFIWalletAdapter
-} from "@solana/wallet-adapter-wallets"
-import { clusterApiUrl } from "@solana/web3.js"
-import React, { useMemo } from "react"
-import { Provider } from "react-redux"
-import "./App.scss"
-import AppRouter from "./components/Router"
-import { store } from "./store"
-import { theme } from "./theme"
+  XDEFIWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl } from "@solana/web3.js";
+import React, { useMemo } from "react";
+import { Provider } from "react-redux";
+import "./App.scss";
+import AppRouter from "./components/Router";
+import { store } from "./store";
+import { theme } from "./theme";
 
 function App() {
   return (
@@ -73,13 +73,13 @@ const Context = ({ children }) => {
       new SolflareWalletAdapter(),
       new TrezorWalletAdapter(),
       new AvanaWalletAdapter(),
-      new CloverWalletAdapter(), 
+      new CloverWalletAdapter(),
       new Coin98WalletAdapter(),
       new CoinbaseWalletAdapter(),
       new CoinhubWalletAdapter(),
-      new FractalWalletAdapter(), 
-      new HuobiWalletAdapter(), 
-      new HyperPayWalletAdapter(), 
+      new FractalWalletAdapter(),
+      new HuobiWalletAdapter(),
+      new HyperPayWalletAdapter(),
       new KeystoneWalletAdapter(),
       new KrystalWalletAdapter(),
       new LedgerWalletAdapter(),
@@ -101,7 +101,7 @@ const Context = ({ children }) => {
       new TrustWalletAdapter(),
       new UnsafeBurnerWalletAdapter(),
       new WalletConnectWalletAdapter(),
-      new XDEFIWalletAdapter()
+      new XDEFIWalletAdapter(),
     ],
     []
   );

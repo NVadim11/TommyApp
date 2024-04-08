@@ -1,11 +1,11 @@
-import { useContext, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
-import { useTwitterCallbackMutation } from "../../services/auth"
-import { useGetUserByWalletIdMutation } from "../../services/phpService"
-import { AuthContext } from "../helper/contexts"
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTwitterCallbackMutation } from "../../services/auth";
+import { useGetUserByWalletIdMutation } from "../../services/phpService";
+import { AuthContext } from "../helper/contexts";
 
 const Twitter = () => {
-  const {value, setValue} = useContext(AuthContext);
+  const { value, setValue } = useContext(AuthContext);
   const [request] = useTwitterCallbackMutation();
   const params = new URLSearchParams(window.location.search);
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Twitter = () => {
   const auth = async () => {
     try {
       const twitterAuth = params.get("status");
-      if (twitterAuth === 'followed') {
+      if (twitterAuth === "followed") {
         const res = await request({
           wallet_address: value.wallet_address,
         }).unwrap();
