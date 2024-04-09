@@ -55,6 +55,50 @@ function Main() {
   // preloader
   const [preloaderLoadedPhaseTwo, setPreloaderLoadedPhaseTwo] = useState(false);
   const [showPhaseTwo, setShowPhaseTwo] = useState(false);
+  const imagesRef = useRef([]);
+
+  useEffect(() => {
+    const loadImage = (src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => resolve(img, console.log("img.loaded"));
+        img.onerror = () => reject(new Error(`Failed to load image from ${src}`));
+      });
+    };
+
+    const loadImages = async () => {
+      const imageSources = [sadIdle, sadSpeak, normalIdle, normalSpeak, smileIdle, smileSpeak, happyIdle, happySpeak, finalForm, goldForm]; // Здесь массив URL-адресов изображений
+      const promises = imageSources.map(src => loadImage(src));
+
+      try {
+        const loadedImages = await Promise.all(promises);
+        imagesRef.current = loadedImages;
+        setPreloaderLoadedPhaseTwo(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Загрузка изображений
+    const loadImagesTimeout = setTimeout(() => {
+      loadImages();
+    }, 3000); // Пример задержки для прелоадера
+
+    const aosInitTimeout = setTimeout(() => {
+      AOS.init({
+        easing: "custom",
+      });
+      setShowPhaseTwo(true);
+    }, 10000);
+
+    return () => {
+      clearTimeout(loadImagesTimeout);
+      clearTimeout(aosInitTimeout);
+    };
+
+  }, []);
+
   useEffect(() => {
     const preloaderPhaseTwoTimeout = setTimeout(() => {
       setPreloaderLoadedPhaseTwo(true);
