@@ -96,35 +96,19 @@ function Main() {
 		// Загрузка изображений
 		const loadImagesTimeout = setTimeout(() => {
 			loadImages();
-		}, 3000); // Пример задержки для прелоадера
+		}, 2000); // Пример задержки для прелоадера
 
 		const aosInitTimeout = setTimeout(() => {
 			AOS.init({
 				easing: 'custom',
 			});
 			setShowPhaseTwo(true);
-		}, 10000);
+			setPreloaderLoadedPhaseTwo(true);
+		}, 5000);
 
 		return () => {
 			clearTimeout(loadImagesTimeout);
 			clearTimeout(aosInitTimeout);
-		};
-	}, []);
-
-	useEffect(() => {
-		const preloaderPhaseTwoTimeout = setTimeout(() => {
-			setPreloaderLoadedPhaseTwo(true);
-		}, 10000);
-
-		const timeout = setTimeout(() => {
-			AOS.init({
-				easing: 'custom',
-			});
-			setShowPhaseTwo(true);
-		}, 10000);
-		return () => {
-			clearTimeout(timeout);
-			clearTimeout(preloaderPhaseTwoTimeout);
 		};
 	}, []);
 
