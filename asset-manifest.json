@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TommyApp/static/css/main.9a89d84b.css",
-    "main.js": "/TommyApp/static/js/main.4e19fa49.js",
+    "main.js": "/TommyApp/static/js/main.82d66856.js",
     "static/js/648.5b970a70.chunk.js": "/TommyApp/static/js/648.5b970a70.chunk.js",
     "static/js/227.c58db409.chunk.js": "/TommyApp/static/js/227.c58db409.chunk.js",
     "static/js/486.72d49def.chunk.js": "/TommyApp/static/js/486.72d49def.chunk.js",
@@ -19,16 +19,16 @@
     "static/js/375.6dc8d475.chunk.js": "/TommyApp/static/js/375.6dc8d475.chunk.js",
     "static/js/68.4fc7d306.chunk.js": "/TommyApp/static/js/68.4fc7d306.chunk.js",
     "static/js/916.0500b01b.chunk.js": "/TommyApp/static/js/916.0500b01b.chunk.js",
-    "static/media/1_idle.gif": "/TommyApp/static/media/1_idle.3966a07355ead4addd83.gif",
-    "static/media/gold.gif": "/TommyApp/static/media/gold.23112a1dd6c37a63d424.gif",
-    "static/media/4_idle.gif": "/TommyApp/static/media/4_idle.d02a5ac57c3408f525b0.gif",
-    "static/media/3_idle.gif": "/TommyApp/static/media/3_idle.368ece1a5afb98a5dd71.gif",
-    "static/media/2_idle.gif": "/TommyApp/static/media/2_idle.8f32ef6a3f8ba96d744c.gif",
-    "static/media/finalForm.gif": "/TommyApp/static/media/finalForm.e97b04447b6f5e5caf61.gif",
-    "static/media/1talk.gif": "/TommyApp/static/media/1talk.a26517e64d3a3db9b510.gif",
-    "static/media/4talk.gif": "/TommyApp/static/media/4talk.2ffc317bf920a0be931f.gif",
-    "static/media/3talk.gif": "/TommyApp/static/media/3talk.4af00fc296c6d299f8fa.gif",
-    "static/media/2talk.gif": "/TommyApp/static/media/2talk.a1cea502cec53e00ccb8.gif",
+    "static/media/3_idle.gif": "/TommyApp/static/media/3_idle.9d181b5ef893d2e55709.gif",
+    "static/media/4_idle.gif": "/TommyApp/static/media/4_idle.02b5a7cff89325ef99e8.gif",
+    "static/media/2_idle.gif": "/TommyApp/static/media/2_idle.3fb24a4ad0f627977574.gif",
+    "static/media/1_idle.gif": "/TommyApp/static/media/1_idle.220b06ecbb2e3a42e079.gif",
+    "static/media/gold.gif": "/TommyApp/static/media/gold.c06dcccf7f6e5fb294f9.gif",
+    "static/media/3talk.gif": "/TommyApp/static/media/3talk.4f0b929a6ad068b08b11.gif",
+    "static/media/4talk.gif": "/TommyApp/static/media/4talk.cfd96fa47980895b3d4d.gif",
+    "static/media/2talk.gif": "/TommyApp/static/media/2talk.965967d2a4652fc13a5a.gif",
+    "static/media/finalForm.gif": "/TommyApp/static/media/finalForm.da765c8ece9906153069.gif",
+    "static/media/1talk.gif": "/TommyApp/static/media/1talk.1509fdd36f9c9dc8226c.gif",
     "static/media/boost_coin_side.png": "/TommyApp/static/media/boost_coin_side.009a38da9969d26b7cce.png",
     "static/media/catcoin.png": "/TommyApp/static/media/catcoin.c339acf83ac26a94a6cd.png",
     "static/media/WorkSans-Medium.ttf": "/TommyApp/static/media/WorkSans-Medium.905f58df4c3ad21ca78d.ttf",
@@ -65,7 +65,7 @@
     "static/media/pet_icon.svg": "/TommyApp/static/media/pet_icon.15cde0c0e7252fc814145b7cd06fe9c8.svg",
     "index.html": "/TommyApp/index.html",
     "main.9a89d84b.css.map": "/TommyApp/static/css/main.9a89d84b.css.map",
-    "main.4e19fa49.js.map": "/TommyApp/static/js/main.4e19fa49.js.map",
+    "main.82d66856.js.map": "/TommyApp/static/js/main.82d66856.js.map",
     "648.5b970a70.chunk.js.map": "/TommyApp/static/js/648.5b970a70.chunk.js.map",
     "227.c58db409.chunk.js.map": "/TommyApp/static/js/227.c58db409.chunk.js.map",
     "486.72d49def.chunk.js.map": "/TommyApp/static/js/486.72d49def.chunk.js.map",
@@ -82,6 +82,6 @@
   },
   "entrypoints": [
     "static/css/main.9a89d84b.css",
-    "static/js/main.4e19fa49.js"
+    "static/js/main.82d66856.js"
   ]
 }
