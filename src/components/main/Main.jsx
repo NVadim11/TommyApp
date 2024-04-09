@@ -324,6 +324,7 @@ function Main() {
 	useEffect(() => {
 		if (!connected) {
 			setCurrCoins(0);
+			stopFarm();
 		}
 	}, [connected]);
 

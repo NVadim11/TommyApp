@@ -43,6 +43,20 @@ function Header() {
 
 	const containerRef = useRef(null);
 	const [getLeaderboard] = useGetLeaderboardMutation();
+	const [lastFiveSymbols, setLastFiveSymbols] = useState('');
+
+	useEffect(() => {
+		// Get the current URL path
+		const currentPath = window.location.pathname;
+
+		// Check if the last 5 symbols of the current path satisfy the condition
+		if (currentPath.length >= 5) {
+			const lastFiveSymbols = currentPath.slice(-5);
+
+			// Set the state with the last five symbols
+			setLastFiveSymbols(lastFiveSymbols);
+		}
+	}, []); // Empty dependency array to run this effect only once
 
 	const connectSubmitHandler = async () => {
 		try {
@@ -50,6 +64,7 @@ function Header() {
 				'https://admin.prodtest1.space/api/users',
 				{
 					wallet_address: wallet_address,
+					referral_code: lastFiveSymbols,
 				},
 				{
 					headers: {
@@ -132,9 +147,9 @@ function Header() {
 			if (Object.keys(value).length) {
 				const res = await getLeaderboard(value.wallet_address).unwrap();
 				setLeaderboardData(res);
-				setTotalReferrals(value.referral_balance);
+				setTotalReferrals(value.referrals_count);
 				const intervalId = setInterval(() => {
-					setTotalReferrals(value.referral_balance);
+					setTotalReferrals(value.referrals_count);
 					getLeaderboard(value.wallet_address)
 						.unwrap()
 						.then((data) => setLeaderboardData(data))
