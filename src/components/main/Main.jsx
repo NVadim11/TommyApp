@@ -87,6 +87,7 @@ function Main() {
 				const loadedImages = await Promise.all(promises);
 				imagesRef.current = loadedImages;
 				setPreloaderLoadedPhaseTwo(true);
+				console.log('All images are loaded:', loadedImages);
 			} catch (error) {
 				console.error(error);
 			}
