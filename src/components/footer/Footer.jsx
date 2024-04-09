@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import catCoin from '../../img/catcoin.png';
 import checkbox from '../../img/checkbox.png';
@@ -15,7 +15,7 @@ import { AuthContext } from '../helper/contexts';
 import './Footer.scss';
 
 function Footer() {
-  const { connected, publicKey } = useWallet();
+	const { connected, publicKey } = useWallet();
 	const [isVisible, setIsVisible] = useState(true);
 	const location = useLocation();
 	const formRef = useRef(null);
@@ -49,12 +49,6 @@ function Footer() {
 		if (htmlTag) htmlTag.classList.remove('popupTasks-show');
 	};
 
-	const executeScroll = () => {
-		setTimeout(() => {
-			formRef.current.scrollIntoView();
-		}, 1000);
-	};
-
 	const twitterClick = async () => {
 		try {
 			// const res = await requestAuth().unwrap();
@@ -66,7 +60,7 @@ function Footer() {
 
 	useEffect(() => {
 		if (location.state && location.state?.auth) {
-			executeScroll();
+			window.open('https://twitter.com/TomoCatSol', '_blank');
 			window.history.replaceState({}, '');
 		}
 	}, []);
@@ -178,36 +172,36 @@ function Footer() {
 							</div>
 						)}
 					</div>
-          {connected && (
-					<div className='footerMain__activities'>
-						<div className='footerMain__activitiesBtn'>
-							<button onClick={tasksBtn}>
-								<span>Tasks</span>
-								<img src={tasks} />
-							</button>
+					{connected && (
+						<div className='footerMain__activities'>
+							<div className='footerMain__activitiesBtn'>
+								<button onClick={tasksBtn}>
+									<span>Tasks</span>
+									<img src={tasks} />
+								</button>
+							</div>
+							<div className='footerMain__activitiesBtn'>
+								<button
+									style={{ opacity: '0.5', cursor: 'not-allowed' }}
+									disabled
+								>
+									Pet
+									<img src={pet} />
+								</button>
+								<div className='footerMain__activitiesHint'>Coming Soon</div>
+							</div>
+							<div className='footerMain__activitiesBtn'>
+								<button
+									style={{ opacity: '0.5', cursor: 'not-allowed' }}
+									disabled
+								>
+									Shop
+									<img src={shop} />
+								</button>
+								<div className='footerMain__activitiesHint'>Coming Soon</div>
+							</div>
 						</div>
-						<div className='footerMain__activitiesBtn'>
-							<button
-								style={{ opacity: '0.5', cursor: 'not-allowed' }}
-								disabled
-							>
-								Pet
-								<img src={pet} />
-							</button>
-							<div className='footerMain__activitiesHint'>Coming Soon</div>
-						</div>
-						<div className='footerMain__activitiesBtn'>
-							<button
-								style={{ opacity: '0.5', cursor: 'not-allowed' }}
-								disabled
-							>
-								Shop
-								<img src={shop} />
-							</button>
-							<div className='footerMain__activitiesHint'>Coming Soon</div>
-						</div>
-					</div>
-          )}
+					)}
 					<div className='footerMain__socials'>
 						<div className='footerMain__twBtn'>
 							<a href='https://twitter.com/TomoCatSol' target='_blank'>

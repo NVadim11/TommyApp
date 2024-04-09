@@ -87,7 +87,7 @@ function Main() {
 				const loadedImages = await Promise.all(promises);
 				imagesRef.current = loadedImages;
 				setPreloaderLoadedPhaseTwo(true);
-				console.log('All images are loaded:', loadedImages);
+				// console.log('All images are loaded:', loadedImages);
 			} catch (error) {
 				console.error(error);
 			}
@@ -164,38 +164,42 @@ function Main() {
 		}
 	}, [currEnergy]);
 
-	useEffect(() => {
-		if (connected) {
-			const checkGameStatus = () => {
-				fetch(`https://admin.prodtest1.space/api/users/${wallet_address}`)
-					.then((response) => {
-						if (response.ok) {
-							return response.json();
-						} else {
-							throw new Error('Failed to fetch game status');
-						}
-					})
-					.then((data) => {
-						const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
-						const remainingTime = data.active_at - currentTimeStamp;
-						if (remainingTime <= 0) {
-							setGamePaused(false);
-							setTimeRemaining(0);
-						} else {
-							setGamePaused(true);
-							setTimeRemaining(remainingTime);
-						}
-					})
-					.catch((error) => {
-						console.error('Error checking game status:', error);
-					});
-			};
-			const timer = setInterval(() => {
-				checkGameStatus();
-			}, 10000);
-			return () => clearInterval(timer);
-		}
-	}, [connected]);
+	// console.log(value?.active_at);
+	// console.log(value);
+
+	// убрать
+	// useEffect(() => {
+	// 	if (connected) {
+	// 		const checkGameStatus = () => {
+	// 			fetch(`https://admin.prodtest1.space/api/users/${wallet_address}`)
+	// 				.then((response) => {
+	// 					if (response.ok) {
+	// 						return response.json();
+	// 					} else {
+	// 						throw new Error('Failed to fetch game status');
+	// 					}
+	// 				})
+	// 				.then((data) => {
+	// 					const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
+	// 					const remainingTime = data.active_at - currentTimeStamp;
+	// 					if (remainingTime <= 0) {
+	// 						setGamePaused(false);
+	// 						setTimeRemaining(0);
+	// 					} else {
+	// 						setGamePaused(true);
+	// 						setTimeRemaining(remainingTime);
+	// 					}
+	// 				})
+	// 				.catch((error) => {
+	// 					console.error('Error checking game status:', error);
+	// 				});
+	// 		};
+	// 		const timer = setInterval(() => {
+	// 			checkGameStatus();
+	// 		}, 10000);
+	// 		return () => clearInterval(timer);
+	// 	}
+	// }, [connected]);
 
 	const formatTime = (seconds) => {
 		const minutes = Math.floor(seconds / 60);

@@ -129,7 +129,7 @@ function Header() {
 			fetchLeaderboardData();
 			initLeadersRef.current = setInterval(() => {
 				fetchLeaderboardData();
-			}, 10000);
+			}, 60000);
 		} else {
 			clearInterval(initLeadersRef.current);
 		}
@@ -152,7 +152,7 @@ function Header() {
 						.catch((error) =>
 							console.error('Error refreshing leaderboard:', error)
 						);
-				}, 10000);
+				}, 60000);
 				return intervalId;
 			}
 		};

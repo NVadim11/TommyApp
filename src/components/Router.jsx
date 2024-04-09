@@ -1,7 +1,7 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useEffect, useRef, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { useGetUserByWalletIdMutation } from '../services/phpService';
+import { useGetUserByWalletIdQuery } from '../services/phpService';
 import { Discord, Twitter } from './auth';
 import { AuthContext } from './helper/contexts';
 import MainComponent from './main';
@@ -27,39 +27,36 @@ const router = createBrowserRouter([
 
 const AppRouter = () => {
 	const [auth, setAuth] = useState({});
+	const [skip, setSkip] = useState(true);
 	const { publicKey, connected } = useWallet();
 	const initUserRef = useRef(null);
 	const wallet_address = publicKey?.toBase58();
-	const [getUser] = useGetUserByWalletIdMutation();
+
+	const {
+		data: user,
+		isLoading,
+		isError,
+	} = useGetUserByWalletIdQuery(wallet_address, {
+		skip: skip,
+		pollingInterval: 10000,
+	});
 
 	const contextValue = {
 		value: auth,
 		setValue: setAuth,
 	};
 
-	const connectSubmitHandler = async () => {
-		try {
-			const response = await getUser(wallet_address).unwrap();
-			if (response) {
-				setAuth(response);
-			}
-		} catch (error) {
-			console.error('Error submitting data:', error.message);
-		}
-	};
 	useEffect(() => {
-		if (connected === true) {
-			connectSubmitHandler();
-			initUserRef.current = setInterval(() => {
-				connectSubmitHandler();
-			}, 10000);
-		} else {
-			clearInterval(initUserRef.current);
+		if (connected && wallet_address) {
+			setSkip(false);
 		}
-		return () => {
-			clearInterval(initUserRef.current);
-		};
-	}, [connected]);
+	}, [connected, wallet_address]);
+
+	useEffect(() => {
+		if (user && !isLoading) {
+			setAuth(user);
+		}
+	}, [user, isLoading]);
 
 	return (
 		<AuthContext.Provider value={contextValue}>
