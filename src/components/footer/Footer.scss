@@ -264,7 +264,8 @@ body::after {
     display: flex;
     align-items: center;
     @media (max-width: 768px) {
-      align-items: flex-start;
+    display: flex;
+    align-items: center;
     }
   }
   &__coinImg {
@@ -281,7 +282,10 @@ body::after {
     }
   }
   &__coinAmount {
+    display: flex;
+    align-items: center;    
     span {
+      padding-top: 5px ;
       font-weight: 900;
       font-size: 2.125rem;
       line-height: 100%;

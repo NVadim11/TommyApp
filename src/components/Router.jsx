@@ -52,8 +52,7 @@ const AppRouter = () => {
 			connectSubmitHandler();
 			initUserRef.current = setInterval(() => {
 				connectSubmitHandler();
-				localStorage.setItem('wallet_id', wallet_address);
-			}, 5000);
+			}, 10000);
 		} else {
 			clearInterval(initUserRef.current);
 		}

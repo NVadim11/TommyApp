@@ -28,6 +28,10 @@ const Twitter = () => {
 					const user = await getUser(value.wallet_address).unwrap();
 					if (user) {
 						setValue(user);
+						await passTask({
+							wallet_address: value?.wallet_address,
+							task: 'twitter',
+						}).unwrap();
 						await updateBalance({
 							id_telegram: value?.id_telegram,
 							score: '10000',
