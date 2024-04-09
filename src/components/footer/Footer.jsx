@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { useLocation } from 'react-router-dom';
 import catCoin from '../../img/catcoin.png';
 import checkbox from '../../img/checkbox.png';
@@ -14,6 +15,7 @@ import { AuthContext } from '../helper/contexts';
 import './Footer.scss';
 
 function Footer() {
+  const { connected, publicKey } = useWallet();
 	const [isVisible, setIsVisible] = useState(true);
 	const location = useLocation();
 	const formRef = useRef(null);
@@ -176,7 +178,7 @@ function Footer() {
 							</div>
 						)}
 					</div>
-
+          {connected && (
 					<div className='footerMain__activities'>
 						<div className='footerMain__activitiesBtn'>
 							<button onClick={tasksBtn}>
@@ -205,7 +207,7 @@ function Footer() {
 							<div className='footerMain__activitiesHint'>Coming Soon</div>
 						</div>
 					</div>
-
+          )}
 					<div className='footerMain__socials'>
 						<div className='footerMain__twBtn'>
 							<a href='https://twitter.com/TimCatSol'>TW</a>
