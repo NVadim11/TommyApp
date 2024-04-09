@@ -210,10 +210,14 @@ function Footer() {
           )}
 					<div className='footerMain__socials'>
 						<div className='footerMain__twBtn'>
-							<a href='https://twitter.com/TimCatSol'>TW</a>
+							<a href='https://twitter.com/TomoCatSol' target='_blank'>
+								TW
+							</a>
 						</div>
 						<div className='footerMain__tgBtn'>
-							<a href='https://t.me/tomo_cat'>TG</a>
+							<a href='https://t.me/tomo_cat' target='_blank'>
+								TG
+							</a>
 						</div>
 					</div>
 				</div>

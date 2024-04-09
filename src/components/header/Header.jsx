@@ -26,7 +26,7 @@ function Header() {
 	const [leaderboardData, setLeaderboardData] = useState([]);
 	const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
 	const [isInviteOpen, setInviteOpen] = useState(false);
-	// const [totalPoints, setTotalPoints] = useState(null);
+	const [totalPoints, setTotalPoints] = useState(null);
 	const [isVisible, setIsVisible] = useState(true);
 	const [isElementPresent, setIsElementPresent] = useState(false);
 	const initLeadersRef = useRef(null);
@@ -46,17 +46,13 @@ function Header() {
 	const [lastFiveSymbols, setLastFiveSymbols] = useState('');
 
 	useEffect(() => {
-		// Get the current URL path
 		const currentPath = window.location.pathname;
-
-		// Check if the last 5 symbols of the current path satisfy the condition
 		if (currentPath.length >= 5) {
 			const lastFiveSymbols = currentPath.slice(-5);
 
-			// Set the state with the last five symbols
 			setLastFiveSymbols(lastFiveSymbols);
 		}
-	}, []); // Empty dependency array to run this effect only once
+	}, []);
 
 	const connectSubmitHandler = async () => {
 		try {
@@ -140,7 +136,7 @@ function Header() {
 		return () => {
 			clearInterval(initLeadersRef.current);
 		};
-	}, [connected]);
+	}, [!connected]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -148,8 +144,8 @@ function Header() {
 				const res = await getLeaderboard(value.wallet_address).unwrap();
 				setLeaderboardData(res);
 				setTotalReferrals(value.referrals_count);
+				setTotalPoints(value.wallet_balance);
 				const intervalId = setInterval(() => {
-					setTotalReferrals(value.referrals_count);
 					getLeaderboard(value.wallet_address)
 						.unwrap()
 						.then((data) => setLeaderboardData(data))
@@ -174,21 +170,11 @@ function Header() {
 		};
 	}, [value, connected]);
 
-	// useEffect(() => {
-	// 	if (!connected) {
-	// 		setTotalPoints(null);
-	// 	}
-	// }, [connected]);
-
-	// useEffect(() => {
-	// 	const intervalId = setInterval(() => {
-	// 		if (connected) {
-	// 			setTotalPoints(value.wallet_balance);
-	// 		}
-	// 	}, 10000);
-
-	// 	return () => clearInterval(intervalId);
-	// }, [value.wallet_balance]);
+	useEffect(() => {
+		if (!connected) {
+			setTotalPoints(null);
+		}
+	}, [connected]);
 
 	const toggleVisibility = () => {
 		setIsShown(!isShown);
@@ -288,9 +274,7 @@ function Header() {
 			<header className='header'>
 				<div className='header__container'>
 					<div className='header__logo'>
-						<a href='#'>
-							<img src={logo} alt={logo} />
-						</a>
+						<img src={logo} alt={logo} />
 					</div>
 					<div className='header__centerBtns'>
 						<div className='header__leaderboardBtn'>
@@ -341,11 +325,11 @@ function Header() {
 						)}
 					</div>
 					<div className='header__mobileBtns'>
-						{/* {value && totalPoints !== null && (
+						{value && totalPoints !== null && (
 							<div id='header__totalScore' className='header__totalScore'>
 								Total Points: <span>{totalPoints}</span>
 							</div>
-						)} */}
+						)}
 						<div className='soundToggler'>
 							{isVisible ? (
 								<div
@@ -632,7 +616,7 @@ function Header() {
 											<img src={money} alt='' className='popupInvite__icon' />
 											<div className='popupInvite__list-itemDescr'>
 												<h5>Get rewards</h5>
-												<p>Receive up to 2k$ for your friends' staking CRO</p>
+												<p>Receive 10% of your friends’ staking</p>
 											</div>
 										</li>
 									</ul>
