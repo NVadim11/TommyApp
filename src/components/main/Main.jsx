@@ -62,9 +62,8 @@ function Main() {
 			return new Promise((resolve, reject) => {
 				const img = new Image();
 				img.src = src;
-				img.onload = () => resolve(img, console.log('img.loaded'));
-				img.onerror = () =>
-					reject(new Error(`Failed to load image from ${src}`));
+				img.onload = () => resolve(img);
+				img.onerror = () => reject(new Error(`Failed to load image from ${src}`));
 			});
 		};
 
@@ -87,7 +86,6 @@ function Main() {
 				const loadedImages = await Promise.all(promises);
 				imagesRef.current = loadedImages;
 				setPreloaderLoadedPhaseTwo(true);
-				// console.log('All images are loaded:', loadedImages);
 			} catch (error) {
 				console.error(error);
 			}
@@ -114,7 +112,7 @@ function Main() {
 
 	const pauseGame = () => {
 		const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
-		const futureTimestamp = currentTimeStamp + 60 * 60; // 1h
+		const futureTimestamp = currentTimeStamp + 60 * 60; // 60 * 60
 		// const futureTimestamp = currentTimeStamp + (Math.random() * (2 * 60 * 60 - 30 * 60) + 30 * 60); // Random between 30 minutes and 2 hours
 
 		fetch('https://admin.prodtest1.space/api/set-activity', {
@@ -144,46 +142,30 @@ function Main() {
 			pauseGame();
 			setGamePaused(true);
 			setVisible(false);
-			setCurrEnergy(0);
 		}
 	}, [currEnergy]);
 
-	// console.log(value?.active_at);
-	// console.log(value);
+	useEffect(() => {
+		const checkGameStatus = () => {
+			const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
+			const remainingTime = value.active_at - currentTimeStamp;
+			if (remainingTime <= 0) {
+				setGamePaused(false);
+				setTimeRemaining(0);
+			} else {
+				setGamePaused(true);
+				setCurrEnergy(0);
+				setTimeRemaining(remainingTime);
+			}
+		};
+		checkGameStatus();
 
-	// убрать
-	// useEffect(() => {
-	// 	if (connected) {
-	// 		const checkGameStatus = () => {
-	// 			fetch(`https://admin.prodtest1.space/api/users/${wallet_address}`)
-	// 				.then((response) => {
-	// 					if (response.ok) {
-	// 						return response.json();
-	// 					} else {
-	// 						throw new Error('Failed to fetch game status');
-	// 					}
-	// 				})
-	// 				.then((data) => {
-	// 					const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
-	// 					const remainingTime = data.active_at - currentTimeStamp;
-	// 					if (remainingTime <= 0) {
-	// 						setGamePaused(false);
-	// 						setTimeRemaining(0);
-	// 					} else {
-	// 						setGamePaused(true);
-	// 						setTimeRemaining(remainingTime);
-	// 					}
-	// 				})
-	// 				.catch((error) => {
-	// 					console.error('Error checking game status:', error);
-	// 				});
-	// 		};
-	// 		const timer = setInterval(() => {
-	// 			checkGameStatus();
-	// 		}, 10000);
-	// 		return () => clearInterval(timer);
-	// 	}
-	// }, [connected]);
+		const timer = setInterval(() => {
+			checkGameStatus();
+		}, 1000);
+
+		return () => clearInterval(timer);
+	}, [value, connected]);
 
 	const formatTime = (seconds) => {
 		const minutes = Math.floor(seconds / 60);
@@ -198,33 +180,6 @@ function Main() {
 	const handleCoinClick = () => {
 		incrementClickCount();
 	};
-
-	const connectSubmitHandler = async () => {
-		try {
-			const response = await axios.post(
-				'https://admin.prodtest1.space/api/users',
-				{
-					wallet_address: wallet_address,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
-			if (response.status !== 201) {
-				throw new Error('Failed to submit data');
-			}
-			console.log('Data submitted successfully');
-		} catch (error) {
-			console.error('Error submitting data:', error.message);
-		}
-	};
-	useEffect(() => {
-		if (connected === true) {
-			connectSubmitHandler();
-		}
-	}, [connected]);
 
 	const boostClickedHandler = () => {
 		handleBoostClick();
@@ -360,7 +315,6 @@ function Main() {
 					wallet_address: wallet_address,
 				}
 			);
-
 			console.log('Coins submitted successfully:', response.data);
 		} catch (error) {
 			console.error('Error submitting coins:', error);
@@ -486,13 +440,7 @@ function Main() {
 										xmlns='http://www.w3.org/2000/svg'
 										style={{ marginLeft: '10px' }}
 									>
-										<circle
-											cx='11'
-											cy='11.5'
-											r='10'
-											stroke='white'
-											strokeWidth='2'
-										/>
+										<circle cx='11' cy='11.5' r='10' stroke='white' strokeWidth='2' />
 										<path
 											d='M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z'
 											fill='white'
@@ -513,13 +461,7 @@ function Main() {
 										fill='none'
 										xmlns='http://www.w3.org/2000/svg'
 									>
-										<circle
-											cx='11'
-											cy='11.5'
-											r='10'
-											stroke='white'
-											strokeWidth='2'
-										/>
+										<circle cx='11' cy='11.5' r='10' stroke='white' strokeWidth='2' />
 										<path
 											d='M16.7333 11.9536C16.8536 11.8333 16.9211 11.6701 16.9211 11.5C16.9211 11.3298 16.8536 11.1666 16.7333 11.0463L13.1034 7.4164C13.0442 7.35511 12.9734 7.30623 12.8951 7.2726C12.8168 7.23897 12.7326 7.22127 12.6474 7.22053C12.5622 7.21979 12.4777 7.23602 12.3988 7.26829C12.32 7.30055 12.2483 7.3482 12.1881 7.40844C12.1278 7.46869 12.0802 7.54034 12.0479 7.61919C12.0157 7.69805 11.9994 7.78255 12.0002 7.86775C12.0009 7.95295 12.0186 8.03715 12.0522 8.11543C12.0859 8.19372 12.1348 8.26452 12.196 8.32371L14.7306 10.8583H6.23304C6.06286 10.8583 5.89964 10.9259 5.77931 11.0462C5.65897 11.1666 5.59137 11.3298 5.59137 11.5C5.59137 11.6701 5.65897 11.8334 5.77931 11.9537C5.89964 12.074 6.06286 12.1416 6.23304 12.1416H14.7306L12.196 14.6762C12.0792 14.7972 12.0145 14.9593 12.0159 15.1276C12.0174 15.2958 12.0849 15.4567 12.2039 15.5757C12.3228 15.6947 12.4838 15.7622 12.652 15.7636C12.8203 15.7651 12.9823 15.7004 13.1034 15.5835L16.7333 11.9536Z'
 											fill='white'
@@ -704,7 +646,7 @@ function Main() {
 							<>
 								<div className='gameContentBox'>
 									<div className='gameContentBox__box'>
-										{gamePaused && timeRemaining > 0 && (
+										{gamePaused && (
 											<>
 												<p
 													style={{
@@ -737,13 +679,10 @@ function Main() {
 										)}
 									</div>
 
-									{!gamePaused && timeRemaining <= 0 && (
+									{!gamePaused && (
 										<>
 											{currentImage ? (
-												<div
-													className='mainContent__catBox'
-													onClick={coinClicker}
-												>
+												<div className='mainContent__catBox' onClick={coinClicker}>
 													<img
 														className='mainContent__catIdle'
 														src={boostPhase ? goldForm : catIdle}
@@ -752,10 +691,7 @@ function Main() {
 													/>
 												</div>
 											) : (
-												<div
-													className='mainContent__catBox'
-													onClick={coinClicker}
-												>
+												<div className='mainContent__catBox' onClick={coinClicker}>
 													<img
 														className='mainContent__catMeow'
 														src={boostPhase ? goldForm : catSpeak}
@@ -820,8 +756,7 @@ function Main() {
 									</div>
 									<div className='mainContent__energyHint'>
 										<p>
-											The happier the cat — the more you get! Make it purr and
-											get rewards
+											The happier the cat — the more you get! Make it purr and get rewards
 										</p>
 									</div>
 								</div>
@@ -925,11 +860,7 @@ function Main() {
 								<div className='mainContent__coins'>
 									<div className='mainContent__coinBox'>
 										<div className='mainContent__coinImg' draggable='false'>
-											<img
-												src={catCoinMove}
-												alt='coin animation'
-												draggable='false'
-											/>
+											<img src={catCoinMove} alt='coin animation' draggable='false' />
 										</div>
 										<div className='mainContent__coinAmount'>
 											<span id='coinAmount'>{currCoins}</span>

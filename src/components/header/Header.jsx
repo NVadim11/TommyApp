@@ -47,21 +47,25 @@ function Header() {
 
 	useEffect(() => {
 		const currentPath = window.location.pathname;
-		if (currentPath.length >= 5) {
-			const lastFiveSymbols = currentPath.slice(-5);
+		const lastSlashIndex = currentPath.lastIndexOf('/');
 
+		if (lastSlashIndex !== -1) {
+			const lastFiveSymbols = currentPath.slice(lastSlashIndex + 1);
 			setLastFiveSymbols(lastFiveSymbols);
 		}
 	}, []);
 
 	const connectSubmitHandler = async () => {
 		try {
+			const requestBody = {
+				wallet_address: wallet_address,
+			};
+			if (lastFiveSymbols !== '') {
+				requestBody.referral_code = lastFiveSymbols;
+			}
 			const response = await axios.post(
 				'https://admin.prodtest1.space/api/users',
-				{
-					wallet_address: wallet_address,
-					referral_code: lastFiveSymbols,
-				},
+				requestBody,
 				{
 					headers: {
 						'Content-Type': 'application/json',
@@ -90,10 +94,7 @@ function Header() {
 					if (targetElement) {
 						setIsElementPresent(true);
 					}
-				} else if (
-					mutation.type === 'childList' &&
-					mutation.removedNodes.length > 0
-				) {
+				} else if (mutation.type === 'childList' && mutation.removedNodes.length > 0) {
 					const targetElement = document.getElementById('header__totalScore');
 					if (!targetElement) {
 						setIsElementPresent(false);
@@ -114,9 +115,7 @@ function Header() {
 
 	const fetchLeaderboardData = async () => {
 		try {
-			const response = await axios.get(
-				`https://admin.prodtest1.space/api/liders`
-			);
+			const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
 			setLeaderboardData(response.data);
 			console.log('not connected LB fetched');
 		} catch (error) {
@@ -149,9 +148,7 @@ function Header() {
 					getLeaderboard(value.wallet_address)
 						.unwrap()
 						.then((data) => setLeaderboardData(data))
-						.catch((error) =>
-							console.error('Error refreshing leaderboard:', error)
-						);
+						.catch((error) => console.error('Error refreshing leaderboard:', error));
 				}, 60000);
 				return intervalId;
 			}
@@ -246,15 +243,9 @@ function Header() {
 
 	const copyLink = async () => {
 		if ('clipboard' in navigator) {
-			return await navigator.clipboard.writeText(
-				`${window.location.href}${code}`
-			);
+			return await navigator.clipboard.writeText(`${window.location.href}${code}`);
 		} else {
-			return document.execCommand(
-				'copy',
-				true,
-				`${window.location.href}${code}`
-			);
+			return document.execCommand('copy', true, `${window.location.href}${code}`);
 		}
 	};
 
@@ -296,10 +287,7 @@ function Header() {
 						</div>
 						{connected && (
 							<div className='header__inviteBtn'>
-								<button
-									className='header__inviteBtn'
-									onClick={inviteFriendsBtn}
-								>
+								<button className='header__inviteBtn' onClick={inviteFriendsBtn}>
 									<span>Referral</span>
 									<svg
 										width='20'
@@ -332,10 +320,7 @@ function Header() {
 						)}
 						<div className='soundToggler'>
 							{isVisible ? (
-								<div
-									className='soundToggler__itemOn'
-									onClick={toggleVisibilitySound}
-								>
+								<div className='soundToggler__itemOn' onClick={toggleVisibilitySound}>
 									<button>
 										<svg
 											width='23'
@@ -360,10 +345,7 @@ function Header() {
 									</button>
 								</div>
 							) : (
-								<div
-									className='soundToggler__itemOff'
-									onClick={toggleVisibilitySound}
-								>
+								<div className='soundToggler__itemOff' onClick={toggleVisibilitySound}>
 									<button>
 										<svg
 											width='26'
@@ -422,10 +404,7 @@ function Header() {
 							</div>
 							{isShown && (
 								<div className='header__mobileMenu'>
-									<a
-										className='header__mobileMenu-links'
-										onClick={leaderBordBtn}
-									>
+									<a className='header__mobileMenu-links' onClick={leaderBordBtn}>
 										Leadboard
 									</a>
 									<a
@@ -595,11 +574,7 @@ function Header() {
 								<div className='popupInvite__gridItem'>
 									<ul className='popupInvite__list'>
 										<li className='popupInvite__list-item'>
-											<img
-												src={envelope}
-												alt=''
-												className='popupInvite__icon'
-											/>
+											<img src={envelope} alt='' className='popupInvite__icon' />
 											<div className='popupInvite__list-itemDescr'>
 												<h5>Sign up</h5>
 												<p>Get your referral link and code</p>
