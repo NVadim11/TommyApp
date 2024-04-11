@@ -42,6 +42,10 @@ function Main() {
 	const { publicKey, connected } = useWallet();
 	const wallet_address = publicKey?.toBase58();
 
+	const [clickCount, setClickCount] = useState(0);
+	const [clickX, setClickX] = useState(null);
+	const [clickY, setClickY] = useState(null);
+
 	const [position, setPosition] = useState({ x: '50%', y: '50%' });
 	const [boostPhase, setBoostPhase] = useState(false);
 	const [visible, setVisible] = useState(false);
@@ -321,6 +325,26 @@ function Main() {
 		}
 	};
 
+	const clickerAnimation = (event) => {
+		// Получаем координаты клика
+		const x = event.pageX - event.currentTarget.offsetLeft;
+		const y = event.pageY - event.currentTarget.offsetTop;
+
+		console.log(`Click coordinates - x: ${x}, y: ${y}`);
+
+		setClickX(x);
+		setClickY(y);
+
+		// Увеличиваем счетчик кликов
+		setClickCount(clickCount + 1);
+
+		// Удаление анимации через 1 секунду
+		// setTimeout(() => {
+		// 	setClickX(null);
+		// 	setClickY(null);
+		// }, 1000);
+	};
+
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 801 && currEnergy <= 1000) || boostPhase === true) {
@@ -328,6 +352,7 @@ function Main() {
 		} else {
 			playSadCatClick();
 		}
+		clickerAnimation(event);
 		setCurrentImage(false);
 		setCoinState(true);
 		handleCoinClick();
@@ -407,6 +432,7 @@ function Main() {
 				}}
 			></div>
 			<div className='mainContent__container'>
+				
 				{idleState ? (
 					<div className='mainContent__phaseOne'>
 						<div className='mainContent__infoBlock'>
@@ -683,6 +709,15 @@ function Main() {
 										<>
 											{currentImage ? (
 												<div className='mainContent__catBox' onClick={coinClicker}>
+													 {/* Анимация клика */}
+            {clickX !== null && clickY !== null && (
+                <div 
+                    className='clickAnimation' 
+                    style={{ top: `${clickY}px`, right: `${clickX}px` }}
+                >
+                    +1
+                </div>
+            )}
 													<img
 														className='mainContent__catIdle'
 														src={boostPhase ? goldForm : catIdle}
@@ -692,6 +727,15 @@ function Main() {
 												</div>
 											) : (
 												<div className='mainContent__catBox' onClick={coinClicker}>
+													 {/* Анимация клика */}
+            {clickX !== null && clickY !== null && (
+                <div 
+                    className='clickAnimation' 
+                    style={{ top: `${clickY}px`, right: `${clickX}px` }}
+                >
+                    +1
+                </div>
+            )}
 													<img
 														className='mainContent__catMeow'
 														src={boostPhase ? goldForm : catSpeak}
