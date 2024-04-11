@@ -1,7 +1,10 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { useGetUserByWalletIdQuery } from '../services/phpService';
+import {
+	useGetUserByWalletIdInitMutation,
+	useGetUserByWalletIdQuery,
+} from '../services/phpService';
 import { Discord, Twitter } from './auth';
 import { AuthContext } from './helper/contexts';
 import MainComponent from './main';
@@ -29,8 +32,8 @@ const AppRouter = () => {
 	const [auth, setAuth] = useState({});
 	const [skip, setSkip] = useState(true);
 	const { publicKey, connected } = useWallet();
-	const initUserRef = useRef(null);
 	const wallet_address = publicKey?.toBase58();
+	const [getUser] = useGetUserByWalletIdInitMutation();
 
 	const {
 		data: user,
@@ -57,6 +60,22 @@ const AppRouter = () => {
 			setAuth(user);
 		}
 	}, [user, isLoading]);
+
+	const connectSubmitHandler = async () => {
+		try {
+			const response = await getUser(wallet_address).unwrap();
+			if (response) {
+				setAuth(response);
+			}
+		} catch (error) {
+			console.error('Error submitting data:', error.message);
+		}
+	};
+	useEffect(() => {
+		if (connected === true) {
+			connectSubmitHandler();
+		}
+	}, [connected]);
 
 	return (
 		<AuthContext.Provider value={contextValue}>

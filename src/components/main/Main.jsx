@@ -94,7 +94,7 @@ function Main() {
 		// Загрузка изображений
 		const loadImagesTimeout = setTimeout(() => {
 			loadImages();
-		}, 2000); // Пример задержки для прелоадера
+		}, 6000); // Пример задержки для прелоадера
 
 		const aosInitTimeout = setTimeout(() => {
 			AOS.init({
@@ -102,7 +102,7 @@ function Main() {
 			});
 			setShowPhaseTwo(true);
 			setPreloaderLoadedPhaseTwo(true);
-		}, 5000);
+		}, 6000);
 
 		return () => {
 			clearTimeout(loadImagesTimeout);
@@ -110,11 +110,13 @@ function Main() {
 		};
 	}, []);
 
-	const pauseGame = () => {
-		const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
-		const futureTimestamp = currentTimeStamp + 60 * 60; // 60 * 60
-		// const futureTimestamp = currentTimeStamp + (Math.random() * (2 * 60 * 60 - 30 * 60) + 30 * 60); // Random between 30 minutes and 2 hours
+	const currentTimeStamp = Math.floor(Date.now() / 1000);
+	const futureTimestamp = currentTimeStamp + 60 * 60; // 60 * 60
+	const remainingTime = value.active_at - currentTimeStamp;
+	const placeholderTIme = futureTimestamp - currentTimeStamp;
 
+	const pauseGame = () => {
+		setGamePaused(true);
 		fetch('https://admin.prodtest1.space/api/set-activity', {
 			method: 'POST',
 			headers: {
@@ -138,17 +140,7 @@ function Main() {
 	};
 
 	useEffect(() => {
-		if (currEnergy === 1000) {
-			pauseGame();
-			setGamePaused(true);
-			setVisible(false);
-		}
-	}, [currEnergy]);
-
-	useEffect(() => {
 		const checkGameStatus = () => {
-			const currentTimeStamp = Math.floor(Date.now() / 1000); // Current timestamp in seconds
-			const remainingTime = value.active_at - currentTimeStamp;
 			if (remainingTime <= 0) {
 				setGamePaused(false);
 				setTimeRemaining(0);
@@ -158,19 +150,23 @@ function Main() {
 				setTimeRemaining(remainingTime);
 			}
 		};
-		checkGameStatus();
-
-		const timer = setInterval(() => {
+		if (connected) {
 			checkGameStatus();
-		}, 1000);
-
-		return () => clearInterval(timer);
+		}
 	}, [value, connected]);
 
 	const formatTime = (seconds) => {
 		const minutes = Math.floor(seconds / 60);
 		return `${minutes}`;
 	};
+
+	useEffect(() => {
+		if (currEnergy === 1000) {
+			pauseGame();
+			setGamePaused(true);
+			setVisible(false);
+		}
+	}, [currEnergy]);
 
 	let catIdleImage = catIdle;
 	let catSpeakImage = catSpeak;
@@ -641,45 +637,44 @@ function Main() {
 				) : (
 					<div className='mainContent__phaseTwo'>
 						<PreloaderPhaseTwo loaded={preloaderLoadedPhaseTwo} />
-
 						{showPhaseTwo && (
 							<>
 								<div className='gameContentBox'>
-									<div className='gameContentBox__box'>
-										{gamePaused && (
-											<>
-												<p
-													style={{
-														fontSize: '22px',
-														textAlign: 'center',
-														alignContent: 'center',
-													}}
-												>
-													Time remaining: {formatTime(timeRemaining)} minutes
-												</p>
-												<img
-													src={catFace}
-													alt='cat face'
-													style={{
-														width: '275px',
-														marginTop: '15px',
-													}}
-												/>
-												<p
-													style={{
-														fontSize: '16px',
-														textAlign: 'center',
-														alignContent: 'center',
-														marginTop: '15px',
-													}}
-												>
-													Tomo is tired, comeback when timer is over.
-												</p>
-											</>
-										)}
-									</div>
-
-									{!gamePaused && (
+									{gamePaused ? (
+										<div className='gameContentBox__box'>
+											<p
+												style={{
+													fontSize: '22px',
+													textAlign: 'center',
+													alignContent: 'center',
+												}}
+											>
+												Time remaining:{' '}
+												{timeRemaining
+													? formatTime(timeRemaining)
+													: formatTime(placeholderTIme)}{' '}
+												minutes
+											</p>
+											<img
+												src={catFace}
+												alt='cat face'
+												style={{
+													width: '275px',
+													marginTop: '15px',
+												}}
+											/>
+											<p
+												style={{
+													fontSize: '16px',
+													textAlign: 'center',
+													alignContent: 'center',
+													marginTop: '15px',
+												}}
+											>
+												Tomo is tired, comeback when timer is over.
+											</p>
+										</div>
+									) : (
 										<>
 											{currentImage ? (
 												<div className='mainContent__catBox' onClick={coinClicker}>

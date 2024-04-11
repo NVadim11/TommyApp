@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import "./PreloaderPhaseTwo.scss";
-import cat from "../../img/cat2.png";
+import { useEffect } from 'react';
+import cat from '../../img/cat2.png';
+import './PreloaderPhaseTwo.scss';
 
 const PreloaderPhaseTwo = ({ loaded }) => {
-  useEffect(() => {}, []);
+	useEffect(() => {}, []);
 
-  return (
-    <div className={`preloaderPhaseTwo${loaded ? " loadedPhaseTwo" : ""}`}>
-      <img src={cat} alt="Tim The Cat" />
-    </div>
-  );
+	return (
+		<div className={`preloaderPhaseTwo${loaded ? ' loadedPhaseTwo' : ''}`}>
+			<img src={cat} alt='Tim The Cat' />
+		</div>
+	);
 };
 
 export default PreloaderPhaseTwo;

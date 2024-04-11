@@ -14,6 +14,13 @@ export const phpApi = createApi({
       }),
       providesTags: ["Php"],
     }),
+    getUserByWalletIdInit: builder.mutation({
+      query: (wallet_address) => ({
+        url: `/users/${wallet_address}`,
+        method: "GET",
+      }),
+      providesTags: ["Php"]
+    }),
     checkCode: builder.mutation({
       query: (code) => ({
         url: `/check-referral-code/${code}`,
@@ -50,6 +57,7 @@ export const phpApi = createApi({
 });
 
 export const {
+  useGetUserByWalletIdInitMutation,
   useGetUserByWalletIdQuery,
   useCheckCodeMutation,
   useGenerateCodeMutation,
