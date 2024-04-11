@@ -154,7 +154,10 @@ function Main() {
 			}
 		};
 		if (connected) {
-			checkGameStatus();
+			const timer = setInterval(() => {
+				checkGameStatus();
+			}, 1000);
+			return () => clearInterval(timer);
 		}
 	}, [value, connected]);
 

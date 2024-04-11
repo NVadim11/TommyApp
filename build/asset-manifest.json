@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.9a89d84b.css",
-    "main.js": "/TommyApp/static/js/main.7082565f.js",
+    "main.css": "/TommyApp/static/css/main.83b68324.css",
+    "main.js": "/TommyApp/static/js/main.6503c9b9.js",
     "static/js/648.5b970a70.chunk.js": "/TommyApp/static/js/648.5b970a70.chunk.js",
     "static/js/227.c58db409.chunk.js": "/TommyApp/static/js/227.c58db409.chunk.js",
     "static/js/486.4663f4b9.chunk.js": "/TommyApp/static/js/486.4663f4b9.chunk.js",
@@ -64,8 +64,8 @@
     "static/media/copy.svg": "/TommyApp/static/media/copy.23a0ad47e514fc4d82318b2ddb8ed960.svg",
     "static/media/pet_icon.svg": "/TommyApp/static/media/pet_icon.a0c3026da9e0c4af5fa4e49c2e19f629.svg",
     "index.html": "/TommyApp/index.html",
-    "main.9a89d84b.css.map": "/TommyApp/static/css/main.9a89d84b.css.map",
-    "main.7082565f.js.map": "/TommyApp/static/js/main.7082565f.js.map",
+    "main.83b68324.css.map": "/TommyApp/static/css/main.83b68324.css.map",
+    "main.6503c9b9.js.map": "/TommyApp/static/js/main.6503c9b9.js.map",
     "648.5b970a70.chunk.js.map": "/TommyApp/static/js/648.5b970a70.chunk.js.map",
     "227.c58db409.chunk.js.map": "/TommyApp/static/js/227.c58db409.chunk.js.map",
     "486.4663f4b9.chunk.js.map": "/TommyApp/static/js/486.4663f4b9.chunk.js.map",
@@ -81,7 +81,7 @@
     "916.0500b01b.chunk.js.map": "/TommyApp/static/js/916.0500b01b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a89d84b.css",
-    "static/js/main.7082565f.js"
+    "static/css/main.83b68324.css",
+    "static/js/main.6503c9b9.js"
   ]
 }
