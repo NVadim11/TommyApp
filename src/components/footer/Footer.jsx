@@ -1,24 +1,20 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import catCoin from '../../img/catcoin.png';
 import checkbox from '../../img/checkbox.png';
 import pet from '../../img/pet_icon.svg';
 import shop from '../../img/shop_icon.svg';
 import tasks from '../../img/tasks_icon.svg';
-import {
-	usePassTaskMutation,
-	useUpdateBalanceMutation,
-} from '../../services/phpService';
+import { usePassTaskMutation, useUpdateBalanceMutation } from '../../services/phpService';
 import { toggleMuteAllSounds } from '../../utility/Audio';
 import { AuthContext } from '../helper/contexts';
 import './Footer.scss';
 
 function Footer() {
-	const { connected, publicKey } = useWallet();
+	const { connected } = useWallet();
 	const [isVisible, setIsVisible] = useState(true);
 	const location = useLocation();
-	const formRef = useRef(null);
 	const { value } = useContext(AuthContext);
 	const [passTask] = usePassTaskMutation();
 	const [updateBalance] = useUpdateBalanceMutation();
@@ -29,7 +25,6 @@ function Footer() {
 	};
 
 	const [tasksOpen, setTasksOpen] = useState(false);
-
 	const popupTasksTgl = tasksOpen ? 'popupTasks_show' : null;
 	const popupTasks = `popupTasks ${popupTasksTgl}`;
 
@@ -51,7 +46,6 @@ function Footer() {
 
 	const twitterClick = async () => {
 		try {
-			// const res = await requestAuth().unwrap();
 			window.location.href = `https://api.prodtest1.space/twitter/auth?version=web`;
 		} catch (e) {
 			console.log(e);
@@ -98,7 +92,7 @@ function Footer() {
 	};
 
 	const websiteClick = async () => {
-		window.open(`https://impex.pushit.space/`, '_blank');
+		window.open(`http://tomocat.com/`, '_blank');
 		try {
 			const res = await passTask({
 				wallet_address: value?.wallet_address,
@@ -181,20 +175,14 @@ function Footer() {
 								</button>
 							</div>
 							<div className='footerMain__activitiesBtn'>
-								<button
-									style={{ opacity: '0.5', cursor: 'not-allowed' }}
-									disabled
-								>
+								<button style={{ opacity: '0.5', cursor: 'not-allowed' }} disabled>
 									Pet
 									<img src={pet} />
 								</button>
 								<div className='footerMain__activitiesHint'>Coming Soon</div>
 							</div>
 							<div className='footerMain__activitiesBtn'>
-								<button
-									style={{ opacity: '0.5', cursor: 'not-allowed' }}
-									disabled
-								>
+								<button style={{ opacity: '0.5', cursor: 'not-allowed' }} disabled>
 									Shop
 									<img src={shop} />
 								</button>
@@ -281,10 +269,7 @@ function Footer() {
 								<div className='popupTasks__tabSocial'>
 									<div className='popupTasks__tabSocial-item'>
 										<div className='popupTasks__tabSocial-btn'>
-											<button
-												onClick={twitterClick}
-												disabled={value?.twitter === 1}
-											>
+											<button onClick={twitterClick} disabled={value?.twitter === 1}>
 												<span>Follow Twitter</span>
 											</button>
 										</div>
@@ -299,10 +284,7 @@ function Footer() {
 									</div>
 									<div className='popupTasks__tabSocial-item'>
 										<div className='popupTasks__tabSocial-btn'>
-											<button
-												onClick={tgClickChat}
-												disabled={value?.tg_chat === 1}
-											>
+											<button onClick={tgClickChat} disabled={value?.tg_chat === 1}>
 												<span>Follow Telegram Chat</span>
 											</button>
 										</div>
@@ -317,10 +299,7 @@ function Footer() {
 									</div>
 									<div className='popupTasks__tabSocial-item'>
 										<div className='popupTasks__tabSocial-btn'>
-											<button
-												onClick={tgClickChannel}
-												disabled={value?.tg_channel === 1}
-											>
+											<button onClick={tgClickChannel} disabled={value?.tg_channel === 1}>
 												<span>Follow Telegram Channel</span>
 											</button>
 										</div>
@@ -335,10 +314,7 @@ function Footer() {
 									</div>
 									<div className='popupTasks__tabSocial-item'>
 										<div className='popupTasks__tabSocial-btn'>
-											<button
-												onClick={websiteClick}
-												disabled={value?.website === 1}
-											>
+											<button onClick={websiteClick} disabled={value?.website === 1}>
 												<span>Visit Website</span>
 											</button>
 										</div>

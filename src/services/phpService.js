@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 // Define a service using a base URL and expected endpoints
 export const phpApi = createApi({
   reducerPath: "phpApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://admin.prodtest1.space/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://admin.tomocat.com/api" }),
   tagTypes: ["Php"],
   endpoints: (builder) => ({
     getUserByWalletId: builder.query({

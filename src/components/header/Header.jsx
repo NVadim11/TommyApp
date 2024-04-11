@@ -64,7 +64,7 @@ function Header() {
 				requestBody.referral_code = lastFiveSymbols;
 			}
 			const response = await axios.post(
-				'https://admin.prodtest1.space/api/users',
+				'http://admin.tomocat.com/api/users',
 				requestBody,
 				{
 					headers: {
@@ -115,7 +115,7 @@ function Header() {
 
 	const fetchLeaderboardData = async () => {
 		try {
-			const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
+			const response = await axios.get(`http://admin.tomocat.com/api/liders`);
 			setLeaderboardData(response.data);
 			console.log('not connected LB fetched');
 		} catch (error) {
