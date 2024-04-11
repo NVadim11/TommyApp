@@ -57,7 +57,6 @@ function Main() {
 	const [showPhaseTwo, setShowPhaseTwo] = useState(false);
 	const imagesRef = useRef([]);
 
-	const [animationCoords, setAnimationCoords] = useState({ x: 0, y: 0 });
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
 
@@ -334,6 +333,14 @@ function Main() {
 		setIsAnimationActive(true);
 	};
 
+	const clearAnimations = () => {
+		if (isAnimationActive) {
+			setTimeout(() => {
+				setAnimations((prev) => prev.slice(1));
+			}, 2000);
+		}
+	};
+
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
@@ -351,6 +358,7 @@ function Main() {
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
+		clearAnimations();
 		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;

@@ -61,6 +61,7 @@ $desktop: 1919.98px;
         position: relative;
         order: 2;
         right: 0;
+        width: 100%;
       }
       img {
         width: 22.5rem;
@@ -88,14 +89,16 @@ $desktop: 1919.98px;
     .mainContent__catBox {
       margin: 0;
       position: absolute;
-      right: 667.5px;
+      right: 447.5px;
+      width: 50rem;
       @media (max-width: $desktop) {
-        right: 427.3px;
+        right: 207px;
       }
       @media (max-width: $mobile) {
         position: relative;
         order: 2;
         right: 0;
+        width: 100%;
       }
       img {
         width: 22.5rem;
@@ -117,7 +120,7 @@ $desktop: 1919.98px;
         order: 2;
         right: 0;
         justify-content: center;
-        margin-top: 1.875rem;
+        margin: 1.875rem 0 0 0;
       }
       &__box {
         display: flex;
