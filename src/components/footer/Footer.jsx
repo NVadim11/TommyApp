@@ -2,6 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import catCoin from '../../img/catcoin.png';
+import catCoinMove from '../../img/cat_coin_move.png';
 import checkbox from '../../img/checkbox.png';
 import pet from '../../img/pet_icon.svg';
 import shop from '../../img/shop_icon.svg';
@@ -239,12 +240,16 @@ function Footer() {
 									</h4>
 								</div>
 								<div className='popupTasks__coins'>
-									<div className='popupTasks__coinImg' draggable='false'>
-										<img src={catCoin} alt='animation' draggable='false' />
-									</div>
-									<div className='popupTasks__coinAmount'>
-										<span id='coinAmount'>{value?.wallet_balance}</span>
-									</div>
+									{value?.wallet_balance && (
+										<>
+											<div className='popupTasks__coinImg' draggable='false'>
+												<img src={catCoinMove} alt='animation' draggable='false' />
+											</div>
+											<div className='popupTasks__coinAmount'>
+												<span id='coinAmount'>{value?.wallet_balance}</span>
+											</div>
+										</>
+									)}
 								</div>
 							</div>
 							<div className='popupTasks__tabs-btns'>

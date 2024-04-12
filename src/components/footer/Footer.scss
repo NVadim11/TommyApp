@@ -353,7 +353,7 @@ body::after {
       @media (max-width: 768px) {
         display: flex;
         font-size: 0.625rem;
-        padding: 0;
+        padding: 0 3px;
       }
     }
   }
@@ -368,7 +368,7 @@ body::after {
     }
   }
   &__tabs-content {
-    margin-top: 4.0625rem;
+    margin: 4.0625rem 3.125rem 0 3.125rem;
     @media (max-width: 768px) {
       margin-top: 2.1875rem;
     }

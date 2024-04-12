@@ -347,7 +347,6 @@ function Main() {
 
 	const handleShowAnimation = (event) => {
 		const clicker = event.currentTarget;
-
 		const rect = clicker.getBoundingClientRect();
 		const x = event.clientX - rect.left;
 		const y = event.clientY - rect.top;
@@ -381,7 +380,6 @@ function Main() {
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
-		clearAnimations();
 		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
@@ -748,13 +746,16 @@ function Main() {
 																		{isAnimationActive && (
 																			<motion.div
 																				className={`clickerAnimation`}
-																				initial={{ opacity: 1 }}
-																				animate={{ opacity: [1, 0] }}
+																				initial={{ opacity: 1, y: 0 }}
+																				animate={{ opacity: [1, 0], y: [-30, -60] }}
 																				exit={{ opacity: 0 }}
 																				transition={{ duration: 2 }}
 																				style={{
 																					left: `${anim.x}px`,
 																					top: `${anim.y}px`,
+																					position: 'absolute',
+																					color: boostPhase ? '#FFDA17' : 'white',
+																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)'
 																				}}
 																				onAnimationComplete={() => {
 																					setAnimations((prev) =>
@@ -785,13 +786,16 @@ function Main() {
 																		{isAnimationActive && (
 																			<motion.div
 																				className={`clickerAnimation`}
-																				initial={{ opacity: 1 }}
-																				animate={{ opacity: [1, 0] }}
+																				initial={{ opacity: 1, y: 0 }}
+																				animate={{ opacity: [1, 0], y: [-30, -60] }}
 																				exit={{ opacity: 0 }}
 																				transition={{ duration: 2 }}
 																				style={{
 																					left: `${anim.x}px`,
 																					top: `${anim.y}px`,
+																					position: 'absolute',
+																					color: boostPhase ? '#FFDA17' : 'white',
+																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)'
 																				}}
 																				onAnimationComplete={() => {
 																					setAnimations((prev) =>
