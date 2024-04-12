@@ -51,7 +51,7 @@ function Main() {
 	let [clickNewCoins, setClickNewCoins] = useState(1);
 
 	const [gamePaused, setGamePaused] = useState(false);
-	const [timeRemaining, setTimeRemaining] = useState();
+	const [timeRemaining, setTimeRemaining] = useState('');
 
 	const [preloaderLoadedPhaseTwo, setPreloaderLoadedPhaseTwo] = useState(false);
 	const [gamePreloaded, setGamePreloaded] = useState(false);
@@ -97,66 +97,55 @@ function Main() {
 		}
 	}, [currEnergy]);
 
+	const getGameStatus = async () => {
+		try {
+			const initGameStatusCheck = await axios.get(
+				`https://admin.prodtest1.space/api/users/${wallet_address}`
+			);
+			console.log('FETCHING GAMESTATUS');
+		} catch (error) {
+			console.error('Error fetching leaderboard data:', error.message);
+		}
+	};
+
 	useEffect(() => {
 		if (connected) {
-			const checkGameStatus = () => {
-				fetch(`https://admin.prodtest1.space/api/users/${wallet_address}`)
-					.then((response) => {
-						if (response.ok) {
-							return response.json();
-						} else {
-							throw new Error('Failed to fetch game status');
-						}
-					})
-					.then((data) => {
-						const currentTimeStamp = Math.floor(Date.now() / 1000);
-						const remainingTime = data.active_at - currentTimeStamp;
-						console.log(data);
-
-						if (typeof remainingTime === 'number') {
-							if (remainingTime <= 0 || remainingTime === null) {
-								setGamePaused(false);
-								setCatVisible(true);
-							} else {
-								setGamePaused(true);
-								setTimeRemaining(remainingTime);
-							}
-						} else {
-							setGamePaused(false);
-						}
-					})
-					.catch((error) => {
-						console.error('Error checking game status:', error);
-					});
-			};
-
-			checkGameStatus();
-
 			const updateGameStatus = () => {
 				const currentTimeStamp = Math.floor(Date.now() / 1000);
 				const remainingTime = value?.active_at - currentTimeStamp;
-				console.log(value?.active_at);
 				console.log(gamePaused);
-				if (typeof remainingTime === 'number') {
-					if (remainingTime <= 0 || remainingTime === null) {
+				console.log(remainingTime);
+				if (remainingTime >= 0) {
+					if (remainingTime <= 0) {
+						console.log('game paused FALSE');
 						setGamePaused(false);
 						setCatVisible(true);
 					} else {
+						console.log('game paused TRUE');
 						setGamePaused(true);
 						setTimeRemaining(remainingTime);
 					}
 				} else {
-					setGamePaused(false);
+					console.log('Remaining time is negative. Do something else here if needed.');
 				}
 			};
+
+			getGameStatus();
+
+			const timeout = setTimeout(() => {
+				getGameStatus();
+			}, 1000);
 
 			const timer = setInterval(() => {
 				updateGameStatus();
 			}, 1000);
 
-			return () => clearInterval(timer);
+			return () => {
+				clearInterval(timer);
+				clearTimeout(timeout);
+			};
 		}
-	}, [connected, value.active_at]);
+	}, [connected, value.active_at, wallet_address]);
 
 	const formatTime = (seconds) => {
 		const minutes = Math.floor(seconds / 60);
@@ -731,8 +720,7 @@ function Main() {
 															alignContent: 'center',
 														}}
 													>
-														Time remaining: {formatTime(timeRemaining)}
-														minutes
+														Time remaining: {formatTime(timeRemaining)} minutes
 													</h4>
 												) : (
 													<></>
@@ -864,7 +852,7 @@ function Main() {
 										width: '100px',
 									}}
 								>
-									{!gamePaused && timeRemaining <= 0 && (
+									{!gamePaused && (
 										<div className='mainContent__tapCat'>
 											<p>Tap the</p>
 											<img src={smile} alt='cat icon' />
