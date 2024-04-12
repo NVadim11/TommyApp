@@ -137,17 +137,17 @@ function Header() {
 		return () => {
 			clearInterval(initLeadersRef.current);
 		};
-	}, [!connected]);
+	}, [connected]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			if (Object.keys(value).length) {
-				const res = await getLeaderboard(value.wallet_address).unwrap();
+				const res = await getLeaderboard(value?.wallet_address).unwrap();
 				setLeaderboardData(res);
-				setTotalReferrals(value.referrals_count);
-				setTotalPoints(value.wallet_balance);
+				setTotalReferrals(value?.referrals_count);
+				setTotalPoints(value?.wallet_balance);
 				const intervalId = setInterval(() => {
-					getLeaderboard(value.wallet_address)
+					getLeaderboard(value?.wallet_address)
 						.unwrap()
 						.then((data) => setLeaderboardData(data))
 						.catch((error) => console.error('Error refreshing leaderboard:', error));
@@ -416,13 +416,6 @@ function Header() {
 									>
 										Invite a friend
 									</a>
-									{/* <a
-                    className="header__mobileMenu-links"
-                    onClick={airdropBtn}
-                    rel="noopener noreferrer"
-                  >
-                    Claim an airdrop
-                  </a> */}
 									<a
 										className='header__mobileMenu-links'
 										href='https://twitter.com/TimCatSol'
@@ -444,11 +437,6 @@ function Header() {
 						</div>
 					</div>
 				</div>
-				{/* <div className="header__airdropBtn">
-          <button onClick={airdropBtn}>
-            Claim an airdrop
-          </button>
-        </div> */}
 			</header>
 			{isLeaderboardOpen && (
 				<div id='leaderboard' aria-hidden='true' className={popupClasses}>

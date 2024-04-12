@@ -102,7 +102,6 @@ function Main() {
 			const initGameStatusCheck = await axios.get(
 				`https://admin.prodtest1.space/api/users/${wallet_address}`
 			);
-			console.log('FETCHING GAMESTATUS');
 		} catch (error) {
 			console.error('Error fetching leaderboard data:', error.message);
 		}
@@ -113,20 +112,14 @@ function Main() {
 			const updateGameStatus = () => {
 				const currentTimeStamp = Math.floor(Date.now() / 1000);
 				const remainingTime = value?.active_at - currentTimeStamp;
-				console.log(gamePaused);
-				console.log(remainingTime);
 				if (remainingTime >= 0) {
 					if (remainingTime <= 0) {
-						console.log('game paused FALSE');
 						setGamePaused(false);
 						setCatVisible(true);
 					} else {
-						console.log('game paused TRUE');
 						setGamePaused(true);
 						setTimeRemaining(remainingTime);
 					}
-				} else {
-					console.log('Remaining time is negative. Do something else here if needed.');
 				}
 			};
 
