@@ -176,8 +176,6 @@ $desktop: 119.9988rem;
   }
   &__mobileBtns {
     display: flex;
-    // display: grid;
-    // grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     gap: 0.625rem;
     z-index: 11;
@@ -201,7 +199,6 @@ $desktop: 119.9988rem;
       margin-left: 1.25rem;
     }
     @media (max-width: $mobile) {
-      // display: none;
       top: 5rem;
       margin-left: 2.5rem;
     }
@@ -224,19 +221,12 @@ $desktop: 119.9988rem;
       z-index: 10 !important;
       cursor: pointer;
       transition: 0.25s !important;
-      // padding: 1.5625rem 1.5625rem 1.5625rem 1.5625rem!important;
       @media (max-width: $desktop) {
-        // padding: 1.5625rem 1.5625rem 1.5625rem 1.5625rem!important;
       }
       @media (max-width: $mobile) {
         padding: 0.625rem 0.9375rem 0.5rem 0.9375rem !important;
         font-size: 1rem !important;
       }
-    }
-    span {
-      // @media (max-width: $mobile) {
-      // 	display: none;
-      // }
     }
     svg {
       display: none;

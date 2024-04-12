@@ -57,10 +57,10 @@ function Header() {
 
 	const connectSubmitHandler = async () => {
 		try {
-			const requestBody = {
+			let requestBody = {
 				wallet_address: wallet_address,
 			};
-			if (lastFiveSymbols !== '') {
+			if (lastFiveSymbols) {
 				requestBody.referral_code = lastFiveSymbols;
 			}
 			const response = await axios.post(
@@ -72,6 +72,7 @@ function Header() {
 					},
 				}
 			);
+
 			if (response.status !== 201) {
 				throw new Error('Failed to submit data');
 			}
@@ -80,6 +81,7 @@ function Header() {
 			console.error('Error submitting data:', error.message);
 		}
 	};
+
 	useEffect(() => {
 		if (connected === true) {
 			connectSubmitHandler();

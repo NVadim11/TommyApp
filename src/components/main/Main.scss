@@ -124,8 +124,12 @@ $desktop: 1919.98px;
       }
       &__box {
         display: flex;
+        position: relative;
         flex-direction: column;
         align-items: center;
+        h4 {
+          position: absolute;
+        }
         img {
           @media (max-width: $mobile) {
             scale: 0.7;
@@ -465,8 +469,6 @@ $desktop: 1919.98px;
     align-self: center;
     flex-direction: column;
     align-items: center;
-    // width: 385px;
-    // height: 581px;
     @media (max-width: $desktop) {
       right: 427.3px;
     }

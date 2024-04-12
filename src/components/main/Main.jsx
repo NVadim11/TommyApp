@@ -21,6 +21,7 @@ import goldForm from '../../img/gold.gif';
 import smile from '../../img/smile.png';
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
 import { useClickCount } from '../clickContext';
+import GamePreloader from '../gamePreloader/gamePreloader';
 import { AuthContext } from '../helper/contexts';
 import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
 import './Main.scss';
@@ -39,7 +40,7 @@ function Main() {
 	const timeoutRef = useRef(null);
 	const coinRef = useRef(null);
 	const accumulatedCoinsRef = useRef(0);
-	const { publicKey, connected } = useWallet();
+	const { publicKey, connected, disconnecting } = useWallet();
 	const wallet_address = publicKey?.toBase58();
 
 	const [position, setPosition] = useState({ x: '50%', y: '50%' });
@@ -50,15 +51,117 @@ function Main() {
 	let [clickNewCoins, setClickNewCoins] = useState(1);
 
 	const [gamePaused, setGamePaused] = useState(false);
-	const [timeRemaining, setTimeRemaining] = useState(0);
+	const [timeRemaining, setTimeRemaining] = useState();
 
-	// preloader
 	const [preloaderLoadedPhaseTwo, setPreloaderLoadedPhaseTwo] = useState(false);
+	const [gamePreloaded, setGamePreloaded] = useState(false);
 	const [showPhaseTwo, setShowPhaseTwo] = useState(false);
+	const [showGameBox, setShowGameBox] = useState(false);
+	const [catVisible, setCatVisible] = useState(true);
 	const imagesRef = useRef([]);
 
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
+
+	const pauseGame = () => {
+		setGamePaused(true);
+		const currentTimeStamp = Math.floor(Date.now() / 1000);
+		const futureTimestamp = currentTimeStamp + 60 * 60;
+
+		fetch('https://admin.prodtest1.space/api/set-activity', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				wallet_address: wallet_address,
+				timestamp: futureTimestamp,
+			}),
+		})
+			.then((response) => {
+				if (response.ok) {
+				} else {
+					console.error('Failed to pause game');
+				}
+			})
+			.catch((error) => {
+				console.error('Error pausing game:', error);
+			});
+	};
+
+	useEffect(() => {
+		if (currEnergy === 1000) {
+			pauseGame();
+			setCurrEnergy(0);
+			setCatVisible(false);
+		}
+	}, [currEnergy]);
+
+	useEffect(() => {
+		if (connected) {
+			const checkGameStatus = () => {
+				fetch(`https://admin.prodtest1.space/api/users/${wallet_address}`)
+					.then((response) => {
+						if (response.ok) {
+							return response.json();
+						} else {
+							throw new Error('Failed to fetch game status');
+						}
+					})
+					.then((data) => {
+						const currentTimeStamp = Math.floor(Date.now() / 1000);
+						const remainingTime = data.active_at - currentTimeStamp;
+						console.log(data);
+
+						if (typeof remainingTime === 'number') {
+							if (remainingTime <= 0 || remainingTime === null) {
+								setGamePaused(false);
+								setCatVisible(true);
+							} else {
+								setGamePaused(true);
+								setTimeRemaining(remainingTime);
+							}
+						} else {
+							setGamePaused(false);
+						}
+					})
+					.catch((error) => {
+						console.error('Error checking game status:', error);
+					});
+			};
+
+			checkGameStatus();
+
+			const updateGameStatus = () => {
+				const currentTimeStamp = Math.floor(Date.now() / 1000);
+				const remainingTime = value?.active_at - currentTimeStamp;
+				console.log(value?.active_at);
+				console.log(gamePaused);
+				if (typeof remainingTime === 'number') {
+					if (remainingTime <= 0 || remainingTime === null) {
+						setGamePaused(false);
+						setCatVisible(true);
+					} else {
+						setGamePaused(true);
+						setTimeRemaining(remainingTime);
+					}
+				} else {
+					setGamePaused(false);
+				}
+			};
+
+			const timer = setInterval(() => {
+				updateGameStatus();
+			}, 1000);
+
+			return () => clearInterval(timer);
+		}
+	}, [connected, value.active_at]);
+
+	const formatTime = (seconds) => {
+		const minutes = Math.floor(seconds / 60);
+		return `${minutes}`;
+	};
 
 	useEffect(() => {
 		const loadImage = (src) => {
@@ -82,9 +185,8 @@ function Main() {
 				happySpeak,
 				finalForm,
 				goldForm,
-			]; // Здесь массив URL-адресов изображений
+			];
 			const promises = imageSources.map((src) => loadImage(src));
-
 			try {
 				const loadedImages = await Promise.all(promises);
 				imagesRef.current = loadedImages;
@@ -96,7 +198,7 @@ function Main() {
 
 		const loadImagesTimeout = setTimeout(() => {
 			loadImages();
-		}, 6000);
+		}, 3000);
 
 		const aosInitTimeout = setTimeout(() => {
 			AOS.init({
@@ -104,74 +206,13 @@ function Main() {
 			});
 			setShowPhaseTwo(true);
 			setPreloaderLoadedPhaseTwo(true);
-		}, 6000);
+		}, 5000);
 
 		return () => {
 			clearTimeout(loadImagesTimeout);
 			clearTimeout(aosInitTimeout);
 		};
 	}, []);
-
-	const currentTimeStamp = Math.floor(Date.now() / 1000);
-	const futureTimestamp = currentTimeStamp + 60 * 60; // 60 * 60
-	const remainingTime = value.active_at - currentTimeStamp;
-	const placeholderTIme = futureTimestamp - currentTimeStamp;
-
-	const pauseGame = () => {
-		setGamePaused(true);
-		fetch('https://admin.prodtest1.space/api/set-activity', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				wallet_address: wallet_address,
-				timestamp: futureTimestamp,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					setGamePaused(true);
-				} else {
-					console.error('Failed to pause game');
-				}
-			})
-			.catch((error) => {
-				console.error('Error pausing game:', error);
-			});
-	};
-
-	useEffect(() => {
-		const checkGameStatus = () => {
-			if (remainingTime <= 0) {
-				setGamePaused(false);
-				setTimeRemaining(0);
-			} else {
-				setGamePaused(true);
-				setCurrEnergy(0);
-				setTimeRemaining(remainingTime);
-			}
-		};
-		if (connected) {
-			const timer = setInterval(() => {
-				checkGameStatus();
-			}, 1000);
-			return () => clearInterval(timer);
-		}
-	}, [value, connected]);
-
-	const formatTime = (seconds) => {
-		const minutes = Math.floor(seconds / 60);
-		return `${minutes}`;
-	};
-
-	useEffect(() => {
-		if (currEnergy === 1000) {
-			pauseGame();
-			setGamePaused(true);
-			setVisible(false);
-		}
-	}, [currEnergy]);
 
 	let catIdleImage = catIdle;
 	let catSpeakImage = catSpeak;
@@ -364,20 +405,31 @@ function Main() {
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
+	const gameInit = () => {
+		setTimeout(() => {
+			AOS.init({
+				easing: 'custom',
+			});
+			setShowGameBox(true);
+			setGamePreloaded(true);
+		}, 2000);
+	};
+
 	useEffect(() => {
-		if (!connected) {
+		if (disconnecting) {
+			setGamePaused(false);
 			setCurrCoins(0);
 			setBoostPhase(false);
 			setCurrentImage(false);
 			setCoinState(false);
 			setidleState(true);
-			setCoinState(false);
 			setBoostPhase(false);
 			setVisible(false);
 		}
-	}, [connected]);
+	}, [disconnecting]);
 
 	const startFarm = () => {
+		gameInit();
 		setCurrentImage(true);
 		setidleState((prevState) => !prevState);
 	};
@@ -666,111 +718,129 @@ function Main() {
 						<PreloaderPhaseTwo loaded={preloaderLoadedPhaseTwo} />
 						{showPhaseTwo && (
 							<>
-								<div className='gameContentBox'>
-									{gamePaused ? (
-										<div className='gameContentBox__box'>
-											<p
-												style={{
-													fontSize: '22px',
-													textAlign: 'center',
-													alignContent: 'center',
-												}}
-											>
-												Time remaining:{' '}
-												{timeRemaining
-													? formatTime(timeRemaining)
-													: formatTime(placeholderTIme)}{' '}
-												minutes
-											</p>
-											<img
-												src={catFace}
-												alt='cat face'
-												style={{
-													width: '275px',
-													marginTop: '15px',
-												}}
-											/>
-											<p
-												style={{
-													fontSize: '16px',
-													textAlign: 'center',
-													alignContent: 'center',
-													marginTop: '15px',
-												}}
-											>
-												Tomo is tired, comeback when timer is over.
-											</p>
-										</div>
-									) : (
-										<>
-											{currentImage ? (
-												<div className='mainContent__catBox' onClick={coinClicker}>
-													{animations.map((anim, index) => (
-											<AnimatePresence key={index}>
-												{isAnimationActive && (
-													<motion.div
-														className={`clickerAnimation`}
-														initial={{ opacity: 1 }}
-														animate={{ opacity: [1, 0] }}
-														exit={{ opacity: 0 }}
-														transition={{ duration: 2 }}
-														style={{ left: `${anim.x}px`, top: `${anim.y}px` }}
-														onAnimationComplete={() => {
-															setAnimations((prev) => prev.filter((_, i) => i !== index));
+								<GamePreloader loaded={gamePreloaded} />
+								{showGameBox && (
+									<div className='gameContentBox'>
+										{gamePaused ? (
+											<div className='gameContentBox__box'>
+												{timeRemaining ? (
+													<h4
+														style={{
+															fontSize: '22px',
+															textAlign: 'center',
+															alignContent: 'center',
 														}}
 													>
-														+{clickNewCoins}
-													</motion.div>
+														Time remaining: {formatTime(timeRemaining)}
+														minutes
+													</h4>
+												) : (
+													<></>
 												)}
-											</AnimatePresence>
-										))}
-										<motion.img
-											id='catGif'
-											className='mainContent__catIdle'
-											src={boostPhase ? goldForm : catIdle}
-											draggable='false'
-											alt='cat animation'
-											animate={{ opacity: 1 }}
-											initial={{ opacity: 0 }}
-											transition={{ duration: 0.5 }}
-										/>
-												</div>
-											) : (
-												<div className='mainContent__catBox' onClick={coinClicker}>
-													{animations.map((anim, index) => (
-											<AnimatePresence key={index}>
-												{isAnimationActive && (
-													<motion.div
-														className={`clickerAnimation`}
-														initial={{ opacity: 1 }}
-														animate={{ opacity: [1, 0] }}
-														exit={{ opacity: 0 }}
-														transition={{ duration: 2 }}
-														style={{ left: `${anim.x}px`, top: `${anim.y}px` }}
-														onAnimationComplete={() => {
-															setAnimations((prev) => prev.filter((_, i) => i !== index));
-														}}
-													>
-														+{clickNewCoins}
-													</motion.div>
+												<img
+													src={catFace}
+													alt='cat face'
+													style={{
+														width: '275px',
+														marginTop: '15px',
+													}}
+												/>
+												<p
+													style={{
+														fontSize: '16px',
+														textAlign: 'center',
+														alignContent: 'center',
+														marginTop: '15px',
+													}}
+												>
+													Tomo is tired, comeback when timer is over.
+												</p>
+											</div>
+										) : (
+											<>
+												{catVisible && (
+													<>
+														{currentImage ? (
+															<div className='mainContent__catBox' onClick={coinClicker}>
+																{animations.map((anim, index) => (
+																	<AnimatePresence key={index}>
+																		{isAnimationActive && (
+																			<motion.div
+																				className={`clickerAnimation`}
+																				initial={{ opacity: 1 }}
+																				animate={{ opacity: [1, 0] }}
+																				exit={{ opacity: 0 }}
+																				transition={{ duration: 2 }}
+																				style={{
+																					left: `${anim.x}px`,
+																					top: `${anim.y}px`,
+																				}}
+																				onAnimationComplete={() => {
+																					setAnimations((prev) =>
+																						prev.filter((_, i) => i !== index)
+																					);
+																				}}
+																			>
+																				+{clickNewCoins}
+																			</motion.div>
+																		)}
+																	</AnimatePresence>
+																))}
+																<motion.img
+																	id='catGif'
+																	className='mainContent__catIdle'
+																	src={boostPhase ? goldForm : catIdle}
+																	draggable='false'
+																	alt='cat animation'
+																	animate={{ opacity: 1 }}
+																	initial={{ opacity: 0 }}
+																	transition={{ duration: 0.5 }}
+																/>
+															</div>
+														) : (
+															<div className='mainContent__catBox' onClick={coinClicker}>
+																{animations.map((anim, index) => (
+																	<AnimatePresence key={index}>
+																		{isAnimationActive && (
+																			<motion.div
+																				className={`clickerAnimation`}
+																				initial={{ opacity: 1 }}
+																				animate={{ opacity: [1, 0] }}
+																				exit={{ opacity: 0 }}
+																				transition={{ duration: 2 }}
+																				style={{
+																					left: `${anim.x}px`,
+																					top: `${anim.y}px`,
+																				}}
+																				onAnimationComplete={() => {
+																					setAnimations((prev) =>
+																						prev.filter((_, i) => i !== index)
+																					);
+																				}}
+																			>
+																				+{clickNewCoins}
+																			</motion.div>
+																		)}
+																	</AnimatePresence>
+																))}
+																<motion.img
+																	id='catGif'
+																	className='mainContent__catMeow'
+																	src={boostPhase ? goldForm : catSpeak}
+																	draggable='false'
+																	alt='cat animation'
+																	animate={{ opacity: 1 }}
+																	initial={{ opacity: 0 }}
+																	transition={{ duration: 0.5 }}
+																/>
+															</div>
+														)}
+													</>
 												)}
-											</AnimatePresence>
-										))}
-										<motion.img
-											id='catGif'
-											className='mainContent__catMeow'
-											src={boostPhase ? goldForm : catSpeak}
-											draggable='false'
-											alt='cat animation'
-											animate={{ opacity: 1 }}
-											initial={{ opacity: 0 }}
-											transition={{ duration: 0.5 }}
-										/>
-												</div>
-											)}
-										</>
-									)}
-								</div>
+											</>
+										)}
+									</div>
+								)}
 								<div style={{ position: 'absolute' }}></div>
 								<motion.div
 									initial={{
