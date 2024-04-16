@@ -426,14 +426,15 @@ function Main() {
 	};
 
 	const handleTouchEnd = (event, e) => {
+		handleShowAnimation(event);
+		
 		if (e.touches.length === 1) {
 			debouncedHandleClick();
 		}
-		handleShowAnimation(event);
 
 		const clickNewCoins = updateCurrCoins();
-    setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-    accumulatedCoinsRef.current += clickNewCoins;
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
 	const gameInit = () => {
@@ -796,7 +797,7 @@ function Main() {
 																id='coinClicker'
 																onClick={isDesktop() ? coinClicker : null}
 																onTouchStart={handleTouchStart}
-																onTouchEnd={handleTouchEnd}
+																onTouchEnd={(e) => handleTouchEnd(e.touches[0], e)}
 															>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
@@ -842,7 +843,7 @@ function Main() {
 																id='coinClicker'
 																onClick={isDesktop() ? coinClicker : null}
 																onTouchStart={handleTouchStart}
-																onTouchEnd={handleTouchEnd}
+																onTouchEnd={(e) => handleTouchEnd(e.touches[0], e)}
 															>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
