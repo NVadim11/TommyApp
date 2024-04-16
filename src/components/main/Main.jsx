@@ -63,6 +63,31 @@ function Main() {
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
 
+	const isDesktop = () => {
+		const userAgent = window.navigator.userAgent;
+		const isMobile =
+			/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+		return !isMobile;
+	};
+
+	useEffect(() => {
+		if (!isDesktop()) {
+			const element = document.getElementById('clickableElement');
+			if (element) {
+				element.style.pointerEvents = 'none';
+			}
+		}
+	}, []);
+
+	useEffect(() => {
+		if (!isDesktop()) {
+			const element = document.getElementById('clickableElement');
+			if (element) {
+				element.style.pointerEvents = 'none';
+			}
+		}
+	}, []);
+
 	const pauseGame = () => {
 		setGamePaused(true);
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
@@ -339,7 +364,6 @@ function Main() {
 					wallet_address: wallet_address,
 				}
 			);
-			console.log('Coins submitted successfully:', response.data);
 		} catch (error) {
 			console.error('Error submitting coins:', error);
 		}
@@ -373,8 +397,36 @@ function Main() {
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
 		const clickNewCoins = updateCurrCoins();
-		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		debouncedHandleClick();
 		accumulatedCoinsRef.current += clickNewCoins;
+	};
+
+	const handleTouchStart = (event) => {
+		if (!event.isTrusted) return;
+		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
+			playBoostCatClick();
+		} else {
+			playSadCatClick();
+		}
+		setCurrentImage(false);
+		setCoinState(true);
+		handleShowAnimation(event);
+		handleCoinClick();
+		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
+		clearTimeout(timeoutRef.current);
+		clearTimeout(coinRef.current);
+		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
+		coinRef.current = setTimeout(() => setCoinState(false), 4000);
+
+		const clickNewCoins = updateCurrCoins();
+		accumulatedCoinsRef.current += clickNewCoins;
+	};
+
+	const handleTouchEnd = (event, e) => {
+		if (e.touches.length === 1) {
+			debouncedHandleClick();
+		}
+		handleShowAnimation(event);
 	};
 
 	const gameInit = () => {
@@ -732,7 +784,13 @@ function Main() {
 												{catVisible && (
 													<>
 														{currentImage ? (
-															<div className='mainContent__catBox' onClick={coinClicker}>
+															<div
+																className='mainContent__catBox'
+																id='coinClicker'
+																onClick={isDesktop() ? coinClicker : null}
+																onTouchStart={handleTouchStart}
+																onTouchEnd={handleTouchEnd}
+															>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
@@ -772,7 +830,13 @@ function Main() {
 																/>
 															</div>
 														) : (
-															<div className='mainContent__catBox' onClick={coinClicker}>
+															<div
+																className='mainContent__catBox'
+																id='coinClicker'
+																onClick={isDesktop() ? coinClicker : null}
+																onTouchStart={handleTouchStart}
+																onTouchEnd={handleTouchEnd}
+															>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
