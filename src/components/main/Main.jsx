@@ -739,7 +739,7 @@ function Main() {
 												{catVisible && (
 													<>
 														{currentImage ? (
-															<div className='mainContent__catBox' onClick={coinClicker}>
+															<div className='mainContent__catBox' onTouchStart={coinClicker}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
