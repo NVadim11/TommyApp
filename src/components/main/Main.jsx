@@ -63,6 +63,21 @@ function Main() {
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
 
+	const isDesktop = () => {
+		const userAgent = window.navigator.userAgent;
+		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+		return !isMobile;
+	  };
+
+	  useEffect(() => {
+		if (!isDesktop()) {
+		  const element = document.getElementById('clickableElement');
+		  if (element) {
+			element.style.pointerEvents = 'none';
+		  }
+		}
+	  }, []);
+
 	const pauseGame = () => {
 		setGamePaused(true);
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
@@ -405,8 +420,9 @@ function Main() {
 		accumulatedCoinsRef.current += clickNewCoins;
 	  };
 	  
-	  const handleTouchEnd = () => {
+	  const handleTouchEnd = (event) => {
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		handleShowAnimation(event);
 	  };
 	  
 	  
@@ -767,7 +783,7 @@ function Main() {
 												{catVisible && (
 													<>
 														{currentImage ? (
-															<div className='mainContent__catBox' onClick={coinClicker}  onTouchStart={handleTouchStart}
+															<div className='mainContent__catBox' id="coinClicker" onClick={isDesktop() ? coinClicker : undefined}  onTouchStart={handleTouchStart}
 															onTouchEnd={handleTouchEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
@@ -808,7 +824,7 @@ function Main() {
 																/>
 															</div>
 														) : (
-															<div className='mainContent__catBox' onClick={coinClicker}  onTouchStart={handleTouchStart}
+															<div className='mainContent__catBox' id="coinClicker" onClick={isDesktop() ? coinClicker : undefined}   onTouchStart={handleTouchStart}
 															onTouchEnd={handleTouchEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
