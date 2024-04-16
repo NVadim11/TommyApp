@@ -380,9 +380,13 @@ function Main() {
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
 		const clickNewCoins = updateCurrCoins();
-		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		// setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
+
+	const coinClickerEnd = () => {
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+	}
 
 	const gameInit = () => {
 		setTimeout(() => {
@@ -739,7 +743,7 @@ function Main() {
 												{catVisible && (
 													<>
 														{currentImage ? (
-															<div className='mainContent__catBox' onClick={coinClicker}>
+															<div className='mainContent__catBox' onTouchStart={coinClicker} onTouchEnd={coinClickerEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
@@ -779,7 +783,7 @@ function Main() {
 																/>
 															</div>
 														) : (
-															<div className='mainContent__catBox' onClick={coinClicker}>
+															<div className='mainContent__catBox' onTouchStart={coinClicker} onTouchEnd={coinClickerEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
