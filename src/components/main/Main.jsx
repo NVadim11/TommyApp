@@ -2,6 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import AOS from 'aos';
 import axios from 'axios';
+import { debounce } from 'lodash';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -379,6 +380,11 @@ function Main() {
 		setIsAnimationActive(true);
 	};
 
+	 // Функция debounce для обработки клика
+	 const debouncedHandleClick = debounce(() => {
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+	  }, 3000);  // Задержка в 500 мс
+
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
@@ -397,7 +403,7 @@ function Main() {
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
 		const clickNewCoins = updateCurrCoins();
-		debouncedHandleClick();
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
