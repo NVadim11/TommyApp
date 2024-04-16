@@ -407,23 +407,16 @@ function Main() {
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
-	const handleTouchEnd = (event, e) => {
+	const handleTouchStart = (event) => {
 		if (!event.isTrusted) return;
-
-		const touchEndX = e.changedTouches[0].clientX;
-		const touchEndY = e.changedTouches[0].clientY;
-		const touchStartX = e.targetTouches[0]?.clientX || 0;
-		const touchStartY = e.targetTouches[0]?.clientY || 0;
-
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
 			playBoostCatClick();
 		} else {
 			playSadCatClick();
 		}
-
 		setCurrentImage(false);
 		setCoinState(true);
-		handleShowAnimation({ touchStartX, touchStartY, touchEndX, touchEndY });
+		handleShowAnimation(event);
 		handleCoinClick();
 		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
 		clearTimeout(timeoutRef.current);
@@ -431,10 +424,17 @@ function Main() {
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
+		const clickNewCoins = updateCurrCoins();
+		accumulatedCoinsRef.current += clickNewCoins;
+	};
+
+	const handleTouchEnd = (event, e) => {
+		handleShowAnimation(event);
+		
 		if (e.touches.length === 1) {
 			debouncedHandleClick();
 		}
-    
+
 		const clickNewCoins = updateCurrCoins();
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
@@ -798,6 +798,7 @@ function Main() {
 																className='mainContent__catBox'
 																id='coinClicker'
 																onClick={isDesktop() ? coinClicker : null}
+																onTouchStart={handleTouchStart}
 																onTouchEnd={(e) => handleTouchEnd(e.touches[0], e)}
 															>
 																{animations.map((anim, index) => (
@@ -843,6 +844,7 @@ function Main() {
 																className='mainContent__catBox'
 																id='coinClicker'
 																onClick={isDesktop() ? coinClicker : null}
+																onTouchStart={handleTouchStart}
 																onTouchEnd={(e) => handleTouchEnd(e.touches[0], e)}
 															>
 																{animations.map((anim, index) => (
