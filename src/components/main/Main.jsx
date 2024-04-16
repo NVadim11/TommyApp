@@ -2,8 +2,8 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import AOS from 'aos';
 import axios from 'axios';
-import { debounce } from 'lodash';
 import { AnimatePresence, motion } from 'framer-motion';
+import { debounce } from 'lodash';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import sadIdle from '../../img/1_idle.gif';
@@ -380,10 +380,10 @@ function Main() {
 		setIsAnimationActive(true);
 	};
 
-	 // Функция debounce для обработки клика
-	 const debouncedHandleClick = debounce(() => {
+	// Функция debounce для обработки клика
+	const debouncedHandleClick = debounce(() => {
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-	  }, 3000);  // Задержка в 500 мс
+	}, 3000); // Задержка в 500 мс
 
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;

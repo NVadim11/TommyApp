@@ -243,10 +243,19 @@ function Header() {
 	}, [value]);
 
 	const copyLink = async () => {
-		if ('clipboard' in navigator) {
-			return await navigator.clipboard.writeText(`${window.location.href}${code}`);
-		} else {
-			return document.execCommand('copy', true, `${window.location.href}${code}`);
+		try {
+			const currentLink = window.location.href;
+			const lastSlashIndex = currentLink.lastIndexOf('/');
+			const slicedLink = currentLink.slice(0, lastSlashIndex + 1); // Slice from start to last slash including it
+			const codeToCopy = slicedLink + code;
+
+			if ('clipboard' in navigator) {
+				await navigator.clipboard.writeText(codeToCopy);
+			} else {
+				document.execCommand('copy', true, codeToCopy);
+			}
+		} catch (error) {
+			console.error('Error copying referral code:', error);
 		}
 	};
 
@@ -256,8 +265,8 @@ function Header() {
 				const res = await generateCode(value.wallet_address).unwrap();
 				res && res.code && setCode(res.code);
 			}
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.error('Error generating referral code:', error);
 		}
 	};
 
@@ -408,13 +417,15 @@ function Header() {
 									<a className='header__mobileMenu-links' onClick={leaderBordBtn}>
 										Leadboard
 									</a>
-									<a
-										className='header__mobileMenu-links'
-										onClick={inviteFriendsBtn}
-										rel='noopener noreferrer'
-									>
-										Invite a friend
-									</a>
+									{connected && (
+										<a
+											className='header__mobileMenu-links'
+											onClick={inviteFriendsBtn}
+											rel='noopener noreferrer'
+										>
+											Invite a friend
+										</a>
+									)}
 									<a
 										className='header__mobileMenu-links'
 										href='https://twitter.com/TimCatSol'
@@ -592,9 +603,9 @@ function Header() {
 											<p className='popupInvite__input'>
 												{code.length
 													? `${window.location.href.slice(
-															8,
-															window.location.href.length
-													  )}${code}`
+															0,
+															window.location.href.lastIndexOf('/') + 1
+													  )}${code}` // Get the index of the last slash and slice accordingly
 													: 'link'}
 												<button
 													onClick={() => copyLink()}
