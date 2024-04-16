@@ -369,6 +369,10 @@ body::after {
   }
   &__tabs-content {
     margin: 4.0625rem 3.125rem 0 3.125rem;
+    @media (max-width: 950px) {
+      margin-left: 0;
+      margin-right: 0;
+    }
     @media (max-width: 768px) {
       margin-top: 2.1875rem;
     }
