@@ -739,7 +739,7 @@ function Main() {
 												{catVisible && (
 													<>
 														{currentImage ? (
-															<div className='mainContent__catBox' onTouchStart={coinClicker}>
+															<div className='mainContent__catBox' onTouchStart={coinClicker} onTouchEnd={coinClicker} onClick={coinClicker}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
@@ -779,7 +779,7 @@ function Main() {
 																/>
 															</div>
 														) : (
-															<div className='mainContent__catBox' onClick={coinClicker}>
+															<div className='mainContent__catBox' onTouchStart={coinClicker} onTouchEnd={coinClicker} onClick={coinClicker}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
