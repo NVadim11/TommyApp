@@ -423,9 +423,6 @@ function Main() {
 		clearTimeout(coinRef.current);
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
-
-		const clickNewCoins = updateCurrCoins();
-		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
 	const handleTouchEnd = (event, e) => {
@@ -433,6 +430,10 @@ function Main() {
 			debouncedHandleClick();
 		}
 		handleShowAnimation(event);
+
+		const clickNewCoins = updateCurrCoins();
+    setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+    accumulatedCoinsRef.current += clickNewCoins;
 	};
 
 	const gameInit = () => {
