@@ -381,7 +381,7 @@ function Main() {
 	 // Функция debounce для обработки клика
 	 const debouncedHandleClick = debounce(() => {
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-	  }, 1000);  // Задержка в 500 мс
+	  }, 3000);  // Задержка в 500 мс
 
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
