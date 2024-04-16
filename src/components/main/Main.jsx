@@ -426,8 +426,10 @@ function Main() {
 		accumulatedCoinsRef.current += clickNewCoins;
 	  };
 	  
-	  const handleTouchEnd = (event) => {
+	  const handleTouchEnd = (event, e) => {
+		if (e.touches.length === 1) {
 		debouncedHandleClick();
+		}
 		handleShowAnimation(event);
 	  };
 	  
