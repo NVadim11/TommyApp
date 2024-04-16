@@ -339,7 +339,6 @@ function Main() {
 					wallet_address: wallet_address,
 				}
 			);
-			console.log('Coins submitted successfully:', response.data);
 		} catch (error) {
 			console.error('Error submitting coins:', error);
 		}

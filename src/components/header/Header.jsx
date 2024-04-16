@@ -119,7 +119,6 @@ function Header() {
 		try {
 			const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
 			setLeaderboardData(response.data);
-			console.log('not connected LB fetched');
 		} catch (error) {
 			console.error('Error fetching leaderboard data:', error.message);
 		}
