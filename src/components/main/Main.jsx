@@ -80,15 +80,6 @@ function Main() {
 		}
 	}, []);
 
-	useEffect(() => {
-		if (!isDesktop()) {
-			const element = document.getElementById('clickableElement');
-			if (element) {
-				element.style.pointerEvents = 'none';
-			}
-		}
-	}, []);
-
 	const pauseGame = () => {
 		setGamePaused(true);
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
@@ -383,9 +374,9 @@ function Main() {
 	// Функция debounce для обработки клика
 	const debouncedHandleClick = debounce(() => {
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-	}, 3000); // Задержка в 500 мс
+	  }, 3000);  
 
-	const coinClicker = (event) => {
+	  const coinClicker = (event) => {
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
 			playBoostCatClick();
@@ -426,18 +417,14 @@ function Main() {
 
 		const clickNewCoins = updateCurrCoins();
 		accumulatedCoinsRef.current += clickNewCoins;
-	};
-
-	const handleTouchEnd = (event, e) => {
-		handleShowAnimation(event);
-		
+	  };
+	  
+	  const handleTouchEnd = (event, e) => {
 		if (e.touches.length === 1) {
-			debouncedHandleClick();
+		debouncedHandleClick();
 		}
-
-		const clickNewCoins = updateCurrCoins();
-		accumulatedCoinsRef.current += clickNewCoins;
-	};
+		handleShowAnimation(event);
+	  };
 
 	const gameInit = () => {
 		setTimeout(() => {
