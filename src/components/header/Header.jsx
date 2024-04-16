@@ -602,7 +602,6 @@ function Header() {
 													className='popupInvite__input-btn'
 												>
 													<img src={copy} alt='' />
-													{/* <span></span> */}
 												</button>
 											</p>
 										</div>

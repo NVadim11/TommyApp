@@ -355,14 +355,6 @@ function Main() {
 		setIsAnimationActive(true);
 	};
 
-	const clearAnimations = () => {
-		if (isAnimationActive) {
-			setTimeout(() => {
-				setAnimations((prev) => prev.slice(1));
-			}, 2000);
-		}
-	};
-
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
@@ -755,7 +747,7 @@ function Main() {
 																					top: `${anim.y}px`,
 																					position: 'absolute',
 																					color: boostPhase ? '#FFDA17' : 'white',
-																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)'
+																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
 																					setAnimations((prev) =>
@@ -787,15 +779,16 @@ function Main() {
 																			<motion.div
 																				className={`clickerAnimation`}
 																				initial={{ opacity: 1, y: 0 }}
-																				animate={{ opacity: [1, 0], y: [-30, -60] }}
+																				animate={{ opacity: [1, 0], y: [-30, -120] }}
 																				exit={{ opacity: 0 }}
-																				transition={{ duration: 2 }}
+																				transition={{ duration: 3 }}
 																				style={{
+																					fontSize: '45px',
 																					left: `${anim.x}px`,
 																					top: `${anim.y}px`,
 																					position: 'absolute',
 																					color: boostPhase ? '#FFDA17' : 'white',
-																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)'
+																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
 																					setAnimations((prev) =>
