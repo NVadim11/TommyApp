@@ -2,6 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import AOS from 'aos';
 import axios from 'axios';
+import { debounce } from 'lodash';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -377,6 +378,11 @@ function Main() {
 		}
 	};
 
+	 // Функция debounce для обработки клика
+	 const debouncedHandleClick = debounce(() => {
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+	  }, 1000);  // Задержка в 500 мс
+
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
@@ -395,7 +401,7 @@ function Main() {
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
 		const clickNewCoins = updateCurrCoins();
-		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		debouncedHandleClick();
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
@@ -421,7 +427,7 @@ function Main() {
 	  };
 	  
 	  const handleTouchEnd = (event) => {
-		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		debouncedHandleClick();
 		handleShowAnimation(event);
 	  };
 	  
@@ -783,7 +789,7 @@ function Main() {
 												{catVisible && (
 													<>
 														{currentImage ? (
-															<div className='mainContent__catBox' id="coinClicker" onClick={isDesktop() ? coinClicker : undefined}  onTouchStart={handleTouchStart}
+															<div className='mainContent__catBox' id="coinClicker" onClick={isDesktop() ? coinClicker : null}  onTouchStart={handleTouchStart}
 															onTouchEnd={handleTouchEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
@@ -824,7 +830,7 @@ function Main() {
 																/>
 															</div>
 														) : (
-															<div className='mainContent__catBox' id="coinClicker" onClick={isDesktop() ? coinClicker : undefined}   onTouchStart={handleTouchStart}
+															<div className='mainContent__catBox' id="coinClicker" onClick={isDesktop() ? coinClicker : null}   onTouchStart={handleTouchStart}
 															onTouchEnd={handleTouchEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
