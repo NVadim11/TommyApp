@@ -380,12 +380,37 @@ function Main() {
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
 		const clickNewCoins = updateCurrCoins();
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
-	const coinClickerEnd = () => {
+	  const handleTouchStart = (event) => {
+		if (!event.isTrusted) return;
+		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
+			playBoostCatClick();
+		} else {
+			playSadCatClick();
+		}
+		setCurrentImage(false);
+		setCoinState(true);
+		handleShowAnimation(event);
+		handleCoinClick();
+		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
+		clearTimeout(timeoutRef.current);
+		clearTimeout(coinRef.current);
+		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
+		coinRef.current = setTimeout(() => setCoinState(false), 4000);
+
+		const clickNewCoins = updateCurrCoins();
+		accumulatedCoinsRef.current += clickNewCoins;
+	  };
+	  
+	  const handleTouchEnd = () => {
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-	}
+	  };
+	  
+	  
+
 
 	const gameInit = () => {
 		setTimeout(() => {
@@ -742,7 +767,8 @@ function Main() {
 												{catVisible && (
 													<>
 														{currentImage ? (
-															<div className='mainContent__catBox' onTouchStart={coinClicker} onTouchEnd={coinClickerEnd}>
+															<div className='mainContent__catBox' onClick={coinClicker}  onTouchStart={handleTouchStart}
+															onTouchEnd={handleTouchEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
@@ -782,7 +808,8 @@ function Main() {
 																/>
 															</div>
 														) : (
-															<div className='mainContent__catBox' onTouchStart={coinClicker} onTouchEnd={coinClickerEnd}>
+															<div className='mainContent__catBox' onClick={coinClicker}  onTouchStart={handleTouchStart}
+															onTouchEnd={handleTouchEnd}>
 																{animations.map((anim, index) => (
 																	<AnimatePresence key={index}>
 																		{isAnimationActive && (
