@@ -913,11 +913,15 @@ function Main() {
 										width: '100px',
 									}}
 								>
-									{!gamePaused && (
-										<div className='mainContent__tapCat'>
-											<p>Tap the</p>
-											<img src={smile} alt='cat icon' />
-										</div>
+									{gamePlayable && (
+										<>
+											{!gamePaused && (
+												<div className='mainContent__tapCat'>
+													<p>Tap the</p>
+													<img src={smile} alt='cat icon' />
+												</div>
+											)}
+										</>
 									)}
 								</motion.div>
 								{gamePlayable && (
