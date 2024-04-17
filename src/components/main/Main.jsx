@@ -63,7 +63,8 @@ function Main() {
 
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
-	
+
+	const [gamePlayable, setGamePlayable] = useState(false);
 
 	const isDesktop = () => {
 		const userAgent = window.navigator.userAgent;
@@ -372,14 +373,14 @@ function Main() {
 		setAnimations((prev) => [...prev, { x, y }]);
 		setIsAnimationActive(true);
 
-		console.log("Adding animation at:", x, y); 
+		console.log('Adding animation at:', x, y);
 	};
 
 	const clearAnimations = () => {
 		setAnimations([]);
 	};
 
-	  const coinClicker = (event) => {
+	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
 			playBoostCatClick();
@@ -401,12 +402,11 @@ function Main() {
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
-	// Функция debounce для обработки клика
 	const debouncedHandleClick = debounce(() => {
 		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
-		}, 4000);  
+	}, 4000);
 
 	const handleTouchStart = (event) => {
 		if (!event.isTrusted) return;
@@ -424,15 +424,14 @@ function Main() {
 		clearTimeout(coinRef.current);
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
+	};
 
-	  };
-	  
-	  const handleTouchEnd = (event, e) => {
+	const handleTouchEnd = (event, e) => {
 		debouncedHandleClick();
 		if (event && event.touches) {
 			handleShowAnimation(event.touches[0]);
 		}
-	  };
+	};
 
 	const gameInit = () => {
 		setTimeout(() => {
@@ -441,6 +440,7 @@ function Main() {
 			});
 			setShowGameBox(true);
 			setGamePreloaded(true);
+			setGamePlayable(true);
 		}, 2000);
 	};
 
@@ -473,7 +473,7 @@ function Main() {
 		setVisible(false);
 		clearAnimations();
 		setHappinessVal(1);
-    	setClickNewCoins(1);
+		setClickNewCoins(1);
 	};
 
 	return (
@@ -817,7 +817,7 @@ function Main() {
 																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
-																					console.log("Animation complete"); // Запись в консоль, когда анимация завершается
+																					console.log('Animation complete'); // Запись в консоль, когда анимация завершается
 																					clearAnimations(index);
 																				}}
 																			>
@@ -863,7 +863,7 @@ function Main() {
 																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
-																					console.log("Animation complete"); // Запись в консоль, когда анимация завершается
+																					console.log('Animation complete'); // Запись в консоль, когда анимация завершается
 																					clearAnimations(index);
 																				}}
 																			>
@@ -920,33 +920,37 @@ function Main() {
 										</div>
 									)}
 								</motion.div>
-								<div className='mainContent__energyBox'>
-									<div className='mainContent__energyContainer'>
-										<img src={smile} alt='' />
-										<div className='mainContent__energyValue'>
-											<p className='energyCount' id='energyCount'>
-												{currEnergy}
-											</p>
-											<span>/</span>
-											<p className='maximumEnergy' id='maximumEnergy'>
-												1000
+								{gamePlayable && (
+									<div className='mainContent__energyBox'>
+										<div className='mainContent__energyContainer'>
+											<img src={smile} alt='' />
+											<div className='mainContent__energyValue'>
+												<p className='energyCount' id='energyCount'>
+													{currEnergy}
+												</p>
+												<span>/</span>
+												<p className='maximumEnergy' id='maximumEnergy'>
+													1000
+												</p>
+											</div>
+										</div>
+										<div className='mainContent__energyBar'>
+											<progress
+												className='filledBar'
+												id='filledBar'
+												max='1000'
+												value={currEnergy}
+											></progress>
+										</div>
+										<div className='mainContent__energyHint'>
+											<p>
+												The happier the cat — the more you get! Make it purr and get
+												rewards
 											</p>
 										</div>
 									</div>
-									<div className='mainContent__energyBar'>
-										<progress
-											className='filledBar'
-											id='filledBar'
-											max='1000'
-											value={currEnergy}
-										></progress>
-									</div>
-									<div className='mainContent__energyHint'>
-										<p>
-											The happier the cat — the more you get! Make it purr and get rewards
-										</p>
-									</div>
-								</div>
+								)}
+
 								{!gamePaused && visible ? (
 									<motion.div
 										initial={{
@@ -1021,39 +1025,43 @@ function Main() {
 										</motion.div>
 									</motion.div>
 								) : null}
-								<div className='mainContent__backBtn-box'>
-									<div className='mainContent__backBtn' onClick={stopFarm}>
-										<button>
-											<span>&lt; Stop</span>
-											<svg
-												width='12'
-												height='13'
-												viewBox='0 0 12 13'
-												fill='none'
-												xmlns='http://www.w3.org/2000/svg'
-											>
-												<path
-													d='M1 1.5L11 11.5M1 11.5L11 1.5'
-													stroke='white'
-													strokeOpacity='0.5'
-													strokeWidth='2'
-													strokeLinecap='round'
-													strokeLinejoin='round'
-												/>
-											</svg>
-										</button>
-									</div>
-								</div>
-								<div className='mainContent__coins'>
-									<div className='mainContent__coinBox'>
-										<div className='mainContent__coinImg' draggable='false'>
-											<img src={catCoinMove} alt='coin animation' draggable='false' />
-										</div>
-										<div className='mainContent__coinAmount'>
-											<span id='coinAmount'>{currCoins}</span>
+								{gamePlayable && (
+									<div className='mainContent__backBtn-box'>
+										<div className='mainContent__backBtn' onClick={stopFarm}>
+											<button>
+												<span>&lt; Stop</span>
+												<svg
+													width='12'
+													height='13'
+													viewBox='0 0 12 13'
+													fill='none'
+													xmlns='http://www.w3.org/2000/svg'
+												>
+													<path
+														d='M1 1.5L11 11.5M1 11.5L11 1.5'
+														stroke='white'
+														strokeOpacity='0.5'
+														strokeWidth='2'
+														strokeLinecap='round'
+														strokeLinejoin='round'
+													/>
+												</svg>
+											</button>
 										</div>
 									</div>
-								</div>
+								)}
+								{gamePlayable && (
+									<div className='mainContent__coins'>
+										<div className='mainContent__coinBox'>
+											<div className='mainContent__coinImg' draggable='false'>
+												<img src={catCoinMove} alt='coin animation' draggable='false' />
+											</div>
+											<div className='mainContent__coinAmount'>
+												<span id='coinAmount'>{currCoins}</span>
+											</div>
+										</div>
+									</div>
+								)}
 								{coinState && (
 									<div className='mainContent__animation'>
 										<div className='mainContent__coinOne'>
