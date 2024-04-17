@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
 	usePassTaskMutation,
-	useUpdateBalanceMutation,
+	useIncreaseBalanceMutation,
 } from '../../services/phpService';
 import { AuthContext } from '../helper/contexts';
 
@@ -13,7 +13,7 @@ const Twitter = () => {
 	const navigate = useNavigate();
 	// const [getUser] = useGetUserByWalletIdMutation();
 	const [passTask] = usePassTaskMutation();
-	const [updateBalance] = useUpdateBalanceMutation();
+	const [increaseBalance] = useIncreaseBalanceMutation();
 
 	const auth = async () => {
 		try {
@@ -23,7 +23,7 @@ const Twitter = () => {
 					wallet_address: value?.wallet_address,
 					task: 'twitter',
 				}).unwrap();
-				await updateBalance({
+				await increaseBalance({
 					wallet_address: value?.wallet_address,
 					score: '10000',
 				}).unwrap();

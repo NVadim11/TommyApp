@@ -7,7 +7,7 @@ import checkbox from '../../img/checkbox.png';
 import pet from '../../img/pet_icon.svg';
 import shop from '../../img/shop_icon.svg';
 import tasks from '../../img/tasks_icon.svg';
-import { usePassTaskMutation, useUpdateBalanceMutation } from '../../services/phpService';
+import { usePassTaskMutation, useIncreaseBalanceMutation } from '../../services/phpService';
 import { toggleMuteAllSounds } from '../../utility/Audio';
 import { AuthContext } from '../helper/contexts';
 import './Footer.scss';
@@ -18,7 +18,7 @@ function Footer() {
 	const location = useLocation();
 	const { value } = useContext(AuthContext);
 	const [passTask] = usePassTaskMutation();
-	const [updateBalance] = useUpdateBalanceMutation();
+	const [increaseBalance] = useIncreaseBalanceMutation();
 
 	const toggleVisibility = () => {
 		toggleMuteAllSounds();
@@ -67,7 +67,7 @@ function Footer() {
 				wallet_address: value?.wallet_address,
 				task: 'tg_chat',
 			}).unwrap();
-			await updateBalance({
+			await increaseBalance({
 				wallet_address: value?.wallet_address,
 				score: '10000',
 			}).unwrap();
@@ -83,7 +83,7 @@ function Footer() {
 				wallet_address: value?.wallet_address,
 				task: 'tg_channel',
 			}).unwrap();
-			await updateBalance({
+			await increaseBalance({
 				wallet_address: value?.wallet_address,
 				score: '10000',
 			}).unwrap();
@@ -100,7 +100,7 @@ function Footer() {
 				task: 'website',
 			}).unwrap();
 			if (res) {
-				await updateBalance({
+				await increaseBalance({
 					wallet_address: value?.wallet_address,
 					score: '3000',
 				}).unwrap();
