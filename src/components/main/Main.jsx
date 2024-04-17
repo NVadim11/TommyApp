@@ -372,6 +372,10 @@ function Main() {
 		setIsAnimationActive(true);
 	};
 
+	const clearAnimations = () => {
+		setAnimations([]);
+	};
+
 	// Функция debounce для обработки клика
 	const debouncedHandleClick = debounce(() => {
 		const clickNewCoins = updateCurrCoins();
@@ -464,6 +468,9 @@ function Main() {
 		setCoinState(false);
 		setBoostPhase(false);
 		setVisible(false);
+		clearAnimations();
+		setHappinessVal(1);
+    	setClickNewCoins(1);
 	};
 
 	return (
@@ -795,7 +802,7 @@ function Main() {
 																			<motion.div
 																				className={`clickerAnimation`}
 																				initial={{ opacity: 1, y: 0 }}
-																				animate={{ opacity: [1, 0], y: [-30, -60] }}
+																				animate={{ opacity: [1, 0], y: [-30, -120] }}
 																				exit={{ opacity: 0 }}
 																				transition={{ duration: 2 }}
 																				style={{
@@ -806,9 +813,8 @@ function Main() {
 																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
-																					setAnimations((prev) =>
-																						prev.filter((_, i) => i !== index)
-																					);
+																					console.log("Animation complete"); // Запись в консоль, когда анимация завершается
+																					clearAnimations(index);
 																				}}
 																			>
 																				+{clickNewCoins}
@@ -843,7 +849,7 @@ function Main() {
 																				initial={{ opacity: 1, y: 0 }}
 																				animate={{ opacity: [1, 0], y: [-30, -120] }}
 																				exit={{ opacity: 0 }}
-																				transition={{ duration: 3 }}
+																				transition={{ duration: 2 }}
 																				style={{
 																					fontSize: '45px',
 																					left: `${anim.x}px`,
@@ -853,9 +859,8 @@ function Main() {
 																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
-																					setAnimations((prev) =>
-																						prev.filter((_, i) => i !== index)
-																					);
+																					console.log("Animation complete"); // Запись в консоль, когда анимация завершается
+																					clearAnimations(index);
 																				}}
 																			>
 																				+{clickNewCoins}
