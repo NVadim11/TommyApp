@@ -374,7 +374,9 @@ function Main() {
 
 	// Функция debounce для обработки клика
 	const debouncedHandleClick = debounce(() => {
+		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		accumulatedCoinsRef.current += clickNewCoins;
 	  }, 3000);  
 
 	  const coinClicker = (event) => {
@@ -417,11 +419,12 @@ function Main() {
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
 		const clickNewCoins = updateCurrCoins();
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
 	  };
 	  
 	  const handleTouchEnd = (event, e) => {
-		if (event && event.touches && event.touches.length === 0) {
+			if (event && event.touches && event.touches.length === 0) {
 			debouncedHandleClick();
 		}
 		if (event && event.touches) {
