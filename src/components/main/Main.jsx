@@ -364,6 +364,7 @@ function Main() {
 	};
 
 	const handleShowAnimation = (event) => {
+		event.stopPropagation();
 		const touch = event.touches ? event.touches[0] : event;
 		const clicker = touch.currentTarget || touch.target;
 		const rect = clicker.getBoundingClientRect();
@@ -406,7 +407,7 @@ function Main() {
 		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
-	}, 4000);
+	}, 500);
 
 	const handleTouchStart = (event) => {
 		if (!event.isTrusted) return;
