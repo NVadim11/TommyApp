@@ -41,7 +41,7 @@ function Main() {
 	const timeoutRef = useRef(null);
 	const coinRef = useRef(null);
 	const accumulatedCoinsRef = useRef(0);
-	const { publicKey, connected, disconnecting } = useWallet();
+	const { publicKey, connected } = useWallet();
 	const wallet_address = publicKey?.toBase58();
 
 	const [position, setPosition] = useState({ x: '50%', y: '50%' });
@@ -440,7 +440,7 @@ function Main() {
 	};
 
 	useEffect(() => {
-		if (disconnecting) {
+		if (!connected) {
 			setGamePaused(false);
 			setCurrCoins(0);
 			setBoostPhase(false);
@@ -450,7 +450,7 @@ function Main() {
 			setBoostPhase(false);
 			setVisible(false);
 		}
-	}, [disconnecting]);
+	}, [connected]);
 
 	const startFarm = () => {
 		gameInit();
