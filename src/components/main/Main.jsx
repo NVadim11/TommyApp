@@ -63,6 +63,7 @@ function Main() {
 
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
+	
 
 	const isDesktop = () => {
 		const userAgent = window.navigator.userAgent;
@@ -370,18 +371,13 @@ function Main() {
 
 		setAnimations((prev) => [...prev, { x, y }]);
 		setIsAnimationActive(true);
+
+		console.log("Adding animation at:", x, y); 
 	};
 
 	const clearAnimations = () => {
 		setAnimations([]);
 	};
-
-	// Функция debounce для обработки клика
-	const debouncedHandleClick = debounce(() => {
-		const clickNewCoins = updateCurrCoins();
-		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-		accumulatedCoinsRef.current += clickNewCoins;
-	  }, 4000);  
 
 	  const coinClicker = (event) => {
 		if (!event.isTrusted) return;
@@ -404,6 +400,13 @@ function Main() {
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
+
+	// Функция debounce для обработки клика
+	const debouncedHandleClick = debounce(() => {
+		const clickNewCoins = updateCurrCoins();
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		accumulatedCoinsRef.current += clickNewCoins;
+		}, 4000);  
 
 	const handleTouchStart = (event) => {
 		if (!event.isTrusted) return;
@@ -806,6 +809,7 @@ function Main() {
 																				exit={{ opacity: 0 }}
 																				transition={{ duration: 2 }}
 																				style={{
+																					fontSize: '45px',
 																					left: `${anim.x}px`,
 																					top: `${anim.y}px`,
 																					position: 'absolute',
