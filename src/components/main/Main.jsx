@@ -377,7 +377,7 @@ function Main() {
 		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
-	  }, 3000);  
+	  }, 4000);  
 
 	  const coinClicker = (event) => {
 		if (!event.isTrusted) return;
@@ -418,15 +418,10 @@ function Main() {
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
-		const clickNewCoins = updateCurrCoins();
-		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-		accumulatedCoinsRef.current += clickNewCoins;
 	  };
 	  
 	  const handleTouchEnd = (event, e) => {
-			if (event && event.touches && event.touches.length === 0) {
-			debouncedHandleClick();
-		}
+		debouncedHandleClick();
 		if (event && event.touches) {
 			handleShowAnimation(event.touches[0]);
 		}
