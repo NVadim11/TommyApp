@@ -362,10 +362,11 @@ function Main() {
 	};
 
 	const handleShowAnimation = (event) => {
-		const clicker = event.currentTarget;
+		const touch = event.touches ? event.touches[0] : event;
+		const clicker = touch.currentTarget || touch.target;
 		const rect = clicker.getBoundingClientRect();
-		const x = event.clientX - rect.left;
-		const y = event.clientY - rect.top;
+		const x = touch.clientX - rect.left;
+		const y = touch.clientY - rect.top;
 
 		setAnimations((prev) => [...prev, { x, y }]);
 		setIsAnimationActive(true);
@@ -420,10 +421,12 @@ function Main() {
 	  };
 	  
 	  const handleTouchEnd = (event, e) => {
-		if (e.touches.length === 1) {
-		debouncedHandleClick();
+		if (event && event.touches && event.touches.length === 0) {
+			debouncedHandleClick();
 		}
-		handleShowAnimation(event);
+		if (event && event.touches) {
+			handleShowAnimation(event.touches[0]);
+		}
 	  };
 
 	const gameInit = () => {
