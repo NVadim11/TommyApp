@@ -373,8 +373,6 @@ function Main() {
 
 		setAnimations((prev) => [...prev, { x, y }]);
 		setIsAnimationActive(true);
-
-		console.log('Adding animation at:', x, y);
 	};
 
 	const clearAnimations = () => {
@@ -818,7 +816,6 @@ function Main() {
 																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
-																					console.log('Animation complete'); // Запись в консоль, когда анимация завершается
 																					clearAnimations(index);
 																				}}
 																			>
@@ -864,7 +861,6 @@ function Main() {
 																					textShadow: '0px 4px 6px rgba(0, 0, 0, 0.5)',
 																				}}
 																				onAnimationComplete={() => {
-																					console.log('Animation complete'); // Запись в консоль, когда анимация завершается
 																					clearAnimations(index);
 																				}}
 																			>
