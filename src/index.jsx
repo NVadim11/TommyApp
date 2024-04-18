@@ -1,18 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
-import App from "./App";
-import { ClickCountProvider } from "./components/clickContext";
-import "./index.scss";
-import { store } from "./store";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { ClickCountProvider } from './components/helper/clickContext';
+import { GameInfoProvider } from './components/helper/contextProvider';
+import './index.scss';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ClickCountProvider>
-        <App />
-      </ClickCountProvider>
-    </Provider>
-  </React.StrictMode>
+	<React.StrictMode>
+		<GameInfoProvider>
+			<ClickCountProvider>
+				<App />
+			</ClickCountProvider>
+		</GameInfoProvider>
+	</React.StrictMode>
 );

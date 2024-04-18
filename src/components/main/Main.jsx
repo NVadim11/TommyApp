@@ -21,8 +21,8 @@ import finalForm from '../../img/finalForm.gif';
 import goldForm from '../../img/gold.gif';
 import smile from '../../img/smile.png';
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
-import { useClickCount } from '../clickContext';
 import GamePreloader from '../gamePreloader/gamePreloader';
+import { useClickCount } from '../helper/clickContext';
 import { AuthContext } from '../helper/contexts';
 import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
 import './Main.scss';
@@ -186,6 +186,7 @@ function Main() {
 				happySpeak,
 				finalForm,
 				goldForm,
+				boostCoin,
 			];
 			const promises = imageSources.map((src) => loadImage(src));
 			try {
@@ -408,6 +409,10 @@ function Main() {
 	}, 500);
 
 	const handleTouchStart = (event) => {
+		if (event.touches.length > 1) {
+			event.preventDefault();
+			return;
+		}
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
 			playBoostCatClick();

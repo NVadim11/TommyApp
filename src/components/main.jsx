@@ -1,12 +1,23 @@
 import AOS from 'aos';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useGetGameInfoQuery } from '../services/admin';
 import Footer from './footer/Footer';
 import Header from './header/Header';
+import { GameInfoContext } from './helper/contexts';
 import Main from './main/Main';
 import Preloader from './preloader/Preloader';
 
 const MainComponent = () => {
+	const { updateState } = useContext(GameInfoContext);
+	const { data, isLoading, isError } = useGetGameInfoQuery();
 	const [preloaderLoaded, setPreloaderLoaded] = useState(false);
+
+	useEffect(() => {
+		if (!isLoading && data) {
+			updateState(data);
+			console.log(data);
+		}
+	}, [isLoading, data, updateState]);
 
 	useEffect(() => {
 		const preloaderTimeout = setTimeout(() => {

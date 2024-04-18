@@ -13,7 +13,7 @@ import {
 	useGetLeaderboardMutation,
 } from '../../services/phpService';
 import { toggleMuteAllSounds } from '../../utility/Audio';
-import { useClickCount } from '../clickContext';
+import { useClickCount } from '../helper/clickContext';
 import { AuthContext } from '../helper/contexts';
 import './Header.scss';
 
@@ -432,7 +432,7 @@ function Header() {
 										target='_blank'
 										rel='noopener noreferrer'
 									>
-										tw
+										TW
 									</a>
 									<a
 										className='header__mobileMenu-links'

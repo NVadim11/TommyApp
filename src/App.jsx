@@ -1,9 +1,5 @@
-import { ThemeProvider } from '@emotion/react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import {
-	ConnectionProvider,
-	WalletProvider,
-} from '@solana/wallet-adapter-react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import {
@@ -46,17 +42,14 @@ import { Provider } from 'react-redux';
 import './App.scss';
 import AppRouter from './components/Router';
 import { store } from './store';
-import { theme } from './theme';
 
 function App() {
 	return (
-		<ThemeProvider theme={theme}>
-			<Provider store={store}>
-				<Context>
-					<AppRouter />
-				</Context>
-			</Provider>
-		</ThemeProvider>
+		<Provider store={store}>
+			<Context>
+				<AppRouter />
+			</Context>
+		</Provider>
 	);
 }
 
