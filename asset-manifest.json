@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/TommyApp/static/css/main.d76964e0.css",
-    "main.js": "/TommyApp/static/js/main.3afd2fbf.js",
+    "main.css": "/TommyApp/static/css/main.57aa42a7.css",
+    "main.js": "/TommyApp/static/js/main.361f1769.js",
     "static/js/648.5b970a70.chunk.js": "/TommyApp/static/js/648.5b970a70.chunk.js",
     "static/js/227.c58db409.chunk.js": "/TommyApp/static/js/227.c58db409.chunk.js",
     "static/js/486.72d49def.chunk.js": "/TommyApp/static/js/486.72d49def.chunk.js",
@@ -19,18 +19,16 @@
     "static/js/375.6dc8d475.chunk.js": "/TommyApp/static/js/375.6dc8d475.chunk.js",
     "static/js/68.4fc7d306.chunk.js": "/TommyApp/static/js/68.4fc7d306.chunk.js",
     "static/js/916.0500b01b.chunk.js": "/TommyApp/static/js/916.0500b01b.chunk.js",
-    "static/media/3_idle.gif": "/TommyApp/static/media/3_idle.9d181b5ef893d2e55709.gif",
-    "static/media/4_idle.gif": "/TommyApp/static/media/4_idle.02b5a7cff89325ef99e8.gif",
-    "static/media/2_idle.gif": "/TommyApp/static/media/2_idle.3fb24a4ad0f627977574.gif",
-    "static/media/1_idle.gif": "/TommyApp/static/media/1_idle.220b06ecbb2e3a42e079.gif",
-    "static/media/gold.gif": "/TommyApp/static/media/gold.c06dcccf7f6e5fb294f9.gif",
-    "static/media/3talk.gif": "/TommyApp/static/media/3talk.4f0b929a6ad068b08b11.gif",
-    "static/media/4talk.gif": "/TommyApp/static/media/4talk.cfd96fa47980895b3d4d.gif",
-    "static/media/2talk.gif": "/TommyApp/static/media/2talk.965967d2a4652fc13a5a.gif",
-    "static/media/finalForm.gif": "/TommyApp/static/media/finalForm.da765c8ece9906153069.gif",
-    "static/media/1talk.gif": "/TommyApp/static/media/1talk.1509fdd36f9c9dc8226c.gif",
-    "static/media/boost_coin_side.png": "/TommyApp/static/media/boost_coin_side.009a38da9969d26b7cce.png",
-    "static/media/catcoin.png": "/TommyApp/static/media/catcoin.c339acf83ac26a94a6cd.png",
+    "static/media/4_idle.gif": "/TommyApp/static/media/4_idle.d57cafa374e8e04cc571.gif",
+    "static/media/3_idle.gif": "/TommyApp/static/media/3_idle.d35910e50d9e759498f8.gif",
+    "static/media/2_idle.gif": "/TommyApp/static/media/2_idle.9b60e5af8504711cc6df.gif",
+    "static/media/gold.gif": "/TommyApp/static/media/gold.3cfe9933633944d56049.gif",
+    "static/media/1_idle.gif": "/TommyApp/static/media/1_idle.64becd5f71833f830151.gif",
+    "static/media/4talk.gif": "/TommyApp/static/media/4talk.d577a2596000c52088fe.gif",
+    "static/media/3talk.gif": "/TommyApp/static/media/3talk.5a105df6026f0041b4e0.gif",
+    "static/media/finalForm.gif": "/TommyApp/static/media/finalForm.e8086415c48aeccaac9c.gif",
+    "static/media/2talk.gif": "/TommyApp/static/media/2talk.787376c68407cec18a5e.gif",
+    "static/media/1talk.gif": "/TommyApp/static/media/1talk.c4d60fa1dd8727873ce8.gif",
     "static/media/WorkSans-Medium.ttf": "/TommyApp/static/media/WorkSans-Medium.905f58df4c3ad21ca78d.ttf",
     "static/media/cat2.png": "/TommyApp/static/media/cat2.e1503440ffdb4bc65223.png",
     "static/media/Grandstander-ExtraLightItalic.ttf": "/TommyApp/static/media/Grandstander-ExtraLightItalic.cd374ab1c2b7dc331d80.ttf",
@@ -51,6 +49,7 @@
     "static/media/Grandstander-Light.ttf": "/TommyApp/static/media/Grandstander-Light.6b4c6de9a5cfad355695.ttf",
     "static/media/Grandstander-Black.ttf": "/TommyApp/static/media/Grandstander-Black.ebb29a8f529f3b9a58bb.ttf",
     "static/media/Grandstander-Thin.ttf": "/TommyApp/static/media/Grandstander-Thin.4db29ca9f41b7fb478b4.ttf",
+    "static/media/boost_coin_side.png": "/TommyApp/static/media/boost_coin_side.7a9731afb7e9bf50d6ac.png",
     "static/media/catFace.png": "/TommyApp/static/media/catFace.261b91ce8cbfd2cfd7e5.png",
     "static/media/boost.mp3": "/TommyApp/static/media/boost.33f654621a9e6b1b5ded.mp3",
     "static/media/4talk.mp3": "/TommyApp/static/media/4talk.192f06d7f8a8f0986397.mp3",
@@ -64,8 +63,8 @@
     "static/media/copy.svg": "/TommyApp/static/media/copy.7f86c828162b5b60758a61c526137384.svg",
     "static/media/pet_icon.svg": "/TommyApp/static/media/pet_icon.15cde0c0e7252fc814145b7cd06fe9c8.svg",
     "index.html": "/TommyApp/index.html",
-    "main.d76964e0.css.map": "/TommyApp/static/css/main.d76964e0.css.map",
-    "main.3afd2fbf.js.map": "/TommyApp/static/js/main.3afd2fbf.js.map",
+    "main.57aa42a7.css.map": "/TommyApp/static/css/main.57aa42a7.css.map",
+    "main.361f1769.js.map": "/TommyApp/static/js/main.361f1769.js.map",
     "648.5b970a70.chunk.js.map": "/TommyApp/static/js/648.5b970a70.chunk.js.map",
     "227.c58db409.chunk.js.map": "/TommyApp/static/js/227.c58db409.chunk.js.map",
     "486.72d49def.chunk.js.map": "/TommyApp/static/js/486.72d49def.chunk.js.map",
@@ -81,7 +80,7 @@
     "916.0500b01b.chunk.js.map": "/TommyApp/static/js/916.0500b01b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d76964e0.css",
-    "static/js/main.3afd2fbf.js"
+    "static/css/main.57aa42a7.css",
+    "static/js/main.361f1769.js"
   ]
 }
