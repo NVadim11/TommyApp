@@ -1,8 +1,7 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import catCoinMove from '../../img/cat_coin_move.png';
-import catCoin from '../../img/catcoin.png';
+import { default as catCoin, default as catCoinMove } from '../../img/cat_coin_move.png';
 import checkbox from '../../img/checkbox.png';
 import pet from '../../img/pet_icon.svg';
 import shop from '../../img/shop_icon.svg';
