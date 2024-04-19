@@ -131,13 +131,15 @@ $desktop: 1919.98px;
   &__twBtn {
     border: 0.125rem solid #fff;
     border-radius: 3.75rem;
-    padding: 1rem 1.0625rem 0.875rem 0.8125rem;
     width: 3.125rem;
     height: 3.125rem;
     font-weight: 600;
     font-size: 1rem;
     text-transform: uppercase;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   &__twBtn:hover {
     transition: 0.25s;
@@ -148,13 +150,15 @@ $desktop: 1919.98px;
   &__tgBtn {
     border: 0.125rem solid #fff;
     border-radius: 3.75rem;
-    padding: 1rem 1.0625rem 0.875rem 0.8125rem;
     width: 3.125rem;
     height: 3.125rem;
     font-weight: 600;
     font-size: 1rem;
     text-transform: uppercase;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   &__tgBtn:hover {
     transition: 0.25s;
