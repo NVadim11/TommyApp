@@ -41,7 +41,7 @@ function Main() {
 	const timeoutRef = useRef(null);
 	const coinRef = useRef(null);
 	const accumulatedCoinsRef = useRef(0);
-	const { publicKey, connected } = useWallet();
+	const { publicKey, connected, disconnecting } = useWallet();
 	const wallet_address = publicKey?.toBase58();
 
 	const [position, setPosition] = useState({ x: '50%', y: '50%' });
@@ -345,10 +345,16 @@ function Main() {
 				setIsCoinsChanged(false);
 				accumulatedCoinsRef.current = 0;
 			}
-		}, 4900);
+		}, 5000);
 
 		return () => clearInterval(timer);
 	}, [isCoinsChanged]);
+
+	useEffect(() => {
+		if (disconnecting) {
+			submitData();
+		}
+	}, []);
 
 	const submitData = async (coins) => {
 		try {
@@ -479,6 +485,20 @@ function Main() {
 		setHappinessVal(1);
 		setClickNewCoins(1);
 	};
+
+	useEffect(() => {
+		if (gamePaused) {
+			setCoinState(false);
+			setBoostPhase(false);
+			setVisible(false);
+			setCurrentImage(false);
+			setBoostPhase(false);
+			setCoinState(false);
+			clearAnimations();
+			setHappinessVal(1);
+			setClickNewCoins(1);
+		}
+	}, [gamePaused]);
 
 	return (
 		<div className='mainContent'>

@@ -1,13 +1,16 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import catCoin from '../../img/catcoin.png';
 import catCoinMove from '../../img/cat_coin_move.png';
+import catCoin from '../../img/catcoin.png';
 import checkbox from '../../img/checkbox.png';
 import pet from '../../img/pet_icon.svg';
 import shop from '../../img/shop_icon.svg';
 import tasks from '../../img/tasks_icon.svg';
-import { usePassTaskMutation, useIncreaseBalanceMutation } from '../../services/phpService';
+import {
+	useIncreaseBalanceMutation,
+	usePassTaskMutation,
+} from '../../services/phpService';
 import { toggleMuteAllSounds } from '../../utility/Audio';
 import { AuthContext } from '../helper/contexts';
 import './Footer.scss';
