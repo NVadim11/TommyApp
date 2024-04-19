@@ -137,9 +137,13 @@ $desktop: 1919.98px;
     font-size: 1rem;
     text-transform: uppercase;
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    a {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   &__twBtn:hover {
     transition: 0.25s;
@@ -156,9 +160,13 @@ $desktop: 1919.98px;
     font-size: 1rem;
     text-transform: uppercase;
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    a {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   &__tgBtn:hover {
     transition: 0.25s;
