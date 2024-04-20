@@ -49,7 +49,7 @@ function Footer() {
 
 	const twitterClick = async () => {
 		try {
-			window.location.href = `https://api.prodtest1.space/twitter/auth?version=web`;
+			window.open(`https://api.prodtest1.space/twitter/auth?version=web`, '_blank');
 		} catch (e) {
 			console.log(e);
 		}
