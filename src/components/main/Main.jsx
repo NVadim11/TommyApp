@@ -412,13 +412,14 @@ function Main() {
 		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
-	}, 500);
+	}, 100);
 
 	const handleTouchStart = (event) => {
 		if (event.touches.length > 1) {
 			event.preventDefault();
 			return;
 		}
+
 		if (!event.isTrusted) return;
 		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
 			playBoostCatClick();
@@ -429,18 +430,20 @@ function Main() {
 		setCoinState(true);
 		handleShowAnimation(event);
 		handleCoinClick();
-		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
 		clearTimeout(timeoutRef.current);
 		clearTimeout(coinRef.current);
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 	};
 
-	const handleTouchEnd = (event, e) => {
-		debouncedHandleClick();
+	const handleTouchEnd = (event) => {
 		if (event && event.touches) {
-			handleShowAnimation(event.touches[0]);
+			Array.from(event.touches).forEach((touch) => {
+				handleShowAnimation(touch);
+			});
 		}
+		debouncedHandleClick();
+		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
 	};
 
 	const gameInit = () => {
