@@ -23,12 +23,14 @@ import smile from '../../img/smile.png';
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
 import GamePreloader from '../gamePreloader/gamePreloader';
 import { useClickCount } from '../helper/clickContext';
-import { AuthContext } from '../helper/contexts';
+import { AuthContext, GameInfoContext } from '../helper/contexts';
 import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
 import './Main.scss';
 
 function Main() {
+	const { state } = useContext(GameInfoContext);
 	const { value } = useContext(AuthContext);
+
 	const isMobile = useMediaQuery({ maxWidth: '1439.98px' });
 	const [idleState, setidleState] = useState(true);
 	const [currentImage, setCurrentImage] = useState(true);
@@ -164,12 +166,15 @@ function Main() {
 		return `${minutes}`;
 	};
 
+	// const sadIdle = state?.images.gold;
+	// const sadSpeak = state?.images.finalForm;
+
 	useEffect(() => {
 		const loadImage = (src) => {
 			return new Promise((resolve, reject) => {
 				const img = new Image();
 				img.src = src;
-				img.onload = () => resolve(img);
+				img.onload = () => resolve(img, console.log('img.loaded'));
 				img.onerror = () => reject(new Error(`Failed to load image from ${src}`));
 			});
 		};
