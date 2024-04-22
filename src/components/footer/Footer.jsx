@@ -49,7 +49,7 @@ function Footer() {
 
 	const twitterClick = async () => {
 		try {
-			window.open(`https://api.tomocat.com/twitter/auth?version=web`, '_blank');
+			window.open(`https://node.tomocat.com/twitter/auth?version=web`, '_blank');
 		} catch (e) {
 			console.log(e);
 		}
@@ -95,7 +95,7 @@ function Footer() {
 	};
 
 	const websiteClick = async () => {
-		window.open(`http://tomocat.com/`, '_blank');
+		window.open(`https://tomocat.com/`, '_blank');
 		try {
 			const res = await passTask({
 				wallet_address: value?.wallet_address,

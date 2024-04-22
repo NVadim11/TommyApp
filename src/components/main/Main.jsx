@@ -174,7 +174,7 @@ function Main() {
 			return new Promise((resolve, reject) => {
 				const img = new Image();
 				img.src = src;
-				img.onload = () => resolve(img, console.log('img.loaded'));
+				img.onload = () => resolve(img);
 				img.onerror = () => reject(new Error(`Failed to load image from ${src}`));
 			});
 		};
