@@ -89,7 +89,7 @@ function Main() {
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
 		const futureTimestamp = currentTimeStamp + 60 * 60;
 
-		fetch('https://admin.prodtest1.space/api/set-activity', {
+		fetch('https://aws.tomocat.com/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ function Main() {
 	const getGameStatus = async () => {
 		try {
 			const initGameStatusCheck = await axios.get(
-				`https://admin.prodtest1.space/api/users/${wallet_address}`
+				`https://aws.tomocat.com/api/users/${wallet_address}`
 			);
 		} catch (error) {
 			console.error('Error fetching leaderboard data:', error.message);
@@ -363,13 +363,10 @@ function Main() {
 
 	const submitData = async (coins) => {
 		try {
-			const response = await axios.post(
-				'https://admin.prodtest1.space/api/update-balance',
-				{
-					score: coins,
-					wallet_address: wallet_address,
-				}
-			);
+			const response = await axios.post('https://aws.tomocat.com/api/update-balance', {
+				score: coins,
+				wallet_address: wallet_address,
+			});
 		} catch (error) {
 			console.error('Error submitting coins:', error);
 		}

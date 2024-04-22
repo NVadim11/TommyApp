@@ -64,7 +64,7 @@ function Header() {
 				requestBody.referral_code = lastFiveSymbols;
 			}
 			const response = await axios.post(
-				'https://admin.prodtest1.space/api/users',
+				'https://aws.tomocat.com/api/users',
 				requestBody,
 				{
 					headers: {
@@ -117,7 +117,7 @@ function Header() {
 
 	const fetchLeaderboardData = async () => {
 		try {
-			const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
+			const response = await axios.get(`https://aws.tomocat.com/api/liders`);
 			setLeaderboardData(response.data);
 		} catch (error) {
 			console.error('Error fetching leaderboard data:', error.message);
