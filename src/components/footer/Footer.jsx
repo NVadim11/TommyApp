@@ -1,5 +1,5 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { default as catCoin, default as catCoinMove } from '../../img/cat_coin_move.png';
 import checkbox from '../../img/checkbox.png';
@@ -47,20 +47,36 @@ function Footer() {
 		if (htmlTag) htmlTag.classList.remove('popupTasks-show');
 	};
 
+	// const twitterClick = async () => {
+	// 	try {
+	// 		window.open(`https://node.tomocat.com/twitter/auth?version=web`, '_blank');
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// };
+
+	// useEffect(() => {
+	// 	if (location.state && location.state?.auth) {
+	// 		window.open('https://twitter.com/TomoCatSol', '_blank');
+	// 		window.history.replaceState({}, '');
+	// 	}
+	// }, []);
+
 	const twitterClick = async () => {
+		window.open('https://twitter.com/TomoCatSol', '_blank');
 		try {
-			window.open(`https://node.tomocat.com/twitter/auth?version=web`, '_blank');
+			await passTask({
+				wallet_address: value?.wallet_address,
+				task: 'twitter',
+			}).unwrap();
+			await increaseBalance({
+				wallet_address: value?.wallet_address,
+				score: '10000',
+			}).unwrap();
 		} catch (e) {
 			console.log(e);
 		}
 	};
-
-	useEffect(() => {
-		if (location.state && location.state?.auth) {
-			window.open('https://twitter.com/TomoCatSol', '_blank');
-			window.history.replaceState({}, '');
-		}
-	}, []);
 
 	const tgClickChat = async () => {
 		window.open(`https://t.me/tomocat_sol`, '_blank');
