@@ -15,7 +15,6 @@ const MainComponent = () => {
 	useEffect(() => {
 		if (!isLoading && data) {
 			updateState(data);
-			console.log(data);
 		}
 	}, [isLoading, data, updateState]);
 

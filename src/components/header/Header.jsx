@@ -76,7 +76,6 @@ function Header() {
 			if (response.status !== 201) {
 				throw new Error('Failed to submit data');
 			}
-			console.log('Data submitted successfully');
 		} catch (error) {
 			console.error('Error submitting data:', error.message);
 		}
@@ -139,34 +138,46 @@ function Header() {
 	}, [connected]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			if (Object.keys(value).length) {
-				const res = await getLeaderboard(value?.wallet_address).unwrap();
-				setLeaderboardData(res);
-				setTotalReferrals(value?.referrals_count);
-				setTotalPoints(value?.wallet_balance);
-				const intervalId = setInterval(() => {
-					getLeaderboard(value?.wallet_address)
-						.unwrap()
-						.then((data) => setLeaderboardData(data))
-						.catch((error) => console.error('Error refreshing leaderboard:', error));
-				}, 60000);
-				return intervalId;
-			}
-		};
-
-		let intervalId;
-
-		if (connected) {
-			fetchData().then((id) => {
-				intervalId = id;
-			});
-		}
-
+		fetchLeaderboardData();
+		setTotalReferrals(value?.referrals_count);
+		setTotalPoints(value?.wallet_balance);
+		initLeadersRef.current = setInterval(() => {
+			fetchLeaderboardData();
+		}, 60000);
 		return () => {
-			clearInterval(intervalId);
+			clearInterval(initLeadersRef.current);
 		};
-	}, [value, connected]);
+	}, [value]);
+
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		if (Object.keys(value).length) {
+	// 			const res = await getLeaderboard(value.wallet_address).unwrap();
+	// 			setLeaderboardData(res);
+	// 			setTotalReferrals(value.referrals_count);
+	// 			setTotalPoints(value.wallet_balance);
+	// 			const intervalId = setInterval(() => {
+	// 				getLeaderboard(value.wallet_address)
+	// 					.unwrap()
+	// 					.then((data) => setLeaderboardData(data))
+	// 					.catch((error) => console.error('Error refreshing leaderboard:', error));
+	// 			}, 60000);
+	// 			return intervalId;
+	// 		}
+	// 	};
+
+	// 	let intervalId;
+
+	// 	if (connected) {
+	// 		fetchData().then((id) => {
+	// 			intervalId = id;
+	// 		});
+	// 	}
+
+	// 	return () => {
+	// 		clearInterval(intervalId);
+	// 	};
+	// }, [value, connected]);
 
 	useEffect(() => {
 		if (!connected) {
