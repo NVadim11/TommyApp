@@ -53,14 +53,6 @@ export const phpApi = createApi({
       }),
       invalidatesTags: ["Php"],
     }),
-    increaseBalance: builder.mutation({
-      query: (body) => ({
-        url: "/increase-balance",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: ["Php"],
-    }),
   }),
 });
 
@@ -72,5 +64,4 @@ export const {
   useGetLeaderboardMutation,
   usePassTaskMutation,
   useUpdateBalanceMutation,
-  useIncreaseBalanceMutation,
 } = phpApi;
