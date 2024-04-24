@@ -1,4 +1,5 @@
 import { useWallet } from '@solana/wallet-adapter-react';
+import bcrypt from 'bcryptjs';
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { default as catCoin, default as catCoinMove } from '../../img/cat_coin_move.png';
@@ -17,6 +18,8 @@ function Footer() {
 	const location = useLocation();
 	const { value } = useContext(AuthContext);
 	const [passTask] = usePassTaskMutation();
+
+	const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 	const toggleVisibility = () => {
 		toggleMuteAllSounds();
@@ -59,9 +62,20 @@ function Footer() {
 	// }, []);
 
 	const twitterClick = async () => {
+		const now = new Date();
+		const options = {
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		};
+		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open('https://twitter.com/TomoCatSol', '_blank');
 		try {
 			await passTask({
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				wallet_address: value?.wallet_address,
 				task: 'twitter',
 			}).unwrap();
@@ -71,9 +85,20 @@ function Footer() {
 	};
 
 	const tgClickChat = async () => {
+		const now = new Date();
+		const options = {
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		};
+		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open(`https://t.me/tomocat_sol`, '_blank');
 		try {
 			await passTask({
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				wallet_address: value?.wallet_address,
 				task: 'tg_chat',
 			}).unwrap();
@@ -83,9 +108,20 @@ function Footer() {
 	};
 
 	const tgClickChannel = async () => {
+		const now = new Date();
+		const options = {
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		};
+		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open(`https://t.me/tomo_cat`, '_blank');
 		try {
 			await passTask({
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				wallet_address: value?.wallet_address,
 				task: 'tg_channel',
 			}).unwrap();
@@ -95,9 +131,20 @@ function Footer() {
 	};
 
 	const websiteClick = async () => {
+		const now = new Date();
+		const options = {
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		};
+		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open(`https://tomocat.com/`, '_blank');
 		try {
 			const res = await passTask({
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				wallet_address: value?.wallet_address,
 				task: 'website',
 			}).unwrap();

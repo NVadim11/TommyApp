@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '../src/dotenvConfig';
 import App from './App';
 import { ClickCountProvider } from './components/helper/clickContext';
 import { GameInfoProvider } from './components/helper/contextProvider';

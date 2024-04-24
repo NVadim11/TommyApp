@@ -1,31 +1,32 @@
-import { useWallet } from '@solana/wallet-adapter-react'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
-import AOS from 'aos'
-import axios from 'axios'
-import { AnimatePresence, motion } from 'framer-motion'
-import { debounce } from 'lodash'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
-import sadIdle from '../../img/1_idle.gif'
-import sadSpeak from '../../img/1talk.gif'
-import normalIdle from '../../img/2_idle.gif'
-import normalSpeak from '../../img/2talk.gif'
-import smileIdle from '../../img/3_idle.gif'
-import smileSpeak from '../../img/3talk.gif'
-import happyIdle from '../../img/4_idle.gif'
-import happySpeak from '../../img/4talk.gif'
-import boostCoin from '../../img/boost_coin_side.png'
-import catFace from '../../img/catFace.png'
-import catCoinMove from '../../img/cat_coin_move.png'
-import finalForm from '../../img/finalForm.gif'
-import goldForm from '../../img/gold.gif'
-import smile from '../../img/smile.png'
-import { playBoostCatClick, playSadCatClick } from '../../utility/Audio'
-import GamePreloader from '../gamePreloader/gamePreloader'
-import { useClickCount } from '../helper/clickContext'
-import { AuthContext, GameInfoContext } from '../helper/contexts'
-import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo'
-import './Main.scss'
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import AOS from 'aos';
+import axios from 'axios';
+import bcrypt from 'bcryptjs';
+import { AnimatePresence, motion } from 'framer-motion';
+import { debounce } from 'lodash';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import sadIdle from '../../img/1_idle.gif';
+import sadSpeak from '../../img/1talk.gif';
+import normalIdle from '../../img/2_idle.gif';
+import normalSpeak from '../../img/2talk.gif';
+import smileIdle from '../../img/3_idle.gif';
+import smileSpeak from '../../img/3talk.gif';
+import happyIdle from '../../img/4_idle.gif';
+import happySpeak from '../../img/4talk.gif';
+import boostCoin from '../../img/boost_coin_side.png';
+import catFace from '../../img/catFace.png';
+import catCoinMove from '../../img/cat_coin_move.png';
+import finalForm from '../../img/finalForm.gif';
+import goldForm from '../../img/gold.gif';
+import smile from '../../img/smile.png';
+import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
+import GamePreloader from '../gamePreloader/gamePreloader';
+import { useClickCount } from '../helper/clickContext';
+import { AuthContext, GameInfoContext } from '../helper/contexts';
+import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
+import './Main.scss';
 
 function Main() {
 	const { state } = useContext(GameInfoContext);
@@ -67,6 +68,7 @@ function Main() {
 	const [animations, setAnimations] = useState([]);
 
 	const [gamePlayable, setGamePlayable] = useState(false);
+	const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 	const isDesktop = () => {
 		const userAgent = window.navigator.userAgent;
@@ -84,10 +86,20 @@ function Main() {
 		}
 	}, []);
 
-	const pauseGame = () => {
+	const pauseGame = async () => {
 		setGamePaused(true);
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
 		const futureTimestamp = currentTimeStamp + 60 * 60;
+		const now = new Date();
+		const options = {
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		};
+		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
 		fetch('https://aws.tomocat.com/api/set-activity', {
 			method: 'POST',
@@ -95,6 +107,7 @@ function Main() {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				wallet_address: wallet_address,
 				timestamp: futureTimestamp,
 			}),
@@ -109,6 +122,10 @@ function Main() {
 				console.log('Error pausing game');
 			});
 	};
+
+	useEffect(() => {
+		if (value) setCurrEnergy(value?.energy);
+	}, [value]);
 
 	useEffect(() => {
 		if (currEnergy === 1000) {
@@ -362,8 +379,19 @@ function Main() {
 	}, []);
 
 	const submitData = async (coins) => {
+		const now = new Date();
+		const options = {
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		};
+		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
 			const response = await axios.post('https://aws.tomocat.com/api/update-balance', {
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				score: coins,
 				wallet_address: wallet_address,
 			});
@@ -390,7 +418,7 @@ function Main() {
 
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
-		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
+		if ((currEnergy >= 801 && currEnergy <= 1000) || boostPhase === true) {
 			playBoostCatClick();
 		} else {
 			playSadCatClick();
@@ -423,7 +451,7 @@ function Main() {
 		}
 
 		if (!event.isTrusted) return;
-		if ((currEnergy >= 751 && currEnergy <= 1000) || boostPhase === true) {
+		if ((currEnergy >= 801 && currEnergy <= 1000) || boostPhase === true) {
 			playBoostCatClick();
 		} else {
 			playSadCatClick();
