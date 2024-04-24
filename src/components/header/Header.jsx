@@ -27,7 +27,7 @@ function Header() {
 	const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
 	const [isInviteOpen, setInviteOpen] = useState(false);
 	const [totalPoints, setTotalPoints] = useState(null);
-	const [isVisible, setIsVisible] = useState(true);
+	const [isVisible, setIsVisible] = useState(false);
 	const [isElementPresent, setIsElementPresent] = useState(false);
 	const initLeadersRef = useRef(null);
 	const wallet_address = publicKey?.toBase58();

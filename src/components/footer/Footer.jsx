@@ -14,7 +14,7 @@ import './Footer.scss';
 
 function Footer() {
 	const { connected } = useWallet();
-	const [isVisible, setIsVisible] = useState(true);
+	const [isVisible, setIsVisible] = useState(false);
 	const location = useLocation();
 	const { value } = useContext(AuthContext);
 	const [passTask] = usePassTaskMutation();
