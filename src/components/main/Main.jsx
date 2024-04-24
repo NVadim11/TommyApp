@@ -102,11 +102,11 @@ function Main() {
 			.then((response) => {
 				if (response.ok) {
 				} else {
-					console.error('Failed to pause game');
+					console.log('Failed to pause game');
 				}
 			})
-			.catch((error) => {
-				console.error('Error pausing game:', error);
+			.catch((e) => {
+				console.log('Error pausing game');
 			});
 	};
 
@@ -123,8 +123,8 @@ function Main() {
 			const initGameStatusCheck = await axios.get(
 				`https://aws.tomocat.com/api/users/${wallet_address}`
 			);
-		} catch (error) {
-			console.error('Error fetching leaderboard data:', error.message);
+		} catch (e) {
+			console.log('Error fetching leaderboard data');
 		}
 	};
 
@@ -199,7 +199,7 @@ function Main() {
 				imagesRef.current = loadedImages;
 				setPreloaderLoadedPhaseTwo(true);
 			} catch (error) {
-				console.error(error);
+				console.log('Failed to load images');
 			}
 		};
 
@@ -350,7 +350,7 @@ function Main() {
 				setIsCoinsChanged(false);
 				accumulatedCoinsRef.current = 0;
 			}
-		}, 5000);
+		}, 5100);
 
 		return () => clearInterval(timer);
 	}, [isCoinsChanged]);
@@ -367,8 +367,8 @@ function Main() {
 				score: coins,
 				wallet_address: wallet_address,
 			});
-		} catch (error) {
-			console.error('Error submitting coins:', error);
+		} catch (e) {
+			console.log('Error submitting coins:');
 		}
 	};
 

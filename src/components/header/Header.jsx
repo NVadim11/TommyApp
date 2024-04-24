@@ -76,8 +76,8 @@ function Header() {
 			if (response.status !== 201) {
 				throw new Error('Failed to submit data');
 			}
-		} catch (error) {
-			console.error('Error submitting data:', error.message);
+		} catch (e) {
+			console.log('Error submitting data');
 		}
 	};
 
@@ -118,8 +118,8 @@ function Header() {
 		try {
 			const response = await axios.get(`https://aws.tomocat.com/api/liders`);
 			setLeaderboardData(response.data);
-		} catch (error) {
-			console.error('Error fetching leaderboard data:', error.message);
+		} catch (e) {
+			console.log('Error fetching leaderboard data');
 		}
 	};
 

@@ -67,8 +67,8 @@ const AppRouter = () => {
 			if (response) {
 				setAuth(response);
 			}
-		} catch (error) {
-			console.error('Error submitting data:', error.message);
+		} catch (e) {
+			console.log('Error submitting data');
 		}
 	};
 	useEffect(() => {
