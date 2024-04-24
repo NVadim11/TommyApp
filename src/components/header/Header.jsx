@@ -265,8 +265,8 @@ function Header() {
 			} else {
 				document.execCommand('copy', true, codeToCopy);
 			}
-		} catch (error) {
-			console.error('Error copying referral code:', error);
+		} catch (e) {
+			console.log('Error copying referral code');
 		}
 	};
 
@@ -276,8 +276,8 @@ function Header() {
 				const res = await generateCode(value.wallet_address).unwrap();
 				res && res.code && setCode(res.code);
 			}
-		} catch (error) {
-			console.error('Error generating referral code:', error);
+		} catch (e) {
+			console.log('Error generating referral code');
 		}
 	};
 

@@ -1,31 +1,31 @@
-import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import AOS from 'aos';
-import axios from 'axios';
-import { AnimatePresence, motion } from 'framer-motion';
-import { debounce } from 'lodash';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import sadIdle from '../../img/1_idle.gif';
-import sadSpeak from '../../img/1talk.gif';
-import normalIdle from '../../img/2_idle.gif';
-import normalSpeak from '../../img/2talk.gif';
-import smileIdle from '../../img/3_idle.gif';
-import smileSpeak from '../../img/3talk.gif';
-import happyIdle from '../../img/4_idle.gif';
-import happySpeak from '../../img/4talk.gif';
-import boostCoin from '../../img/boost_coin_side.png';
-import catFace from '../../img/catFace.png';
-import catCoinMove from '../../img/cat_coin_move.png';
-import finalForm from '../../img/finalForm.gif';
-import goldForm from '../../img/gold.gif';
-import smile from '../../img/smile.png';
-import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
-import GamePreloader from '../gamePreloader/gamePreloader';
-import { useClickCount } from '../helper/clickContext';
-import { AuthContext, GameInfoContext } from '../helper/contexts';
-import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
-import './Main.scss';
+import { useWallet } from '@solana/wallet-adapter-react'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import AOS from 'aos'
+import axios from 'axios'
+import { AnimatePresence, motion } from 'framer-motion'
+import { debounce } from 'lodash'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
+import sadIdle from '../../img/1_idle.gif'
+import sadSpeak from '../../img/1talk.gif'
+import normalIdle from '../../img/2_idle.gif'
+import normalSpeak from '../../img/2talk.gif'
+import smileIdle from '../../img/3_idle.gif'
+import smileSpeak from '../../img/3talk.gif'
+import happyIdle from '../../img/4_idle.gif'
+import happySpeak from '../../img/4talk.gif'
+import boostCoin from '../../img/boost_coin_side.png'
+import catFace from '../../img/catFace.png'
+import catCoinMove from '../../img/cat_coin_move.png'
+import finalForm from '../../img/finalForm.gif'
+import goldForm from '../../img/gold.gif'
+import smile from '../../img/smile.png'
+import { playBoostCatClick, playSadCatClick } from '../../utility/Audio'
+import GamePreloader from '../gamePreloader/gamePreloader'
+import { useClickCount } from '../helper/clickContext'
+import { AuthContext, GameInfoContext } from '../helper/contexts'
+import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo'
+import './Main.scss'
 
 function Main() {
 	const { state } = useContext(GameInfoContext);
