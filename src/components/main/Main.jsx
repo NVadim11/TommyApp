@@ -124,10 +124,6 @@ function Main() {
 	};
 
 	useEffect(() => {
-		if (value) setCurrEnergy(value?.energy);
-	}, [value]);
-
-	useEffect(() => {
 		if (currEnergy === 1000) {
 			pauseGame();
 			setCurrEnergy(0);
@@ -367,16 +363,10 @@ function Main() {
 				setIsCoinsChanged(false);
 				accumulatedCoinsRef.current = 0;
 			}
-		}, 3500);
+		}, 3000);
 
 		return () => clearInterval(timer);
 	}, [isCoinsChanged]);
-
-	useEffect(() => {
-		if (disconnecting) {
-			submitData();
-		}
-	}, []);
 
 	const submitData = async (coins) => {
 		const now = new Date();
@@ -501,6 +491,7 @@ function Main() {
 	}, [connected]);
 
 	const startFarm = () => {
+		setCurrEnergy(value?.energy);
 		gameInit();
 		setCurrentImage(true);
 		setidleState((prevState) => !prevState);

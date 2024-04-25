@@ -8,10 +8,7 @@ import link from '../../img/link.svg';
 import logo from '../../img/logo.png';
 import money from '../../img/money.svg';
 import people from '../../img/people-icon.svg';
-import {
-	useGenerateCodeMutation,
-	useGetLeaderboardMutation,
-} from '../../services/phpService';
+import { useGenerateCodeMutation } from '../../services/phpService';
 import { toggleMuteAllSounds } from '../../utility/Audio';
 import { useClickCount } from '../helper/clickContext';
 import { AuthContext } from '../helper/contexts';
@@ -42,7 +39,7 @@ function Header() {
 	const [inviteAlreadySent, setInviteAlreadySent] = useState(false);
 
 	const containerRef = useRef(null);
-	const [getLeaderboard] = useGetLeaderboardMutation();
+	// const [getLeaderboard] = useGetLeaderboardMutation();
 	const [lastFiveSymbols, setLastFiveSymbols] = useState('');
 
 	useEffect(() => {
@@ -138,7 +135,6 @@ function Header() {
 	}, [connected]);
 
 	useEffect(() => {
-		fetchLeaderboardData();
 		setTotalReferrals(value?.referrals_count);
 		setTotalPoints(value?.wallet_balance);
 		initLeadersRef.current = setInterval(() => {
