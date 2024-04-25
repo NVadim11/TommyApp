@@ -123,11 +123,10 @@ function Header() {
 	useEffect(() => {
 		if (!connected) {
 			fetchLeaderboardData();
+		} else {
 			initLeadersRef.current = setInterval(() => {
 				fetchLeaderboardData();
 			}, 60000);
-		} else {
-			clearInterval(initLeadersRef.current);
 		}
 		return () => {
 			clearInterval(initLeadersRef.current);
@@ -137,43 +136,7 @@ function Header() {
 	useEffect(() => {
 		setTotalReferrals(value?.referrals_count);
 		setTotalPoints(value?.wallet_balance);
-		initLeadersRef.current = setInterval(() => {
-			fetchLeaderboardData();
-		}, 60000);
-		return () => {
-			clearInterval(initLeadersRef.current);
-		};
 	}, [value]);
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		if (Object.keys(value).length) {
-	// 			const res = await getLeaderboard(value.wallet_address).unwrap();
-	// 			setLeaderboardData(res);
-	// 			setTotalReferrals(value.referrals_count);
-	// 			setTotalPoints(value.wallet_balance);
-	// 			const intervalId = setInterval(() => {
-	// 				getLeaderboard(value.wallet_address)
-	// 					.unwrap()
-	// 					.then((data) => setLeaderboardData(data))
-	// 					.catch((error) => console.error('Error refreshing leaderboard:', error));
-	// 			}, 60000);
-	// 			return intervalId;
-	// 		}
-	// 	};
-
-	// 	let intervalId;
-
-	// 	if (connected) {
-	// 		fetchData().then((id) => {
-	// 			intervalId = id;
-	// 		});
-	// 	}
-
-	// 	return () => {
-	// 		clearInterval(intervalId);
-	// 	};
-	// }, [value, connected]);
 
 	useEffect(() => {
 		if (!connected) {
