@@ -44,7 +44,7 @@ function Main() {
 	const timeoutRef = useRef(null);
 	const coinRef = useRef(null);
 	const accumulatedCoinsRef = useRef(0);
-	const { publicKey, connected, disconnecting } = useWallet();
+	const { publicKey, connected } = useWallet();
 	const wallet_address = publicKey?.toBase58();
 
 	const [position, setPosition] = useState({ x: '50%', y: '50%' });
