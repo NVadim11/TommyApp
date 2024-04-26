@@ -70,6 +70,7 @@ function Footer() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
+			timeZone: 'UTC', // Hardcoded timezone offset to +0
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open('https://twitter.com/TomoCatSol', '_blank');
@@ -93,6 +94,7 @@ function Footer() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
+			timeZone: 'UTC', // Hardcoded timezone offset to +0
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open(`https://t.me/tomocat_sol`, '_blank');
@@ -116,6 +118,7 @@ function Footer() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
+			timeZone: 'UTC', // Hardcoded timezone offset to +0
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open(`https://t.me/tomo_cat`, '_blank');
@@ -139,6 +142,7 @@ function Footer() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
+			timeZone: 'UTC', // Hardcoded timezone offset to +0
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		window.open(`https://tomocat.com/`, '_blank');

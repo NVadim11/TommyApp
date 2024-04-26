@@ -98,6 +98,7 @@ function Main() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
+			timeZone: 'UTC', // Hardcoded timezone offset to +0
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
@@ -134,7 +135,6 @@ function Main() {
 			submitData();
 			timeoutId = setTimeout(() => {
 				pauseGame();
-				setCurrEnergy(0);
 				setCatVisible(false);
 			}, 100);
 		}
@@ -387,6 +387,7 @@ function Main() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
+			timeZone: 'UTC', // Hardcoded timezone offset to +0
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
