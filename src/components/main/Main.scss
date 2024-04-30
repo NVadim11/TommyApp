@@ -629,7 +629,6 @@ $desktop: 1919.98px;
     display: flex;
     align-items: center;
     span {
-      padding-top: 0.9375rem;
       display: flex;
       text-align: center;
       font-weight: 600;
@@ -637,7 +636,6 @@ $desktop: 1919.98px;
       color: #fff;
       @media (max-width: $mobile) {
         font-size: 2.1875rem;
-        padding-top: 0.3125rem;
       }
     }
   }

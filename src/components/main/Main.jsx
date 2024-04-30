@@ -814,7 +814,7 @@ function Main() {
 										{gamePaused ? (
 											<div className='gameContentBox__box'>
 												{timeRemaining ? (
-													<h4
+													<p
 														style={{
 															fontSize: '22px',
 															textAlign: 'center',
@@ -822,7 +822,7 @@ function Main() {
 														}}
 													>
 														Time remaining: {formatTime(timeRemaining)} minutes
-													</h4>
+													</p>
 												) : (
 													<></>
 												)}
