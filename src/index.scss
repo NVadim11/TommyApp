@@ -208,8 +208,8 @@
 }
 
 // variables
-$fontFamily: "gropled";
-$buttonText: "WorkSans";
+$titleText: "gropled";
+$fontFamily: "WorkSans";
 // $fontFamily: "Grandstander";
 $mainColor: #ffffff;
 $minWidth: 320;
@@ -270,7 +270,7 @@ body::-webkit-scrollbar-thumb {
 input,
 button,
 textarea {
-  font-family: $buttonText;
+  font-family: $fontFamily;
   font-size: inherit;
   line-height: inherit;
 }
@@ -295,6 +295,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: $titleText;
   font-weight: inherit;
   font-size: inherit;
 }
