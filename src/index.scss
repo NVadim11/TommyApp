@@ -36,14 +36,14 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: WorkSans;
-  font-display: swap;
-  src: local("WorkSans"),
-    url("/fonts/WorkSans-Bold.ttf") format("truetype");
-  font-weight: 900;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: WorkSans;
+//   font-display: swap;
+//   src: local("WorkSans"),
+//     url("/fonts/WorkSans-Bold.ttf") format("truetype");
+//   font-weight: 900;
+//   font-style: normal;
+// }
 
 @font-face {
   font-family: gropled;
@@ -208,15 +208,14 @@
 }
 
 // variables
-$fontFamily: "WorkSans";
-// $fontFamily: "gropled";
+$fontFamily: "gropled";
+$buttonText: "WorkSans";
 // $fontFamily: "Grandstander";
 $mainColor: #ffffff;
 $minWidth: 320;
 $maxWidth: 1920;
 $mobile: 1399.98px;
 $desktop: 1919.98px;
-
 // null
 * {
   padding: 0px;
@@ -271,7 +270,7 @@ body::-webkit-scrollbar-thumb {
 input,
 button,
 textarea {
-  font-family: $fontFamily;
+  font-family: $buttonText;
   font-size: inherit;
   line-height: inherit;
 }
