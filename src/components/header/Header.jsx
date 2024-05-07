@@ -573,7 +573,7 @@ function Header() {
 											<p className='popupInvite__input'>
 												{code.length
 													? `${window.location.href.slice(
-															0,
+															8,
 															window.location.href.lastIndexOf('/') + 1
 													  )}${code}` // Get the index of the last slash and slice accordingly
 													: 'link'}
