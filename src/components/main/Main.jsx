@@ -5,6 +5,7 @@ import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { debounce } from 'lodash';
+import moment from 'moment-timezone';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import sadIdle from '../../img/1_idle.gif';
@@ -157,7 +158,8 @@ function Main() {
 	useEffect(() => {
 		if (connected) {
 			const updateGameStatus = () => {
-				const currentTimeStamp = Math.floor(Date.now() / 1000);
+				// Get the current time in Frankfurt time zone ('Etc/GMT-3')
+				const currentTimeStamp = moment.tz('Etc/GMT-3').unix();
 				const remainingTime = value?.active_at - currentTimeStamp;
 				if (remainingTime >= 0) {
 					if (remainingTime <= 0) {
@@ -842,7 +844,7 @@ function Main() {
 														marginTop: '15px',
 													}}
 												>
-													Tomo is tired, comeback when timer is over.
+													Tomo is tired, come back when timer is over.
 												</p>
 											</div>
 										) : (
