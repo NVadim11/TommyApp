@@ -24,7 +24,7 @@ import goldForm from '../../img/gold.gif';
 import smile from '../../img/smile.png';
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
 import GamePreloader from '../gamePreloader/gamePreloader';
-import { useClickCount } from '../helper/clickContext';
+// import { useClickCount } from '../helper/clickContext';
 import { AuthContext, GameInfoContext } from '../helper/contexts';
 import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
 import './Main.scss';
@@ -249,11 +249,11 @@ function Main() {
 	let catIdleImage = catIdle;
 	let catSpeakImage = catSpeak;
 
-	const { incrementClickCount } = useClickCount();
+	// const { incrementClickCount } = useClickCount();
 
-	const handleCoinClick = () => {
-		incrementClickCount();
-	};
+	// const handleCoinClick = () => {
+	// 	incrementClickCount();
+	// };
 
 	const boostClickedHandler = () => {
 		handleBoostClick();
@@ -429,7 +429,7 @@ function Main() {
 		setCurrentImage(false);
 		setCoinState(true);
 		handleShowAnimation(event);
-		handleCoinClick();
+		// handleCoinClick();
 		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
 		clearTimeout(timeoutRef.current);
 		clearTimeout(coinRef.current);
@@ -462,7 +462,7 @@ function Main() {
 		setCurrentImage(false);
 		setCoinState(true);
 		handleShowAnimation(event);
-		handleCoinClick();
+		// handleCoinClick();
 		clearTimeout(timeoutRef.current);
 		clearTimeout(coinRef.current);
 		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
