@@ -116,7 +116,6 @@ function Header() {
 			if (Object.keys(value).length) {
 				const res = await getLeaderboard(value.id).unwrap();
 				setLeaderboardData(res);
-				console.log(leaderboardData);
 				const intervalId = setInterval(() => {
 					getLeaderboard(value.id)
 						.unwrap()
