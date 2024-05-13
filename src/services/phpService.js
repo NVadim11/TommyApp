@@ -35,7 +35,7 @@ export const phpApi = createApi({
       }),
     }),
     getLeaderboard: builder.mutation({ // mutation => querry
-      query: (wallet) => `/liderbord/${wallet}`,
+      query: (id) => `/liderbord/${id}`,
       method: "GET",
     }),
     passTask: builder.mutation({

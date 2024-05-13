@@ -8,7 +8,10 @@ import link from '../../img/link.svg';
 import logo from '../../img/logo.png';
 import money from '../../img/money.svg';
 import people from '../../img/people-icon.svg';
-import { useGenerateCodeMutation } from '../../services/phpService';
+import {
+	useGenerateCodeMutation,
+	useGetLeaderboardMutation,
+} from '../../services/phpService';
 import { toggleMuteAllSounds } from '../../utility/Audio';
 import { useClickCount } from '../helper/clickContext';
 import { AuthContext } from '../helper/contexts';
@@ -26,6 +29,7 @@ function Header() {
 	const [totalPoints, setTotalPoints] = useState(null);
 	const [isVisible, setIsVisible] = useState(false);
 	const [isElementPresent, setIsElementPresent] = useState(false);
+	const [getLeaderboard] = useGetLeaderboardMutation();
 	const initLeadersRef = useRef(null);
 	const wallet_address = publicKey?.toBase58();
 
@@ -110,6 +114,35 @@ function Header() {
 		toggleMuteAllSounds();
 		setIsVisible(!isVisible);
 	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			if (Object.keys(value).length) {
+				const res = await getLeaderboard(value.id).unwrap();
+				setLeaderboardData(res);
+				console.log(leaderboardData);
+				const intervalId = setInterval(() => {
+					getLeaderboard(value.id)
+						.unwrap()
+						.then((data) => setLeaderboardData(data))
+						.catch((error) => console.error('Error refreshing leaderboard:', error));
+				}, 60000);
+				return intervalId;
+			}
+		};
+
+		let intervalId;
+
+		if (connected) {
+			fetchData().then((id) => {
+				intervalId = id;
+			});
+		}
+
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, [connected]);
 
 	const fetchLeaderboardData = async () => {
 		try {

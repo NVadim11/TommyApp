@@ -19,7 +19,11 @@ function Footer() {
 	const { value } = useContext(AuthContext);
 	const [passTask] = usePassTaskMutation();
 
+	// aws
 	const secretKey = process.env.REACT_APP_SECRET_KEY;
+
+	// prodtest
+	// const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
 
 	const toggleVisibility = () => {
 		toggleMuteAllSounds();
