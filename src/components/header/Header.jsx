@@ -13,12 +13,12 @@ import {
 	useGetLeaderboardMutation,
 } from '../../services/phpService';
 import { toggleMuteAllSounds } from '../../utility/Audio';
-import { useClickCount } from '../helper/clickContext';
-import { AuthContext } from '../helper/contexts';
+import { AuthContext, GameInfoContext } from '../helper/contexts';
 import './Header.scss';
 
 function Header() {
 	const { value } = useContext(AuthContext);
+	const { state } = useContext(GameInfoContext);
 	const { connected, publicKey } = useWallet();
 	const [isToggled, setIsToggled] = useState(false);
 	const [isShown, setIsShown] = useState(false);
@@ -28,10 +28,11 @@ function Header() {
 	const [isInviteOpen, setInviteOpen] = useState(false);
 	const [totalPoints, setTotalPoints] = useState(null);
 	const [isVisible, setIsVisible] = useState(false);
+	const [lastFiveSymbols, setLastFiveSymbols] = useState('');
 	const [isElementPresent, setIsElementPresent] = useState(false);
-	const [getLeaderboard] = useGetLeaderboardMutation();
 	const initLeadersRef = useRef(null);
 	const wallet_address = publicKey?.toBase58();
+	const [getLeaderboard] = useGetLeaderboardMutation();
 
 	const popupClsTgl = isLeaderboardOpen ? 'popupLeaderboard_show' : null;
 	const popupClasses = `popupLeaderboard ${popupClsTgl}`;
@@ -39,12 +40,7 @@ function Header() {
 	const popupInvTgl = isInviteOpen ? 'popupInvite_show' : null;
 	const popupInvite = `popupInvite ${popupInvTgl}`;
 
-	const { clickCount } = useClickCount();
-	const [inviteAlreadySent, setInviteAlreadySent] = useState(false);
-
 	const containerRef = useRef(null);
-	// const [getLeaderboard] = useGetLeaderboardMutation();
-	const [lastFiveSymbols, setLastFiveSymbols] = useState('');
 
 	useEffect(() => {
 		const currentPath = window.location.pathname;
@@ -65,7 +61,7 @@ function Header() {
 				requestBody.referral_code = lastFiveSymbols;
 			}
 			const response = await axios.post(
-				'https://admin.prodtest1.space/api/users',
+				'https://aws.tomocat.com/api/users',
 				requestBody,
 				{
 					headers: {
@@ -142,11 +138,11 @@ function Header() {
 		return () => {
 			clearInterval(intervalId);
 		};
-	}, [connected]);
+	}, [value, connected]);
 
 	const fetchLeaderboardData = async () => {
 		try {
-			const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
+			const response = await axios.get(`https://aws.tomocat.com/api/liders`);
 			setLeaderboardData(response.data);
 		} catch (e) {
 			console.log('Error fetching leaderboard data');
@@ -156,7 +152,6 @@ function Header() {
 	useEffect(() => {
 		if (!connected) {
 			fetchLeaderboardData();
-		} else {
 			initLeadersRef.current = setInterval(() => {
 				fetchLeaderboardData();
 			}, 60000);
@@ -210,15 +205,6 @@ function Header() {
 		fadeShowInvite();
 		setIsShown(false);
 	};
-
-	useEffect(() => {
-		if (clickCount >= 100 && !inviteAlreadySent) {
-			setInviteAlreadySent(true);
-			setTimeout(() => {
-				inviteFriendsBtn();
-			}, 5000);
-		}
-	}, [clickCount, inviteAlreadySent]);
 
 	const fadeShow = () => {
 		const htmlTag = document.getElementById('html');
@@ -283,7 +269,7 @@ function Header() {
 					<div className='header__centerBtns'>
 						<div className='header__leaderboardBtn'>
 							<button onClick={leaderBordBtn}>
-								<span>Leaderboard</span>
+								<span>{state?.info.header__leaderboard}</span>
 								<svg
 									width='18'
 									height='18'
@@ -301,7 +287,7 @@ function Header() {
 						{connected && (
 							<div className='header__inviteBtn'>
 								<button className='header__inviteBtn' onClick={inviteFriendsBtn}>
-									<span>Referral</span>
+									<span>{state?.info.header__inviteBtn}</span>
 									<svg
 										width='20'
 										height='20'
@@ -328,7 +314,8 @@ function Header() {
 					<div className='header__mobileBtns'>
 						{value && totalPoints !== null && (
 							<div id='header__totalScore' className='header__totalScore'>
-								Total Points: <span>{totalPoints}</span>
+								{state?.info.header__totalScore}
+								<span>{totalPoints}</span>
 							</div>
 						)}
 						<div className='soundToggler'>
@@ -553,10 +540,10 @@ function Header() {
 								Get rewards together.
 							</h3>
 							<div className='popupInvite__header'>
-								<h6>How it Works</h6>
+								<h6>{state?.info.popupInvite__header_title}</h6>
 								<div className='popupInvite__refInfo'>
 									<div className='popupInvite__headerDescr'>
-										<h6>Your Bonus:</h6>
+										<h6>{state?.info.popupInvite__bonus_title}</h6>
 										<div className='popupInvite__headerItem'>
 											<h3>%</h3>
 											<h3>10</h3>
@@ -564,7 +551,7 @@ function Header() {
 									</div>
 									{totalReferrals >= 1 && (
 										<div className='popupInvite__headerDescr'>
-											<h6>Referred Friends:</h6>
+											<h6>{state?.info.popupInvite__ref_friends_title}</h6>
 											<div className='popupInvite__headerItem'>
 												<img src={people} alt='people' />
 												<h3>{totalReferrals}</h3>
@@ -602,7 +589,7 @@ function Header() {
 								<div className='popupInvite__gridItem'>
 									<div className='popupInvite__item-box'>
 										<div className='popupInvite__item-group'>
-											<p>Your link</p>
+											<p>{state?.info.popupInvite__ref_link_title}</p>
 											<p className='popupInvite__input'>
 												{code.length
 													? `${window.location.href.slice(
@@ -623,7 +610,7 @@ function Header() {
 												className='popupInvite__submit'
 												onClick={generateCodeCallback}
 											>
-												Generate
+												{state?.info.popupInvite__submit}
 											</button>
 										</div>
 									</div>

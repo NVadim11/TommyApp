@@ -31,7 +31,6 @@ import {
 	TokenPocketWalletAdapter,
 	TokenaryWalletAdapter,
 	TorusWalletAdapter,
-	TrezorWalletAdapter,
 	TrustWalletAdapter,
 	WalletConnectWalletAdapter,
 	XDEFIWalletAdapter,
@@ -63,7 +62,6 @@ const Context = ({ children }) => {
 		() => [
 			new PhantomWalletAdapter(),
 			new SolflareWalletAdapter(),
-			new TrezorWalletAdapter(),
 			new AvanaWalletAdapter(),
 			new CloverWalletAdapter(),
 			new Coin98WalletAdapter(),

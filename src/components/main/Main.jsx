@@ -24,7 +24,6 @@ import goldForm from '../../img/gold.gif';
 import smile from '../../img/smile.png';
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
 import GamePreloader from '../gamePreloader/gamePreloader';
-// import { useClickCount } from '../helper/clickContext';
 import { AuthContext, GameInfoContext } from '../helper/contexts';
 import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
 import './Main.scss';
@@ -69,9 +68,9 @@ function Main() {
 	const [animations, setAnimations] = useState([]);
 
 	const [gamePlayable, setGamePlayable] = useState(false);
+
 	// aws
 	const secretKey = process.env.REACT_APP_SECRET_KEY;
-
 	// prodtest
 	// const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
 
@@ -107,7 +106,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch('https://admin.prodtest1.space/api/set-activity', {
+		fetch('https://aws.tomocat.com/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -152,7 +151,7 @@ function Main() {
 	const getGameStatus = async () => {
 		try {
 			const initGameStatusCheck = await axios.get(
-				`https://admin.prodtest1.space/api/users/${wallet_address}`
+				`https://aws.tomocat.com/api/users/${wallet_address}`
 			);
 		} catch (e) {
 			console.log('Error fetching leaderboard data');
@@ -397,14 +396,11 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post(
-				'https://admin.prodtest1.space/api/update-balance',
-				{
-					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-					score: coins,
-					wallet_address: wallet_address,
-				}
-			);
+			const response = await axios.post('https://aws.tomocat.com/api/update-balance', {
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
+				score: coins,
+				wallet_address: wallet_address,
+			});
 		} catch (e) {
 			console.log('Error submitting coins:');
 		}
@@ -585,7 +581,7 @@ function Main() {
 					<div className='mainContent__phaseOne'>
 						<div className='mainContent__infoBlock'>
 							<div className='mainContent__title'>
-								<h4>Tomo Cat</h4>
+								<h4>{state?.info.mainContent__title}</h4>
 							</div>
 							<div className='mainContent__descr'>
 								<p>
@@ -627,7 +623,7 @@ function Main() {
 									style={{ display: !connected ? 'none' : 'flex' }}
 								>
 									{' '}
-									<span>Play now!</span>
+									<span>{state?.info.mainContent__startBtn}</span>
 									<svg
 										width='22'
 										height='23'
@@ -706,7 +702,7 @@ function Main() {
 											strokeLinecap='round'
 										/>
 									</svg>
-									<p>Invite Friends</p>
+									<p>{state?.info.mainContent__refFriends}</p>
 								</div>
 							</motion.div>
 							<motion.div
@@ -748,7 +744,7 @@ function Main() {
 											</clipPath>
 										</defs>
 									</svg>
-									<p>Pet Tomo</p>
+									<p>{state?.info.mainContent__petCat}</p>
 								</div>
 							</motion.div>
 							<motion.div
@@ -807,7 +803,7 @@ function Main() {
 											strokeLinejoin='round'
 										/>
 									</svg>
-									<p>Earn Points</p>
+									<p>{state?.info.mainContent__earnPoins}</p>
 								</div>
 							</motion.div>
 						</div>
@@ -1014,10 +1010,7 @@ function Main() {
 													></progress>
 												</div>
 												<div className='mainContent__energyHint'>
-													<p>
-														The happier the cat — the more you get! Make it purr and get
-														rewards
-													</p>
+													<p>{state?.info.mainContent__energyHint}</p>
 												</div>
 											</div>
 										)}{' '}
@@ -1102,7 +1095,7 @@ function Main() {
 									<div className='mainContent__backBtn-box'>
 										<div className='mainContent__backBtn' onClick={stopFarm}>
 											<button>
-												<span>&lt; Stop</span>
+												<span>&lt; {state?.info.mainContent__backBtn}</span>
 												<svg
 													width='12'
 													height='13'
