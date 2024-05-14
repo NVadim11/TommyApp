@@ -18,12 +18,13 @@ function Footer() {
 	const location = useLocation();
 	const { value } = useContext(AuthContext);
 	const [passTask] = usePassTaskMutation();
+	const [activeTab, setActiveTab] = useState(0);
 
 	// aws
-	const secretKey = process.env.REACT_APP_SECRET_KEY;
+	// const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 	// prodtest
-	// const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
 
 	const toggleVisibility = () => {
 		toggleMuteAllSounds();
@@ -160,6 +161,10 @@ function Footer() {
 			console.log(JSON.stringify(e));
 		}
 	};
+
+	const handleTabClick = (index) => {
+        setActiveTab(index);
+    };
 
 	return (
 		<>
@@ -304,25 +309,91 @@ function Footer() {
 								</div>
 							</div>
 							<div className='popupTasks__tabs-btns'>
-								<div className='popupTasks__tabs-btn active'>
+								<div  className={`popupTasks__tabs-btn ${activeTab === 0 ? 'active' : ''}`} onClick={() => handleTabClick(0)}>
 									<button>Social</button>
 								</div>
-								<div className='popupTasks__tabs-btn'>
+								<div className={`popupTasks__tabs-btn ${activeTab === 1 ? 'active' : ''}`} onClick={() => handleTabClick(1)}>
 									<button>
-										Daily <span>(Coming Soon)</span>
+										Daily
 									</button>
-									<div className='footerMain__activitiesHint'>Coming Soon</div>
+									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
-								<div className='popupTasks__tabs-btn'>
+								{/* <div className='popupTasks__tabs-btn'> */}
+								<div className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`} onClick={() => handleTabClick(2)}>
 									<button>
-										Partnership <span>(Coming Soon)</span>
+										Partnership
 									</button>
-									<div className='footerMain__activitiesHint'>Coming Soon</div>
+									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
 								<div className='popupTasks__tabs-line'></div>
 							</div>
 							<div className='popupTasks__tabs-content'>
-								<div className='popupTasks__tabSocial'>
+								 {activeTab === 0 && (
+									<div className='popupTasks__tabSocial'>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={twitterClick} disabled={value?.twitter === 1}>
+													<span>Follow Twitter</span>
+												</button>
+											</div>
+											{value?.twitter === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={tgClickChat} disabled={value?.tg_chat === 1}>
+													<span>Follow Telegram Chat</span>
+												</button>
+											</div>
+											{value?.tg_chat === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={tgClickChannel} disabled={value?.tg_channel === 1}>
+													<span>Follow Telegram Channel</span>
+												</button>
+											</div>
+											{value?.tg_channel === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={websiteClick} disabled={value?.website === 1}>
+													<span>Visit Website</span>
+												</button>
+											</div>
+											{value?.website === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 3 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+									</div>
+									)}
+									{activeTab === 1 && (
+									<div className='popupTasks__tabSocial'>
 									<div className='popupTasks__tabSocial-item'>
 										<div className='popupTasks__tabSocial-btn'>
 											<button onClick={twitterClick} disabled={value?.twitter === 1}>
@@ -384,6 +455,71 @@ function Footer() {
 										)}
 									</div>
 								</div>
+									)}
+									{activeTab === 2 && (
+										<div className='popupTasks__tabSocial'>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={twitterClick} disabled={value?.twitter === 1}>
+													<span>Follow Twitter</span>
+												</button>
+											</div>
+											{value?.twitter === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={tgClickChat} disabled={value?.tg_chat === 1}>
+													<span>Follow Telegram Chat</span>
+												</button>
+											</div>
+											{value?.tg_chat === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={tgClickChannel} disabled={value?.tg_channel === 1}>
+													<span>Follow Telegram Channel</span>
+												</button>
+											</div>
+											{value?.tg_channel === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={websiteClick} disabled={value?.website === 1}>
+													<span>Visit Website</span>
+												</button>
+											</div>
+											{value?.website === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 3 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+									</div>
+									)}
 							</div>
 						</div>
 					</div>

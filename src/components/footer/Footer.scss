@@ -204,7 +204,8 @@ body::after {
   transition: visibility 0.8s ease 0s;
   // visibility: hidden;
   pointer-events: none;
-  @media (max-width: $mobile) {
+  @media (max-width: 768px) {
+    padding: 0;
   }
 }
 .popupTasks_show {
@@ -213,6 +214,9 @@ body::after {
   overflow: auto;
   pointer-events: auto;
   align-items: center;
+  @media (max-width: 768px) {
+    display: block;
+  }
 }
 .popupTasks_show .popupTasks__content {
   display: flex;
@@ -238,8 +242,11 @@ body::after {
   position: relative;
   margin: 0 auto;
   @media (max-width: 768px) {
-    padding: 2.1875rem 0;
-    width: 21.5625rem;
+    margin: 0;
+    border-radius: 0;
+    background: rgba(41, 47, 79, 1);
+    height: 100vh;
+    justify-content: center;
   }
 }
 
@@ -249,6 +256,13 @@ body::after {
     top: 1.25rem;
     right: 1.25rem;
     @media (max-width: 768px) {
+      position: relative;
+      top: 0;
+      right: 0;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 1.5625rem;
+      margin-bottom: 10px;
     }
   }
   &__header {
@@ -409,16 +423,20 @@ body::after {
       padding: 0;
       gap: 0.625rem;
       justify-content: flex-start;
+      position: relative;
     }
   }
   &__tabSocial-btn {
+    @media (max-width: 768px) {
+      width: 100%;
+    }
     button {
       border: 2px solid #fff;
       border-radius: 3.75rem;
       padding: 1.25rem 1.125rem;
       width: 18.75rem;
       height: 3.125rem;
-      background: linear-gradient(87deg, #691ee2 33.5%, #c09aff 100%);
+      background: linear-gradient(-87deg, #691ee2 33.5%, #c09aff 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -428,9 +446,10 @@ body::after {
       transition: opacity 0.25s;
       position: relative;
       @media (max-width: 768px) {
-        width: 12.5rem;
+        width: 100%;
         font-size: 0.875rem;
-        padding: 0;
+        padding: 0 0 0 20px;
+        justify-content: flex-start;
       }
     }
     button:disabled {
@@ -442,7 +461,7 @@ body::after {
     }
     button::before {
       content: "";
-      background: linear-gradient(-87deg, #691ee2 33.5%, #c09aff 100%);
+      background: linear-gradient(87deg, #691ee2 33.5%, #c09aff 100%);
       opacity: 0;
       position: absolute;
       width: 100%;
@@ -461,6 +480,10 @@ body::after {
   &__tabSocial-reward {
     display: flex;
     align-items: center;
+    @media (max-width: 768px) {
+      position: absolute;
+      right: 20px;
+    }
     span {
       font-weight: 600;
       font-size: 1.5rem;
