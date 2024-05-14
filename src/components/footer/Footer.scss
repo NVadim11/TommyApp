@@ -424,6 +424,10 @@ body::after {
       gap: 0.625rem;
       justify-content: flex-start;
       position: relative;
+      img {
+        position: absolute;
+        right: 20px;
+      }
     }
   }
   &__tabSocial-btn {
@@ -453,7 +457,7 @@ body::after {
       }
     }
     button:disabled {
-      opacity: 0.5;
+      background: #292f4f;
     }
     span {
       z-index: 10;
