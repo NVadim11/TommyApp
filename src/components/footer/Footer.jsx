@@ -163,8 +163,8 @@ function Footer() {
 	};
 
 	const handleTabClick = (index) => {
-        setActiveTab(index);
-    };
+		setActiveTab(index);
+	};
 
 	return (
 		<>
@@ -309,26 +309,31 @@ function Footer() {
 								</div>
 							</div>
 							<div className='popupTasks__tabs-btns'>
-								<div  className={`popupTasks__tabs-btn ${activeTab === 0 ? 'active' : ''}`} onClick={() => handleTabClick(0)}>
+								<div
+									className={`popupTasks__tabs-btn ${activeTab === 0 ? 'active' : ''}`}
+									onClick={() => handleTabClick(0)}
+								>
 									<button>Social</button>
 								</div>
-								<div className={`popupTasks__tabs-btn ${activeTab === 1 ? 'active' : ''}`} onClick={() => handleTabClick(1)}>
-									<button>
-										Daily
-									</button>
+								<div
+									className={`popupTasks__tabs-btn ${activeTab === 1 ? 'active' : ''}`}
+									onClick={() => handleTabClick(1)}
+								>
+									<button>Daily</button>
 									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
 								{/* <div className='popupTasks__tabs-btn'> */}
-								<div className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`} onClick={() => handleTabClick(2)}>
-									<button>
-										Partnership
-									</button>
+								<div
+									className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
+									onClick={() => handleTabClick(2)}
+								>
+									<button>Partnership</button>
 									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
 								<div className='popupTasks__tabs-line'></div>
 							</div>
 							<div className='popupTasks__tabs-content'>
-								 {activeTab === 0 && (
+								{activeTab === 0 && (
 									<div className='popupTasks__tabSocial'>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
@@ -362,7 +367,10 @@ function Footer() {
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
-												<button onClick={tgClickChannel} disabled={value?.tg_channel === 1}>
+												<button
+													onClick={tgClickChannel}
+													disabled={value?.tg_channel === 1}
+												>
 													<span>Follow Telegram Channel</span>
 												</button>
 											</div>
@@ -391,76 +399,12 @@ function Footer() {
 											)}
 										</div>
 									</div>
-									)}
-									{activeTab === 1 && (
+								)}
+								{activeTab === 1 && (
 									<div className='popupTasks__tabSocial'>
-									<div className='popupTasks__tabSocial-item'>
-										<div className='popupTasks__tabSocial-btn'>
-											<button onClick={twitterClick} disabled={value?.twitter === 1}>
-												<span>Follow Twitter</span>
-											</button>
-										</div>
-										{value?.twitter === 0 ? (
-											<div className='popupTasks__tabSocial-reward'>
-												<span>+ 10 000</span>
-												<img src={catCoin} alt='animation' draggable='false' />
-											</div>
-										) : (
-											<img src={checkbox} />
-										)}
-									</div>
-									<div className='popupTasks__tabSocial-item'>
-										<div className='popupTasks__tabSocial-btn'>
-											<button onClick={tgClickChat} disabled={value?.tg_chat === 1}>
-												<span>Follow Telegram Chat</span>
-											</button>
-										</div>
-										{value?.tg_chat === 0 ? (
-											<div className='popupTasks__tabSocial-reward'>
-												<span>+ 10 000</span>
-												<img src={catCoin} alt='animation' draggable='false' />
-											</div>
-										) : (
-											<img src={checkbox} />
-										)}
-									</div>
-									<div className='popupTasks__tabSocial-item'>
-										<div className='popupTasks__tabSocial-btn'>
-											<button onClick={tgClickChannel} disabled={value?.tg_channel === 1}>
-												<span>Follow Telegram Channel</span>
-											</button>
-										</div>
-										{value?.tg_channel === 0 ? (
-											<div className='popupTasks__tabSocial-reward'>
-												<span>+ 10 000</span>
-												<img src={catCoin} alt='animation' draggable='false' />
-											</div>
-										) : (
-											<img src={checkbox} />
-										)}
-									</div>
-									<div className='popupTasks__tabSocial-item'>
-										<div className='popupTasks__tabSocial-btn'>
-											<button onClick={websiteClick} disabled={value?.website === 1}>
-												<span>Visit Website</span>
-											</button>
-										</div>
-										{value?.website === 0 ? (
-											<div className='popupTasks__tabSocial-reward'>
-												<span>+ 3 000</span>
-												<img src={catCoin} alt='animation' draggable='false' />
-											</div>
-										) : (
-											<img src={checkbox} />
-										)}
-									</div>
-								</div>
-									)}
-									{activeTab === 2 && (
-										<div className='popupTasks__tabSocial'>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
-												<button onClick={twitterClick} disabled={value?.twitter === 1}>
+												<button disabled={value?.twitter === 1}>
 													<span>Follow Twitter</span>
 												</button>
 											</div>
@@ -490,7 +434,10 @@ function Footer() {
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
-												<button onClick={tgClickChannel} disabled={value?.tg_channel === 1}>
+												<button
+													onClick={tgClickChannel}
+													disabled={value?.tg_channel === 1}
+												>
 													<span>Follow Telegram Channel</span>
 												</button>
 											</div>
@@ -519,7 +466,74 @@ function Footer() {
 											)}
 										</div>
 									</div>
-									)}
+								)}
+								{activeTab === 2 && (
+									<div className='popupTasks__tabSocial'>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button disabled={value?.twitter === 1}>
+													<span>Follow Twitter</span>
+												</button>
+											</div>
+											{value?.twitter === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={tgClickChat} disabled={value?.tg_chat === 1}>
+													<span>Follow Telegram Chat</span>
+												</button>
+											</div>
+											{value?.tg_chat === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button
+													onClick={tgClickChannel}
+													disabled={value?.tg_channel === 1}
+												>
+													<span>Follow Telegram Channel</span>
+												</button>
+											</div>
+											{value?.tg_channel === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 10 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+										<div className='popupTasks__tabSocial-item'>
+											<div className='popupTasks__tabSocial-btn'>
+												<button onClick={websiteClick} disabled={value?.website === 1}>
+													<span>Visit Website</span>
+												</button>
+											</div>
+											{value?.website === 0 ? (
+												<div className='popupTasks__tabSocial-reward'>
+													<span>+ 3 000</span>
+													<img src={catCoin} alt='animation' draggable='false' />
+												</div>
+											) : (
+												<img src={checkbox} />
+											)}
+										</div>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>
