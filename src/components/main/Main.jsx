@@ -21,6 +21,7 @@ import catFace from '../../img/catFace.png';
 import catCoinMove from '../../img/cat_coin_move.png';
 import finalForm from '../../img/finalForm.gif';
 import goldForm from '../../img/gold.gif';
+import goldIdle from '../../img/goldIdle.gif';
 import smile from '../../img/smile.png';
 import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
 import GamePreloader from '../gamePreloader/gamePreloader';
@@ -396,11 +397,14 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post('https://admin.prodtest1.space/api/update-balance', {
-				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-				score: coins,
-				wallet_address: wallet_address,
-			});
+			const response = await axios.post(
+				'https://admin.prodtest1.space/api/update-balance',
+				{
+					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
+					score: coins,
+					wallet_address: wallet_address,
+				}
+			);
 		} catch (e) {
 			console.log('Error submitting coins:');
 		}
@@ -891,7 +895,7 @@ function Main() {
 																<motion.img
 																	id='catGif'
 																	className='mainContent__catIdle'
-																	src={boostPhase ? goldForm : catIdle}
+																	src={boostPhase ? goldIdle : catIdle}
 																	draggable='false'
 																	alt='cat animation'
 																	animate={{ opacity: 1 }}
