@@ -459,26 +459,9 @@ body::after {
     button:disabled {
       background: #292f4f;
     }
-    span {
+    span {  
       z-index: 10;
       position: relative;
-    }
-    button::before {
-      content: "";
-      background: linear-gradient(87deg, #691ee2 33.5%, #c09aff 100%);
-      opacity: 0;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 3.75rem;
-      transition: opacity 0.25s ease-in-out;
-      right: 0;
-      @media (max-width: 768px) {
-        display: none;
-      }
-    }
-    button:hover:before {
-      opacity: 1;
     }
   }
   &__tabSocial-reward {

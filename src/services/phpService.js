@@ -45,6 +45,20 @@ export const phpApi = createApi({
         body,
       }),
     }),
+    passDaily: builder.mutation({
+      query: (body) => ({
+        url: "/pass-daily-quest",        
+        method: "POST",
+        body,
+      }),
+    }),
+    passPartners: builder.mutation({
+      query: (body) => ({
+        url: "/pass-partners-quest",        
+        method: "POST",
+        body,
+      }),
+    }),
     updateBalance: builder.mutation({
       query: (body) => ({
         url: "/update-balance",
@@ -63,5 +77,7 @@ export const {
   useGenerateCodeMutation,
   useGetLeaderboardMutation,
   usePassTaskMutation,
+  usePassDailyMutation,
+  usePassPartnersMutation,
   useUpdateBalanceMutation,
 } = phpApi;
