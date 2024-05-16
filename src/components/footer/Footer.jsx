@@ -27,9 +27,9 @@ function Footer() {
 	const [activeTab, setActiveTab] = useState(0);
 
 	// aws
-	// const secretKey = process.env.REACT_APP_SECRET_KEY;
+	const secretKey = process.env.REACT_APP_SECRET_KEY;
 	// prodtest
-	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+	// const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
 
 	const toggleVisibility = () => {
 		toggleMuteAllSounds();
@@ -288,20 +288,21 @@ function Footer() {
 								>
 									<button>Social</button>
 								</div>
-								<div
+								<div className='popupTasks__tabs-btn'>
+									{/* <div
 									className={`popupTasks__tabs-btn ${activeTab === 1 ? 'active' : ''}`}
 									onClick={() => handleTabClick(1)}
-								>
+								> */}
 									<button>Daily</button>
-									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
+									<div className='footerMain__activitiesHint'>Coming Soon</div>
 								</div>
-								{/* <div className='popupTasks__tabs-btn'> */}
-								<div
+								<div className='popupTasks__tabs-btn'>
+									{/* <div
 									className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
 									onClick={() => handleTabClick(2)}
-								>
+								> */}
 									<button>Partnership</button>
-									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
+									<div className='footerMain__activitiesHint'>Coming Soon</div>
 								</div>
 								<div className='popupTasks__tabs-line'></div>
 							</div>
@@ -373,7 +374,7 @@ function Footer() {
 										</div>
 									</div>
 								)}
-								{activeTab === 1 && (
+								{/* {activeTab === 1 && (
 									<div className='popupTasks__tabSocial'>
 										{dailyTasksObj.map((quest) => (
 											<div className='popupTasks__tabSocial-item' key={quest.id}>
@@ -417,7 +418,7 @@ function Footer() {
 											</div>
 										))}
 									</div>
-								)}
+								)} */}
 							</div>
 						</div>
 					</div>

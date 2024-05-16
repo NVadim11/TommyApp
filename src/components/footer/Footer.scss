@@ -377,7 +377,7 @@ body::after {
       }
     }
     .footerMain__activitiesHint {
-      display: none;
+      display: flex;
       @media (max-width: 768px) {
         display: flex;
         font-size: 0.625rem;
