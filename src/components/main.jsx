@@ -1,6 +1,7 @@
 import AOS from 'aos';
 import { useContext, useEffect, useState } from 'react';
 import { useGetGameInfoQuery } from '../services/admin';
+import NotFound from './404';
 import Footer from './footer/Footer';
 import Header from './header/Header';
 import { GameInfoContext } from './helper/contexts';
@@ -36,11 +37,17 @@ const MainComponent = () => {
 	return (
 		<div className='wrapper'>
 			<Preloader loaded={preloaderLoaded} />
-			<Header />
-			<main className='main'>
-				<Main />
-			</main>
-			<Footer />
+			{data ? (
+				<>
+					<Header />
+					<main className='main'>
+						<Main />
+					</main>
+					<Footer />
+				</>
+			) : (
+				<NotFound />
+			)}
 		</div>
 	);
 };

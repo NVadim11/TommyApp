@@ -71,9 +71,9 @@ function Main() {
 	const [gamePlayable, setGamePlayable] = useState(false);
 
 	// aws
-	const secretKey = process.env.REACT_APP_SECRET_KEY;
+	// const secretKey = process.env.REACT_APP_SECRET_KEY;
 	// prodtest
-	// const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
 
 	const isDesktop = () => {
 		const userAgent = window.navigator.userAgent;
@@ -107,7 +107,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch('https://aws.tomocat.com/api/set-activity', {
+		fetch('https://admin.prodtest1.space/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ function Main() {
 	const getGameStatus = async () => {
 		try {
 			const initGameStatusCheck = await axios.get(
-				`https://aws.tomocat.com/api/users/${wallet_address}`
+				`https://admin.prodtest1.space/api/users/${wallet_address}`
 			);
 		} catch (e) {
 			console.log('Error fetching leaderboard data');
@@ -397,11 +397,14 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post('https://aws.tomocat.com/api/update-balance', {
-				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-				score: coins,
-				wallet_address: wallet_address,
-			});
+			const response = await axios.post(
+				'https://admin.prodtest1.space/api/update-balance',
+				{
+					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
+					score: coins,
+					wallet_address: wallet_address,
+				}
+			);
 		} catch (e) {
 			console.log('Error submitting coins:');
 		}
