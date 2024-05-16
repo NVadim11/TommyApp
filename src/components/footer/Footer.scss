@@ -318,7 +318,6 @@ body::after {
     position: relative;
     @media (max-width: 768px) {
       margin-top: 1.5625rem;
-      justify-content: flex-start;
       gap: 0.9375rem;
       padding: 0 1.5625rem;
       // justify-content: space-between;
