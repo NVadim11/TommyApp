@@ -47,28 +47,23 @@ function Main() {
 	const accumulatedCoinsRef = useRef(0);
 	const { publicKey, connected } = useWallet();
 	const wallet_address = publicKey?.toBase58();
-
 	const [position, setPosition] = useState({ x: '50%', y: '50%' });
 	const [boostPhase, setBoostPhase] = useState(false);
 	const [visible, setVisible] = useState(false);
-
-	let [happinessVal, setHappinessVal] = useState(1);
-	let [clickNewCoins, setClickNewCoins] = useState(1);
-
 	const [gamePaused, setGamePaused] = useState(false);
 	const [timeRemaining, setTimeRemaining] = useState('');
-
 	const [preloaderLoadedPhaseTwo, setPreloaderLoadedPhaseTwo] = useState(false);
 	const [gamePreloaded, setGamePreloaded] = useState(false);
 	const [showPhaseTwo, setShowPhaseTwo] = useState(false);
 	const [showGameBox, setShowGameBox] = useState(false);
 	const [catVisible, setCatVisible] = useState(true);
 	const imagesRef = useRef([]);
-
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
-
 	const [gamePlayable, setGamePlayable] = useState(false);
+
+	let [happinessVal, setHappinessVal] = useState(1);
+	let [clickNewCoins, setClickNewCoins] = useState(1);
 
 	// aws
 	// const secretKey = process.env.REACT_APP_SECRET_KEY;
