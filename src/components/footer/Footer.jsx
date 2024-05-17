@@ -123,6 +123,19 @@ function Footer() {
 		}
 	};
 
+	const passDailyHandler = async (taskId) => {
+		try {
+			const res = await passDaily({
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
+				user_id: value?.id,
+				daily_quest_id: taskId,
+			}).unwrap();
+			console.log('Task completed successfully:', res);
+		} catch (e) {
+			console.log('Error completing task:' + taskId, JSON.stringify(e));
+		}
+	};
+
 	const partnersTaskHandler = async (taskId) => {
 		try {
 			const res = await passPartners({
@@ -288,21 +301,21 @@ function Footer() {
 								>
 									<button>Social</button>
 								</div>
-								<div className='popupTasks__tabs-btn'>
-									{/* <div
+								{/* <div className='popupTasks__tabs-btn'> */}
+								<div
 									className={`popupTasks__tabs-btn ${activeTab === 1 ? 'active' : ''}`}
 									onClick={() => handleTabClick(1)}
-								> */}
+								>
 									<button>Daily</button>
-									<div className='footerMain__activitiesHint'>Coming Soon</div>
+									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
-								<div className='popupTasks__tabs-btn'>
-									{/* <div
+								{/* <div className='popupTasks__tabs-btn'> */}
+								<div
 									className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
 									onClick={() => handleTabClick(2)}
-								> */}
+								>
 									<button>Partnership</button>
-									<div className='footerMain__activitiesHint'>Coming Soon</div>
+									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
 								<div className='popupTasks__tabs-line'></div>
 							</div>
@@ -374,12 +387,15 @@ function Footer() {
 										</div>
 									</div>
 								)}
-								{/* {activeTab === 1 && (
+								{activeTab === 1 && (
 									<div className='popupTasks__tabSocial'>
 										{dailyTasksObj.map((quest) => (
 											<div className='popupTasks__tabSocial-item' key={quest.id}>
 												<div className='popupTasks__tabSocial-btn'>
-													<button disabled={quest.status === 1}>
+													<button
+														disabled={quest.status === 1}
+														onClick={() => passDailyHandler(quest.id)}
+													>
 														<span>{quest.daily_quest.name}</span>
 													</button>
 												</div>
@@ -389,7 +405,7 @@ function Footer() {
 														<img src={catCoin} alt='animation' draggable='false' />
 													</div>
 												) : (
-													<img src={checkbox} />
+													<img src={checkbox} alt='Completed' />
 												)}
 											</div>
 										))}
@@ -418,7 +434,7 @@ function Footer() {
 											</div>
 										))}
 									</div>
-								)} */}
+								)}
 							</div>
 						</div>
 					</div>
