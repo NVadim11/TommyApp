@@ -452,7 +452,10 @@ body::after {
   &__tabSocial-reward {
     display: flex;
     align-items: center;
+    justify-content: end;
+    width: 120px;
     @media (max-width: 768px) {
+      width: 70px;
       position: absolute;
       right: 20px;
     }
@@ -469,7 +472,6 @@ body::after {
       width: 1.375rem;
       height: 1.375rem;
       margin-left: 5px;
-      margin-bottom: 4px;
       @media (max-width: 768px) {
         display: none;
       }
