@@ -486,7 +486,7 @@ function Footer() {
 													</div>
 													{quest.status === 0 ? (
 														<div className='popupTasks__tabSocial-reward'>
-															<span>+ {quest.daily_quest.reward}</span>
+															<span>+ {quest.reward}</span>
 															<img src={catCoin} alt='animation' draggable='false' />
 														</div>
 													) : (
@@ -513,7 +513,7 @@ function Footer() {
 													</div>
 													{quest.status === 0 ? (
 														<div className='popupTasks__tabSocial-reward'>
-															<span>+ {quest.partners_quest.reward}</span>
+															<span>+ {quest.reward}</span>
 															<img src={catCoin} alt='animation' draggable='false' />
 														</div>
 													) : (
