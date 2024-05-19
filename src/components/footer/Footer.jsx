@@ -1,6 +1,6 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import bcrypt from 'bcryptjs';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { default as catCoin, default as catCoinMove } from '../../img/cat_coin_move.png';
 import checkbox from '../../img/checkbox.png';
@@ -26,6 +26,25 @@ function Footer() {
 	const [passPartners] = usePassPartnersMutation();
 	const [activeTab, setActiveTab] = useState(0);
 
+	const dailyTasksObj = value?.daily_quests;
+	const partnerTaskObj = value?.partners_quests;
+
+	const [twitterQuest, setTwitterQuest] = useState(value?.twitter);
+	const [tgChatQuest, setTgChatQuest] = useState(value?.tg_chat);
+	const [tgChannelQuest, setTgChannelQuest] = useState(value?.tg_channel);
+	const [websiteQuest, setWebsiteQuest] = useState(value?.website);
+	const [dailyQuests, setDailyQuests] = useState(dailyTasksObj);
+	const [partnerQuests, setPartnerQuests] = useState(partnerTaskObj);
+
+	useEffect(() => {
+		setTwitterQuest(value?.twitter);
+		setTgChatQuest(value?.tg_chat);
+		setTgChannelQuest(value?.tg_channel);
+		setWebsiteQuest(value?.website);
+		setPartnerQuests(partnerTaskObj);
+		setDailyQuests(dailyTasksObj);
+	}, [value]);
+
 	// aws
 	// const secretKey = process.env.REACT_APP_SECRET_KEY;
 	// prodtest
@@ -39,9 +58,6 @@ function Footer() {
 	const [tasksOpen, setTasksOpen] = useState(false);
 	const popupTasksTgl = tasksOpen ? 'popupTasks_show' : null;
 	const popupTasks = `popupTasks ${popupTasksTgl}`;
-
-	const dailyTasksObj = value?.daily_quests;
-	const partnerTaskObj = value?.partners_quests;
 
 	const now = new Date();
 	const options = {
@@ -79,6 +95,14 @@ function Footer() {
 				wallet_address: value?.wallet_address,
 				task: 'twitter',
 			}).unwrap();
+			const res = { success: true };
+			if (res.success) {
+				// Update quest status to completed (status: 1)
+				setTwitterQuest(1);
+				console.log('Task completed successfully:');
+			} else {
+				console.log('Error completing task');
+			}
 		} catch (e) {
 			console.log(e);
 		}
@@ -92,6 +116,14 @@ function Footer() {
 				wallet_address: value?.wallet_address,
 				task: 'tg_chat',
 			}).unwrap();
+			const res = { success: true };
+			if (res.success) {
+				// Update quest status to completed (status: 1)
+				setTgChatQuest(1);
+				console.log('Task completed successfully:');
+			} else {
+				console.log('Error completing task');
+			}
 		} catch (e) {
 			console.log(e);
 		}
@@ -105,6 +137,14 @@ function Footer() {
 				wallet_address: value?.wallet_address,
 				task: 'tg_channel',
 			}).unwrap();
+			const res = { success: true };
+			if (res.success) {
+				// Update quest status to completed (status: 1)
+				setTgChannelQuest(1);
+				console.log('Task completed successfully:');
+			} else {
+				console.log('Error completing task');
+			}
 		} catch (e) {
 			console.log(e);
 		}
@@ -113,40 +153,84 @@ function Footer() {
 	const websiteClick = async () => {
 		window.open(`https://tomocat.com/`, '_blank');
 		try {
-			const res = await passTask({
+			await passTask({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				wallet_address: value?.wallet_address,
 				task: 'website',
 			}).unwrap();
+			const res = { success: true };
+			if (res.success) {
+				// Update quest status to completed (status: 1)
+				setWebsiteQuest(1);
+				console.log('Task completed successfully:');
+			} else {
+				console.log('Error completing task');
+			}
 		} catch (e) {
-			console.log(JSON.stringify(e));
+			console.log(e);
 		}
 	};
 
 	const passDailyHandler = async (taskId) => {
 		try {
-			const res = await passDaily({
+			await passDaily({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				user_id: value?.id,
 				daily_quest_id: taskId,
 			}).unwrap();
-			console.log('Task completed successfully:', res);
+
+			const res = { success: true };
+
+			if (res.success) {
+				// Update quest status to completed (status: 1)
+				updateDailyQStatus(taskId, 1);
+				console.log('Task completed successfully:', taskId);
+			} else {
+				console.log('Error completing task:' + taskId);
+			}
 		} catch (e) {
-			console.log('Error completing task:' + taskId, JSON.stringify(e));
+			console.log('Error completing task:' + taskId, e);
 		}
+	};
+
+	const updateDailyQStatus = (taskId, status) => {
+		// Update the quest status in state
+		setDailyQuests((prevQuests) =>
+			prevQuests.map((quest) =>
+				quest.id === taskId ? { ...quest, status: status } : quest
+			)
+		);
 	};
 
 	const partnersTaskHandler = async (taskId) => {
 		try {
-			const res = await passPartners({
+			await passPartners({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				user_id: value?.id,
 				partners_quest_id: taskId,
 			}).unwrap();
-			console.log('Task completed successfully:', res);
+
+			const res = { success: true };
+
+			if (res.success) {
+				// Update quest status to completed (status: 1)
+				updatePartnerQStatus(taskId, 1);
+				console.log('Task completed successfully:', taskId);
+			} else {
+				console.log('Error completing task:' + taskId);
+			}
 		} catch (e) {
-			console.log('Error completing task:' + taskId, JSON.stringify(e));
+			console.log('Error completing task:' + taskId, e);
 		}
+	};
+
+	const updatePartnerQStatus = (taskId, status) => {
+		// Update the quest status in state
+		setPartnerQuests((prevQuests) =>
+			prevQuests.map((quest) =>
+				quest.id === taskId ? { ...quest, status: status } : quest
+			)
+		);
 	};
 
 	const handleTabClick = (index) => {
@@ -324,11 +408,11 @@ function Footer() {
 									<div className='popupTasks__tabSocial'>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
-												<button onClick={twitterClick} disabled={value?.twitter === 1}>
+												<button onClick={twitterClick} disabled={twitterQuest === 1}>
 													<span>Follow Twitter</span>
 												</button>
 											</div>
-											{value?.twitter === 0 ? (
+											{twitterQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
 													<span>+ 10 000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
@@ -339,11 +423,11 @@ function Footer() {
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
-												<button onClick={tgClickChat} disabled={value?.tg_chat === 1}>
+												<button onClick={tgClickChat} disabled={tgChatQuest === 1}>
 													<span>Follow Telegram Chat</span>
 												</button>
 											</div>
-											{value?.tg_chat === 0 ? (
+											{tgChatQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
 													<span>+ 10 000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
@@ -354,14 +438,11 @@ function Footer() {
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
-												<button
-													onClick={tgClickChannel}
-													disabled={value?.tg_channel === 1}
-												>
+												<button onClick={tgClickChannel} disabled={tgChannelQuest === 1}>
 													<span>Follow Telegram Channel</span>
 												</button>
 											</div>
-											{value?.tg_channel === 0 ? (
+											{tgChannelQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
 													<span>+ 10 000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
@@ -372,11 +453,11 @@ function Footer() {
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
-												<button onClick={websiteClick} disabled={value?.website === 1}>
+												<button onClick={websiteClick} disabled={websiteQuest === 1}>
 													<span>Visit Website</span>
 												</button>
 											</div>
-											{value?.website === 0 ? (
+											{websiteQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
 													<span>+ 3 000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
@@ -389,7 +470,8 @@ function Footer() {
 								)}
 								{activeTab === 1 && (
 									<div className='popupTasks__tabSocial'>
-										{dailyTasksObj.map((quest) => (
+										{/* Render quests dynamically based on their status */}
+										{dailyQuests.map((quest) => (
 											<div className='popupTasks__tabSocial-item' key={quest.id}>
 												<div className='popupTasks__tabSocial-btn'>
 													<button
@@ -413,7 +495,8 @@ function Footer() {
 								)}
 								{activeTab === 2 && (
 									<div className='popupTasks__tabSocial'>
-										{partnerTaskObj.map((quest) => (
+										{/* Render quests dynamically based on their status */}
+										{partnerQuests.map((quest) => (
 											<div className='popupTasks__tabSocial-item' key={quest.id}>
 												<div className='popupTasks__tabSocial-btn'>
 													<button
