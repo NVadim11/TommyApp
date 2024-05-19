@@ -36,6 +36,12 @@ function Footer() {
 	const [dailyQuests, setDailyQuests] = useState(dailyTasksObj);
 	const [partnerQuests, setPartnerQuests] = useState(partnerTaskObj);
 
+	// aws
+	// const secretKey = process.env.REACT_APP_SECRET_KEY;
+
+	// prodtest
+	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+
 	useEffect(() => {
 		setTwitterQuest(value?.twitter);
 		setTgChatQuest(value?.tg_chat);
@@ -44,11 +50,6 @@ function Footer() {
 		setPartnerQuests(partnerTaskObj);
 		setDailyQuests(dailyTasksObj);
 	}, [value]);
-
-	// aws
-	// const secretKey = process.env.REACT_APP_SECRET_KEY;
-	// prodtest
-	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
 
 	const toggleVisibility = () => {
 		toggleMuteAllSounds();
