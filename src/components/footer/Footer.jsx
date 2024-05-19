@@ -415,7 +415,7 @@ function Footer() {
 											</div>
 											{twitterQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 10 000</span>
+													<span>+ 10000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
 												</div>
 											) : (
@@ -430,7 +430,7 @@ function Footer() {
 											</div>
 											{tgChatQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 10 000</span>
+													<span>+ 10000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
 												</div>
 											) : (
@@ -445,7 +445,7 @@ function Footer() {
 											</div>
 											{tgChannelQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 10 000</span>
+													<span>+ 10000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
 												</div>
 											) : (
@@ -460,7 +460,7 @@ function Footer() {
 											</div>
 											{websiteQuest === 0 ? (
 												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 3 000</span>
+													<span>+ 3000</span>
 													<img src={catCoin} alt='animation' draggable='false' />
 												</div>
 											) : (
@@ -484,7 +484,7 @@ function Footer() {
 												</div>
 												{quest.status === 0 ? (
 													<div className='popupTasks__tabSocial-reward'>
-														<span>{quest.daily_quest.reward}</span>
+														<span>+ {quest.daily_quest.reward}</span>
 														<img src={catCoin} alt='animation' draggable='false' />
 													</div>
 												) : (
@@ -509,7 +509,7 @@ function Footer() {
 												</div>
 												{quest.status === 0 ? (
 													<div className='popupTasks__tabSocial-reward'>
-														<span>{quest.partners_quest.reward}</span>
+														<span>+ {quest.partners_quest.reward}</span>
 														<img src={catCoin} alt='animation' draggable='false' />
 													</div>
 												) : (
