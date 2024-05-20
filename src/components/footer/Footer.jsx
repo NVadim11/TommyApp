@@ -470,58 +470,66 @@ function Footer() {
 									</div>
 								)}
 								{activeTab === 1 && (
-									<div className='popupTasks__tabSocial'>
-										{/* Render quests dynamically based on their status */}
-										{dailyQuests
-											.filter((quest) => quest.daily_quest.vis === 1)
-											.map((quest) => (
-												<div className='popupTasks__tabSocial-item' key={quest.id}>
-													<div className='popupTasks__tabSocial-btn'>
-														<button
-															disabled={quest.status === 1}
-															onClick={() => passDailyHandler(quest.id)}
-														>
-															<span>{quest.daily_quest.name}</span>
-														</button>
-													</div>
-													{quest.status === 0 ? (
-														<div className='popupTasks__tabSocial-reward'>
-															<span>+ {quest.reward}</span>
-															<img src={catCoin} alt='animation' draggable='false' />
+									<>
+										{dailyQuests && dailyQuests.length > 0 && (
+											<div className='popupTasks__tabSocial'>
+												{/* Render quests dynamically based on their status */}
+												{dailyQuests
+													.filter((quest) => quest.daily_quest.vis === 1)
+													.map((quest) => (
+														<div className='popupTasks__tabSocial-item' key={quest.id}>
+															<div className='popupTasks__tabSocial-btn'>
+																<button
+																	disabled={quest.status === 1}
+																	onClick={() => passDailyHandler(quest.id)}
+																>
+																	<span>{quest.daily_quest.name}</span>
+																</button>
+															</div>
+															{quest.status === 0 ? (
+																<div className='popupTasks__tabSocial-reward'>
+																	<span>+ {quest.reward}</span>
+																	<img src={catCoin} alt='animation' draggable='false' />
+																</div>
+															) : (
+																<img src={checkbox} alt='Completed' />
+															)}
 														</div>
-													) : (
-														<img src={checkbox} alt='Completed' />
-													)}
-												</div>
-											))}
-									</div>
+													))}
+											</div>
+										)}
+									</>
 								)}
 								{activeTab === 2 && (
-									<div className='popupTasks__tabSocial'>
-										{/* Render quests dynamically based on their status */}
-										{partnerQuests
-											.filter((quest) => quest.partners_quest.vis === 1)
-											.map((quest) => (
-												<div className='popupTasks__tabSocial-item' key={quest.id}>
-													<div className='popupTasks__tabSocial-btn'>
-														<button
-															disabled={quest.status === 1}
-															onClick={() => partnersTaskHandler(quest.id)}
-														>
-															<span>{quest.partners_quest.name}</span>
-														</button>
-													</div>
-													{quest.status === 0 ? (
-														<div className='popupTasks__tabSocial-reward'>
-															<span>+ {quest.reward}</span>
-															<img src={catCoin} alt='animation' draggable='false' />
+									<>
+										{partnerQuests && partnerQuests.length > 0 && (
+											<div className='popupTasks__tabSocial'>
+												{/* Render quests dynamically based on their status */}
+												{partnerQuests
+													.filter((quest) => quest.partners_quest.vis === 1)
+													.map((quest) => (
+														<div className='popupTasks__tabSocial-item' key={quest.id}>
+															<div className='popupTasks__tabSocial-btn'>
+																<button
+																	disabled={quest.status === 1}
+																	onClick={() => partnersTaskHandler(quest.id)}
+																>
+																	<span>{quest.partners_quest.name}</span>
+																</button>
+															</div>
+															{quest.status === 0 ? (
+																<div className='popupTasks__tabSocial-reward'>
+																	<span>+ {quest.reward}</span>
+																	<img src={catCoin} alt='animation' draggable='false' />
+																</div>
+															) : (
+																<img src={checkbox} alt='Completed' />
+															)}
 														</div>
-													) : (
-														<img src={checkbox} alt='Completed' />
-													)}
-												</div>
-											))}
-									</div>
+													))}
+											</div>
+										)}
+									</>
 								)}
 							</div>
 						</div>
