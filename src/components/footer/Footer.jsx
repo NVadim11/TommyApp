@@ -172,7 +172,10 @@ function Footer() {
 		}
 	};
 
-	const passDailyHandler = async (taskId) => {
+	const passDailyHandler = async (taskId, link) => {
+		if (link !== null) {
+			window.open(link, '_blank');
+		}
 		try {
 			await passDaily({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
@@ -203,7 +206,10 @@ function Footer() {
 		);
 	};
 
-	const partnersTaskHandler = async (taskId) => {
+	const partnersTaskHandler = async (taskId, link) => {
+		if (link !== null) {
+			window.open(link, '_blank');
+		}
 		try {
 			await passPartners({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
@@ -474,28 +480,36 @@ function Footer() {
 										{dailyQuests && dailyQuests.length > 0 && (
 											<div className='popupTasks__tabSocial'>
 												{/* Render quests dynamically based on their status */}
-												{dailyQuests
-													.filter((quest) => quest.daily_quest.vis === 1)
-													.map((quest) => (
-														<div className='popupTasks__tabSocial-item' key={quest.id}>
-															<div className='popupTasks__tabSocial-btn'>
+												{dailyQuests.map((quest) => (
+													<div className='popupTasks__tabSocial-item' key={quest.id}>
+														<div className='popupTasks__tabSocial-btn'>
+															{/* Conditionally render button or div */}
+															{quest.required_amount === 0 &&
+															quest.required_referrals === 0 ? (
 																<button
 																	disabled={quest.status === 1}
-																	onClick={() => passDailyHandler(quest.id)}
+																	onClick={() =>
+																		passDailyHandler(quest.id, quest.daily_quest.link)
+																	}
 																>
 																	<span>{quest.daily_quest.name}</span>
 																</button>
-															</div>
-															{quest.status === 0 ? (
-																<div className='popupTasks__tabSocial-reward'>
-																	<span>+ {quest.reward}</span>
-																	<img src={catCoin} alt='animation' draggable='false' />
-																</div>
 															) : (
-																<img src={checkbox} alt='Completed' />
+																<button disabled={quest.status === 1}>
+																	<span>{quest.daily_quest.name}</span>
+																</button>
 															)}
 														</div>
-													))}
+														{quest.status === 0 ? (
+															<div className='popupTasks__tabSocial-reward'>
+																<span>+ {quest.reward}</span>
+																<img src={catCoin} alt='animation' draggable='false' />
+															</div>
+														) : (
+															<img src={checkbox} alt='Completed' />
+														)}
+													</div>
+												))}
 											</div>
 										)}
 									</>
@@ -512,7 +526,12 @@ function Footer() {
 															<div className='popupTasks__tabSocial-btn'>
 																<button
 																	disabled={quest.status === 1}
-																	onClick={() => partnersTaskHandler(quest.id)}
+																	onClick={() =>
+																		partnersTaskHandler(
+																			quest.id,
+																			quest.partners_quest.link
+																		)
+																	}
 																>
 																	<span>{quest.partners_quest.name}</span>
 																</button>
