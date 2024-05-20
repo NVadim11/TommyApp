@@ -431,7 +431,7 @@ function Footer() {
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
 												<button onClick={tgClickChat} disabled={tgChatQuest === 1}>
-													<span>Follow Telegram Chat</span>
+													<span>Follow TG Chat</span>
 												</button>
 											</div>
 											{tgChatQuest === 0 ? (
@@ -446,7 +446,7 @@ function Footer() {
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
 												<button onClick={tgClickChannel} disabled={tgChannelQuest === 1}>
-													<span>Follow Telegram Channel</span>
+													<span>Follow TG Channel</span>
 												</button>
 											</div>
 											{tgChannelQuest === 0 ? (
