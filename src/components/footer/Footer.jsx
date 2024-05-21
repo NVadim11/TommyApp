@@ -417,61 +417,61 @@ function Footer() {
 											<div className='popupTasks__tabSocial-btn'>
 												<button onClick={twitterClick} disabled={twitterQuest === 1}>
 													<span>Follow Twitter</span>
+													{twitterQuest === 0 ? (
+														<div className='popupTasks__tabSocial-reward'>
+															<span>+ 10000</span>
+															<img src={catCoin} alt='animation' draggable='false' />
+														</div>
+													) : (
+														<img src={checkbox} />
+													)}
 												</button>
 											</div>
-											{twitterQuest === 0 ? (
-												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 10000</span>
-													<img src={catCoin} alt='animation' draggable='false' />
-												</div>
-											) : (
-												<img src={checkbox} />
-											)}
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
 												<button onClick={tgClickChat} disabled={tgChatQuest === 1}>
 													<span>Follow TG Chat</span>
+													{tgChatQuest === 0 ? (
+														<div className='popupTasks__tabSocial-reward'>
+															<span>+ 10000</span>
+															<img src={catCoin} alt='animation' draggable='false' />
+														</div>
+													) : (
+														<img src={checkbox} />
+													)}
 												</button>
 											</div>
-											{tgChatQuest === 0 ? (
-												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 10000</span>
-													<img src={catCoin} alt='animation' draggable='false' />
-												</div>
-											) : (
-												<img src={checkbox} />
-											)}
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
 												<button onClick={tgClickChannel} disabled={tgChannelQuest === 1}>
 													<span>Follow TG Channel</span>
+													{tgChannelQuest === 0 ? (
+														<div className='popupTasks__tabSocial-reward'>
+															<span>+ 10000</span>
+															<img src={catCoin} alt='animation' draggable='false' />
+														</div>
+													) : (
+														<img src={checkbox} />
+													)}
 												</button>
 											</div>
-											{tgChannelQuest === 0 ? (
-												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 10000</span>
-													<img src={catCoin} alt='animation' draggable='false' />
-												</div>
-											) : (
-												<img src={checkbox} />
-											)}
 										</div>
 										<div className='popupTasks__tabSocial-item'>
 											<div className='popupTasks__tabSocial-btn'>
 												<button onClick={websiteClick} disabled={websiteQuest === 1}>
 													<span>Visit Website</span>
+													{websiteQuest === 0 ? (
+														<div className='popupTasks__tabSocial-reward'>
+															<span>+ 3000</span>
+															<img src={catCoin} alt='animation' draggable='false' />
+														</div>
+													) : (
+														<img src={checkbox} />
+													)}
 												</button>
 											</div>
-											{websiteQuest === 0 ? (
-												<div className='popupTasks__tabSocial-reward'>
-													<span>+ 3000</span>
-													<img src={catCoin} alt='animation' draggable='false' />
-												</div>
-											) : (
-												<img src={checkbox} />
-											)}
 										</div>
 									</div>
 								)}
@@ -493,21 +493,37 @@ function Footer() {
 																	}
 																>
 																	<span>{quest.daily_quest.name}</span>
+																	{quest.status === 0 ? (
+																		<div className='popupTasks__tabSocial-reward'>
+																			<span>+ {quest.reward}</span>
+																			<img
+																				src={catCoin}
+																				alt='animation'
+																				draggable='false'
+																			/>
+																		</div>
+																	) : (
+																		<img src={checkbox} alt='Completed' />
+																	)}
 																</button>
 															) : (
 																<button disabled={quest.status === 1}>
 																	<span>{quest.daily_quest.name}</span>
+																	{quest.status === 0 ? (
+																		<div className='popupTasks__tabSocial-reward'>
+																			<span>+ {quest.reward}</span>
+																			<img
+																				src={catCoin}
+																				alt='animation'
+																				draggable='false'
+																			/>
+																		</div>
+																	) : (
+																		<img src={checkbox} alt='Completed' />
+																	)}
 																</button>
 															)}
 														</div>
-														{quest.status === 0 ? (
-															<div className='popupTasks__tabSocial-reward'>
-																<span>+ {quest.reward}</span>
-																<img src={catCoin} alt='animation' draggable='false' />
-															</div>
-														) : (
-															<img src={checkbox} alt='Completed' />
-														)}
 													</div>
 												))}
 											</div>
@@ -534,16 +550,20 @@ function Footer() {
 																	}
 																>
 																	<span>{quest.partners_quest.name}</span>
+																	{quest.status === 0 ? (
+																		<div className='popupTasks__tabSocial-reward'>
+																			<span>+ {quest.reward}</span>
+																			<img
+																				src={catCoin}
+																				alt='animation'
+																				draggable='false'
+																			/>
+																		</div>
+																	) : (
+																		<img src={checkbox} alt='Completed' />
+																	)}
 																</button>
 															</div>
-															{quest.status === 0 ? (
-																<div className='popupTasks__tabSocial-reward'>
-																	<span>+ {quest.reward}</span>
-																	<img src={catCoin} alt='animation' draggable='false' />
-																</div>
-															) : (
-																<img src={checkbox} alt='Completed' />
-															)}
 														</div>
 													))}
 											</div>
