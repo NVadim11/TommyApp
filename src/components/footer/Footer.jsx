@@ -403,10 +403,10 @@ function Footer() {
 								{/* <div className='popupTasks__tabs-btn'> */}
 								<div
 									className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
-									onClick={() => handleTabClick(2)}
+									// onClick={() => handleTabClick(2)}
 								>
-									<button>Partnership</button>
-									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
+									<button>Special</button>
+									<div className='footerMain__activitiesHint'>Coming Soon</div>
 								</div>
 								<div className='popupTasks__tabs-line'></div>
 							</div>
