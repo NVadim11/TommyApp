@@ -87,7 +87,7 @@ function Main() {
 	}, []);
 
 	const pauseGame = async () => {
-		setGamePaused(true);
+		// setGamePaused(true);
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
 		const futureTimestamp = currentTimeStamp + 60 * 60;
 		const now = new Date();
@@ -132,11 +132,12 @@ function Main() {
 		let timeoutId;
 
 		if (currEnergy >= 1000) {
-			submitData();
+			setGamePaused(true);
 			timeoutId = setTimeout(() => {
+				submitData();
 				pauseGame();
 				setCatVisible(false);
-			}, 100);
+			}, 3500);
 		}
 
 		return () => {
