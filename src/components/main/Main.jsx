@@ -66,9 +66,9 @@ function Main() {
 	let [clickNewCoins, setClickNewCoins] = useState(1);
 
 	// aws
-	// const secretKey = process.env.REACT_APP_SECRET_KEY;
-	// prodtest
-	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+	const secretKey = process.env.REACT_APP_SECRET_KEY;
+	const secretURL = process.env.REACT_APP_SECRET_URL;
+	const testURL = process.env.REACT_APP_TEST_URL;
 
 	const isDesktop = () => {
 		const userAgent = window.navigator.userAgent;
@@ -87,7 +87,7 @@ function Main() {
 	}, []);
 
 	const pauseGame = async () => {
-		// setGamePaused(true);
+		setGamePaused(true);
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
 		const futureTimestamp = currentTimeStamp + 60 * 60;
 		const now = new Date();
@@ -102,7 +102,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch('https://admin.prodtest1.space/api/set-activity', {
+		fetch(secretURL + '/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -132,12 +132,11 @@ function Main() {
 		let timeoutId;
 
 		if (currEnergy >= 1000) {
-			setGamePaused(true);
+			submitData();
 			timeoutId = setTimeout(() => {
-				submitData();
 				pauseGame();
 				setCatVisible(false);
-			}, 3500);
+			}, 100);
 		}
 
 		return () => {
@@ -148,7 +147,7 @@ function Main() {
 	const getGameStatus = async () => {
 		try {
 			const initGameStatusCheck = await axios.get(
-				`https://admin.prodtest1.space/api/users/${wallet_address}`
+				secretURL + `/api/users/${wallet_address}`
 			);
 		} catch (e) {
 			console.log('Error fetching leaderboard data');
@@ -248,12 +247,6 @@ function Main() {
 
 	let catIdleImage = catIdle;
 	let catSpeakImage = catSpeak;
-
-	// const { incrementClickCount } = useClickCount();
-
-	// const handleCoinClick = () => {
-	// 	incrementClickCount();
-	// };
 
 	const boostClickedHandler = () => {
 		handleBoostClick();
@@ -393,14 +386,11 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post(
-				'https://admin.prodtest1.space/api/update-balance',
-				{
-					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-					score: coins,
-					wallet_address: wallet_address,
-				}
-			);
+			const response = await axios.post(secretURL + '/api/update-balance', {
+				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
+				score: coins,
+				wallet_address: wallet_address,
+			});
 		} catch (e) {
 			console.log('Error submitting coins:');
 		}

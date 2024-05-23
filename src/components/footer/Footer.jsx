@@ -37,10 +37,7 @@ function Footer() {
 	const [partnerQuests, setPartnerQuests] = useState(partnerTaskObj);
 
 	// aws
-	// const secretKey = process.env.REACT_APP_SECRET_KEY;
-
-	// prodtest
-	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+	const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 	useEffect(() => {
 		setTwitterQuest(value?.twitter);
@@ -402,10 +399,11 @@ function Footer() {
 								</div>
 								{/* <div className='popupTasks__tabs-btn'> */}
 								<div
-									className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
+									className='popupTasks__tabs-btn'
+									// className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
 									// onClick={() => handleTabClick(2)}
 								>
-									<button>Special</button>
+									<button>Partnership</button>
 									<div className='footerMain__activitiesHint'>Coming Soon</div>
 								</div>
 								<div className='popupTasks__tabs-line'></div>

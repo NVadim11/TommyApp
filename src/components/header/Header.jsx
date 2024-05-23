@@ -42,6 +42,9 @@ function Header() {
 
 	const containerRef = useRef(null);
 
+	const secretURL = process.env.REACT_APP_SECRET_URL;
+	const testURL = process.env.REACT_APP_TEST_URL;
+
 	useEffect(() => {
 		const currentPath = window.location.pathname;
 		const lastSlashIndex = currentPath.lastIndexOf('/');
@@ -60,15 +63,11 @@ function Header() {
 			if (lastFiveSymbols) {
 				requestBody.referral_code = lastFiveSymbols;
 			}
-			const response = await axios.post(
-				'https://admin.prodtest1.space/api/users',
-				requestBody,
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
+			const response = await axios.post(secretURL + `/api/users`, requestBody, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
 
 			if (response.status !== 201) {
 				throw new Error('Failed to submit data');
@@ -141,7 +140,7 @@ function Header() {
 
 	const fetchLeaderboardData = async () => {
 		try {
-			const response = await axios.get(`https://admin.prodtest1.space/api/liders`);
+			const response = await axios.get(secretURL + `/api/liders`);
 			setLeaderboardData(response.data);
 		} catch (e) {
 			console.log('Error fetching leaderboard data');

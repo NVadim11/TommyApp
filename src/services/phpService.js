@@ -2,9 +2,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 // Define a service using a base URL and expected endpoints
+const secretURL = process.env.REACT_APP_SECRET_URL;
+const testURL = process.env.REACT_APP_TEST_URL;
+
 export const phpApi = createApi({
   reducerPath: "phpApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://admin.prodtest1.space/api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: secretURL + '/api' }),
   tagTypes: ["Php"],
   endpoints: (builder) => ({
     getUserByWalletId: builder.query({
@@ -34,7 +37,7 @@ export const phpApi = createApi({
         method: "GET",
       }),
     }),
-    getLeaderboard: builder.mutation({ // mutation => querry
+    getLeaderboard: builder.mutation({
       query: (id) => `/liderbord/${id}`,
       method: "GET",
     }),
