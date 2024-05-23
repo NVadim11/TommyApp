@@ -37,10 +37,7 @@ function Footer() {
 	const [partnerQuests, setPartnerQuests] = useState(partnerTaskObj);
 
 	// aws
-	// const secretKey = process.env.REACT_APP_SECRET_KEY;
-
-	// prodtest
-	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+	const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 	useEffect(() => {
 		setTwitterQuest(value?.twitter);

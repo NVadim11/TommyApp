@@ -66,9 +66,7 @@ function Main() {
 	let [clickNewCoins, setClickNewCoins] = useState(1);
 
 	// aws
-	// const secretKey = process.env.REACT_APP_SECRET_KEY;
-	// prodtest
-	const secretKey = '<sNE:pYjk>2(0W%JUKaz9v(uBa3U';
+	const secretKey = process.env.REACT_APP_SECRET_KEY;
 
 	const isDesktop = () => {
 		const userAgent = window.navigator.userAgent;
