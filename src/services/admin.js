@@ -5,7 +5,7 @@ const testURL = process.env.REACT_APP_TEST_URL;
 
 export const adminApi = createApi({
 	reducerPath: "adminApi",
-	baseQuery: fetchBaseQuery({ baseUrl: secretURL + "/api/game-data" }),
+	baseQuery: fetchBaseQuery({ baseUrl: testURL + "/api/game-data" }),
 	endpoints: (builder) => ({
 		getGameInfo: builder.query({
 			query: () => `/`,
