@@ -4,40 +4,46 @@ import { useGetGameInfoQuery } from '../services/admin';
 import NotFound from './404';
 import Footer from './footer/Footer';
 import Header from './header/Header';
-import { GameInfoContext } from './helper/contexts';
+import { AuthContext, GameInfoContext } from './helper/contexts';
 import Main from './main/Main';
 import Preloader from './preloader/Preloader';
 
 const MainComponent = () => {
 	const { updateState } = useContext(GameInfoContext);
-	const { data, isLoading, isError } = useGetGameInfoQuery();
+	const { value } = useContext(AuthContext);
+	const { data, isLoading } = useGetGameInfoQuery();
+	const [applicationLoaded, setApplicationLoaded] = useState(false);
 	const [preloaderLoaded, setPreloaderLoaded] = useState(false);
 
 	useEffect(() => {
-		if (!isLoading && data) {
+		if (!isLoading && data && value) {
 			updateState(data);
+			const timeout = setTimeout(() => {
+				setPreloaderLoaded(true);
+			}, 2000); // Set preloaderLoaded to true after 2 seconds
+			return () => clearTimeout(timeout);
 		}
-	}, [isLoading, data, updateState]);
+	}, [isLoading, data, updateState, value]);
 
 	useEffect(() => {
-		const preloaderTimeout = setTimeout(() => {
-			setPreloaderLoaded(true);
-		}, 3000);
-
 		const timeout = setTimeout(() => {
 			AOS.init({
 				easing: 'custom',
 			});
-		}, 3000);
-		return () => {
-			clearTimeout(timeout);
-			clearTimeout(preloaderTimeout);
-		};
+			setApplicationLoaded(true);
+		}, 4000); // Set applicationLoaded to true after 4 seconds
+		return () => clearTimeout(timeout);
 	}, []);
+
+	// Render preloader until application is fully loaded
+	if (!applicationLoaded) {
+		return <Preloader loaded={false} />;
+	}
+
 	return (
 		<div className='wrapper'>
 			<Preloader loaded={preloaderLoaded} />
-			{data ? (
+			{!isLoading && data && value ? (
 				<>
 					<Header />
 					<main className='main'>

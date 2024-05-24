@@ -38,7 +38,7 @@ function Main() {
 	const [currentImage, setCurrentImage] = useState(true);
 	const [coinState, setCoinState] = useState(false);
 	const [currCoins, setCurrCoins] = useState(0);
-	const [currEnergy, setCurrEnergy] = useState(0);
+	const [currEnergy, setCurrEnergy] = useState(value?.energy);
 	const [isCoinsChanged, setIsCoinsChanged] = useState(false);
 	const [catIdle, setCatIdle] = useState(sadIdle);
 	const [catSpeak, setCatSpeak] = useState(sadSpeak);
@@ -144,15 +144,15 @@ function Main() {
 		};
 	}, [currEnergy]);
 
-	const getGameStatus = async () => {
-		try {
-			const initGameStatusCheck = await axios.get(
-				secretURL + `/api/users/${wallet_address}`
-			);
-		} catch (e) {
-			console.log('Error fetching leaderboard data');
-		}
-	};
+	// const getGameStatus = async () => {
+	// 	try {
+	// 		const initGameStatusCheck = await axios.get(
+	// 			secretURL + `/api/users/${wallet_address}`
+	// 		);
+	// 	} catch (e) {
+	// 		console.log('Error fetching leaderboard data');
+	// 	}
+	// };
 
 	useEffect(() => {
 		if (connected) {
@@ -170,12 +170,11 @@ function Main() {
 					}
 				}
 			};
+			updateGameStatus();
 
-			getGameStatus();
-
-			const timeout = setTimeout(() => {
-				getGameStatus();
-			}, 1000);
+			// const timeout = setTimeout(() => {
+			// 	getGameStatus();
+			// }, 1000);
 
 			const timer = setInterval(() => {
 				updateGameStatus();
@@ -183,7 +182,7 @@ function Main() {
 
 			return () => {
 				clearInterval(timer);
-				clearTimeout(timeout);
+				// clearTimeout(timeout);
 			};
 		}
 	}, [connected, value.active_at, wallet_address]);

@@ -150,13 +150,8 @@ function Header() {
 	useEffect(() => {
 		if (!connected) {
 			fetchLeaderboardData();
-			initLeadersRef.current = setInterval(() => {
-				fetchLeaderboardData();
-			}, 60000);
 		}
-		return () => {
-			clearInterval(initLeadersRef.current);
-		};
+		return () => {};
 	}, [connected]);
 
 	useEffect(() => {
