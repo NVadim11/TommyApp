@@ -102,7 +102,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch(testURL + '/api/set-activity', {
+		fetch(secretURL + '/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ function Main() {
 	// const getGameStatus = async () => {
 	// 	try {
 	// 		const initGameStatusCheck = await axios.get(
-	// 			testURL + `/api/users/${wallet_address}`
+	// 			secretURL + `/api/users/${wallet_address}`
 	// 		);
 	// 	} catch (e) {
 	// 		console.log('Error fetching leaderboard data');
@@ -385,7 +385,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post(testURL + '/api/update-balance', {
+			const response = await axios.post(secretURL + '/api/update-balance', {
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				score: coins,
 				wallet_address: wallet_address,
