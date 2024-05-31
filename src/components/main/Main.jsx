@@ -38,7 +38,7 @@ function Main() {
 	const [currentImage, setCurrentImage] = useState(true);
 	const [coinState, setCoinState] = useState(false);
 	const [currCoins, setCurrCoins] = useState(0);
-	const [currEnergy, setCurrEnergy] = useState(value?.energy);
+	const [currEnergy, setCurrEnergy] = useState(0);
 	const [isCoinsChanged, setIsCoinsChanged] = useState(false);
 	const [catIdle, setCatIdle] = useState(sadIdle);
 	const [catSpeak, setCatSpeak] = useState(sadSpeak);
@@ -102,7 +102,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch(secretURL + '/api/set-activity', {
+		fetch(testURL + '/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -125,8 +125,12 @@ function Main() {
 	};
 
 	useEffect(() => {
-		if (value) setCurrEnergy(value?.energy);
-	}, [value]);
+		if (value.id) {
+			setTimeout(() => {
+				setCurrEnergy(value.energy);
+			}, 500);
+		}
+	}, [value.id]);
 
 	useEffect(() => {
 		let timeoutId;
@@ -143,16 +147,6 @@ function Main() {
 			clearTimeout(timeoutId);
 		};
 	}, [currEnergy]);
-
-	// const getGameStatus = async () => {
-	// 	try {
-	// 		const initGameStatusCheck = await axios.get(
-	// 			secretURL + `/api/users/${wallet_address}`
-	// 		);
-	// 	} catch (e) {
-	// 		console.log('Error fetching leaderboard data');
-	// 	}
-	// };
 
 	useEffect(() => {
 		if (connected) {
@@ -385,7 +379,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post(secretURL + '/api/update-balance', {
+			const response = await axios.post(testURL + '/api/update-balance', {
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				score: coins,
 				wallet_address: wallet_address,

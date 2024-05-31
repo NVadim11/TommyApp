@@ -3,13 +3,8 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import {
-	LedgerWalletAdapter,
 	PhantomWalletAdapter,
 	SolflareWalletAdapter,
-	SolongWalletAdapter,
-	TorusWalletAdapter,
-	TrustWalletAdapter,
-	WalletConnectWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
 import React, { useMemo } from 'react';
@@ -35,15 +30,7 @@ const Context = ({ children }) => {
 	const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
 	const wallets = useMemo(
-		() => [
-			new PhantomWalletAdapter(),
-			new SolflareWalletAdapter(),
-			new LedgerWalletAdapter(),
-			new SolongWalletAdapter(),
-			new TorusWalletAdapter(),
-			new TrustWalletAdapter(),
-			new WalletConnectWalletAdapter(),
-		],
+		() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
 		[]
 	);
 
