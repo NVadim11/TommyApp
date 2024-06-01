@@ -63,7 +63,7 @@ function Header() {
 			if (lastFiveSymbols) {
 				requestBody.referral_code = lastFiveSymbols;
 			}
-			const response = await axios.post(testURL + `/api/users`, requestBody, {
+			const response = await axios.post(secretURL + `/api/users`, requestBody, {
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -140,7 +140,7 @@ function Header() {
 
 	const fetchLeaderboardData = async () => {
 		try {
-			const response = await axios.get(testURL + `/api/liders`);
+			const response = await axios.get(secretURL + `/api/liders`);
 			setLeaderboardData(response.data);
 		} catch (e) {
 			console.log('Error fetching leaderboard data');

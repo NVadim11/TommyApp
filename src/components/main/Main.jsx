@@ -87,7 +87,6 @@ function Main() {
 	}, []);
 
 	const pauseGame = async () => {
-		setGamePaused(true);
 		const currentTimeStamp = Math.floor(Date.now() / 1000);
 		const futureTimestamp = currentTimeStamp + 60 * 60;
 		const now = new Date();
@@ -102,7 +101,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch(testURL + '/api/set-activity', {
+		fetch(secretURL + '/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -133,18 +132,27 @@ function Main() {
 	}, [value.id]);
 
 	useEffect(() => {
-		let timeoutId;
+		let submitTimeoutId;
+		let pauseTimeoutId;
 
 		if (currEnergy >= 1000) {
-			submitData();
-			timeoutId = setTimeout(() => {
+			setGamePaused(true);
+			setCatVisible(false);
+
+			// Call submitData after 2.5 seconds
+			submitTimeoutId = setTimeout(() => {
+				submitData();
+			}, 2500);
+
+			// Call pauseGame after 3 seconds
+			pauseTimeoutId = setTimeout(() => {
 				pauseGame();
-				setCatVisible(false);
-			}, 100);
+			}, 3000);
 		}
 
 		return () => {
-			clearTimeout(timeoutId);
+			clearTimeout(submitTimeoutId);
+			clearTimeout(pauseTimeoutId);
 		};
 	}, [currEnergy]);
 
@@ -379,7 +387,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post(testURL + '/api/update-balance', {
+			const response = await axios.post(secretURL + '/api/update-balance', {
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				score: coins,
 				wallet_address: wallet_address,
