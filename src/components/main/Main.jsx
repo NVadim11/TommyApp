@@ -142,7 +142,7 @@ function Main() {
 			// Call pauseGame after 3 seconds
 			pauseTimeoutId = setTimeout(() => {
 				pauseGame();
-			}, 700);
+			}, 1000);
 		}
 
 		return () => {
@@ -371,14 +371,6 @@ function Main() {
 			}
 		};
 	}, [isCoinsChanged]);
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			console.log(isCoinsChangedRef.current);
-		}, 1000);
-
-		return () => clearInterval(interval);
-	}, []);
 
 	const submitData = async (coins) => {
 		const now = new Date();
