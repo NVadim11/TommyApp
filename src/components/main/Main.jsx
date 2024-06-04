@@ -1,31 +1,31 @@
-import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import AOS from 'aos';
-import axios from 'axios';
-import bcrypt from 'bcryptjs';
-import { AnimatePresence, motion } from 'framer-motion';
-import moment from 'moment-timezone';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import sadIdle from '../../img/1_idle.gif';
-import sadSpeak from '../../img/1talk.gif';
-import normalIdle from '../../img/2_idle.gif';
-import normalSpeak from '../../img/2talk.gif';
-import smileIdle from '../../img/3_idle.gif';
-import smileSpeak from '../../img/3talk.gif';
-import happyIdle from '../../img/4_idle.gif';
-import happySpeak from '../../img/4talk.gif';
-import boostCoin from '../../img/boost_coin_side.png';
-import catFace from '../../img/catFace.png';
-import catCoinMove from '../../img/cat_coin_move.png';
-import finalForm from '../../img/finalForm.gif';
-import goldForm from '../../img/gold.gif';
-import goldIdle from '../../img/goldIdle.gif';
-import smile from '../../img/smile.png';
-import GamePreloader from '../gamePreloader/gamePreloader';
-import { AuthContext, GameInfoContext } from '../helper/contexts';
-import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
-import './Main.scss';
+import { useWallet } from '@solana/wallet-adapter-react'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import AOS from 'aos'
+import axios from 'axios'
+import bcrypt from 'bcryptjs'
+import { AnimatePresence, motion } from 'framer-motion'
+import moment from 'moment-timezone'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
+import sadIdle from '../../img/1_idle.gif'
+import sadSpeak from '../../img/1talk.gif'
+import normalIdle from '../../img/2_idle.gif'
+import normalSpeak from '../../img/2talk.gif'
+import smileIdle from '../../img/3_idle.gif'
+import smileSpeak from '../../img/3talk.gif'
+import happyIdle from '../../img/4_idle.gif'
+import happySpeak from '../../img/4talk.gif'
+import boostCoin from '../../img/boost_coin_side.png'
+import catFace from '../../img/catFace.png'
+import catCoinMove from '../../img/cat_coin_move.png'
+import finalForm from '../../img/finalForm.gif'
+import goldForm from '../../img/gold.gif'
+import goldIdle from '../../img/goldIdle.gif'
+import smile from '../../img/smile.png'
+import GamePreloader from '../gamePreloader/gamePreloader'
+import { AuthContext, GameInfoContext } from '../helper/contexts'
+import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo'
+import './Main.scss'
 
 function Main() {
 	const { state } = useContext(GameInfoContext);
@@ -60,6 +60,7 @@ function Main() {
 	const accumulatedCoinsRef = useRef(0);
 	const [isCoinsChanged, setIsCoinsChanged] = useState(false);
 	const isCoinsChangedRef = useRef(isCoinsChanged);
+	const [resetCoinsCalled, setResetCoinsCalled] = useState(false);
 	const timeoutRef = useRef(null);
 	const catImgRef = useRef(null);
 
@@ -335,7 +336,9 @@ function Main() {
 		} else if (currEnergy >= 151 && currEnergy <= 300) {
 			catIdleImage = normalIdle;
 			catSpeakImage = normalSpeak;
-		} else if (currEnergy >= 301 && currEnergy <= 550) {
+		} else if (currEnergy >= 301 && currEnergy <= 550 && !resetCoinsCalled) {
+			setResetCoinsCalled(true); // Set the state to true
+			resetCoins(); // Call resetCoins only once
 			catIdleImage = smileIdle;
 			catSpeakImage = smileSpeak;
 		} else if (currEnergy >= 551 && currEnergy <= 800) {
@@ -350,6 +353,11 @@ function Main() {
 		setIsCoinsChanged(true);
 		resetTimeout();
 		return clickNewCoins;
+	};
+
+	const resetCoins = () => {
+		submitData(accumulatedCoinsRef.current);
+		accumulatedCoinsRef.current = 0;
 	};
 
 	const resetTimeout = () => {
@@ -390,9 +398,9 @@ function Main() {
 				score: coins,
 				wallet_address: wallet_address,
 			});
-			console.log('Data submitted:', coins);
+			console.log('Coins submitted:', coins);
 		} catch (e) {
-			console.log('Error submitting coins:');
+			console.log('Error submitting coins:', coins);
 		}
 	};
 
