@@ -101,7 +101,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch(secretURL + '/api/set-activity', {
+		fetch(testURL + '/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -174,17 +174,12 @@ function Main() {
 			};
 			updateGameStatus();
 
-			// const timeout = setTimeout(() => {
-			// 	getGameStatus();
-			// }, 1000);
-
 			const timer = setInterval(() => {
 				updateGameStatus();
 			}, 1000);
 
 			return () => {
 				clearInterval(timer);
-				// clearTimeout(timeout);
 			};
 		}
 	}, [connected, value.active_at, wallet_address]);
@@ -387,7 +382,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post(secretURL + '/api/update-balance', {
+			const response = await axios.post(testURL + '/api/update-balance', {
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				score: coins,
 				wallet_address: wallet_address,

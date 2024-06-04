@@ -63,7 +63,7 @@ function Header() {
 			if (lastFiveSymbols) {
 				requestBody.referral_code = lastFiveSymbols;
 			}
-			const response = await axios.post(secretURL + `/api/users`, requestBody, {
+			const response = await axios.post(testURL + `/api/users`, requestBody, {
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -76,12 +76,6 @@ function Header() {
 			console.log('Error submitting data');
 		}
 	};
-
-	useEffect(() => {
-		if (connected === true) {
-			connectSubmitHandler();
-		}
-	}, [connected]);
 
 	useEffect(() => {
 		const observer = new MutationObserver((mutationsList) => {
@@ -111,50 +105,6 @@ function Header() {
 	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			if (Object.keys(value).length) {
-				const res = await getLeaderboard(value.id).unwrap();
-				setLeaderboardData(res);
-				const intervalId = setInterval(() => {
-					getLeaderboard(value.id)
-						.unwrap()
-						.then((data) => setLeaderboardData(data))
-						.catch((error) => console.error('Error refreshing leaderboard:', error));
-				}, 60000);
-				return intervalId;
-			}
-		};
-
-		let intervalId;
-
-		if (connected) {
-			fetchData().then((id) => {
-				intervalId = id;
-			});
-		}
-
-		return () => {
-			clearInterval(intervalId);
-		};
-	}, [value, connected]);
-
-	const fetchLeaderboardData = async () => {
-		try {
-			const response = await axios.get(secretURL + `/api/liders`);
-			setLeaderboardData(response.data);
-		} catch (e) {
-			console.log('Error fetching leaderboard data');
-		}
-	};
-
-	useEffect(() => {
-		if (!connected) {
-			fetchLeaderboardData();
-		}
-		return () => {};
-	}, [connected]);
-
-	useEffect(() => {
 		setTotalReferrals(value?.referrals_count);
 		setTotalPoints(value?.wallet_balance);
 	}, [value]);
@@ -182,9 +132,31 @@ function Header() {
 	}, []);
 
 	const leaderBordBtn = () => {
-		setLeaderboardOpen(true);
+		if (!connected) {
+			const fetchLeaderboardData = async () => {
+				try {
+					const response = await axios.get(testURL + `/api/liders`);
+					setLeaderboardData(response.data);
+				} catch (e) {
+					console.log('Error fetching leaderboard data');
+				}
+			};
+			fetchLeaderboardData();
+		} else {
+			connectSubmitHandler();
+			const fetchData = async () => {
+				if (Object.keys(value).length) {
+					const res = await getLeaderboard(value.id).unwrap();
+					setLeaderboardData(res);
+				}
+			};
+			fetchData();
+		}
 		fadeShow();
 		setIsShown(false);
+		setTimeout(() => {
+			setLeaderboardOpen(true);
+		}, 250);
 	};
 
 	const inviteCloseToggler = () => {
@@ -194,9 +166,11 @@ function Header() {
 	};
 
 	const inviteFriendsBtn = () => {
-		setInviteOpen(true);
 		fadeShowInvite();
 		setIsShown(false);
+		setTimeout(() => {
+			setInviteOpen(true);
+		}, 250);
 	};
 
 	const fadeShow = () => {

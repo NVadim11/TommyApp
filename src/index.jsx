@@ -8,11 +8,9 @@ import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
-		<GameInfoProvider>
-			<ClickCountProvider>
-				<App />
-			</ClickCountProvider>
-		</GameInfoProvider>
-	</React.StrictMode>
+	<GameInfoProvider>
+		<ClickCountProvider>
+			<App />
+		</ClickCountProvider>
+	</GameInfoProvider>
 );
