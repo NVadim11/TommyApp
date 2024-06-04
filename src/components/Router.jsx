@@ -73,7 +73,9 @@ const AppRouter = () => {
 	};
 	useEffect(() => {
 		if (connected === true) {
-			connectSubmitHandler();
+			setTimeout(() => {
+				connectSubmitHandler();
+			}, 100);
 		}
 	}, [connected]);
 

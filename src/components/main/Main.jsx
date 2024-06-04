@@ -959,18 +959,7 @@ function Main() {
 										right: '140px',
 										width: '100px',
 									}}
-								>
-									{gamePlayable && (
-										<>
-											{!gamePaused && (
-												<div className='mainContent__tapCat'>
-													<p>Tap the</p>
-													<img src={smile} alt='cat icon' />
-												</div>
-											)}
-										</>
-									)}
-								</motion.div>
+								></motion.div>
 								{gamePlayable && (
 									<>
 										{!gamePaused && (

@@ -112,6 +112,8 @@ function Header() {
 	useEffect(() => {
 		if (!connected) {
 			setTotalPoints(null);
+		} else {
+			connectSubmitHandler();
 		}
 	}, [connected]);
 
@@ -143,7 +145,6 @@ function Header() {
 			};
 			fetchLeaderboardData();
 		} else {
-			connectSubmitHandler();
 			const fetchData = async () => {
 				if (Object.keys(value).length) {
 					const res = await getLeaderboard(value.id).unwrap();
