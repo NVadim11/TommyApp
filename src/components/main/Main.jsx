@@ -4,7 +4,6 @@ import AOS from 'aos';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import { AnimatePresence, motion } from 'framer-motion';
-import { debounce } from 'lodash';
 import moment from 'moment-timezone';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -39,12 +38,9 @@ function Main() {
 	const [coinState, setCoinState] = useState(false);
 	const [currCoins, setCurrCoins] = useState(0);
 	const [currEnergy, setCurrEnergy] = useState(0);
-	const [isCoinsChanged, setIsCoinsChanged] = useState(false);
 	const [catIdle, setCatIdle] = useState(sadIdle);
 	const [catSpeak, setCatSpeak] = useState(sadSpeak);
-	const timeoutRef = useRef(null);
 	const coinRef = useRef(null);
-	const accumulatedCoinsRef = useRef(0);
 	const { publicKey, connected } = useWallet();
 	const wallet_address = publicKey?.toBase58();
 	const [position, setPosition] = useState({ x: '50%', y: '50%' });
@@ -61,6 +57,11 @@ function Main() {
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
 	const [gamePlayable, setGamePlayable] = useState(false);
+
+	const accumulatedCoinsRef = useRef(0);
+	const [isCoinsChanged, setIsCoinsChanged] = useState(false);
+	const isCoinsChangedRef = useRef(isCoinsChanged);
+	const timeoutRef = useRef(null);
 
 	let [happinessVal, setHappinessVal] = useState(1);
 	let [clickNewCoins, setClickNewCoins] = useState(1);
@@ -101,7 +102,7 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
-		fetch(testURL + '/api/set-activity', {
+		fetch(secretURL + '/api/set-activity', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -138,16 +139,18 @@ function Main() {
 		if (currEnergy >= 1000) {
 			setGamePaused(true);
 			setCatVisible(false);
-
+			pauseGame();
 			// Call submitData after 2.5 seconds
-			submitTimeoutId = setTimeout(() => {
-				submitData();
-			}, 2500);
+			// submitTimeoutId = setTimeout(() => {
+			// const coinsLeft = 1000 - currCoins;
+			// submitData(coinsLeft);
+			// console.log(coinsLeft);
+			// }, 2500);
 
 			// Call pauseGame after 3 seconds
-			pauseTimeoutId = setTimeout(() => {
-				pauseGame();
-			}, 3000);
+			// pauseTimeoutId = setTimeout(() => {
+			// 	pauseGame();
+			// }, 1000);
 		}
 
 		return () => {
@@ -162,8 +165,8 @@ function Main() {
 				// Get the current time in Frankfurt time zone ('Etc/GMT-3')
 				const currentTimeStamp = moment.tz('Etc/GMT-3').unix();
 				const remainingTime = value?.active_at - currentTimeStamp;
-				if (remainingTime >= 0) {
-					if (remainingTime <= 0) {
+				if (remainingTime >= 0 || remainingTime === null) {
+					if (remainingTime <= 0 || value?.active_at === null) {
 						setGamePaused(false);
 						setCatVisible(true);
 					} else {
@@ -354,20 +357,37 @@ function Main() {
 		setCatIdle(catIdleImage);
 		setCatSpeak(catSpeakImage);
 		setIsCoinsChanged(true);
+		resetTimeout();
 		return clickNewCoins;
 	};
 
-	useEffect(() => {
-		const timer = setInterval(() => {
-			if (isCoinsChanged) {
-				submitData(accumulatedCoinsRef.current);
-				setIsCoinsChanged(false);
-				accumulatedCoinsRef.current = 0;
-			}
-		}, 3000);
+	const resetTimeout = () => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+		}
+		timeoutRef.current = setTimeout(() => {
+			submitData(accumulatedCoinsRef.current);
+			setIsCoinsChanged(false);
+			accumulatedCoinsRef.current = 0;
+		}, 1000);
+	};
 
-		return () => clearInterval(timer);
+	useEffect(() => {
+		isCoinsChangedRef.current = isCoinsChanged;
+		return () => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+		};
 	}, [isCoinsChanged]);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			console.log(isCoinsChangedRef.current);
+		}, 1000);
+
+		return () => clearInterval(interval);
+	}, []);
 
 	const submitData = async (coins) => {
 		const now = new Date();
@@ -382,11 +402,12 @@ function Main() {
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
-			const response = await axios.post(testURL + '/api/update-balance', {
+			const response = await axios.post(secretURL + '/api/update-balance', {
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
 				score: coins,
 				wallet_address: wallet_address,
 			});
+			console.log('Data submitted:', coins);
 		} catch (e) {
 			console.log('Error submitting coins:');
 		}
@@ -430,12 +451,6 @@ function Main() {
 		accumulatedCoinsRef.current += clickNewCoins;
 	};
 
-	const debouncedHandleClick = debounce(() => {
-		const clickNewCoins = updateCurrCoins();
-		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
-		accumulatedCoinsRef.current += clickNewCoins;
-	}, 100);
-
 	const handleTouchStart = (event) => {
 		if (event.touches.length > 1) {
 			event.preventDefault();
@@ -464,7 +479,6 @@ function Main() {
 				handleShowAnimation(touch);
 			});
 		}
-		debouncedHandleClick();
 		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
 	};
 
