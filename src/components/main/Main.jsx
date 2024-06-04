@@ -22,7 +22,6 @@ import finalForm from '../../img/finalForm.gif';
 import goldForm from '../../img/gold.gif';
 import goldIdle from '../../img/goldIdle.gif';
 import smile from '../../img/smile.png';
-import { playBoostCatClick, playSadCatClick } from '../../utility/Audio';
 import GamePreloader from '../gamePreloader/gamePreloader';
 import { AuthContext, GameInfoContext } from '../helper/contexts';
 import PreloaderPhaseTwo from '../preloaderPhaseTwo/PreloaderPhaseTwo';
@@ -62,6 +61,7 @@ function Main() {
 	const [isCoinsChanged, setIsCoinsChanged] = useState(false);
 	const isCoinsChangedRef = useRef(isCoinsChanged);
 	const timeoutRef = useRef(null);
+	const catImgRef = useRef(null);
 
 	let [happinessVal, setHappinessVal] = useState(1);
 	let [clickNewCoins, setClickNewCoins] = useState(1);
@@ -133,28 +133,19 @@ function Main() {
 	}, [value.id]);
 
 	useEffect(() => {
-		let submitTimeoutId;
 		let pauseTimeoutId;
 
 		if (currEnergy >= 1000) {
 			setGamePaused(true);
 			setCatVisible(false);
-			pauseGame();
-			// Call submitData after 2.5 seconds
-			// submitTimeoutId = setTimeout(() => {
-			// const coinsLeft = 1000 - currCoins;
-			// submitData(coinsLeft);
-			// console.log(coinsLeft);
-			// }, 2500);
 
 			// Call pauseGame after 3 seconds
-			// pauseTimeoutId = setTimeout(() => {
-			// 	pauseGame();
-			// }, 1000);
+			pauseTimeoutId = setTimeout(() => {
+				pauseGame();
+			}, 700);
 		}
 
 		return () => {
-			clearTimeout(submitTimeoutId);
 			clearTimeout(pauseTimeoutId);
 		};
 	}, [currEnergy]);
@@ -369,7 +360,7 @@ function Main() {
 			submitData(accumulatedCoinsRef.current);
 			setIsCoinsChanged(false);
 			accumulatedCoinsRef.current = 0;
-		}, 1000);
+		}, 500);
 	};
 
 	useEffect(() => {
@@ -431,19 +422,14 @@ function Main() {
 
 	const coinClicker = (event) => {
 		if (!event.isTrusted) return;
-		if ((currEnergy >= 801 && currEnergy <= 1000) || boostPhase === true) {
-			playBoostCatClick();
-		} else {
-			playSadCatClick();
-		}
 		setCurrentImage(false);
 		setCoinState(true);
 		handleShowAnimation(event);
 		// handleCoinClick();
 		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
-		clearTimeout(timeoutRef.current);
+		clearTimeout(catImgRef.current);
 		clearTimeout(coinRef.current);
-		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
+		catImgRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 
 		const clickNewCoins = updateCurrCoins();
@@ -458,18 +444,13 @@ function Main() {
 		}
 
 		if (!event.isTrusted) return;
-		if ((currEnergy >= 801 && currEnergy <= 1000) || boostPhase === true) {
-			playBoostCatClick();
-		} else {
-			playSadCatClick();
-		}
 		setCurrentImage(false);
 		setCoinState(true);
 		handleShowAnimation(event);
 		// handleCoinClick();
-		clearTimeout(timeoutRef.current);
+		clearTimeout(catImgRef.current);
 		clearTimeout(coinRef.current);
-		timeoutRef.current = setTimeout(() => setCurrentImage(true), 1100);
+		catImgRef.current = setTimeout(() => setCurrentImage(true), 1100);
 		coinRef.current = setTimeout(() => setCoinState(false), 4000);
 	};
 
