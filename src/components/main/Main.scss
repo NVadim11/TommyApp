@@ -647,7 +647,7 @@ $desktop: 1919.98px;
     overflow: hidden;
     z-index: 100;
     @media (max-width: $mobile) {
-      top: 40px;
+      top: -5px;
       right: 0;
       display: block;
     }
