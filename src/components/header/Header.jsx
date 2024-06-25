@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import copy from '../../img/copy.svg';
 import envelope from '../../img/envelope.svg';
 import link from '../../img/link.svg';
-import logo from '../../img/logo.png';
+import logo from '../../img/boostCoinPurple.png';
 import money from '../../img/money.svg';
 import people from '../../img/people-icon.svg';
 import {
@@ -233,6 +233,7 @@ function Header() {
 				<div className='header__container'>
 					<div className='header__logo'>
 						<img src={logo} alt={logo} />
+						<span>Blackie Cat</span>
 					</div>
 					<div className='header__centerBtns'>
 						<div className='header__leaderboardBtn'>

@@ -7,7 +7,7 @@ const GamePreloader = ({ loaded }) => {
 
 	return (
 		<div className={`gamePreloader${loaded ? ' loadedGamePreloader' : ''}`}>
-			<img src={cat} alt='Tomo Cat' />
+			<img src={cat} alt='Blackoe' />
 		</div>
 	);
 };
