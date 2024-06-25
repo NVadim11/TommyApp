@@ -99,7 +99,7 @@ function Main() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
-			timeZone: 'Etc/GMT-3',
+			timeZone: 'UTC',
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 
@@ -154,8 +154,8 @@ function Main() {
 	useEffect(() => {
 		if (connected) {
 			const updateGameStatus = () => {
-				// Get the current time in Frankfurt time zone ('Etc/GMT-3')
-				const currentTimeStamp = moment.tz('Etc/GMT-3').unix();
+				// Get the current time
+				const currentTimeStamp = moment.tz('UTC').unix();
 				const remainingTime = value?.active_at - currentTimeStamp;
 				if (remainingTime >= 0 || remainingTime === null) {
 					if (remainingTime <= 0 || value?.active_at === null) {
@@ -390,7 +390,7 @@ function Main() {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
-			timeZone: 'Etc/GMT-3',
+			timeZone: 'UTC',
 		};
 		const dateStringWithTime = now.toLocaleString('en-GB', options);
 		try {
@@ -406,12 +406,24 @@ function Main() {
 	};
 
 	const handleShowAnimation = (event) => {
-		event.stopPropagation();
+		if (!event) return;
+
+		if (event.stopPropagation) {
+			event.stopPropagation();
+		}
+
 		const touch = event.touches ? event.touches[0] : event;
-		const clicker = touch.currentTarget || touch.target;
+		const clicker = event.currentTarget || touch.target;
+		if (!clicker) return;
+
 		const rect = clicker.getBoundingClientRect();
 		const x = touch.clientX - rect.left;
 		const y = touch.clientY - rect.top;
+
+		console.log('Touch event:', touch);
+		console.log('Clicker element:', clicker);
+		console.log('Bounding rect:', rect);
+		console.log('Calculated coordinates:', { x, y });
 
 		setAnimations((prev) => [...prev, { x, y }]);
 		setIsAnimationActive(true);
@@ -426,7 +438,6 @@ function Main() {
 		setCurrentImage(false);
 		setCoinState(true);
 		handleShowAnimation(event);
-		// handleCoinClick();
 		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
 		clearTimeout(catImgRef.current);
 		clearTimeout(coinRef.current);
@@ -439,16 +450,14 @@ function Main() {
 	};
 
 	const handleTouchStart = (event) => {
-		if (event.touches.length > 1) {
+		if (event.touches && event.touches.length > 1) {
 			event.preventDefault();
 			return;
 		}
-
 		if (!event.isTrusted) return;
 		setCurrentImage(false);
 		setCoinState(true);
 		handleShowAnimation(event);
-		// handleCoinClick();
 		clearTimeout(catImgRef.current);
 		clearTimeout(coinRef.current);
 		catImgRef.current = setTimeout(() => setCurrentImage(true), 1100);
@@ -456,11 +465,21 @@ function Main() {
 	};
 
 	const handleTouchEnd = (event) => {
-		if (event && event.touches) {
-			Array.from(event.touches).forEach((touch) => {
-				handleShowAnimation(touch);
+		if (event && event.changedTouches && event.changedTouches.length > 0) {
+			Array.from(event.changedTouches).forEach((touch) => {
+				handleShowAnimation({
+					touches: [touch],
+					target: event.target,
+					currentTarget: event.currentTarget,
+				});
 			});
+		} else {
+			handleShowAnimation(event); // Обработка для не-touch событий
 		}
+
+		const clickNewCoins = updateCurrCoins();
+		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		accumulatedCoinsRef.current += clickNewCoins;
 		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + happinessVal, 1000));
 	};
 

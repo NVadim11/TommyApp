@@ -65,7 +65,7 @@ function Footer() {
 		hour: '2-digit',
 		minute: '2-digit',
 		hour12: false,
-		timeZone: 'Etc/GMT-3',
+		timeZone: 'UTC',
 	};
 	const dateStringWithTime = now.toLocaleString('en-GB', options);
 
@@ -88,7 +88,7 @@ function Footer() {
 	};
 
 	const twitterClick = async () => {
-		window.open('https://twitter.com/TomoCatSol', '_blank');
+		// window.open('https://twitter.com/TomoCatSol', '_blank');
 		try {
 			await passTask({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
@@ -109,7 +109,7 @@ function Footer() {
 	};
 
 	const tgClickChat = async () => {
-		window.open(`https://t.me/tomocat_sol`, '_blank');
+		// window.open(`https://t.me/tomocat_sol`, '_blank');
 		try {
 			await passTask({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
@@ -130,7 +130,7 @@ function Footer() {
 	};
 
 	const tgClickChannel = async () => {
-		window.open(`https://t.me/tomo_cat`, '_blank');
+		// window.open(`https://t.me/tomo_cat`, '_blank');
 		try {
 			await passTask({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
@@ -151,7 +151,7 @@ function Footer() {
 	};
 
 	const websiteClick = async () => {
-		window.open(`https://tomocat.com/`, '_blank');
+		// window.open(`https://tomocat.com/`, '_blank');
 		try {
 			await passTask({
 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
@@ -419,7 +419,7 @@ function Footer() {
 													<span>Follow Twitter</span>
 													{twitterQuest === 0 ? (
 														<div className='popupTasks__tabSocial-reward'>
-															<span>+ 10000</span>
+															<span>10000</span>
 															<img src={catCoin} alt='animation' draggable='false' />
 														</div>
 													) : (
@@ -434,7 +434,7 @@ function Footer() {
 													<span>Follow TG Chat</span>
 													{tgChatQuest === 0 ? (
 														<div className='popupTasks__tabSocial-reward'>
-															<span>+ 10000</span>
+															<span>10000</span>
 															<img src={catCoin} alt='animation' draggable='false' />
 														</div>
 													) : (
@@ -449,7 +449,7 @@ function Footer() {
 													<span>Follow TG Channel</span>
 													{tgChannelQuest === 0 ? (
 														<div className='popupTasks__tabSocial-reward'>
-															<span>+ 10000</span>
+															<span>10000</span>
 															<img src={catCoin} alt='animation' draggable='false' />
 														</div>
 													) : (
@@ -464,7 +464,7 @@ function Footer() {
 													<span>Visit Website</span>
 													{websiteQuest === 0 ? (
 														<div className='popupTasks__tabSocial-reward'>
-															<span>+ 3000</span>
+															<span>3000</span>
 															<img src={catCoin} alt='animation' draggable='false' />
 														</div>
 													) : (
@@ -495,7 +495,7 @@ function Footer() {
 																	<span>{quest.daily_quest.name}</span>
 																	{quest.status === 0 ? (
 																		<div className='popupTasks__tabSocial-reward'>
-																			<span>+ {quest.reward}</span>
+																			<span>{quest.reward}</span>
 																			<img
 																				src={catCoin}
 																				alt='animation'
@@ -511,7 +511,7 @@ function Footer() {
 																	<span>{quest.daily_quest.name}</span>
 																	{quest.status === 0 ? (
 																		<div className='popupTasks__tabSocial-reward'>
-																			<span>+ {quest.reward}</span>
+																			<span>{quest.reward}</span>
 																			<img
 																				src={catCoin}
 																				alt='animation'
@@ -552,7 +552,7 @@ function Footer() {
 																	<span>{quest.partners_quest.name}</span>
 																	{quest.status === 0 ? (
 																		<div className='popupTasks__tabSocial-reward'>
-																			<span>+ {quest.reward}</span>
+																			<span>{quest.reward}</span>
 																			<img
 																				src={catCoin}
 																				alt='animation'

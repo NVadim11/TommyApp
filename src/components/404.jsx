@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import sadIdle from '../img/1_idle.gif';
+import React, { useState } from 'react'
+import sadIdle from '../img/1_idle.gif'
 
 const NotFound = () => {
 	const [bgImages] = useState({
